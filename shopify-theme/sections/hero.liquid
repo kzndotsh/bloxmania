@@ -1,0 +1,419 @@
+{%- style -%}
+  .hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(24, 25, 38, 0.9), rgba(35, 36, 58, 0.9)), 
+                {% if section.settings.background_image != blank %}
+                  url('{{ section.settings.background_image | image_url: width: 1920 }}')
+                {% else %}
+                  url('{{ 'slam.png' | asset_url }}')
+                {% endif %};
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+    overflow: hidden;
+    padding-top: 80px;
+  }
+
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 216, 0, 0.1) 0%, transparent 70%);
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+  }
+
+  .hero-content {
+    text-align: center;
+    max-width: 800px;
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-rating {
+    margin-bottom: 2rem;
+  }
+
+  .hero-rating img {
+    height: 60px;
+    transition: all 0.3s ease;
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 10px rgba(255, 216, 0, 0.5));
+  }
+
+  .hero-rating img:hover {
+    transform: scale(1.25);
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #ffd800, #ff6b6b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-shift 3s ease-in-out infinite;
+    line-height: 1.1;
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    color: #9ca3af;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  .hero-subtitle strong {
+    color: #ffd800;
+    font-weight: 600;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 3rem;
+    background: #ffd800;
+    color: #000;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.125rem;
+    border-radius: 50px;
+    box-shadow: 0 0 20px rgba(255, 216, 0, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  }
+
+  .hero-cta:hover {
+    background: #e6c200;
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(255, 216, 0, 0.5);
+    color: #000;
+  }
+
+  .hero-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .hero-cta:hover::before {
+    left: 100%;
+  }
+
+  /* Creators Section */
+  .creators-section {
+    margin-top: 4rem;
+  }
+
+  .creators-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #ffffff;
+  }
+
+  .creators-title span {
+    color: #ffd800;
+  }
+
+  .creators-reel {
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+    max-width: 1000px;
+  }
+
+  .creators-scroll {
+    display: flex;
+    animation: scroll 30s linear infinite;
+    gap: 3rem;
+  }
+
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .creator-item {
+    flex-shrink: 0;
+    text-align: center;
+    min-width: 120px;
+  }
+
+  .creator-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 auto 0.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .creator-avatar:hover {
+    transform: scale(1.1);
+  }
+
+  .creator-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.25rem;
+    white-space: nowrap;
+  }
+
+  .creator-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    color: #ffffff;
+  }
+
+  .youtube-icon {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hero-section {
+      padding-top: 60px;
+      background-attachment: scroll;
+    }
+
+    .hero-content {
+      padding: 1rem;
+    }
+
+    .hero-rating img {
+      height: 40px;
+    }
+
+    .creators-reel {
+      max-width: 100%;
+    }
+
+    .creator-item {
+      min-width: 100px;
+    }
+
+    .creator-avatar {
+      width: 60px;
+      height: 60px;
+    }
+  }
+
+  /* Pause animation on hover */
+  .creators-reel:hover .creators-scroll {
+    animation-play-state: paused;
+  }
+{%- endstyle -%}
+
+<section class="hero-section">
+  <div class="hero-content">
+    <!-- Rating Badge -->
+    <div class="hero-rating">
+              <img src="{{ 'ratingz.png' | asset_url }}" alt="5-Star Rating" width="120" height="20" loading="lazy">
+    </div>
+
+    <!-- Main Title -->
+    <h1 class="hero-title">
+      {{ section.settings.title | default: "Instantly Buy Your Favorite Items - Fast, Safe, and Easy!" }}
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="hero-subtitle">
+      {{ section.settings.subtitle | default: "BloxMania is the fastest, cheapest, and safest shop for digital goods, with instant delivery. Our automated system ensures you receive your items securely and swiftly!" }}
+    </p>
+
+    <!-- Call to Action -->
+    <a href="{{ section.settings.cta_link | default: '/collections/all' }}" class="hero-cta">
+      {{ section.settings.cta_text | default: "SHOP NOW" }}
+    </a>
+
+    <!-- Trusted by Creators Section -->
+    <div class="creators-section">
+      <h3 class="creators-title">
+        Trusted by <span>Top</span> Creators
+      </h3>
+      
+      <div class="creators-reel">
+        <div class="creators-scroll">
+          <!-- First set of creators -->
+          {% for creator in section.settings.creators %}
+            {% if creator.image != blank %}
+              <div class="creator-item">
+                <a href="{{ creator.channel_url | default: '#' }}" target="_blank" rel="noopener">
+                  <img 
+                    src="{{ creator.image | image_url: width: 80 }}" 
+                    alt="{{ creator.name }}" 
+                    class="creator-avatar"
+                    width="80"
+                    height="80"
+                    loading="lazy"
+                  >
+                </a>
+                <p class="creator-name">{{ creator.name }}</p>
+                <div class="creator-stats">
+                  <svg class="youtube-icon" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                  </svg>
+                  <span>{{ creator.subscribers }}</span>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+          
+          <!-- Duplicate set for seamless loop -->
+          {% for creator in section.settings.creators %}
+            {% if creator.image != blank %}
+              <div class="creator-item">
+                <a href="{{ creator.channel_url | default: '#' }}" target="_blank" rel="noopener">
+                  <img 
+                    src="{{ creator.image | image_url: width: 80 }}" 
+                    alt="{{ creator.name }}" 
+                    class="creator-avatar"
+                    width="80"
+                    height="80"
+                    loading="lazy"
+                  >
+                </a>
+                <p class="creator-name">{{ creator.name }}</p>
+                <div class="creator-stats">
+                  <svg class="youtube-icon" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                  </svg>
+                  <span>{{ creator.subscribers }}</span>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Hero Title",
+      "default": "Instantly Buy Your Favorite Items - Fast, Safe, and Easy!"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Hero Subtitle",
+      "default": "BloxMania is the fastest, cheapest, and safest shop for digital goods, with instant delivery. Our automated system ensures you receive your items securely and swiftly!"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Featured Creators"
+    },
+        {
+      "type": "header",
+      "content": "Creator 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "creator_1_image",
+      "label": "Creator 1 Avatar"
+    },
+    {
+      "type": "text",
+      "id": "creator_1_name",
+      "label": "Creator 1 Name"
+    },
+    {
+      "type": "text",
+      "id": "creator_1_subscribers",
+      "label": "Creator 1 Subscribers"
+    },
+    {
+      "type": "url",
+      "id": "creator_1_url",
+      "label": "Creator 1 Channel URL"
+    },
+    {
+      "type": "header",
+      "content": "Creator 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "creator_2_image",
+      "label": "Creator 2 Avatar"
+    },
+    {
+      "type": "text",
+      "id": "creator_2_name",
+      "label": "Creator 2 Name"
+    },
+    {
+      "type": "text",
+      "id": "creator_2_subscribers",
+      "label": "Creator 2 Subscribers"
+    },
+    {
+      "type": "url",
+      "id": "creator_2_url",
+      "label": "Creator 2 Channel URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Section"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,77 @@
+{
+  "current": {
+    "colors_accent_1": "#ffd800",
+    "colors_accent_2": "#4791f0",
+    "colors_background_1": "#181926",
+    "colors_background_2": "#23243a",
+    "colors_outline_button_labels": "#ffd800",
+    "colors_solid_button_labels": "#000000",
+    "colors_text": "#ffffff",
+    "font_heading_font": "assistant_n4",
+    "font_body_font": "inter_n4",
+    "page_width": "1200",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo": "",
+          "discord_url": "https://discord.gg/bloxmania"
+        }
+      },
+      "hero": {
+        "type": "hero",
+        "settings": {
+          "background_image": "",
+          "title": "Instantly Buy Your Favorite Items - Fast, Safe, and Easy!",
+          "subtitle": "BloxMania is the fastest, cheapest, and safest shop for digital goods, with instant delivery. Our automated system ensures you receive your items securely and swiftly!",
+          "cta_text": "SHOP NOW",
+          "cta_link": "/collections/all",
+          "creators": [
+            {
+              "image": "",
+              "name": "Ali-A",
+              "subscribers": "19.6M",
+              "channel_url": "https://www.youtube.com/@AliA"
+            },
+            {
+              "image": "",
+              "name": "DanTDM",
+              "subscribers": "29M",
+              "channel_url": "https://www.youtube.com/@DanTDM"
+            },
+            {
+              "image": "",
+              "name": "Flamingo",
+              "subscribers": "13M",
+              "channel_url": "https://www.youtube.com/@Flamingo"
+            }
+          ]
+        }
+      },
+      "featured_products": {
+        "type": "featured-products",
+        "settings": {
+          "collection": "",
+          "products_to_show": 6,
+          "view_all_link": "/collections/all"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "company_description": "The fastest, cheapest, and safest shop for digital goods, with instant delivery and automated systems ensuring secure and swift transactions.",
+          "discord_url": "https://discord.gg/bloxmania",
+          "youtube_url": "",
+          "twitter_url": "",
+          "contact_email": "support@bloxmania.com",
+          "contact_phone": "",
+          "show_powered_by": true
+        }
+      }
+    },
+    "content_for_index": [
+      "hero",
+      "featured_products"
+    ]
+  }
+}

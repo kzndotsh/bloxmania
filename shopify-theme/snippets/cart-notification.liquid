@@ -1,0 +1,149 @@
+{% comment %}
+  Cart notification snippet
+  Displays notifications when items are added to cart
+{% endcomment %}
+
+<div id="cart-notification" class="cart-notification" style="display: none;">
+  <div class="cart-notification__header">
+    <h2 class="cart-notification__heading">Item added to cart</h2>
+    <button type="button" class="cart-notification__close" aria-label="Close cart notification">
+      <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 1L1 14M1 1L13 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+  
+  <div class="cart-notification__content">
+    <div class="cart-notification__item">
+      <img src="{{ 'no-image.png' | asset_url }}" alt="" class="cart-notification__image" width="60" height="60">
+      <div class="cart-notification__details">
+        <h3 class="cart-notification__title"></h3>
+        <p class="cart-notification__price"></p>
+        <p class="cart-notification__quantity"></p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="cart-notification__footer">
+    <a href="/cart" class="btn btn--primary">View Cart</a>
+    <button type="button" class="btn btn--secondary cart-notification__close">Continue Shopping</button>
+  </div>
+</div>
+
+<style>
+.cart-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--surface-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 400px;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.cart-notification__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.cart-notification__heading {
+  margin: 0;
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+.cart-notification__close {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 5px;
+}
+
+.cart-notification__item {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.cart-notification__image {
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.cart-notification__details {
+  flex: 1;
+}
+
+.cart-notification__title {
+  margin: 0 0 5px 0;
+  font-size: 16px;
+  color: var(--text-color);
+}
+
+.cart-notification__price {
+  margin: 0 0 5px 0;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.cart-notification__quantity {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.cart-notification__footer {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn--primary {
+  background: var(--primary-color);
+  color: var(--background-color);
+}
+
+.btn--secondary {
+  background: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--text-muted);
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const cartNotification = document.getElementById('cart-notification');
+  const closeButtons = document.querySelectorAll('.cart-notification__close');
+  
+  // Close notification
+  closeButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      cartNotification.style.display = 'none';
+    });
+  });
+  
+  // Auto-hide after 5 seconds
+  setTimeout(() => {
+    if (cartNotification.style.display !== 'none') {
+      cartNotification.style.display = 'none';
+    }
+  }, 5000);
+});
+</script>
