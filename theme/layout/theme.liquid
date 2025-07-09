@@ -186,6 +186,7 @@
   {% endstyle %}
 
   {{ 'base.css' | asset_url | stylesheet_tag }}
+  {{ 'enhanced-animations.css' | asset_url | stylesheet_tag }}
 
   {%- unless settings.type_body_font.system? -%}
     {{ settings.type_body_font | font_url | preload_tag: as: 'font', type: 'font/woff2' }}
@@ -221,6 +222,8 @@
   </main>
 
   {% section 'footer' %}
+
+  {%- render 'chat-widget' -%}
 
   <ul hidden>
     <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
