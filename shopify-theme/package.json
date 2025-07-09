@@ -42,8 +42,7 @@
   "homepage": "https://github.com/your-username/bloxmania-shopify-theme#readme",
   "devDependencies": {
     "@shopify/cli": "^3.0.0",
-    "@shopify/theme": "^3.0.0",
-    "@shopify/theme-check": "^1.0.0"
+    "@shopify/theme": "^3.0.0"
   },
   "engines": {
     "node": ">=16.0.0",
