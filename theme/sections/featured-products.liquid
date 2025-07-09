@@ -310,14 +310,14 @@
         <div class="product-card">
           <div class="product-image-container">
             {% if product.featured_image != blank %}
-                              <img
-                  src="{{ product.featured_image | image_url: width: 400 }}"
-                  alt="{{ product.title }}"
-                  class="product-image"
-                  width="400"
-                  height="400"
-                  loading="lazy"
-                >
+              <img
+                src="{{ product.featured_image | image_url: width: 400 }}"
+                alt="{{ product.title }}"
+                class="product-image"
+                width="400"
+                height="400"
+                loading="lazy"
+              >
             {% else %}
               <div class="product-image" style="background: #333441; display: flex; align-items: center; justify-content: center;">
                 <span style="color: #9ca3af;">No Image</span>
@@ -387,13 +387,65 @@
         </div>
       {% endfor %}
     {% else %}
-      <!-- Fallback products when no collection is selected -->
+      <!-- Demo Products when no collection is selected -->
+      {% assign demo_products = '10T.jpg,DISCO-BEE.jpg,DRAGONFLY.jpg,FENNEC.jpg,RACCOON.jpg,grow.png' | split: ',' %}
+      {% assign demo_names = 'Premium Robux Package,Legendary Pet - Disco Bee,Epic Dragonfly Mount,Rare Fennec Car,Mythical Raccoon,Garden Starter Pack' | split: ',' %}
+      {% assign demo_prices = '2999,1599,899,2499,3999,599' | split: ',' %}
+      
       {% for i in (1..6) %}
-        <div class="product-skeleton">
-          <div class="skeleton-image"></div>
-          <div class="skeleton-content">
-            <div class="skeleton-title"></div>
-            <div class="skeleton-price"></div>
+        {% assign index = forloop.index0 %}
+        {% assign img_asset = demo_products[index] | default: 'no-image.png' %}
+        {% assign prod_name = demo_names[index] | default: 'Featured Gaming Item' %}
+        {% assign prod_price = demo_prices[index] | default: '999' %}
+        
+        <div class="product-card">
+          <div class="product-image-container">
+            <img
+              src="{{ img_asset | asset_url }}"
+              alt="{{ prod_name }}"
+              class="product-image"
+              width="400"
+              height="400"
+              loading="lazy"
+            >
+            
+            <div class="product-overlay">
+              <a href="/collections/all" class="add-to-cart-btn">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M9 22a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  <path d="M20 22a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                </svg>
+                Shop Now
+              </a>
+            </div>
+          </div>
+
+          <div class="product-info">
+            <h3 class="product-title">
+              <a href="/collections/all" style="color: inherit; text-decoration: none;">
+                {{ prod_name }}
+              </a>
+            </h3>
+            
+            <div class="product-price">
+              ${{ prod_price | divided_by: 100.0 | round: 2 }}
+            </div>
+
+            <div class="product-variants">
+              <span class="variant-tag">Instant</span>
+              <span class="variant-tag">Digital</span>
+            </div>
+
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="star">★</span>
+                <span>4.8</span>
+              </div>
+              <div class="product-stock">
+                <span>In Stock</span>
+              </div>
+            </div>
           </div>
         </div>
       {% endfor %}
