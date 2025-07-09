@@ -1,0 +1,98 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "BloxMania",
+    "theme_version": "1.0.0",
+    "theme_author": "BloxMania",
+    "theme_documentation_url": "",
+    "theme_support_url": ""
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "primary_color",
+        "label": "Primary Color",
+        "default": "#ffd800"
+      },
+      {
+        "type": "color",
+        "id": "secondary_color",
+        "label": "Secondary Color",
+        "default": "#4791f0"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#181926"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text Color",
+        "default": "#ffffff"
+      }
+    ]
+  },
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "text",
+        "id": "discord_url",
+        "label": "Discord URL",
+        "default": "https://discord.gg/bloxmania"
+      }
+    ]
+  },
+  {
+    "name": "Homepage",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "hero_background",
+        "label": "Hero Background Image"
+      },
+      {
+        "type": "text",
+        "id": "hero_title",
+        "label": "Hero Title",
+        "default": "Instantly Buy Your Favorite Items - Fast, Safe, and Easy!"
+      },
+      {
+        "type": "textarea",
+        "id": "hero_subtitle",
+        "label": "Hero Subtitle",
+        "default": "BloxMania is the fastest, cheapest, and safest shop for digital goods, with instant delivery. Our automated system ensures you receive your items securely and swiftly!"
+      },
+      {
+        "type": "text",
+        "id": "cta_button_text",
+        "label": "CTA Button Text",
+        "default": "SHOP NOW"
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "youtube_url",
+        "label": "YouTube URL"
+      },
+      {
+        "type": "text",
+        "id": "discord_url",
+        "label": "Discord URL"
+      }
+    ]
+  }
+]
