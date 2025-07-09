@@ -40,7 +40,7 @@ BloxMania is a modern, responsive Shopify theme designed for digital goods marke
 4. **Test Everything**: Ensure homepage, products, and mobile version work
 
 ### For Developers
-1. `npm install` (in `shopify-theme/`)
+1. `npm install` (in `theme/`)
 2. `npm run setup` (Shopify CLI setup)
 3. `npm run dev` (start development server)
 4. `npm run push` (deploy to development store)
@@ -231,7 +231,7 @@ npm run push
 ## File Structure & Safe Editing
 
 ```
-shopify-theme/
+theme/
 ├── assets/         # CSS, JS, images (DON'T TOUCH)
 ├── config/         # client-settings.json, content.json (SAFE TO EDIT)
 ├── layout/         # Main layout (DON'T TOUCH)

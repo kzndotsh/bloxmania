@@ -2,7 +2,7 @@
 
 # dependencies
 /node_modules
-/shopify-theme/node_modules
+/theme/node_modules
 /.pnp
 .pnp.js
 

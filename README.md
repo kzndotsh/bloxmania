@@ -5,18 +5,18 @@ A modern, responsive Shopify theme designed for digital goods marketplaces, spec
 ## 📚 Documentation
 
 **Complete documentation is available in:**
-- **[shopify-theme/BLOXMANIA_COMPLETE_DOCUMENTATION.md](shopify-theme/BLOXMANIA_COMPLETE_DOCUMENTATION.md)** - Complete guide for both clients and developers
+- **[theme/BLOXMANIA_COMPLETE_DOCUMENTATION.md](theme/BLOXMANIA_COMPLETE_DOCUMENTATION.md)** - Complete guide for both clients and developers
 
 ## 🚀 Quick Start
 
-1. Navigate to the `shopify-theme/` directory
+1. Navigate to the `theme/` directory
 2. Follow the complete documentation for setup and customization
 3. Upload the theme to your Shopify store
 
 ## 📁 Project Structure
 
 ```
-├── shopify-theme/          # Main theme directory
+├── theme/         		   # Main theme directory
 │   ├── BLOXMANIA_COMPLETE_DOCUMENTATION.md  # Complete documentation
 │   ├── assets/            # CSS, JS, images
 │   ├── config/            # Theme configuration
@@ -28,4 +28,4 @@ A modern, responsive Shopify theme designed for digital goods marketplaces, spec
 └── legacy/                # Legacy files (if any)
 ```
 
-For detailed information, installation instructions, and customization guides, please refer to the **[Complete Documentation](shopify-theme/BLOXMANIA_COMPLETE_DOCUMENTATION.md)**.
+For detailed information, installation instructions, and customization guides, please refer to the **[Complete Documentation](theme/BLOXMANIA_COMPLETE_DOCUMENTATION.md)**.
