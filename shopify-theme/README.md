@@ -38,7 +38,12 @@ A modern, responsive Shopify theme designed for digital goods marketplaces, spec
 - **[Shopify CLI Setup](SHOPIFY_CLI_SETUP.md)** - Detailed CLI setup and configuration
 - **[Conversion Summary](CONVERSION_SUMMARY.md)** - Overview of the Next.js to Shopify conversion
 
-### 🚀 Quick Commands
+### � Client-Friendly Documentation
+- **[Client Setup Guide](client-setup.md)** - Quick start guide for non-technical users
+- **[Client Customization Guide](CLIENT_GUIDE.md)** - What you can safely customize
+- **[Client Constants Guide](config/CLIENT_CONSTANTS.md)** - All customizable settings
+
+### �🚀 Quick Commands
 ```bash
 # Development
 npm run dev          # Start development server
