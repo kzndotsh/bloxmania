@@ -1,7 +1,7 @@
 {%- style -%}
   .featured-products {
     padding: 5rem 2rem;
-    background: linear-gradient(135deg, rgba(24, 25, 38, 0.9), rgba(35, 36, 58, 0.9)), 
+    background: linear-gradient(135deg, rgba(24, 25, 38, 0.9), rgba(35, 36, 58, 0.9)),
                 url('{{ 'okok1.png' | asset_url }}');
     background-size: cover;
     background-position: center;
@@ -298,9 +298,7 @@
 <section class="featured-products">
   <div class="featured-products-header">
     <h2 class="featured-products-title">Featured Items</h2>
-    <a href="{{ section.settings.view_all_link | default: '/collections/all' }}" class="view-all-btn">
-      View all →
-    </a>
+    <a href="{{ section.settings.view_all_link | default: '/collections/all' }}" class="view-all-btn"> View all → </a>
   </div>
 
   <div class="products-grid">
@@ -319,11 +317,14 @@
                 loading="lazy"
               >
             {% else %}
-              <div class="product-image" style="background: #333441; display: flex; align-items: center; justify-content: center;">
+              <div
+                class="product-image"
+                style="background: #333441; display: flex; align-items: center; justify-content: center;"
+              >
                 <span style="color: #9ca3af;">No Image</span>
               </div>
             {% endif %}
-            
+
             <div class="product-overlay">
               <form action="/cart/add" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
@@ -345,7 +346,7 @@
                 {{ product.title }}
               </a>
             </h3>
-            
+
             <div class="product-price">
               {% if product.compare_at_price > product.price %}
                 <span style="text-decoration: line-through; color: #9ca3af; margin-right: 0.5rem;">
@@ -389,15 +390,17 @@
     {% else %}
       <!-- Demo Products when no collection is selected -->
       {% assign demo_products = '10T.jpg,DISCO-BEE.jpg,DRAGONFLY.jpg,FENNEC.jpg,RACCOON.jpg,grow.png' | split: ',' %}
-      {% assign demo_names = 'Premium Robux Package,Legendary Pet - Disco Bee,Epic Dragonfly Mount,Rare Fennec Car,Mythical Raccoon,Garden Starter Pack' | split: ',' %}
+      {% assign demo_names = 'Premium Robux Package,Legendary Pet - Disco Bee,Epic Dragonfly Mount,Rare Fennec Car,Mythical Raccoon,Garden Starter Pack'
+        | split: ','
+      %}
       {% assign demo_prices = '2999,1599,899,2499,3999,599' | split: ',' %}
-      
+
       {% for i in (1..6) %}
         {% assign index = forloop.index0 %}
         {% assign img_asset = demo_products[index] | default: 'no-image.png' %}
         {% assign prod_name = demo_names[index] | default: 'Featured Gaming Item' %}
         {% assign prod_price = demo_prices[index] | default: '999' %}
-        
+
         <div class="product-card">
           <div class="product-image-container">
             <img
@@ -408,7 +411,7 @@
               height="400"
               loading="lazy"
             >
-            
+
             <div class="product-overlay">
               <a href="/collections/all" class="add-to-cart-btn">
                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
@@ -427,10 +430,8 @@
                 {{ prod_name }}
               </a>
             </h3>
-            
-            <div class="product-price">
-              ${{ prod_price | divided_by: 100.0 | round: 2 }}
-            </div>
+
+            <div class="product-price">${{ prod_price | divided_by: 100.0 | round: 2 }}</div>
 
             <div class="product-variants">
               <span class="variant-tag">Instant</span>

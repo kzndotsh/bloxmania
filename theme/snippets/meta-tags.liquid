@@ -105,7 +105,7 @@
       "url": {{ shop.url | json }},
       "potentialAction": {
         "@type": "SearchAction",
-        "target": {{ shop.url | append: '/search?q={search_term_string}' | json }},
+        "target": "{{ shop.url }}/search?q={search_term_string}",
         "query-input": "required name=search_term_string"
       }
     }

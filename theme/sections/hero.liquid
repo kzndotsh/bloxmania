@@ -4,7 +4,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, rgba(24, 25, 38, 0.9), rgba(35, 36, 58, 0.9)), 
+    background: linear-gradient(135deg, rgba(24, 25, 38, 0.9), rgba(35, 36, 58, 0.9)),
                 {% if section.settings.background_image != blank %}
                   url('{{ section.settings.background_image | image_url: width: 1920 }}')
                 {% else %}
@@ -244,38 +244,39 @@
   <div class="hero-content">
     <!-- Rating Badge -->
     <div class="hero-rating">
-              <img src="{{ 'ratingz.png' | asset_url }}" alt="5-Star Rating" width="120" height="20" loading="lazy">
+      <img src="{{ 'ratingz.png' | asset_url }}" alt="5-Star Rating" width="120" height="20" loading="lazy">
     </div>
 
     <!-- Main Title -->
     <h1 class="hero-title">
-      {{ section.settings.title | default: "Instantly Buy Your Favorite Items - Fast, Safe, and Easy!" }}
+      {{ section.settings.title | default: 'Instantly Buy Your Favorite Items - Fast, Safe, and Easy!' }}
     </h1>
 
     <!-- Subtitle -->
     <p class="hero-subtitle">
-      {{ section.settings.subtitle | default: "BloxMania is the fastest, cheapest, and safest shop for digital goods, with instant delivery. Our automated system ensures you receive your items securely and swiftly!" }}
+      {{
+        section.settings.subtitle
+        | default: 'BloxMania is the fastest, cheapest, and safest shop for digital goods, with instant delivery. Our automated system ensures you receive your items securely and swiftly!'
+      }}
     </p>
 
     <!-- Call to Action -->
     <a href="{{ section.settings.cta_link | default: '/collections/all' }}" class="hero-cta">
-      {{ section.settings.cta_text | default: "SHOP NOW" }}
+      {{ section.settings.cta_text | default: 'SHOP NOW' }}
     </a>
 
     <!-- Trusted by Creators Section -->
     <div class="creators-section">
-      <h3 class="creators-title">
-        Trusted by <span>Top</span> Creators
-      </h3>
-      
+      <h3 class="creators-title">Trusted by <span>Top</span> Creators</h3>
+
       <div class="creators-reel">
         <div class="creators-scroll">
           <!-- First set of creators -->
           <div class="creator-item">
             <a href="https://www.youtube.com/@AliA" target="_blank" rel="noopener">
-              <img 
-                src="{{ 'Creators/Ali-A.png' | asset_url }}" 
-                alt="Ali-A" 
+              <img
+                src="{{ 'Ali-A.png' | asset_url }}"
+                alt="Ali-A"
                 class="creator-avatar"
                 width="80"
                 height="80"
@@ -290,12 +291,12 @@
               <span>19.6M</span>
             </div>
           </div>
-          
+
           <div class="creator-item">
             <a href="https://www.youtube.com/@DanTDM" target="_blank" rel="noopener">
-              <img 
-                src="{{ 'Creators/DanTDM.png' | asset_url }}" 
-                alt="DanTDM" 
+              <img
+                src="{{ 'DanTDM.png' | asset_url }}"
+                alt="DanTDM"
                 class="creator-avatar"
                 width="80"
                 height="80"
@@ -313,9 +314,9 @@
 
           <div class="creator-item">
             <a href="https://www.youtube.com/@Flamingo" target="_blank" rel="noopener">
-              <img 
-                src="{{ 'Creators/Flamingo.png' | asset_url }}" 
-                alt="Flamingo" 
+              <img
+                src="{{ 'Flamingo.png' | asset_url }}"
+                alt="Flamingo"
                 class="creator-avatar"
                 width="80"
                 height="80"
@@ -333,9 +334,9 @@
 
           <div class="creator-item">
             <a href="https://www.youtube.com/@KreekCraft" target="_blank" rel="noopener">
-              <img 
-                src="{{ 'Creators/KreekCraft.png' | asset_url }}" 
-                alt="KreekCraft" 
+              <img
+                src="{{ 'KreekCraft.png' | asset_url }}"
+                alt="KreekCraft"
                 class="creator-avatar"
                 width="80"
                 height="80"
@@ -350,13 +351,13 @@
               <span>8.2M</span>
             </div>
           </div>
-          
+
           <!-- Duplicate set for seamless loop -->
           <div class="creator-item">
             <a href="https://www.youtube.com/@AliA" target="_blank" rel="noopener">
-              <img 
-                src="{{ 'Creators/Ali-A.png' | asset_url }}" 
-                alt="Ali-A" 
+              <img
+                src="{{ 'Ali-A.png' | asset_url }}"
+                alt="Ali-A"
                 class="creator-avatar"
                 width="80"
                 height="80"
@@ -371,12 +372,12 @@
               <span>19.6M</span>
             </div>
           </div>
-          
+
           <div class="creator-item">
             <a href="https://www.youtube.com/@DanTDM" target="_blank" rel="noopener">
-              <img 
-                src="{{ 'Creators/DanTDM.png' | asset_url }}" 
-                alt="DanTDM" 
+              <img
+                src="{{ 'DanTDM.png' | asset_url }}"
+                alt="DanTDM"
                 class="creator-avatar"
                 width="80"
                 height="80"
@@ -394,9 +395,9 @@
 
           <div class="creator-item">
             <a href="https://www.youtube.com/@Flamingo" target="_blank" rel="noopener">
-              <img 
-                src="{{ 'Creators/Flamingo.png' | asset_url }}" 
-                alt="Flamingo" 
+              <img
+                src="{{ 'Flamingo.png' | asset_url }}"
+                alt="Flamingo"
                 class="creator-avatar"
                 width="80"
                 height="80"
@@ -414,9 +415,9 @@
 
           <div class="creator-item">
             <a href="https://www.youtube.com/@KreekCraft" target="_blank" rel="noopener">
-              <img 
-                src="{{ 'Creators/KreekCraft.png' | asset_url }}" 
-                alt="KreekCraft" 
+              <img
+                src="{{ 'KreekCraft.png' | asset_url }}"
+                alt="KreekCraft"
                 class="creator-avatar"
                 width="80"
                 height="80"

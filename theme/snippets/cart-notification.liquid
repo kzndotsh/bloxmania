@@ -12,7 +12,7 @@
       </svg>
     </button>
   </div>
-  
+
   <div class="cart-notification__content">
     <div class="cart-notification__item">
       <img src="{{ 'no-image.png' | asset_url }}" alt="" class="cart-notification__image" width="60" height="60">
@@ -23,127 +23,127 @@
       </div>
     </div>
   </div>
-  
+
   <div class="cart-notification__footer">
-    <a href="/cart" class="btn btn--primary">View Cart</a>
+    <a href="{{ routes.cart_url }}" class="btn btn--primary">View Cart</a>
     <button type="button" class="btn btn--secondary cart-notification__close">Continue Shopping</button>
   </div>
 </div>
 
 <style>
-.cart-notification {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: var(--surface-color);
-  border: 1px solid var(--primary-color);
-  border-radius: 8px;
-  padding: 20px;
-  max-width: 400px;
-  z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
+  .cart-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--surface-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 400px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
 
-.cart-notification__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
+  .cart-notification__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
 
-.cart-notification__heading {
-  margin: 0;
-  font-size: 18px;
-  color: var(--text-color);
-}
+  .cart-notification__heading {
+    margin: 0;
+    font-size: 18px;
+    color: var(--text-color);
+  }
 
-.cart-notification__close {
-  background: none;
-  border: none;
-  color: var(--text-color);
-  cursor: pointer;
-  padding: 5px;
-}
+  .cart-notification__close {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 5px;
+  }
 
-.cart-notification__item {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 15px;
-}
+  .cart-notification__item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
 
-.cart-notification__image {
-  border-radius: 4px;
-  object-fit: cover;
-}
+  .cart-notification__image {
+    border-radius: 4px;
+    object-fit: cover;
+  }
 
-.cart-notification__details {
-  flex: 1;
-}
+  .cart-notification__details {
+    flex: 1;
+  }
 
-.cart-notification__title {
-  margin: 0 0 5px 0;
-  font-size: 16px;
-  color: var(--text-color);
-}
+  .cart-notification__title {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+    color: var(--text-color);
+  }
 
-.cart-notification__price {
-  margin: 0 0 5px 0;
-  color: var(--primary-color);
-  font-weight: bold;
-}
+  .cart-notification__price {
+    margin: 0 0 5px 0;
+    color: var(--primary-color);
+    font-weight: bold;
+  }
 
-.cart-notification__quantity {
-  margin: 0;
-  color: var(--text-muted);
-  font-size: 14px;
-}
+  .cart-notification__quantity {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
 
-.cart-notification__footer {
-  display: flex;
-  gap: 10px;
-}
+  .cart-notification__footer {
+    display: flex;
+    gap: 10px;
+  }
 
-.btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  text-align: center;
-  font-size: 14px;
-  font-weight: 500;
-}
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+  }
 
-.btn--primary {
-  background: var(--primary-color);
-  color: var(--background-color);
-}
+  .btn--primary {
+    background: var(--primary-color);
+    color: var(--background-color);
+  }
 
-.btn--secondary {
-  background: transparent;
-  color: var(--text-color);
-  border: 1px solid var(--text-muted);
-}
+  .btn--secondary {
+    background: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--text-muted);
+  }
 </style>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const cartNotification = document.getElementById('cart-notification');
-  const closeButtons = document.querySelectorAll('.cart-notification__close');
-  
-  // Close notification
-  closeButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      cartNotification.style.display = 'none';
+  document.addEventListener('DOMContentLoaded', function () {
+    const cartNotification = document.getElementById('cart-notification');
+    const closeButtons = document.querySelectorAll('.cart-notification__close');
+
+    // Close notification
+    closeButtons.forEach((button) => {
+      button.addEventListener('click', function () {
+        cartNotification.style.display = 'none';
+      });
     });
+
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+      if (cartNotification.style.display !== 'none') {
+        cartNotification.style.display = 'none';
+      }
+    }, 5000);
   });
-  
-  // Auto-hide after 5 seconds
-  setTimeout(() => {
-    if (cartNotification.style.display !== 'none') {
-      cartNotification.style.display = 'none';
-    }
-  }, 5000);
-});
 </script>

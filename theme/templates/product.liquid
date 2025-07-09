@@ -280,14 +280,14 @@
     <div class="product-gallery">
       <div class="product-image">
         {% if product.featured_image != blank %}
-                      <img
-              src="{{ product.featured_image | image_url: width: 600 }}"
-              alt="{{ product.title }}"
-              id="main-product-image"
-              width="600"
-              height="600"
-              loading="lazy"
-            >
+          <img
+            src="{{ product.featured_image | image_url: width: 600 }}"
+            alt="{{ product.title }}"
+            id="main-product-image"
+            width="600"
+            height="600"
+            loading="lazy"
+          >
         {% else %}
           <div style="height: 400px; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
             No Image Available
@@ -298,7 +298,10 @@
       {% if product.images.size > 1 %}
         <div class="product-thumbnails">
           {% for image in product.images %}
-            <div class="product-thumbnail {% if forloop.first %}active{% endif %}" data-image="{{ image | image_url: width: 600 }}">
+            <div
+              class="product-thumbnail {% if forloop.first %}active{% endif %}"
+              data-image="{{ image | image_url: width: 600 }}"
+            >
               <img src="{{ image | image_url: width: 80 }}" alt="{{ product.title }}" width="80" height="80">
             </div>
           {% endfor %}
@@ -309,7 +312,7 @@
     <!-- Product Information -->
     <div class="product-info">
       <h1 class="product-title">{{ product.title }}</h1>
-      
+
       <div class="product-price">
         {% if product.compare_at_price > product.price %}
           <span class="product-compare-price">{{ product.compare_at_price | money }}</span>
@@ -325,16 +328,16 @@
 
       <!-- Product Variants -->
       {% if product.variants.size > 1 %}
-        <form action="/cart/add" method="post" enctype="multipart/form-data" id="product-form">
+        <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" id="product-form">
           <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" id="variant-id">
-          
+
           {% for option in product.options_with_values %}
             <div class="variant-group">
               <label class="variant-label">{{ option.name }}</label>
               <div class="variant-options">
                 {% for value in option.values %}
-                  <button 
-                    type="button" 
+                  <button
+                    type="button"
                     class="variant-option {% if option.selected_value == value %}selected{% endif %}"
                     data-option="{{ option.name | handleize }}"
                     data-value="{{ value | handleize }}"
@@ -356,10 +359,12 @@
 
           <!-- Add to Cart -->
           <div class="add-to-cart-section">
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               class="add-to-cart-btn"
-              {% unless product.available %}disabled{% endunless %}
+              {% unless product.available %}
+                disabled
+              {% endunless %}
             >
               {% if product.available %}
                 Add to Cart
@@ -371,9 +376,9 @@
         </form>
       {% else %}
         <!-- Single variant product -->
-        <form action="/cart/add" method="post" enctype="multipart/form-data">
+        <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data">
           <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-          
+
           <div class="quantity-selector">
             <label class="variant-label">Quantity</label>
             <button type="button" class="quantity-btn" onclick="changeQuantity(-1)">-</button>
@@ -382,10 +387,12 @@
           </div>
 
           <div class="add-to-cart-section">
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               class="add-to-cart-btn"
-              {% unless product.available %}disabled{% endunless %}
+              {% unless product.available %}
+                disabled
+              {% endunless %}
             >
               {% if product.available %}
                 Add to Cart
@@ -443,16 +450,16 @@
 
 <script>
   // Product image gallery
-  document.querySelectorAll('.product-thumbnail').forEach(thumbnail => {
-    thumbnail.addEventListener('click', function() {
+  document.querySelectorAll('.product-thumbnail').forEach((thumbnail) => {
+    thumbnail.addEventListener('click', function () {
       const mainImage = document.getElementById('main-product-image');
       const newImageSrc = this.dataset.image;
-      
+
       if (mainImage && newImageSrc) {
         mainImage.src = newImageSrc;
-        
+
         // Update active thumbnail
-        document.querySelectorAll('.product-thumbnail').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.product-thumbnail').forEach((t) => t.classList.remove('active'));
         this.classList.add('active');
       }
     });
@@ -466,17 +473,17 @@
   }
 
   // Variant selection
-  document.querySelectorAll('.variant-option').forEach(option => {
-    option.addEventListener('click', function() {
+  document.querySelectorAll('.variant-option').forEach((option) => {
+    option.addEventListener('click', function () {
       const optionName = this.dataset.option;
       const optionValue = this.dataset.value;
-      
+
       // Update selected state
-      document.querySelectorAll(`[data-option="${optionName}"]`).forEach(opt => {
+      document.querySelectorAll(`[data-option="${optionName}"]`).forEach((opt) => {
         opt.classList.remove('selected');
       });
       this.classList.add('selected');
-      
+
       // Update variant ID (simplified - in real implementation, you'd need to map variants)
       updateVariantSelection();
     });
@@ -486,11 +493,11 @@
     // This is a simplified version - in a real implementation,
     // you'd need to map the selected options to the correct variant ID
     const selectedOptions = {};
-    
-    document.querySelectorAll('.variant-option.selected').forEach(option => {
+
+    document.querySelectorAll('.variant-option.selected').forEach((option) => {
       selectedOptions[option.dataset.option] = option.dataset.value;
     });
-    
+
     // For now, we'll just use the first available variant
     // In a real implementation, you'd find the matching variant
     const variantId = document.querySelector('input[name="id"]').value;
@@ -498,14 +505,14 @@
   }
 
   // Form submission
-  document.querySelectorAll('form').forEach(form => {
-    form.addEventListener('submit', function(e) {
+  document.querySelectorAll('form').forEach((form) => {
+    form.addEventListener('submit', function (e) {
       const submitButton = this.querySelector('.add-to-cart-btn');
       const originalText = submitButton.textContent;
-      
+
       submitButton.textContent = 'Adding...';
       submitButton.disabled = true;
-      
+
       // Form will be handled by Shopify
       // This is just for UI feedback
     });

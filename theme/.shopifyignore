@@ -1,17 +1,21 @@
 # Development files
-node_modules/
-.git/
+node_modules/*
+.git/*
 .gitignore
 README.md
 *.log
+.env*
+shopify.env.example
+package.json
+package-lock.json
 
 # Build files
-dist/
-build/
+dist/*
+build/*
 
 # IDE files
-.vscode/
-.idea/
+.vscode/*
+.idea/*
 
 # OS files
 .DS_Store
@@ -22,19 +26,20 @@ DEVELOPMENT_GUIDE.md
 TECHNICAL_DOCUMENTATION.md
 SHOPIFY_CLI_SETUP.md
 CONVERSION_SUMMARY.md
+BLOXMANIA_COMPLETE_DOCUMENTATION.md
 
 # Deployment files
 deploy.sh
 *.zip
 
 # Test files
-test/
-tests/
-__tests__/
+test/*
+tests/*
+__tests__/*
 *.test.js
 *.spec.js
 
 # Temporary files
 *.tmp
 *.temp
-.cache/
+.cache/*

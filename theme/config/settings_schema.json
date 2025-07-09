@@ -237,7 +237,7 @@
         "max": 40,
         "step": 2,
         "unit": "px",
-        "default": 5
+        "default": 6
       }
     ]
   },
@@ -312,7 +312,7 @@
         "max": 40,
         "step": 2,
         "unit": "px",
-        "default": 5
+        "default": 6
       }
     ]
   },
@@ -387,7 +387,7 @@
         "max": 40,
         "step": 2,
         "unit": "px",
-        "default": 5
+        "default": 6
       }
     ]
   },
@@ -462,7 +462,7 @@
         "max": 40,
         "step": 2,
         "unit": "px",
-        "default": 5
+        "default": 6
       }
     ]
   },
@@ -547,7 +547,7 @@
         "max": 40,
         "step": 2,
         "unit": "px",
-        "default": 5
+        "default": 6
       }
     ]
   },
@@ -637,7 +637,7 @@
         "max": 40,
         "step": 2,
         "unit": "px",
-        "default": 5
+        "default": 6
       }
     ]
   },
@@ -702,7 +702,7 @@
         "max": 40,
         "step": 2,
         "unit": "px",
-        "default": 5
+        "default": 6
       }
     ]
   },
@@ -777,7 +777,7 @@
         "max": 40,
         "step": 2,
         "unit": "px",
-        "default": 5
+        "default": 6
       }
     ]
   },
