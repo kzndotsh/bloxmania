@@ -16,7 +16,7 @@
     "serve": "shopify theme serve",
     "watch": "shopify theme dev --watch",
     "test": "shopify theme check --output=json > theme-check-report.json",
-    "lint": "shopify theme check --include-categories Liquid,Performance,Accessibility",
+    "lint": "shopify theme check",
     "optimize": "shopify theme dev --compress --optimize-images --minify",
     "clean": "rm -rf node_modules package-lock.json",
     "setup": "npm install && shopify theme init"
