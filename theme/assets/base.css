@@ -3,17 +3,17 @@
 /* Custom Properties - Enhanced */
 :root {
   --primary-color: #ffd800;
-  --secondary-color: #4791f0;
-  --background-color: #1d1e26;
-  --surface-color: #252730;
-  --surface-color-2: #23243a;
-  --text-color: #ffffff;
-  --text-muted: #9ca3af;
-  --text-gray-300: #d1d5db;
-  --border-color: #333441;
-  --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --secondary-color: #4285f4;
+  --background-color: #f8fafc;
+  --surface-color: #ffffff;
+  --surface-color-2: #f1f5f9;
+  --text-color: #1f2937;
+  --text-muted: #6b7280;
+  --text-gray-300: #9ca3af;
+  --border-color: #e5e7eb;
+  --accent-gradient: linear-gradient(135deg, #4285f4 0%, #667eea 100%);
   --glow-primary: 0 0 20px rgba(255, 216, 0, 0.3);
-  --glow-secondary: 0 0 20px rgba(71, 145, 240, 0.3);
+  --glow-secondary: 0 0 20px rgba(66, 133, 244, 0.3);
   --purple-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   --purple-pink-gradient: linear-gradient(to right, #a855f7, #ec4899, #ef4444);
 

@@ -8,7 +8,7 @@
   .reviews-title {
     font-size: clamp(2rem, 4vw, 2.5rem);
     font-weight: 700;
-    color: #4791f0;
+    color: #4285f4;
     margin-bottom: 1rem;
   }
 
@@ -19,7 +19,7 @@
   }
 
   .reviews-subtitle span {
-    color: #4791f0;
+    color: #4285f4;
     font-weight: 600;
   }
 
@@ -34,8 +34,9 @@
   }
 
   .overall-rating:hover {
-    border-color: #4791f0;
-    box-shadow: 0 0 30px rgba(71, 145, 240, 0.2);
+    border-color: #4285f4;
+    box-shadow: 0 0 30px rgba(66, 133, 244, 0.2);
+    transform: translateY(-2px);
   }
 
   .rating-score {
@@ -110,13 +111,18 @@
   }
 
   .review-platform {
-    color: #4791f0;
+    color: #4285f4;
     font-size: 0.75rem;
+    font-weight: 500;
   }
 
   @media (max-width: 768px) {
     .reviews-grid {
       grid-template-columns: 1fr;
+    }
+
+    .customer-reviews {
+      padding: 3rem 1rem;
     }
   }
 {%- endstyle -%}
