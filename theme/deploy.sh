@@ -85,16 +85,19 @@ Author: BloxMania
 Description: Modern dark gaming theme for digital goods marketplace
 EOF
 
+# Save current directory before changing to temp dir
+ORIGINAL_DIR=$(pwd)
+
 # Create ZIP file
 print_status "Creating ZIP archive..."
 cd "${TEMP_DIR}"
 zip -r "${ZIP_NAME}" "${THEME_NAME}" -x "*.DS_Store" "*/.*" > /dev/null
 
-# Move ZIP to current directory
-mv "${ZIP_NAME}" "$(pwd)/../"
+# Move ZIP to original directory
+mv "${ZIP_NAME}" "${ORIGINAL_DIR}/"
 
 # Clean up
-cd ..
+cd "${ORIGINAL_DIR}"
 rm -rf "${TEMP_DIR}"
 
 # Verify the ZIP was created
