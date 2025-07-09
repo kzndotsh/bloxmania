@@ -28,12 +28,37 @@
           "cta_link": "/collections/all"
         }
       },
+      "supported_games": {
+        "type": "supported-games",
+        "settings": {
+          "title": "Supported Titles"
+        }
+      },
       "featured_products": {
         "type": "featured-products",
         "settings": {
           "collection": "",
           "products_to_show": 6,
           "view_all_link": "/collections/all"
+        }
+      },
+      "customer_reviews": {
+        "type": "customer-reviews",
+        "settings": {
+          "title": "Customer Reviews & Ratings",
+          "subtitle": "Trusted by over 10,000 Happy Customers"
+        }
+      },
+      "why_choose_us": {
+        "type": "why-choose-us",
+        "settings": {
+          "title": "Why Choose BloxMania?"
+        }
+      },
+      "faq": {
+        "type": "faq",
+        "settings": {
+          "title": "Frequently Asked Questions"
         }
       },
       "footer": {
@@ -51,7 +76,11 @@
     },
     "content_for_index": [
       "hero",
-      "featured_products"
+      "supported_games",
+      "featured_products",
+      "customer_reviews",
+      "why_choose_us",
+      "faq"
     ]
   }
 }

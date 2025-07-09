@@ -1,0 +1,135 @@
+{%- style -%}
+  .supported-games {
+    padding: 3rem 2rem;
+    background: rgba(24, 25, 38, 0.9);
+    text-align: center;
+  }
+
+  .supported-games-title {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 2rem;
+  }
+
+  .supported-games-title span {
+    color: #ffd800;
+  }
+
+  .games-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  }
+
+  .game-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+
+  .game-item:hover {
+    transform: translateY(-5px);
+  }
+
+  .game-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+
+  .game-item:hover .game-icon {
+    border-color: #ffd800;
+    box-shadow: 0 0 20px rgba(255, 216, 0, 0.3);
+  }
+
+  .game-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .games-grid {
+      gap: 1.5rem;
+    }
+    
+    .game-icon {
+      width: 60px;
+      height: 60px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="supported-games">
+  <h2 class="supported-games-title">
+    Supported <span>Titles</span>
+  </h2>
+  
+  <div class="games-grid">
+    <div class="game-item">
+      <img 
+        src="{{ 'grow.png' | asset_url }}" 
+        alt="Grow A Garden" 
+        class="game-icon"
+        width="80"
+        height="80"
+        loading="lazy"
+      >
+      <p class="game-name">Grow A Garden</p>
+    </div>
+    
+    <div class="game-item">
+      <img 
+        src="{{ 'slam.png' | asset_url }}" 
+        alt="Pet Simulator 99" 
+        class="game-icon"
+        width="80"
+        height="80"
+        loading="lazy"
+      >
+      <p class="game-name">Pet Simulator 99</p>
+    </div>
+    
+    <div class="game-item">
+      <img 
+        src="{{ 'fortnite.png' | asset_url }}" 
+        alt="Fortnite" 
+        class="game-icon"
+        width="80"
+        height="80"
+        loading="lazy"
+      >
+      <p class="game-name">Fortnite</p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Supported Games",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Supported Titles"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Supported Games"
+    }
+  ]
+}
+{% endschema %} 

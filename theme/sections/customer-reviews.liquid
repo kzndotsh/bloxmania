@@ -1,0 +1,229 @@
+{%- style -%}
+  .customer-reviews {
+    padding: 5rem 2rem;
+    background: rgba(35, 36, 58, 0.9);
+    text-align: center;
+  }
+
+  .reviews-title {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: #4791f0;
+    margin-bottom: 1rem;
+  }
+
+  .reviews-subtitle {
+    font-size: 1.25rem;
+    color: #ffffff;
+    margin-bottom: 3rem;
+  }
+
+  .reviews-subtitle span {
+    color: #4791f0;
+    font-weight: 600;
+  }
+
+  .overall-rating {
+    background: rgba(24, 25, 38, 0.8);
+    border: 2px solid #333441;
+    border-radius: 16px;
+    padding: 2rem;
+    margin: 0 auto 3rem;
+    max-width: 400px;
+    transition: all 0.3s ease;
+  }
+
+  .overall-rating:hover {
+    border-color: #4791f0;
+    box-shadow: 0 0 30px rgba(71, 145, 240, 0.2);
+  }
+
+  .rating-score {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #ffd800;
+    margin-bottom: 0.5rem;
+  }
+
+  .rating-stars {
+    display: flex;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .star {
+    color: #ffd800;
+    font-size: 1.5rem;
+  }
+
+  .rating-text {
+    color: #9ca3af;
+    font-size: 0.875rem;
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .review-card {
+    background: rgba(24, 25, 38, 0.8);
+    border: 1px solid #333441;
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    text-align: left;
+  }
+
+  .review-card:hover {
+    border-color: #ffd800;
+    box-shadow: 0 0 20px rgba(255, 216, 0, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .review-stars {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .review-stars .star {
+    color: #ffd800;
+    font-size: 1rem;
+  }
+
+  .review-text {
+    color: #ffffff;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+
+  .review-author {
+    color: #9ca3af;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .review-platform {
+    color: #4791f0;
+    font-size: 0.75rem;
+  }
+
+  @media (max-width: 768px) {
+    .reviews-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+{%- endstyle -%}
+
+<section class="customer-reviews">
+  <h2 class="reviews-title">Customer Reviews & Ratings</h2>
+  <p class="reviews-subtitle">
+    Trusted by over <span>10,000</span> Happy Customers
+  </p>
+
+  <div class="overall-rating">
+    <div class="rating-score">5.0</div>
+    <div class="rating-stars">
+      <span class="star">★</span>
+      <span class="star">★</span>
+      <span class="star">★</span>
+      <span class="star">★</span>
+      <span class="star">★</span>
+    </div>
+    <p class="rating-text">out of 5.0</p>
+    <p class="rating-text">Based on 2,847+ reviews</p>
+  </div>
+
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+      </div>
+      <p class="review-text">
+        "Very easy communication! And so fast! I got exactly what I ordered within minutes."
+      </p>
+      <div class="review-author">Anonymous</div>
+      <div class="review-platform">Verified Purchase</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+      </div>
+      <p class="review-text">
+        "I received faster Than I very problems for months no matter. And I got help"
+      </p>
+      <div class="review-author">Anonymous</div>
+      <div class="review-platform">Verified Purchase</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+      </div>
+      <p class="review-text">
+        "Delivery was very quick within and did far quicker than expected Very good!"
+      </p>
+      <div class="review-author">Anonymous</div>
+      <div class="review-platform">Verified Purchase</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+      </div>
+      <p class="review-text">
+        "Really good and impressive loyalty work of good communication"
+      </p>
+      <div class="review-author">Anonymous</div>
+      <div class="review-platform">Verified Purchase</div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Customer Reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Customer Reviews & Ratings"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Trusted by over 10,000 Happy Customers"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Reviews"
+    }
+  ]
+}
+{% endschema %} 

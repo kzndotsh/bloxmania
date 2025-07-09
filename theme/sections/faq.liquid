@@ -1,0 +1,191 @@
+{%- style -%}
+  .faq-section {
+    padding: 5rem 2rem;
+    background: rgba(35, 36, 58, 0.9);
+  }
+
+  .faq-title {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    background: rgba(24, 25, 38, 0.8);
+    border: 1px solid #333441;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .faq-item:hover {
+    border-color: #ffd800;
+  }
+
+  .faq-question {
+    width: 100%;
+    padding: 1.5rem;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 1.125rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+
+  .faq-question:hover {
+    color: #ffd800;
+  }
+
+  .faq-icon {
+    font-size: 1.5rem;
+    color: #ffd800;
+    transition: transform 0.3s ease;
+  }
+
+  .faq-item.active .faq-icon {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .faq-item.active .faq-answer {
+    max-height: 200px;
+  }
+
+  .faq-answer-content {
+    padding: 0 1.5rem 1.5rem;
+    color: #9ca3af;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .faq-question {
+      font-size: 1rem;
+      padding: 1rem;
+    }
+    
+    .faq-answer-content {
+      padding: 0 1rem 1rem;
+    }
+  }
+{%- endstyle -%}
+
+<section class="faq-section">
+  <h2 class="faq-title">Frequently Asked Questions</h2>
+  
+  <div class="faq-container">
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        Is BloxMania a trusted place to buy digital goods?
+        <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-content">
+          Yes! BloxMania has served over 10,000 happy customers with instant delivery and secure transactions. We're trusted by top gaming creators and have a 5-star rating from our community.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        How do I receive my purchase?
+        <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-content">
+          After completing your payment, our automated system will instantly deliver your items to your game account. You'll receive an email confirmation with all the details.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        What payment methods do you accept?
+        <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-content">
+          We accept all major credit cards, PayPal, and various digital payment methods. All transactions are secured with industry-standard encryption for your safety.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        Is my purchase secure and safe?
+        <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-content">
+          Absolutely! We use secure payment processing and never store your payment information. All transactions are protected and your account information is kept completely confidential.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        Do you offer refunds?
+        <span class="faq-icon">▼</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-content">
+          Due to the digital nature of our products, we generally cannot offer refunds. However, if there's an issue with your order, please contact our 24/7 support team and we'll resolve it quickly.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function toggleFAQ(button) {
+  const faqItem = button.parentElement;
+  const isActive = faqItem.classList.contains('active');
+  
+  // Close all FAQ items
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.classList.remove('active');
+  });
+  
+  // Open clicked item if it wasn't already active
+  if (!isActive) {
+    faqItem.classList.add('active');
+  }
+}
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Frequently Asked Questions"
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Section"
+    }
+  ]
+}
+{% endschema %} 
