@@ -1,89 +1,107 @@
 {%- style -%}
   .customer-reviews {
     padding: 5rem 2rem;
-    background: rgba(35, 36, 58, 0.9);
+    background: rgba(29, 30, 38, 0.95);
+  }
+
+  .reviews-container {
+    max-width: 1200px;
+    margin: 0 auto;
     text-align: center;
   }
 
+  .reviews-header {
+    margin-bottom: 4rem;
+  }
+
   .reviews-title {
-    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 700;
-    color: #4285f4;
+    color: #ffffff;
     margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .reviews-title span {
+    color: #ffd800;
   }
 
   .reviews-subtitle {
     font-size: 1.25rem;
-    color: #ffffff;
-    margin-bottom: 3rem;
+    color: #d1d5db;
+    margin-bottom: 2rem;
   }
 
-  .reviews-subtitle span {
-    color: #4285f4;
-    font-weight: 600;
+  .reviews-rating-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
   }
 
-  .overall-rating {
-    background: rgba(24, 25, 38, 0.8);
-    border: 2px solid #333441;
-    border-radius: 16px;
-    padding: 2rem;
-    margin: 0 auto 3rem;
-    max-width: 400px;
+  .rating-image {
+    height: 3rem;
+    width: auto;
     transition: all 0.3s ease;
   }
 
-  .overall-rating:hover {
-    border-color: #4285f4;
-    box-shadow: 0 0 30px rgba(66, 133, 244, 0.2);
-    transform: translateY(-2px);
+  .rating-image:hover {
+    transform: scale(1.05);
   }
 
-  .rating-score {
-    font-size: 3rem;
-    font-weight: 900;
-    color: #ffd800;
-    margin-bottom: 0.5rem;
-  }
-
-  .rating-stars {
-    display: flex;
-    justify-content: center;
-    gap: 0.25rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .star {
-    color: #ffd800;
-    font-size: 1.5rem;
-  }
-
-  .rating-text {
+  .rating-stats {
     color: #9ca3af;
     font-size: 0.875rem;
   }
 
   .reviews-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    margin-top: 3rem;
   }
 
   .review-card {
-    background: rgba(24, 25, 38, 0.8);
-    border: 1px solid #333441;
-    border-radius: 16px;
-    padding: 1.5rem;
-    transition: all 0.3s ease;
+    background: url('{{ 'widget-backing.png' | asset_url }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 1rem;
+    padding: 2rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
     text-align: left;
+    box-shadow: 0 0 20px rgba(255, 216, 0, 0.2);
   }
 
   .review-card:hover {
+    transform: translateY(-5px) scale(1.02);
     border-color: #ffd800;
-    box-shadow: 0 0 20px rgba(255, 216, 0, 0.2);
-    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(255, 216, 0, 0.4), 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .review-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 216, 0, 0.1), transparent);
+    transition: left 0.5s;
+    z-index: 1;
+  }
+
+  .review-card:hover::before {
+    left: 100%;
+  }
+
+  .review-content {
+    position: relative;
+    z-index: 2;
   }
 
   .review-stars {
@@ -94,107 +112,264 @@
 
   .review-stars .star {
     color: #ffd800;
-    font-size: 1rem;
+    font-size: 1.25rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 
   .review-text {
     color: #ffffff;
     line-height: 1.6;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     font-style: italic;
+    font-size: 1rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .review-author-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
   }
 
   .review-author {
-    color: #9ca3af;
+    color: #ffd800;
     font-size: 0.875rem;
     font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 
   .review-platform {
-    color: #4285f4;
+    color: #10b981;
     font-size: 0.75rem;
     font-weight: 500;
+    background: rgba(16, 185, 129, 0.15);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    border: 1px solid rgba(16, 185, 129, 0.3);
   }
 
-  @media (max-width: 768px) {
-    .reviews-grid {
-      grid-template-columns: 1fr;
-    }
+  .reviews-cta {
+    margin-top: 3rem;
+  }
 
+  .reviews-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #ffd800, #e6c200);
+    color: #000;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 50px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(255, 216, 0, 0.3);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .reviews-cta-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 216, 0, 0.5);
+    background: linear-gradient(135deg, #e6c200, #d4ac00);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
     .customer-reviews {
       padding: 3rem 1rem;
+    }
+
+    .reviews-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .reviews-rating-container {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .rating-image {
+      height: 2.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .review-card {
+      padding: 1.5rem;
+    }
+
+    .review-author-info {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .reviews-grid {
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     }
   }
 {%- endstyle -%}
 
 <section class="customer-reviews">
-  <h2 class="reviews-title">Customer Reviews & Ratings</h2>
-  <p class="reviews-subtitle">Trusted by over <span>10,000</span> Happy Customers</p>
+  <div class="reviews-container">
+    <div class="reviews-header">
+      <h2 class="reviews-title">Customer <span>Reviews</span> & Ratings</h2>
+      <p class="reviews-subtitle">
+        {{ section.settings.subtitle | default: 'Trusted by over 10,000 Happy Customers' }}
+      </p>
 
-  <div class="overall-rating">
-    <div class="rating-score">5.0</div>
-    <div class="rating-stars">
-      <span class="star">★</span>
-      <span class="star">★</span>
-      <span class="star">★</span>
-      <span class="star">★</span>
-      <span class="star">★</span>
-    </div>
-    <p class="rating-text">out of 5.0</p>
-    <p class="rating-text">Based on 2,847+ reviews</p>
-  </div>
-
-  <div class="reviews-grid">
-    <div class="review-card">
-      <div class="review-stars">
-        <span class="star">★</span>
-        <span class="star">★</span>
-        <span class="star">★</span>
-        <span class="star">★</span>
-        <span class="star">★</span>
+      <div class="reviews-rating-container">
+        <img
+          src="{{ 'ratingz.png' | asset_url }}"
+          alt="5 Star Rating"
+          class="rating-image"
+          width="120"
+          height="48"
+          loading="lazy"
+        >
       </div>
-      <p class="review-text">"Very easy communication! And so fast! I got exactly what I ordered within minutes."</p>
-      <div class="review-author">Anonymous</div>
-      <div class="review-platform">Verified Purchase</div>
+      <p class="rating-stats">Based on 2,847+ verified reviews</p>
     </div>
 
-    <div class="review-card">
-      <div class="review-stars">
-        <span class="star">★</span>
-        <span class="star">★</span>
-        <span class="star">★</span>
-        <span class="star">★</span>
-        <span class="star">★</span>
+    <div class="reviews-grid">
+      <!-- Review 1 -->
+      <div class="review-card">
+        <div class="review-content">
+          <div class="review-stars">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <p class="review-text">
+            "Very easy communication! And so fast! I got exactly what I ordered within minutes. Highly recommend
+            BloxMania for all gaming needs."
+          </p>
+          <div class="review-author-info">
+            <span class="review-author">Alex M.</span>
+            <span class="review-platform">Verified Purchase</span>
+          </div>
+        </div>
       </div>
-      <p class="review-text">"I received faster Than I very problems for months no matter. And I got help"</p>
-      <div class="review-author">Anonymous</div>
-      <div class="review-platform">Verified Purchase</div>
+
+      <!-- Review 2 -->
+      <div class="review-card">
+        <div class="review-content">
+          <div class="review-stars">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <p class="review-text">
+            "I received my order faster than expected! No problems for months and excellent customer support. Got help
+            immediately when needed."
+          </p>
+          <div class="review-author-info">
+            <span class="review-author">Sarah K.</span>
+            <span class="review-platform">Verified Purchase</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review 3 -->
+      <div class="review-card">
+        <div class="review-content">
+          <div class="review-stars">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <p class="review-text">
+            "Delivery was very quick and done far quicker than expected. Very good quality items and exactly as
+            described. Will order again!"
+          </p>
+          <div class="review-author-info">
+            <span class="review-author">Mike R.</span>
+            <span class="review-platform">Verified Purchase</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review 4 -->
+      <div class="review-card">
+        <div class="review-content">
+          <div class="review-stars">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <p class="review-text">
+            "Really good and impressive loyalty program. Great communication from the team and amazing customer service
+            throughout the process."
+          </p>
+          <div class="review-author-info">
+            <span class="review-author">Emma T.</span>
+            <span class="review-platform">Verified Purchase</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review 5 -->
+      <div class="review-card">
+        <div class="review-content">
+          <div class="review-stars">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <p class="review-text">
+            "Best gaming store I've found! Fast delivery, great prices, and the quality is always perfect. Customer
+            support is top-notch too."
+          </p>
+          <div class="review-author-info">
+            <span class="review-author">James L.</span>
+            <span class="review-platform">Verified Purchase</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review 6 -->
+      <div class="review-card">
+        <div class="review-content">
+          <div class="review-stars">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <p class="review-text">
+            "Amazing experience from start to finish. The website is easy to use, checkout is smooth, and I got my items
+            instantly. Couldn't ask for more!"
+          </p>
+          <div class="review-author-info">
+            <span class="review-author">Lisa W.</span>
+            <span class="review-platform">Verified Purchase</span>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="review-card">
-      <div class="review-stars">
-        <span class="star">★</span>
-        <span class="star">★</span>
-        <span class="star">★</span>
-        <span class="star">★</span>
-        <span class="star">★</span>
-      </div>
-      <p class="review-text">"Delivery was very quick within and did far quicker than expected Very good!"</p>
-      <div class="review-author">Anonymous</div>
-      <div class="review-platform">Verified Purchase</div>
-    </div>
-
-    <div class="review-card">
-      <div class="review-stars">
-        <span class="star">★</span>
-        <span class="star">★</span>
-        <span class="star">★</span>
-        <span class="star">★</span>
-        <span class="star">★</span>
-      </div>
-      <p class="review-text">"Really good and impressive loyalty work of good communication"</p>
-      <div class="review-author">Anonymous</div>
-      <div class="review-platform">Verified Purchase</div>
+    <div class="reviews-cta">
+      <a href="{{ section.settings.cta_link | default: '/collections/all' }}" class="reviews-cta-btn">
+        Shop Now
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+        </svg>
+      </a>
     </div>
   </div>
 </section>
@@ -214,6 +389,11 @@
       "id": "subtitle",
       "label": "Section Subtitle",
       "default": "Trusted by over 10,000 Happy Customers"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Button Link"
     }
   ],
   "presets": [

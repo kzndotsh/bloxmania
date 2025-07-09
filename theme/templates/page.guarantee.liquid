@@ -1,185 +1,604 @@
-{% assign okok1_bg = 'okok1.png' | asset_url %}
-{% assign controller_img = 'Controller.png' | asset_url %}
-{% assign icon1_img = 'ICON1.png' | asset_url %}
-{% assign icon2_img = 'ICON2.png' | asset_url %}
-{% assign icon3_img = 'ICON3.png' | asset_url %}
-{% assign icon4_img = 'ICON4.png' | asset_url %}
-{% assign icon5_img = 'ICON5.png' | asset_url %}
-{% assign icon6_img = 'ICON6.png' | asset_url %}
+{%- style -%}
+  .guarantee-page {
+    min-height: 100vh;
+    background: url('{{ 'okok1.png' | asset_url }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem 8rem;
+    position: relative;
+  }
 
-<div
-  class="min-h-screen text-white flex flex-col items-center justify-center px-4 py-16"
-  style="background-image: url('{{ okok1_bg }}'); background-size: cover; background-position: center; background-repeat: no-repeat;"
->
-  <div class="max-w-2xl w-full text-center mb-12 pt-32">
-    <div class="flex items-center justify-center space-x-2 mb-2">
-      <span class="font-semibold text-gray-200 text-lg">Excellent</span>
-      <span class="flex items-center text-[#ffd800] font-bold text-lg">
-        <svg class="w-5 h-5 mr-1 fill-[#ffd800]" viewBox="0 0 24 24">
-          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-        </svg>
-        5.0
-      </span>
-      <span class="text-gray-400 text-lg">out of 5</span>
-      <span class="text-green-400 font-semibold text-lg">Trusted</span>
-    </div>
+  .guarantee-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+  }
 
-    <!-- Icons positioned around the heading -->
-    <div class="relative">
-      <!-- Left side icons in organic formation -->
-      <div class="absolute left-0 top-1/2 transform -translate-y-1/3 -translate-x-[28rem] hidden xl:block">
-        <div class="flex flex-col items-center space-y-24">
+  .guarantee-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  .guarantee-header {
+    max-width: 40rem;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto 3rem;
+    padding-top: 8rem;
+    position: relative;
+  }
+
+  .rating-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .rating-text {
+    font-weight: 600;
+    color: #d1d5db;
+    font-size: 1.125rem;
+  }
+
+  .rating-stars {
+    display: flex;
+    align-items: center;
+    color: #ffd800;
+    font-weight: 700;
+    font-size: 1.125rem;
+  }
+
+  .rating-stars svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 0.25rem;
+    fill: #ffd800;
+  }
+
+  .rating-out-of {
+    color: #9ca3af;
+    font-size: 1.125rem;
+  }
+
+  .trusted-badge {
+    color: #10b981;
+    font-weight: 600;
+    font-size: 1.125rem;
+  }
+
+  .floating-icons {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-33%);
+    display: none;
+  }
+
+  .floating-icons.left {
+    left: 0;
+    transform: translateY(-33%) translateX(-28rem);
+  }
+
+  .floating-icons.right {
+    right: 0;
+    transform: translateY(-33%) translateX(28rem);
+  }
+
+  .floating-icons img {
+    width: 6rem;
+    height: 6rem;
+    opacity: 0.6;
+    filter: drop-shadow(0 0 20px rgba(255, 216, 0, 0.6));
+    transition: all 0.3s ease;
+  }
+
+  .floating-icons img:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+
+  .guarantee-title {
+    font-size: clamp(1.875rem, 4vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    position: relative;
+    z-index: 10;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .guarantee-title span {
+    text-decoration: underline;
+    text-decoration-color: #ffd800;
+    text-underline-offset: 4px;
+  }
+
+  .guarantee-subtitle {
+    font-size: 1.125rem;
+    color: #d1d5db;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .guarantee-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  @media (min-width: 640px) {
+    .guarantee-badges {
+      flex-direction: row;
+    }
+  }
+
+  .guarantee-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid;
+    cursor: default;
+  }
+
+  .guarantee-badge:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  .guarantee-badge.fast {
+    background: rgba(59, 130, 246, 0.9);
+    color: #ffffff;
+    border-color: rgba(59, 130, 246, 0.3);
+  }
+
+  .guarantee-badge.fast:hover {
+    border-color: rgba(59, 130, 246, 0.6);
+  }
+
+  .guarantee-badge.price {
+    background: rgba(255, 216, 0, 0.9);
+    color: #181926;
+    border-color: rgba(255, 216, 0, 0.3);
+  }
+
+  .guarantee-badge.price:hover {
+    border-color: rgba(255, 216, 0, 0.6);
+  }
+
+  .guarantee-badge.support {
+    background: rgba(59, 130, 246, 0.9);
+    color: #ffffff;
+    border-color: rgba(59, 130, 246, 0.3);
+  }
+
+  .guarantee-badge.support:hover {
+    border-color: rgba(59, 130, 246, 0.6);
+  }
+
+  .guarantee-badge svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 0.5rem;
+  }
+
+  .guarantee-card {
+    max-width: 48rem;
+    width: 100%;
+    background: #23243a;
+    border-radius: 1rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    padding: 2rem 2rem 2rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+  }
+
+  .guarantee-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+  }
+
+  @media (min-width: 768px) {
+    .guarantee-card {
+      padding: 2rem 3rem 3rem;
+    }
+  }
+
+  .guarantee-icon {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+
+  .guarantee-icon-bg {
+    width: 3rem;
+    height: 3rem;
+    color: #ffd800;
+  }
+
+  .guarantee-icon-check {
+    position: absolute;
+    inset: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #ffd800;
+    margin: auto;
+  }
+
+  .guarantee-card-title {
+    font-size: clamp(1.5rem, 3vw, 1.875rem);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #ffd800;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .guarantee-card-description {
+    color: #e5e7eb;
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  .guarantee-list {
+    text-align: left;
+    color: #d1d5db;
+    margin-bottom: 1.5rem;
+    width: 100%;
+  }
+
+  .guarantee-list li {
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+  }
+
+  .guarantee-list li strong {
+    font-weight: 700;
+  }
+
+  .guarantee-disclaimer {
+    font-size: 0.875rem;
+    color: #9ca3af;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .promotional-section {
+    max-width: 72rem;
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  @media (min-width: 1024px) {
+    .promotional-section {
+      margin-top: 3rem;
+      flex-direction: row;
+      gap: 3rem;
+    }
+  }
+
+  .controller-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  @media (min-width: 1024px) {
+    .controller-image {
+      justify-content: flex-end;
+    }
+  }
+
+  .controller-image img {
+    width: 24rem;
+    height: 24rem;
+    object-fit: contain;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.3));
+    cursor: pointer;
+  }
+
+  .controller-image img:hover {
+    transform: scale(1.05);
+  }
+
+  @media (min-width: 1024px) {
+    .controller-image img {
+      width: 28rem;
+      height: 28rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .controller-image img {
+      width: 32rem;
+      height: 32rem;
+    }
+  }
+
+  .promotional-text {
+    flex: 1;
+    text-align: center;
+  }
+
+  @media (min-width: 1024px) {
+    .promotional-text {
+      text-align: left;
+    }
+  }
+
+  .promotional-title {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .promotional-title span {
+    color: #ffd800;
+  }
+
+  .promotional-description {
+    font-size: 1.125rem;
+    color: #d1d5db;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+
+  .shop-now-btn {
+    background: linear-gradient(135deg, #ffd800, #e6c200);
+    color: #000;
+    font-weight: 700;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-size: 1.125rem;
+    box-shadow: 0 4px 12px rgba(255, 216, 0, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .shop-now-btn:hover {
+    background: linear-gradient(135deg, #e6c200, #d4ac00);
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 216, 0, 0.6);
+    color: #000;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .guarantee-page {
+      padding: 2rem 1rem 4rem;
+      background-attachment: scroll;
+    }
+
+    .guarantee-header {
+      padding-top: 6rem;
+    }
+
+    .floating-icons {
+      display: none !important;
+    }
+
+    .promotional-section {
+      margin-top: 1.5rem;
+    }
+
+    .controller-image img {
+      width: 20rem;
+      height: 20rem;
+    }
+  }
+
+  @media (min-width: 1400px) {
+    .floating-icons {
+      display: block;
+    }
+  }
+{%- endstyle -%}
+
+<div class="guarantee-page">
+  <div class="guarantee-content">
+    <!-- Header Section -->
+    <div class="guarantee-header">
+      <div class="rating-section">
+        <span class="rating-text">Excellent</span>
+        <div class="rating-stars">
+          <svg fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          5.0
+        </div>
+        <span class="rating-out-of">out of 5</span>
+        <span class="trusted-badge">Trusted</span>
+      </div>
+
+      <!-- Floating Icons (Desktop Only) -->
+      <div class="floating-icons left">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6rem;">
           <img
-            src="{{ icon1_img }}"
+            src="{{ 'ICON1.png' | asset_url }}"
             alt="Icon 1"
             width="96"
             height="96"
-            class="w-24 h-24 opacity-60 transform -translate-x-8"
-            style="filter: drop-shadow(0 0 20px rgba(251,146,60,0.6));"
+            style="transform: translateX(-2rem);"
           >
-          <div class="flex space-x-32">
+          <div style="display: flex; gap: 8rem;">
             <img
-              src="{{ icon2_img }}"
+              src="{{ 'ICON2.png' | asset_url }}"
               alt="Icon 2"
               width="96"
               height="96"
-              class="w-24 h-24 opacity-60 transform translate-y-4"
-              style="filter: drop-shadow(0 0 20px rgba(168,85,247,0.6));"
+              style="transform: translateY(1rem);"
             >
             <img
-              src="{{ icon3_img }}"
+              src="{{ 'ICON3.png' | asset_url }}"
               alt="Icon 3"
               width="96"
               height="96"
-              class="w-24 h-24 opacity-60 transform -translate-y-2"
-              style="filter: drop-shadow(0 0 20px rgba(59,130,246,0.6));"
+              style="transform: translateY(-0.5rem);"
             >
           </div>
         </div>
       </div>
 
-      <!-- Right side icons in organic formation -->
-      <div class="absolute right-0 top-1/2 transform -translate-y-1/3 translate-x-[28rem] hidden xl:block">
-        <div class="flex flex-col items-center space-y-24">
+      <div class="floating-icons right">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6rem;">
           <img
-            src="{{ icon4_img }}"
+            src="{{ 'ICON4.png' | asset_url }}"
             alt="Icon 4"
             width="96"
             height="96"
-            class="w-24 h-24 opacity-60 transform translate-x-8"
-            style="filter: drop-shadow(0 0 20px rgba(255,216,0,0.6));"
+            style="transform: translateX(2rem);"
           >
-          <div class="flex space-x-32">
+          <div style="display: flex; gap: 8rem;">
             <img
-              src="{{ icon5_img }}"
+              src="{{ 'ICON5.png' | asset_url }}"
               alt="Icon 5"
               width="96"
               height="96"
-              class="w-24 h-24 opacity-60 transform -translate-y-4"
-              style="filter: drop-shadow(0 0 20px rgba(34,197,94,0.6));"
+              style="transform: translateY(-1rem);"
             >
             <img
-              src="{{ icon6_img }}"
+              src="{{ 'ICON6.png' | asset_url }}"
               alt="Icon 6"
               width="96"
               height="96"
-              class="w-24 h-24 opacity-60 transform translate-y-2"
-              style="filter: drop-shadow(0 0 20px rgba(239,68,68,0.6));"
+              style="transform: translateY(0.5rem);"
             >
           </div>
         </div>
       </div>
 
-      <h1 class="text-3xl md:text-5xl font-bold mb-4 leading-tight relative z-10">
-        Your Satisfaction, Our <span class="underline decoration-[#ffd800]">Promise</span>
-      </h1>
-    </div>
+      <h1 class="guarantee-title">Your Satisfaction, Our <span>Promise</span></h1>
 
-    <p class="text-lg text-gray-300 mb-6">
-      At BloxMania, we're dedicated to delivering joy straight to your gaming experience. When you make a purchase, you
-      want it quick, easy, and secure—and that's exactly what we deliver!
-    </p>
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-      <span class="inline-flex items-center px-4 py-2 rounded-full bg-[#3b82f6]/90 text-white font-semibold text-base shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border border-[#3b82f6]/30 hover:border-[#3b82f6]/60 cursor-default">
-        <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
-        </svg>
-        Fast Delivery
-      </span>
-      <span class="inline-flex items-center px-4 py-2 rounded-full bg-[#ffd800]/90 text-[#181926] font-semibold text-base shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border border-[#ffd800]/30 hover:border-[#ffd800]/60 cursor-default">
-        <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-        </svg>
-        Best Prices
-      </span>
-      <span class="inline-flex items-center px-4 py-2 rounded-full bg-[#3b82f6]/90 text-white font-semibold text-base shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border border-[#3b82f6]/30 hover:border-[#3b82f6]/60 cursor-default">
-        <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-        </svg>
-        24/7 Support
-      </span>
-    </div>
-  </div>
-
-  <div class="max-w-3xl w-full bg-[#23243a] rounded-2xl shadow-xl pt-6 pb-8 px-8 md:pt-8 md:pb-12 md:px-12 flex flex-col items-center border-2 border-white/15 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl cursor-pointer">
-    <div class="relative mb-4">
-      <svg class="w-12 h-12 text-[#ffd800]" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
-      </svg>
-      <svg class="absolute inset-0 w-6 h-6 text-[#ffd800] m-auto" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M20 6L9 17l-5-5"/>
-      </svg>
-    </div>
-    <h2 class="text-2xl md:text-3xl font-bold mb-2 text-[#ffd800]">Our Guarantee</h2>
-    <p class="text-gray-200 text-lg mb-6 text-center">
-      We promise a smooth, secure, and reliable experience every time you shop with BloxMania. If you ever have an issue
-      with your order, our support team is available 24/7 to help you resolve it quickly.
-    </p>
-    <ul class="text-left text-gray-300 space-y-3 mb-6">
-      <li><b>Flawless Delivery:</b> We ensure your items are delivered securely and efficiently every time.</li>
-      <li><b>Best Prices:</b> We constantly monitor the market to ensure you get the best deals.</li>
-      <li><b>24/7 Support:</b> Our friendly team is always here to help, day or night.</li>
-      <li>
-        <b>Secure Payments:</b> All transactions are processed through trusted gateways like Stripe, Apple Pay, and
-        Google Pay.
-      </li>
-      <li>
-        <b>Refund Policy:</b> If you don't receive your order due to an error on our end, you'll get a full refund
-        according to our policy.
-      </li>
-    </ul>
-    <div class="text-sm text-gray-400 text-center">
-      BloxMania operates independently and is not affiliated with Roblox Corporation or any game publishers. All
-      trademarks are property of their respective owners.
-    </div>
-  </div>
-
-  <!-- New section with controller image and promotional text -->
-  <div class="max-w-6xl w-full mt-6 lg:mt-12 flex flex-col lg:flex-row items-center gap-0 lg:gap-12">
-    <!-- Controller Image -->
-    <div class="flex-1 flex justify-center lg:justify-end">
-      <img
-        src="{{ controller_img }}"
-        alt="Gaming Controller"
-        width="384"
-        height="384"
-        class="w-96 h-96 lg:w-[28rem] lg:h-[28rem] xl:w-[32rem] xl:h-[32rem] object-contain transition-all duration-300 transform hover:scale-105 cursor-pointer"
-        style="filter: drop-shadow(0 0 1px rgba(255,255,255,0.3));"
-      >
-    </div>
-
-    <!-- Promotional Text -->
-    <div class="flex-1 text-center lg:text-left">
-      <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 text-white leading-tight">
-        Why Wait? Join the Thousands of Happy <span class="text-[#ffd800]">BloxMania</span> Customers Today!
-      </h3>
-      <p class="text-lg text-gray-300 mb-8 leading-relaxed">
-        With BloxMania, you're not just buying items - you're joining a community that's all about fast, secure, and
-        happy transactions. So go ahead, make that purchase, and let us show you how we do it!
+      <p class="guarantee-subtitle">
+        At BloxMania, we're dedicated to delivering joy straight to your gaming experience. When you make a purchase,
+        you want it quick, easy, and secure—and that's exactly what we deliver!
       </p>
-      <button class="bg-[#ffd800] hover:bg-[#e6c200] text-black font-bold py-4 px-8 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer">
-        Shop Now!
-      </button>
+
+      <div class="guarantee-badges">
+        <div class="guarantee-badge fast">
+          <svg fill="currentColor" viewBox="0 0 24 24">
+            <path d="M13 3l3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z"/>
+            <path d="M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6"/>
+          </svg>
+          Fast Delivery
+        </div>
+        <div class="guarantee-badge price">
+          <svg fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
+          </svg>
+          Best Prices
+        </div>
+        <div class="guarantee-badge support">
+          <svg fill="currentColor" viewBox="0 0 24 24">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4v3c0 .6.4 1 1 1 .2 0 .5-.1.7-.3L14.4 18H20c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+          </svg>
+          24/7 Support
+        </div>
+      </div>
+    </div>
+
+    <!-- Guarantee Card -->
+    <div class="guarantee-card">
+      <div class="guarantee-icon">
+        <svg class="guarantee-icon-bg" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+        </svg>
+        <svg class="guarantee-icon-check" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+        </svg>
+      </div>
+
+      <h2 class="guarantee-card-title">Our Guarantee</h2>
+
+      <p class="guarantee-card-description">
+        We promise a smooth, secure, and reliable experience every time you shop with BloxMania. If you ever have an
+        issue with your order, our support team is available 24/7 to help you resolve it quickly.
+      </p>
+
+      <ul class="guarantee-list">
+        <li>
+          <strong>Flawless Delivery:</strong> We ensure your items are delivered securely and efficiently every time.
+        </li>
+        <li><strong>Best Prices:</strong> We constantly monitor the market to ensure you get the best deals.</li>
+        <li><strong>24/7 Support:</strong> Our friendly team is always here to help, day or night.</li>
+        <li>
+          <strong>Secure Payments:</strong> All transactions are processed through trusted gateways like Stripe, Apple
+          Pay, and Google Pay.
+        </li>
+        <li>
+          <strong>Refund Policy:</strong> If you don't receive your order due to an error on our end, you'll get a full
+          refund according to our policy.
+        </li>
+      </ul>
+
+      <div class="guarantee-disclaimer">
+        BloxMania operates independently and is not affiliated with Roblox Corporation or any game publishers. All
+        trademarks are property of their respective owners.
+      </div>
+    </div>
+
+    <!-- Promotional Section -->
+    <div class="promotional-section">
+      <!-- Controller Image -->
+      <div class="controller-image">
+        <img
+          src="{{ 'Controller.png' | asset_url }}"
+          alt="Gaming Controller"
+          width="512"
+          height="512"
+          loading="lazy"
+        >
+      </div>
+
+      <!-- Promotional Text -->
+      <div class="promotional-text">
+        <h3 class="promotional-title">Why Wait? Join the Thousands of Happy <span>BloxMania</span> Customers Today!</h3>
+        <p class="promotional-description">
+          With BloxMania, you're not just buying items - you're joining a community that's all about fast, secure, and
+          happy transactions. So go ahead, make that purchase, and let us show you how we do it!
+        </p>
+        <a href="/collections/all" class="shop-now-btn"> Shop Now! </a>
+      </div>
     </div>
   </div>
 </div>

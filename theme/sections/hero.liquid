@@ -4,34 +4,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #4285f4 0%, #667eea 100%),
-                {% if section.settings.background_image != blank %}
-                  url('{{ section.settings.background_image | image_url: width: 1920 }}')
-                {% else %}
-                  url('{{ 'slam.png' | asset_url }}')
-                {% endif %};
+    background: url('{{ 'slam.png' | asset_url }}');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
+    background-repeat: no-repeat;
     position: relative;
     overflow: hidden;
-    padding-top: 80px;
-  }
-
-  .hero-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-    animation: pulse 4s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.6; }
+    padding-top: 8rem;
   }
 
   .hero-content {
@@ -43,14 +22,17 @@
   }
 
   .hero-rating {
+    display: flex;
+    justify-content: center;
     margin-bottom: 1.5rem;
   }
 
   .hero-rating img {
     height: 3rem;
+    width: auto;
     transition: all 0.3s ease;
     transform: scale(1.1);
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+    filter: drop-shadow(0 0 10px rgba(255, 216, 0, 0.5));
     cursor: pointer;
   }
 
@@ -59,7 +41,7 @@
   }
 
   .hero-title {
-    font-size: clamp(3rem, 8vw, 5rem);
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
     font-weight: 900;
     margin-bottom: 1.5rem;
     line-height: 1.1;
@@ -68,7 +50,7 @@
   }
 
   .hero-title-gradient {
-    background: linear-gradient(135deg, #ff6b6b, #ee5a5a, #ff4757);
+    background: linear-gradient(135deg, #a855f7, #ec4899, #ef4444);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -77,15 +59,19 @@
   }
 
   @keyframes gradient-shift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
   }
 
   .hero-subtitle {
-    font-size: 1.25rem;
-    color: #ffffff;
+    font-size: clamp(1.125rem, 4vw, 1.25rem);
+    color: #e5e7eb;
     margin-bottom: 2rem;
-    max-width: 37.5rem;
+    max-width: 60rem;
     margin-left: auto;
     margin-right: auto;
     line-height: 1.6;
@@ -102,24 +88,25 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem 3rem;
+    padding: 1rem 2.5rem;
     background: #ffd800;
     color: #000;
     text-decoration: none;
     font-weight: 700;
     font-size: 1.125rem;
     border-radius: 50px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 20px rgba(255, 216, 0, 0.3);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    text-shadow: none;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    margin-bottom: 4rem;
   }
 
   .hero-cta:hover {
     background: #e6c200;
     transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 6px 25px rgba(255, 216, 0, 0.4);
     color: #000;
   }
 
@@ -138,20 +125,20 @@
     left: 100%;
   }
 
-  /* Creators Section */
+  /* Trusted by Creators Section */
   .creators-section {
     margin-top: 4rem;
   }
 
   .creators-title {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
     font-weight: 700;
     margin-bottom: 2rem;
     color: #ffffff;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
 
-  .creators-title span {
+  .creators-title .highlight {
     color: #ffd800;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
@@ -160,7 +147,7 @@
     position: relative;
     overflow: hidden;
     margin: 0 auto;
-    max-width: 62.5rem;
+    max-width: 1000px;
     mask: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
     -webkit-mask: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
   }
@@ -172,21 +159,25 @@
   }
 
   @keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
   }
 
   .creator-item {
     flex-shrink: 0;
     text-align: center;
-    min-width: 7.5rem;
+    min-width: 6rem;
   }
 
   .creator-avatar {
     width: 5rem;
     height: 5rem;
-    border-radius: 50%;
-    margin: 0 auto 0.5rem;
+    border-radius: 0.75rem;
+    margin: 0 auto 0.25rem;
     transition: all 0.3s ease;
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -226,7 +217,7 @@
   /* Responsive Design */
   @media (max-width: 768px) {
     .hero-section {
-      padding-top: 60px;
+      padding-top: 6rem;
       background-attachment: scroll;
     }
 
@@ -243,12 +234,36 @@
     }
 
     .creator-item {
-      min-width: 6.25rem;
+      min-width: 5rem;
     }
 
     .creator-avatar {
       width: 3.75rem;
       height: 3.75rem;
+    }
+
+    .hero-cta {
+      padding: 0.875rem 2rem;
+      font-size: 1rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-title {
+      font-size: clamp(3rem, 8vw, 5rem);
+    }
+
+    .creators-title {
+      font-size: clamp(2rem, 4vw, 2.5rem);
+    }
+
+    .creator-avatar {
+      width: 6rem;
+      height: 6rem;
+    }
+
+    .creator-item {
+      min-width: 7rem;
     }
   }
 
@@ -262,7 +277,13 @@
   <div class="hero-content">
     <!-- Rating Badge -->
     <div class="hero-rating">
-      <img src="{{ 'ratingz.png' | asset_url }}" alt="5-Star Rating" width="120" height="20" loading="lazy">
+      <img
+        src="{{ 'ratingz.png' | asset_url }}"
+        alt="5-Star Rating"
+        width="120"
+        height="40"
+        loading="lazy"
+      >
     </div>
 
     <!-- Main Title -->
@@ -275,10 +296,12 @@
 
     <!-- Subtitle -->
     <p class="hero-subtitle">
-      {{
-        section.settings.subtitle
-        | default: 'BloxMania is the fastest, cheapest, and safest shop for digital goods, with instant delivery. Our <strong>automated system</strong> ensures you receive your items securely and swiftly!'
-      }}
+      {% if section.settings.subtitle != blank %}
+        {{ section.settings.subtitle }}
+      {% else %}
+        BloxMania is the fastest, cheapest, and safest shop for digital goods, with instant delivery. Our
+        <strong>automated system</strong> ensures you receive your items securely and swiftly!
+      {% endif %}
     </p>
 
     <!-- Call to Action -->
@@ -286,9 +309,9 @@
       {{ section.settings.cta_text | default: 'SHOP NOW' }}
     </a>
 
-    <!-- Trusted by Creators Section -->
+    <!-- Trusted by Top Creators Section -->
     <div class="creators-section">
-      <h3 class="creators-title">Trusted by <span>Top</span> Creators</h3>
+      <h3 class="creators-title">Trusted by <span class="highlight">Top</span> Creators</h3>
 
       <div class="creators-reel">
         <div class="creators-scroll">
@@ -297,10 +320,10 @@
             | split: '|'
           %}
 
-          {% for creator in creators %}
-            {% assign creator_data = creator | split: ',' %}
+          {% for creator_data_string in creators %}
+            {% assign creator_data = creator_data_string | split: ',' %}
             <div class="creator-item">
-              <a href="{{ creator_data[2] }}" target="_blank" rel="noopener">
+              <a href="{{ creator_data[2] }}" target="_blank" rel="noopener noreferrer">
                 <img
                   src="{{ creator_data[0] | append: '.png' | asset_url }}"
                   alt="{{ creator_data[0] }}"
@@ -321,10 +344,10 @@
           {% endfor %}
 
           <!-- Duplicate set for seamless loop -->
-          {% for creator in creators %}
-            {% assign creator_data = creator | split: ',' %}
+          {% for creator_data_string in creators %}
+            {% assign creator_data = creator_data_string | split: ',' %}
             <div class="creator-item">
-              <a href="{{ creator_data[2] }}" target="_blank" rel="noopener">
+              <a href="{{ creator_data[2] }}" target="_blank" rel="noopener noreferrer">
                 <img
                   src="{{ creator_data[0] | append: '.png' | asset_url }}"
                   alt="{{ creator_data[0] }}"
@@ -354,11 +377,6 @@
   "name": "Hero Section",
   "settings": [
     {
-      "type": "image_picker",
-      "id": "background_image",
-      "label": "Background Image"
-    },
-    {
       "type": "text",
       "id": "title_part1",
       "label": "Hero Title Part 1",
@@ -386,10 +404,6 @@
       "type": "url",
       "id": "cta_link",
       "label": "CTA Button Link"
-    },
-    {
-      "type": "header",
-      "content": "Featured Creators"
     }
   ],
   "presets": [

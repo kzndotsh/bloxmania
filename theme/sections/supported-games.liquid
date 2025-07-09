@@ -1,129 +1,223 @@
 {%- style -%}
   .supported-games {
-    padding: 3rem 2rem;
-    background: transparent;
+    padding: 4rem 2rem;
+    margin-top: -3.75rem;
+  }
+
+  .supported-games-container {
+    max-width: 1200px;
+    margin: 0 auto;
     text-align: center;
   }
 
   .supported-games-title {
-    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 700;
+    margin-bottom: 3rem;
     color: #ffffff;
-    margin-bottom: 2rem;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  }
-
-  .supported-games-title span {
-    color: #ffd800;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
 
   .games-grid {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    max-width: 800px;
-    margin: 0 auto;
-    flex-wrap: wrap;
-  }
-
-  .game-item {
-    display: flex;
     flex-direction: column;
+    gap: 1.5rem;
     align-items: center;
-    transition: transform 0.3s ease;
+  }
+
+  @media (min-width: 768px) {
+    .games-grid {
+      flex-direction: row;
+      justify-content: center;
+      gap: 2rem;
+    }
+  }
+
+  .game-card {
+    background: url('{{ 'widget-backing.png' | asset_url }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 1rem;
+    padding: 2rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
-    padding: 1rem;
-    border-radius: 12px;
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid transparent;
+    box-shadow: 0 0 20px rgba(255, 216, 0, 0.3);
+    width: 100%;
+    max-width: 300px;
   }
 
-  .game-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    background: rgba(0, 0, 0, 0.3);
-  }
-
-  .game-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 12px;
-    margin-bottom: 0.5rem;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  }
-
-  .game-item:hover .game-icon {
+  .game-card:hover {
+    background-color: #2d3142;
+    transform: scale(1.05);
     border-color: #ffd800;
-    box-shadow: 0 0 20px rgba(255, 216, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 30px rgba(255, 216, 0, 0.5);
   }
 
-  .game-name {
-    font-size: 0.875rem;
+  .game-content {
+    position: relative;
+    z-index: 10;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .game-card:hover .game-content {
+    filter: blur(2px);
+  }
+
+  .game-image {
+    width: 10rem;
+    height: 10rem;
+    margin: 0 auto 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    object-fit: cover;
+  }
+
+  .game-title {
+    font-size: 1.25rem;
     font-weight: 600;
     color: #ffffff;
-    text-align: center;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 
-  @media (max-width: 768px) {
+  .game-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 20;
+  }
+
+  .game-card:hover .game-overlay {
+    opacity: 1;
+  }
+
+  .overlay-content {
+    text-align: center;
+  }
+
+  .overlay-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .overlay-subtitle {
+    color: #d1d5db;
+    font-size: 1rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 767px) {
+    .supported-games {
+      padding: 3rem 1rem;
+      margin-top: -2rem;
+    }
+
+    .game-card {
+      max-width: 280px;
+    }
+
+    .game-image {
+      width: 8rem;
+      height: 8rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
     .games-grid {
-      gap: 1.5rem;
+      gap: 2.5rem;
     }
 
-    .game-icon {
-      width: 60px;
-      height: 60px;
+    .game-card {
+      max-width: 320px;
     }
 
-    .game-item {
-      padding: 0.75rem;
+    .game-image {
+      width: 11rem;
+      height: 11rem;
     }
   }
 {%- endstyle -%}
 
 <section class="supported-games">
-  <h2 class="supported-games-title">Supported <span>Titles</span></h2>
+  <div class="supported-games-container">
+    <h2 class="supported-games-title">{{ section.settings.title | default: 'Supported Titles' }}</h2>
 
-  <div class="games-grid">
-    <div class="game-item">
-      <img
-        src="{{ 'grow.png' | asset_url }}"
-        alt="Grow A Garden"
-        class="game-icon"
-        width="80"
-        height="80"
-        loading="lazy"
-      >
-      <p class="game-name">Grow A Garden</p>
-    </div>
+    <div class="games-grid">
+      <!-- Grow A Garden -->
+      <div class="game-card">
+        <div class="game-content">
+          <img
+            src="{{ 'grow.png' | asset_url }}"
+            alt="Grow A Garden"
+            class="game-image"
+            width="160"
+            height="160"
+            loading="lazy"
+          >
+          <h3 class="game-title">Grow A Garden</h3>
+        </div>
+        <div class="game-overlay">
+          <div class="overlay-content">
+            <h3 class="overlay-title">Coming Soon</h3>
+            <p class="overlay-subtitle">Stay tuned for updates!</p>
+          </div>
+        </div>
+      </div>
 
-    <div class="game-item">
-      <img
-        src="{{ 'slam.png' | asset_url }}"
-        alt="Pet Simulator 99"
-        class="game-icon"
-        width="80"
-        height="80"
-        loading="lazy"
-      >
-      <p class="game-name">Pet Simulator 99</p>
-    </div>
+      <!-- Pet Simulator 99 -->
+      <div class="game-card">
+        <div class="game-content">
+          <img
+            src="https://ext.same-assets.com/85213452/990301288.jpeg"
+            alt="Pet Simulator 99"
+            class="game-image"
+            width="160"
+            height="160"
+            loading="lazy"
+          >
+          <h3 class="game-title">Pet Simulator 99</h3>
+        </div>
+        <div class="game-overlay">
+          <div class="overlay-content">
+            <h3 class="overlay-title">Coming Soon</h3>
+            <p class="overlay-subtitle">Stay tuned for updates!</p>
+          </div>
+        </div>
+      </div>
 
-    <div class="game-item">
-      <img
-        src="{{ 'fortnite.png' | asset_url }}"
-        alt="Fortnite"
-        class="game-icon"
-        width="80"
-        height="80"
-        loading="lazy"
-      >
-      <p class="game-name">Fortnite</p>
+      <!-- Fortnite -->
+      <div class="game-card">
+        <div class="game-content">
+          <img
+            src="{{ 'fortnite.png' | asset_url }}"
+            alt="Fortnite"
+            class="game-image"
+            width="160"
+            height="160"
+            loading="lazy"
+          >
+          <h3 class="game-title">Fortnite</h3>
+        </div>
+        <div class="game-overlay">
+          <div class="overlay-content">
+            <h3 class="overlay-title">Coming Soon</h3>
+            <p class="overlay-subtitle">Stay tuned for updates!</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
