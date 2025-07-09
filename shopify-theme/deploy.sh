@@ -1,8 +1,28 @@
 #!/bin/bash
 
 # BloxMania Shopify Theme Deployment Script
+# Supports both manual deployment and Shopify CLI integration
 
 echo "🚀 Starting BloxMania theme deployment..."
+
+# Check for command line arguments
+DEPLOY_METHOD="manual"
+if [ "$1" = "--cli" ] || [ "$1" = "-c" ]; then
+    DEPLOY_METHOD="cli"
+elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+    echo "Usage: $0 [OPTION]"
+    echo ""
+    echo "Options:"
+    echo "  --cli, -c     Use Shopify CLI for deployment"
+    echo "  --manual, -m  Use manual ZIP package (default)"
+    echo "  --help, -h    Show this help message"
+    echo ""
+    echo "Examples:"
+    echo "  $0              # Create ZIP package for manual upload"
+    echo "  $0 --cli        # Deploy using Shopify CLI"
+    echo "  $0 -c           # Deploy using Shopify CLI (short form)"
+    exit 0
+fi
 
 # Set variables
 THEME_NAME="bloxmania-theme"
@@ -108,6 +128,63 @@ if [ -f "${ZIP_NAME}" ]; then
 else
     print_error "Failed to create theme package"
     exit 1
+fi
+
+# Shopify CLI Deployment
+if [ "$DEPLOY_METHOD" = "cli" ]; then
+    echo ""
+    print_status "🔄 Switching to Shopify CLI deployment..."
+    
+    # Check if Shopify CLI is installed
+    if ! command -v shopify &> /dev/null; then
+        print_error "Shopify CLI is not installed. Please install it first:"
+        echo "npm install -g @shopify/cli @shopify/theme"
+        echo ""
+        echo "Or visit: https://shopify.dev/docs/themes/tools/cli/installation"
+        exit 1
+    fi
+    
+    # Check if user is authenticated
+    if ! shopify auth list &> /dev/null; then
+        print_warning "You need to authenticate with Shopify first:"
+        echo "shopify auth login"
+        exit 1
+    fi
+    
+    # Check if store is selected
+    if ! shopify store list &> /dev/null; then
+        print_warning "You need to select a store first:"
+        echo "shopify store select"
+        exit 1
+    fi
+    
+    print_status "Running theme check..."
+    if shopify theme check; then
+        print_success "Theme check passed!"
+    else
+        print_warning "Theme check found issues. Consider fixing them before deployment."
+        read -p "Continue with deployment anyway? (y/N): " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            print_status "Deployment cancelled."
+            exit 0
+        fi
+    fi
+    
+    print_status "Deploying theme using Shopify CLI..."
+    if shopify theme push; then
+        print_success "🎉 Theme deployed successfully using Shopify CLI!"
+        echo ""
+        echo "Your theme is now live on your development store."
+        echo "To make it the live theme:"
+        echo "shopify theme push --live"
+        echo ""
+        echo "To check theme status:"
+        echo "shopify theme list"
+    else
+        print_error "Failed to deploy theme using Shopify CLI"
+        exit 1
+    fi
 fi
 
 echo ""

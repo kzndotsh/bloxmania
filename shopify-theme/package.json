@@ -1,0 +1,65 @@
+{
+  "name": "bloxmania-shopify-theme",
+  "version": "1.0.0",
+  "description": "BloxMania - Digital Goods Marketplace Shopify Theme",
+  "main": "index.js",
+  "scripts": {
+    "dev": "shopify theme dev",
+    "build": "shopify theme build",
+    "deploy": "shopify theme deploy",
+    "push": "shopify theme push",
+    "pull": "shopify theme pull",
+    "check": "shopify theme check",
+    "check:fix": "shopify theme check --auto-correct",
+    "package": "./deploy.sh",
+    "init": "shopify theme init",
+    "serve": "shopify theme serve",
+    "watch": "shopify theme dev --watch",
+    "test": "shopify theme check --output=json > theme-check-report.json",
+    "lint": "shopify theme check --include-categories Liquid,Performance,Accessibility",
+    "optimize": "shopify theme dev --compress --optimize-images --minify",
+    "clean": "rm -rf node_modules package-lock.json",
+    "setup": "npm install && shopify theme init"
+  },
+  "keywords": [
+    "shopify",
+    "theme",
+    "ecommerce",
+    "gaming",
+    "digital-goods",
+    "roblox",
+    "fortnite"
+  ],
+  "author": "BloxMania Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/bloxmania-shopify-theme.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/bloxmania-shopify-theme/issues"
+  },
+  "homepage": "https://github.com/your-username/bloxmania-shopify-theme#readme",
+  "devDependencies": {
+    "@shopify/cli": "^3.0.0",
+    "@shopify/theme": "^3.0.0",
+    "@shopify/theme-check": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "shopify": {
+    "theme": {
+      "name": "BloxMania Theme",
+      "version": "1.0.0",
+      "description": "Digital goods marketplace theme for gaming items"
+    }
+  },
+  "config": {
+    "shopify": {
+      "store": "your-store.myshopify.com",
+      "theme_id": "auto"
+    }
+  }
+}

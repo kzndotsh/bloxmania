@@ -30,20 +30,55 @@ A modern, responsive Shopify theme designed for digital goods marketplaces, spec
 - **Minified Assets**: Compressed CSS and JS files
 - **CDN Ready**: Compatible with Shopify's CDN
 
+## Documentation
+
+### 📚 Complete Documentation
+- **[Development Guide](DEVELOPMENT_GUIDE.md)** - Complete development workflow and commands
+- **[Technical Documentation](TECHNICAL_DOCUMENTATION.md)** - Architecture, how it works, and customization
+- **[Shopify CLI Setup](SHOPIFY_CLI_SETUP.md)** - Detailed CLI setup and configuration
+- **[Conversion Summary](CONVERSION_SUMMARY.md)** - Overview of the Next.js to Shopify conversion
+
+### 🚀 Quick Commands
+```bash
+# Development
+npm run dev          # Start development server
+npm run watch        # Watch for changes
+npm run check        # Run theme validation
+
+# Deployment
+npm run push         # Push to development store
+npm run deploy       # Deploy to production
+npm run package      # Create ZIP package
+
+# Quality Assurance
+npm run check:fix    # Auto-fix issues
+npm run lint         # Run linting
+npm run test         # Generate reports
+```
+
 ## Installation
 
-### Method 1: Shopify Theme Store
+### Method 1: Shopify CLI (Recommended)
+```bash
+# Install dependencies
+npm install
+
+# Setup Shopify CLI
+npm run setup
+
+# Start development server
+npm run dev
+
+# Deploy to development store
+npm run push
+```
+
+### Method 2: Manual Upload
 1. Go to your Shopify admin panel
 2. Navigate to Online Store > Themes
 3. Click "Add theme" > "Upload theme"
 4. Upload the theme ZIP file
 5. Click "Publish" to activate the theme
-
-### Method 2: Manual Upload
-1. Download the theme files
-2. Zip the `shopify-theme` folder
-3. Upload to your Shopify store
-4. Customize settings in the theme editor
 
 ### Method 3: Development Setup
 1. Install Shopify CLI: `npm install -g @shopify/cli`
