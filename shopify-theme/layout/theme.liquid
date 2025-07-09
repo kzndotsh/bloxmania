@@ -186,10 +186,10 @@
   {{ 'base.css' | asset_url | stylesheet_tag }}
 
   {%- unless settings.type_body_font.system? -%}
-    <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
+    {{ settings.type_body_font | font_url | preload_tag: as: 'font', type: 'font/woff2' }}
   {%- endunless -%}
   {%- unless settings.type_heading_font.system? -%}
-    <link rel="preload" as="font" href="{{ settings.type_heading_font | font_url }}" type="font/woff2" crossorigin>
+    {{ settings.type_heading_font | font_url | preload_tag: as: 'font', type: 'font/woff2' }}
   {%- endunless -%}
 
   {%- if settings.predictive_search_enabled -%}
@@ -209,7 +209,7 @@
   </a>
 
   {%- if settings.cart_type == "notification" -%}
-    {%- render 'cart-notification', color_scheme: settings.color_schemes_background_1, desktop_menu_type: section.settings.menu_type_desktop -%}
+    {%- render 'cart-notification' -%}
   {%- endif -%}
 
   {% sections 'header-group' %}

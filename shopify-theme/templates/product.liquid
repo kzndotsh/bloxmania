@@ -280,12 +280,14 @@
     <div class="product-gallery">
       <div class="product-image">
         {% if product.featured_image != blank %}
-          <img 
-            src="{{ product.featured_image | image_url: width: 600 }}" 
-            alt="{{ product.title }}"
-            id="main-product-image"
-            loading="lazy"
-          >
+                      <img
+              src="{{ product.featured_image | image_url: width: 600 }}"
+              alt="{{ product.title }}"
+              id="main-product-image"
+              width="600"
+              height="600"
+              loading="lazy"
+            >
         {% else %}
           <div style="height: 400px; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
             No Image Available
@@ -297,7 +299,7 @@
         <div class="product-thumbnails">
           {% for image in product.images %}
             <div class="product-thumbnail {% if forloop.first %}active{% endif %}" data-image="{{ image | image_url: width: 600 }}">
-              <img src="{{ image | image_url: width: 80 }}" alt="{{ product.title }}">
+              <img src="{{ image | image_url: width: 80 }}" alt="{{ product.title }}" width="80" height="80">
             </div>
           {% endfor %}
         </div>

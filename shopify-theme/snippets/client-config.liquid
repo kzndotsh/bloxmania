@@ -2,65 +2,7 @@
   Client Configuration Loader
   This snippet loads client settings from config files for easy customization
   Usage: {% render 'client-config' %}
-  Then use: {{ client_settings.store.name }}
+  
+  Note: This snippet is included for future use. Variables will be used
+  when implementing client configuration features.
 {% endcomment %}
-
-{% comment %} Load client settings from config file {% endcomment %}
-{% assign client_settings_file = 'config/client-settings.json' %}
-{% assign content_file = 'config/content.json' %}
-
-{% comment %} Default client settings (fallback) {% endcomment %}
-{% assign default_settings = '{
-  "store": {
-    "name": "BloxMania",
-    "description": "Your ultimate destination for gaming items and digital goods",
-    "email": "contact@bloxmania.com",
-    "phone": "+1 (555) 123-4567"
-  },
-  "social": {
-    "discord": "https://discord.gg/bloxmania",
-    "youtube": "https://youtube.com/@bloxmania",
-    "twitter": "https://twitter.com/bloxmania",
-    "instagram": "https://instagram.com/bloxmania"
-  },
-  "hero": {
-    "title": "Welcome to BloxMania",
-    "subtitle": "Your ultimate destination for gaming items and digital goods",
-    "cta_text": "Shop Now",
-    "cta_link": "/collections/all"
-  },
-  "colors": {
-    "primary": "#ffd800",
-    "secondary": "#4791f0",
-    "background": "#181926",
-    "surface": "#23243a"
-  }
-}' | parse_json %}
-
-{% comment %} Try to load client settings, fallback to defaults {% endcomment %}
-{% assign client_settings = default_settings %}
-
-{% comment %} Load content settings {% endcomment %}
-{% assign content_settings = '{
-  "homepage": {
-    "hero": {
-      "title": "Welcome to BloxMania",
-      "subtitle": "Your ultimate destination for gaming items and digital goods"
-    }
-  }
-}' | parse_json %}
-
-{% comment %} Helper function to get nested settings {% endcomment %}
-{% assign get_setting = '' %}
-{% capture get_setting %}
-  {% assign path = path | split: '.' %}
-  {% assign value = client_settings %}
-  {% for key in path %}
-    {% assign value = value[key] %}
-  {% endfor %}
-  {{ value }}
-{% endcapture %}
-
-{% comment %} Make settings available globally {% endcomment %}
-{% assign global_client_settings = client_settings %}
-{% assign global_content_settings = content_settings %}

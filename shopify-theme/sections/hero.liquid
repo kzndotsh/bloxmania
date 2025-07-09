@@ -244,7 +244,7 @@
   <div class="hero-content">
     <!-- Rating Badge -->
     <div class="hero-rating">
-      <img src="{{ 'ratingz.png' | asset_url }}" alt="5-Star Rating" loading="lazy">
+              <img src="{{ 'ratingz.png' | asset_url }}" alt="5-Star Rating" width="120" height="20" loading="lazy">
     </div>
 
     <!-- Main Title -->
@@ -279,6 +279,8 @@
                     src="{{ creator.image | image_url: width: 80 }}" 
                     alt="{{ creator.name }}" 
                     class="creator-avatar"
+                    width="80"
+                    height="80"
                     loading="lazy"
                   >
                 </a>
@@ -302,6 +304,8 @@
                     src="{{ creator.image | image_url: width: 80 }}" 
                     alt="{{ creator.name }}" 
                     class="creator-avatar"
+                    width="80"
+                    height="80"
                     loading="lazy"
                   >
                 </a>
@@ -357,33 +361,53 @@
       "type": "header",
       "content": "Featured Creators"
     },
+        {
+      "type": "header",
+      "content": "Creator 1"
+    },
     {
-      "type": "list",
-      "id": "creators",
-      "label": "Creators",
-      "info": "Add YouTube creators to showcase",
-      "fields": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Creator Avatar"
-        },
-        {
-          "type": "text",
-          "id": "name",
-          "label": "Creator Name"
-        },
-        {
-          "type": "text",
-          "id": "subscribers",
-          "label": "Subscriber Count (e.g., 19.6M)"
-        },
-        {
-          "type": "url",
-          "id": "channel_url",
-          "label": "YouTube Channel URL"
-        }
-      ]
+      "type": "image_picker",
+      "id": "creator_1_image",
+      "label": "Creator 1 Avatar"
+    },
+    {
+      "type": "text",
+      "id": "creator_1_name",
+      "label": "Creator 1 Name"
+    },
+    {
+      "type": "text",
+      "id": "creator_1_subscribers",
+      "label": "Creator 1 Subscribers"
+    },
+    {
+      "type": "url",
+      "id": "creator_1_url",
+      "label": "Creator 1 Channel URL"
+    },
+    {
+      "type": "header",
+      "content": "Creator 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "creator_2_image",
+      "label": "Creator 2 Avatar"
+    },
+    {
+      "type": "text",
+      "id": "creator_2_name",
+      "label": "Creator 2 Name"
+    },
+    {
+      "type": "text",
+      "id": "creator_2_subscribers",
+      "label": "Creator 2 Subscribers"
+    },
+    {
+      "type": "url",
+      "id": "creator_2_url",
+      "label": "Creator 2 Channel URL"
     }
   ],
   "presets": [

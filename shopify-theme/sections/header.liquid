@@ -156,7 +156,7 @@
     <div class="logo-container">
       {% if section.settings.logo != blank %}
         <a href="{{ routes.root_url }}">
-          <img src="{{ section.settings.logo | image_url: width: 200 }}" alt="{{ shop.name }}" class="logo">
+          <img src="{{ section.settings.logo | image_url: width: 200 }}" alt="{{ shop.name }}" class="logo" width="200" height="60">
         </a>
       {% else %}
         <a href="{{ routes.root_url }}" class="logo-text">
@@ -235,7 +235,7 @@
   <div class="mobile-menu" id="mobile-menu">
     <div class="mobile-menu-header">
       {% if section.settings.logo != blank %}
-        <img src="{{ section.settings.logo | image_url: width: 150 }}" alt="{{ shop.name }}" class="logo">
+        <img src="{{ section.settings.logo | image_url: width: 150 }}" alt="{{ shop.name }}" class="logo" width="150" height="45">
       {% else %}
         <h2>{{ shop.name }}</h2>
       {% endif %}
