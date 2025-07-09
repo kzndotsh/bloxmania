@@ -1,1 +1,0 @@
-export { CompletionsProvider } from './CompletionsProvider';
