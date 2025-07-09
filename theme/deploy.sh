@@ -60,6 +60,19 @@ if [ ! -f "config/settings_schema.json" ]; then
     exit 1
 fi
 
+# Clean up previous ZIP files
+print_status "Cleaning up previous ZIP files..."
+OLD_ZIPS=$(find . -maxdepth 1 -name "${THEME_NAME}-v${VERSION}-*.zip" -type f)
+if [ ! -z "$OLD_ZIPS" ]; then
+    echo "$OLD_ZIPS" | while read -r zip_file; do
+        print_status "Removing old ZIP: $(basename "$zip_file")"
+        rm "$zip_file"
+    done
+    print_success "Previous ZIP files cleaned up"
+else
+    print_status "No previous ZIP files found"
+fi
+
 print_status "Creating theme package..."
 
 # Create temporary directory for packaging
@@ -70,6 +83,11 @@ THEME_DIR="${TEMP_DIR}/${THEME_NAME}"
 print_status "Copying theme files..."
 mkdir -p "${THEME_DIR}"
 cp -r assets config layout sections snippets templates "${THEME_DIR}/" 2>/dev/null || true
+
+# Copy locales if it exists
+if [ -d "locales" ]; then
+    cp -r locales "${THEME_DIR}/"
+fi
 
 # Copy README if it exists
 if [ -f "README.md" ]; then
