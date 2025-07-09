@@ -174,6 +174,8 @@
       font-family: var(--font-body-family);
       font-style: var(--font-body-style);
       font-weight: var(--font-body-weight);
+      background: rgb(var(--color-base-background-1));
+      color: rgb(var(--color-base-text));
     }
 
     @media screen and (min-width: 750px) {
@@ -212,13 +214,13 @@
     {%- render 'cart-notification' -%}
   {%- endif -%}
 
-  {% sections 'header-group' %}
+  {% section 'header' %}
 
   <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
     {{ content_for_layout }}
   </main>
 
-  {% sections 'footer-group' %}
+  {% section 'footer' %}
 
   <ul hidden>
     <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>

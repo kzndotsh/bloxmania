@@ -25,27 +25,7 @@
           "title": "Instantly Buy Your Favorite Items - Fast, Safe, and Easy!",
           "subtitle": "BloxMania is the fastest, cheapest, and safest shop for digital goods, with instant delivery. Our automated system ensures you receive your items securely and swiftly!",
           "cta_text": "SHOP NOW",
-          "cta_link": "/collections/all",
-          "creators": [
-            {
-              "image": "",
-              "name": "Ali-A",
-              "subscribers": "19.6M",
-              "channel_url": "https://www.youtube.com/@AliA"
-            },
-            {
-              "image": "",
-              "name": "DanTDM",
-              "subscribers": "29M",
-              "channel_url": "https://www.youtube.com/@DanTDM"
-            },
-            {
-              "image": "",
-              "name": "Flamingo",
-              "subscribers": "13M",
-              "channel_url": "https://www.youtube.com/@Flamingo"
-            }
-          ]
+          "cta_link": "/collections/all"
         }
       },
       "featured_products": {
