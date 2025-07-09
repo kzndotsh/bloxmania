@@ -36,21 +36,22 @@
 
   .hero-content {
     text-align: center;
-    max-width: 800px;
+    max-width: 80rem;
     padding: 2rem;
     position: relative;
     z-index: 2;
   }
 
   .hero-rating {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
 
   .hero-rating img {
-    height: 60px;
+    height: 3rem;
     transition: all 0.3s ease;
     transform: scale(1.1);
     filter: drop-shadow(0 0 10px rgba(255, 216, 0, 0.5));
+    cursor: pointer;
   }
 
   .hero-rating img:hover {
@@ -61,12 +62,17 @@
     font-size: clamp(3rem, 8vw, 5rem);
     font-weight: 900;
     margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, #ffd800, #ff6b6b);
+    line-height: 1.1;
+    color: #ffffff;
+  }
+
+  .hero-title-gradient {
+    background: linear-gradient(135deg, #a855f7, #ec4899, #ef4444);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    background-size: 200% 200%;
     animation: gradient-shift 3s ease-in-out infinite;
-    line-height: 1.1;
   }
 
   @keyframes gradient-shift {
@@ -76,9 +82,9 @@
 
   .hero-subtitle {
     font-size: 1.25rem;
-    color: #9ca3af;
+    color: #d1d5db;
     margin-bottom: 2rem;
-    max-width: 600px;
+    max-width: 37.5rem;
     margin-left: auto;
     margin-right: auto;
     line-height: 1.6;
@@ -149,7 +155,9 @@
     position: relative;
     overflow: hidden;
     margin: 0 auto;
-    max-width: 1000px;
+    max-width: 62.5rem;
+    mask: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    -webkit-mask: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
   }
 
   .creators-scroll {
@@ -166,12 +174,12 @@
   .creator-item {
     flex-shrink: 0;
     text-align: center;
-    min-width: 120px;
+    min-width: 7.5rem;
   }
 
   .creator-avatar {
-    width: 80px;
-    height: 80px;
+    width: 5rem;
+    height: 5rem;
     border-radius: 50%;
     margin: 0 auto 0.5rem;
     transition: all 0.3s ease;
@@ -200,8 +208,8 @@
   }
 
   .youtube-icon {
-    width: 12px;
-    height: 12px;
+    width: 0.75rem;
+    height: 0.75rem;
     fill: currentColor;
   }
 
@@ -217,7 +225,7 @@
     }
 
     .hero-rating img {
-      height: 40px;
+      height: 2.5rem;
     }
 
     .creators-reel {
@@ -225,12 +233,12 @@
     }
 
     .creator-item {
-      min-width: 100px;
+      min-width: 6.25rem;
     }
 
     .creator-avatar {
-      width: 60px;
-      height: 60px;
+      width: 3.75rem;
+      height: 3.75rem;
     }
   }
 
@@ -249,14 +257,17 @@
 
     <!-- Main Title -->
     <h1 class="hero-title">
-      {{ section.settings.title | default: 'Instantly Buy Your Favorite Items - Fast, Safe, and Easy!' }}
+      {{ section.settings.title_part1 | default: 'Instantly Buy Your Favorite Items - Fast,' }}
+      <span class="hero-title-gradient">
+        {{ section.settings.title_part2 | default: 'Safe, and Easy!' }}
+      </span>
     </h1>
 
     <!-- Subtitle -->
     <p class="hero-subtitle">
       {{
         section.settings.subtitle
-        | default: 'BloxMania is the fastest, cheapest, and safest shop for digital goods, with instant delivery. Our automated system ensures you receive your items securely and swiftly!'
+        | default: 'BloxMania is the fastest, cheapest, and safest shop for digital goods, with instant delivery. Our <strong>automated system</strong> ensures you receive your items securely and swiftly!'
       }}
     </p>
 
@@ -272,166 +283,56 @@
       <div class="creators-reel">
         <div class="creators-scroll">
           <!-- First set of creators -->
-          <div class="creator-item">
-            <a href="https://www.youtube.com/@AliA" target="_blank" rel="noopener">
-              <img
-                src="{{ 'Ali-A.png' | asset_url }}"
-                alt="Ali-A"
-                class="creator-avatar"
-                width="80"
-                height="80"
-                loading="lazy"
-              >
-            </a>
-            <p class="creator-name">Ali-A</p>
-            <div class="creator-stats">
-              <svg class="youtube-icon" viewBox="0 0 24 24">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg>
-              <span>19.6M</span>
-            </div>
-          </div>
+          {% assign creators = 'Ali-A,19.6M,https://www.youtube.com/@AliA|CaseOh,8M,https://www.youtube.com/@caseoh_|DanTDM,29M,https://www.youtube.com/@DanTDM|Flamingo,13M,https://www.youtube.com/@Flamingo|KreekCraft,12M,https://www.youtube.com/@KreekCraft|LanasLife,7.5M,https://www.youtube.com/@Lanaslifeee|SypherPK,10.6M,https://www.youtube.com/@SypherPK|TypicalGamer,15M,https://www.youtube.com/@TypicalGamer'
+            | split: '|'
+          %}
 
-          <div class="creator-item">
-            <a href="https://www.youtube.com/@DanTDM" target="_blank" rel="noopener">
-              <img
-                src="{{ 'DanTDM.png' | asset_url }}"
-                alt="DanTDM"
-                class="creator-avatar"
-                width="80"
-                height="80"
-                loading="lazy"
-              >
-            </a>
-            <p class="creator-name">DanTDM</p>
-            <div class="creator-stats">
-              <svg class="youtube-icon" viewBox="0 0 24 24">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg>
-              <span>29M</span>
+          {% for creator in creators %}
+            {% assign creator_data = creator | split: ',' %}
+            <div class="creator-item">
+              <a href="{{ creator_data[2] }}" target="_blank" rel="noopener">
+                <img
+                  src="{{ creator_data[0] | append: '.png' | asset_url }}"
+                  alt="{{ creator_data[0] }}"
+                  class="creator-avatar"
+                  width="80"
+                  height="80"
+                  loading="lazy"
+                >
+              </a>
+              <p class="creator-name">{{ creator_data[0] }}</p>
+              <div class="creator-stats">
+                <svg class="youtube-icon" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                <span>{{ creator_data[1] }}</span>
+              </div>
             </div>
-          </div>
-
-          <div class="creator-item">
-            <a href="https://www.youtube.com/@Flamingo" target="_blank" rel="noopener">
-              <img
-                src="{{ 'Flamingo.png' | asset_url }}"
-                alt="Flamingo"
-                class="creator-avatar"
-                width="80"
-                height="80"
-                loading="lazy"
-              >
-            </a>
-            <p class="creator-name">Flamingo</p>
-            <div class="creator-stats">
-              <svg class="youtube-icon" viewBox="0 0 24 24">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg>
-              <span>13M</span>
-            </div>
-          </div>
-
-          <div class="creator-item">
-            <a href="https://www.youtube.com/@KreekCraft" target="_blank" rel="noopener">
-              <img
-                src="{{ 'KreekCraft.png' | asset_url }}"
-                alt="KreekCraft"
-                class="creator-avatar"
-                width="80"
-                height="80"
-                loading="lazy"
-              >
-            </a>
-            <p class="creator-name">KreekCraft</p>
-            <div class="creator-stats">
-              <svg class="youtube-icon" viewBox="0 0 24 24">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg>
-              <span>8.2M</span>
-            </div>
-          </div>
+          {% endfor %}
 
           <!-- Duplicate set for seamless loop -->
-          <div class="creator-item">
-            <a href="https://www.youtube.com/@AliA" target="_blank" rel="noopener">
-              <img
-                src="{{ 'Ali-A.png' | asset_url }}"
-                alt="Ali-A"
-                class="creator-avatar"
-                width="80"
-                height="80"
-                loading="lazy"
-              >
-            </a>
-            <p class="creator-name">Ali-A</p>
-            <div class="creator-stats">
-              <svg class="youtube-icon" viewBox="0 0 24 24">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg>
-              <span>19.6M</span>
+          {% for creator in creators %}
+            {% assign creator_data = creator | split: ',' %}
+            <div class="creator-item">
+              <a href="{{ creator_data[2] }}" target="_blank" rel="noopener">
+                <img
+                  src="{{ creator_data[0] | append: '.png' | asset_url }}"
+                  alt="{{ creator_data[0] }}"
+                  class="creator-avatar"
+                  width="80"
+                  height="80"
+                  loading="lazy"
+                >
+              </a>
+              <p class="creator-name">{{ creator_data[0] }}</p>
+              <div class="creator-stats">
+                <svg class="youtube-icon" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                <span>{{ creator_data[1] }}</span>
+              </div>
             </div>
-          </div>
-
-          <div class="creator-item">
-            <a href="https://www.youtube.com/@DanTDM" target="_blank" rel="noopener">
-              <img
-                src="{{ 'DanTDM.png' | asset_url }}"
-                alt="DanTDM"
-                class="creator-avatar"
-                width="80"
-                height="80"
-                loading="lazy"
-              >
-            </a>
-            <p class="creator-name">DanTDM</p>
-            <div class="creator-stats">
-              <svg class="youtube-icon" viewBox="0 0 24 24">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg>
-              <span>29M</span>
-            </div>
-          </div>
-
-          <div class="creator-item">
-            <a href="https://www.youtube.com/@Flamingo" target="_blank" rel="noopener">
-              <img
-                src="{{ 'Flamingo.png' | asset_url }}"
-                alt="Flamingo"
-                class="creator-avatar"
-                width="80"
-                height="80"
-                loading="lazy"
-              >
-            </a>
-            <p class="creator-name">Flamingo</p>
-            <div class="creator-stats">
-              <svg class="youtube-icon" viewBox="0 0 24 24">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg>
-              <span>13M</span>
-            </div>
-          </div>
-
-          <div class="creator-item">
-            <a href="https://www.youtube.com/@KreekCraft" target="_blank" rel="noopener">
-              <img
-                src="{{ 'KreekCraft.png' | asset_url }}"
-                alt="KreekCraft"
-                class="creator-avatar"
-                width="80"
-                height="80"
-                loading="lazy"
-              >
-            </a>
-            <p class="creator-name">KreekCraft</p>
-            <div class="creator-stats">
-              <svg class="youtube-icon" viewBox="0 0 24 24">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg>
-              <span>8.2M</span>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </div>
     </div>
@@ -449,15 +350,21 @@
     },
     {
       "type": "text",
-      "id": "title",
-      "label": "Hero Title",
-      "default": "Instantly Buy Your Favorite Items - Fast, Safe, and Easy!"
+      "id": "title_part1",
+      "label": "Hero Title Part 1",
+      "default": "Instantly Buy Your Favorite Items - Fast,"
     },
     {
-      "type": "textarea",
+      "type": "text",
+      "id": "title_part2",
+      "label": "Hero Title Part 2 (Gradient)",
+      "default": "Safe, and Easy!"
+    },
+    {
+      "type": "richtext",
       "id": "subtitle",
       "label": "Hero Subtitle",
-      "default": "BloxMania is the fastest, cheapest, and safest shop for digital goods, with instant delivery. Our automated system ensures you receive your items securely and swiftly!"
+      "default": "<p>BloxMania is the fastest, cheapest, and safest shop for digital goods, with instant delivery. Our <strong>automated system</strong> ensures you receive your items securely and swiftly!</p>"
     },
     {
       "type": "text",

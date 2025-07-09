@@ -6,6 +6,7 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
   }
 
   .featured-products-header {
@@ -35,7 +36,7 @@
     text-decoration: none;
     font-weight: 600;
     border-radius: 50px;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
   }
@@ -64,26 +65,33 @@
 
   .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
     max-width: 1200px;
     margin: 0 auto;
   }
 
   .product-card {
-    background: rgba(35, 36, 58, 0.8);
+    background: linear-gradient(135deg, rgba(35, 36, 58, 0.9), rgba(24, 25, 38, 0.9)),
+                url('{{ 'widget-backing.png' | asset_url }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     border-radius: 16px;
     overflow: hidden;
-    transition: all 0.3s ease;
-    border: 1px solid #333441;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
     position: relative;
     backdrop-filter: blur(10px);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   .product-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.02);
     border-color: #ffd800;
-    box-shadow: 0 0 30px rgba(255, 216, 0, 0.3);
+    box-shadow: 0 0 30px rgba(255, 216, 0, 0.3), 0 20px 40px rgba(0, 0, 0, 0.3);
   }
 
   .product-card::before {
@@ -106,17 +114,23 @@
     position: relative;
     overflow: hidden;
     height: 200px;
+    flex-shrink: 0;
   }
 
   .product-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 12px;
+    margin: 1rem;
+    width: calc(100% - 2rem);
+    height: calc(100% - 2rem);
   }
 
   .product-card:hover .product-image {
     transform: scale(1.05);
+    filter: brightness(1.1);
   }
 
   .product-overlay {
@@ -126,11 +140,12 @@
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 2;
   }
 
@@ -146,22 +161,29 @@
     border-radius: 50px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 12px rgba(255, 216, 0, 0.3);
   }
 
   .add-to-cart-btn:hover {
     background: #e6c200;
-    transform: scale(1.05);
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 216, 0, 0.5);
   }
 
   .product-info {
     padding: 1.5rem;
     position: relative;
     z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .product-title {
@@ -170,6 +192,17 @@
     margin-bottom: 0.5rem;
     color: #ffffff;
     line-height: 1.4;
+    transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .product-title a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .product-title a:hover {
+    color: #ffd800;
   }
 
   .product-price {
@@ -177,6 +210,15 @@
     font-weight: 700;
     color: #ffd800;
     margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .product-price .compare-price {
+    text-decoration: line-through;
+    color: #9ca3af;
+    margin-right: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
   }
 
   .product-variants {
@@ -187,12 +229,19 @@
   }
 
   .variant-tag {
-    background: rgba(255, 216, 0, 0.1);
+    background: rgba(255, 216, 0, 0.15);
     color: #ffd800;
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
     font-size: 0.875rem;
     border: 1px solid rgba(255, 216, 0, 0.3);
+    backdrop-filter: blur(4px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .variant-tag:hover {
+    background: rgba(255, 216, 0, 0.25);
+    border-color: rgba(255, 216, 0, 0.5);
   }
 
   .product-meta {
@@ -200,7 +249,8 @@
     justify-content: space-between;
     align-items: center;
     font-size: 0.875rem;
-    color: #9ca3af;
+    color: #d1d5db;
+    margin-top: auto;
   }
 
   .product-rating {
@@ -211,11 +261,13 @@
 
   .star {
     color: #ffd800;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 
   .product-stock {
     color: #10b981;
+    font-weight: 500;
   }
 
   .product-stock.low {
@@ -232,6 +284,7 @@
     border-radius: 16px;
     overflow: hidden;
     border: 1px solid #333441;
+    height: 400px;
   }
 
   .skeleton-image {
@@ -261,6 +314,20 @@
     width: 60%;
   }
 
+  .skeleton-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+
+  .skeleton-rating,
+  .skeleton-stock {
+    height: 1rem;
+    background: #333441;
+    border-radius: 4px;
+    width: 30%;
+  }
+
   @keyframes loading {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
@@ -270,6 +337,7 @@
   @media (max-width: 768px) {
     .featured-products {
       padding: 3rem 1rem;
+      background-attachment: scroll;
     }
 
     .featured-products-header {
@@ -279,18 +347,28 @@
     }
 
     .products-grid {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 1rem;
     }
 
     .product-image-container {
-      height: 150px;
+      height: 180px;
     }
   }
 
   @media (max-width: 480px) {
     .products-grid {
       grid-template-columns: 1fr;
+    }
+
+    .product-image-container {
+      height: 200px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .products-grid {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
   }
 {%- endstyle -%}
@@ -319,9 +397,9 @@
             {% else %}
               <div
                 class="product-image"
-                style="background: #333441; display: flex; align-items: center; justify-content: center;"
+                style="background: linear-gradient(135deg, #333441, #4a4b5a); display: flex; align-items: center; justify-content: center; color: #9ca3af; font-weight: 500;"
               >
-                <span style="color: #9ca3af;">No Image</span>
+                No Image Available
               </div>
             {% endif %}
 
@@ -330,9 +408,7 @@
                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
                 <button type="submit" class="add-to-cart-btn">
                   <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M9 22a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-                    <path d="M20 22a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                    <path d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 004.25 22.5h15.5a1.875 1.875 0 001.865-2.071l-1.263-12a1.875 1.875 0 00-1.865-1.679H16.5V6a4.5 4.5 0 10-9 0zM12 3a3 3 0 00-3 3v.75h6V6a3 3 0 00-3-3z"/>
                   </svg>
                   Add to Cart
                 </button>
@@ -341,31 +417,29 @@
           </div>
 
           <div class="product-info">
-            <h3 class="product-title">
-              <a href="{{ product.url }}" style="color: inherit; text-decoration: none;">
-                {{ product.title }}
-              </a>
-            </h3>
+            <div>
+              <h3 class="product-title">
+                <a href="{{ product.url }}">{{ product.title }}</a>
+              </h3>
 
-            <div class="product-price">
-              {% if product.compare_at_price > product.price %}
-                <span style="text-decoration: line-through; color: #9ca3af; margin-right: 0.5rem;">
-                  {{ product.compare_at_price | money }}
-                </span>
-              {% endif %}
-              {{ product.price | money }}
-            </div>
-
-            {% if product.variants.size > 1 %}
-              <div class="product-variants">
-                {% for variant in product.variants limit: 3 %}
-                  <span class="variant-tag">{{ variant.title }}</span>
-                {% endfor %}
-                {% if product.variants.size > 3 %}
-                  <span class="variant-tag">+{{ product.variants.size | minus: 3 }} more</span>
+              <div class="product-price">
+                {% if product.compare_at_price > product.price %}
+                  <span class="compare-price">{{ product.compare_at_price | money }}</span>
                 {% endif %}
+                {{ product.price | money }}
               </div>
-            {% endif %}
+
+              {% if product.variants.size > 1 %}
+                <div class="product-variants">
+                  {% for variant in product.variants limit: 3 %}
+                    <span class="variant-tag">{{ variant.title }}</span>
+                  {% endfor %}
+                  {% if product.variants.size > 3 %}
+                    <span class="variant-tag">+{{ product.variants.size | minus: 3 }} more</span>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
 
             <div class="product-meta">
               <div class="product-rating">
@@ -389,17 +463,15 @@
       {% endfor %}
     {% else %}
       <!-- Demo Products when no collection is selected -->
-      {% assign demo_products = '10T.jpg,DISCO-BEE.jpg,DRAGONFLY.jpg,FENNEC.jpg,RACCOON.jpg,grow.png' | split: ',' %}
-      {% assign demo_names = 'Premium Robux Package,Legendary Pet - Disco Bee,Epic Dragonfly Mount,Rare Fennec Car,Mythical Raccoon,Garden Starter Pack'
-        | split: ','
-      %}
-      {% assign demo_prices = '2999,1599,899,2499,3999,599' | split: ',' %}
+      {% assign demo_products = '10T.jpg,DISCO-BEE.jpg,DRAGONFLY.jpg,FENNEC.jpg,RACCOON.jpg' | split: ',' %}
+      {% assign demo_names = '10 Trillion Sheckles,Disco Bee,Dragonfly,Fennec Fox,Raccoon' | split: ',' %}
+      {% assign demo_prices = '$15.99,$17.99,$12.99,$24.99,$12.99' | split: ',' %}
 
-      {% for i in (1..6) %}
+      {% for i in (1..5) %}
         {% assign index = forloop.index0 %}
         {% assign img_asset = demo_products[index] | default: 'no-image.png' %}
         {% assign prod_name = demo_names[index] | default: 'Featured Gaming Item' %}
-        {% assign prod_price = demo_prices[index] | default: '999' %}
+        {% assign prod_price = demo_prices[index] | default: '$9.99' %}
 
         <div class="product-card">
           <div class="product-image-container">
@@ -415,9 +487,7 @@
             <div class="product-overlay">
               <a href="/collections/all" class="add-to-cart-btn">
                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M9 22a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-                  <path d="M20 22a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                  <path d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 004.25 22.5h15.5a1.875 1.875 0 001.865-2.071l-1.263-12a1.875 1.875 0 00-1.865-1.679H16.5V6a4.5 4.5 0 10-9 0zM12 3a3 3 0 00-3 3v.75h6V6a3 3 0 00-3-3z"/>
                 </svg>
                 Shop Now
               </a>
@@ -425,17 +495,17 @@
           </div>
 
           <div class="product-info">
-            <h3 class="product-title">
-              <a href="/collections/all" style="color: inherit; text-decoration: none;">
-                {{ prod_name }}
-              </a>
-            </h3>
+            <div>
+              <h3 class="product-title">
+                <a href="/collections/all">{{ prod_name }}</a>
+              </h3>
 
-            <div class="product-price">${{ prod_price | divided_by: 100.0 | round: 2 }}</div>
+              <div class="product-price">{{ prod_price }}</div>
 
-            <div class="product-variants">
-              <span class="variant-tag">Instant</span>
-              <span class="variant-tag">Digital</span>
+              <div class="product-variants">
+                <span class="variant-tag">Instant</span>
+                <span class="variant-tag">Digital</span>
+              </div>
             </div>
 
             <div class="product-meta">
@@ -468,8 +538,8 @@
       "id": "products_to_show",
       "min": 4,
       "max": 12,
-      "step": 2,
-      "default": 6,
+      "step": 1,
+      "default": 5,
       "label": "Number of products to show"
     },
     {
