@@ -24,7 +24,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.5rem 2rem;
+    padding: 2rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
   }
@@ -39,18 +39,20 @@
   /* Mobile Menu Button */
   .mobile-menu-toggle {
     display: none;
-    background: none;
+    background: rgba(0, 0, 0, 0.3);
     border: none;
-    color: #d1d5db;
+    color: #ffffff;
     cursor: pointer;
-    padding: 0.5rem;
+    padding: 0.75rem;
     border-radius: 0.5rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 
   .mobile-menu-toggle:hover {
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.1);
+    color: #ffd800;
+    background: rgba(0, 0, 0, 0.5);
   }
 
   .mobile-menu-icon {
@@ -64,7 +66,7 @@
   }
 
   .logo {
-    height: 3rem;
+    height: 3.5rem;
     width: auto;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
@@ -85,7 +87,7 @@
   /* Mobile Logo */
   .mobile-logo {
     display: none;
-    height: 3rem;
+    height: 3.5rem;
     width: auto;
     cursor: pointer;
   }
@@ -102,8 +104,8 @@
   .nav-link {
     color: #d1d5db;
     text-decoration: none;
-    font-weight: 500;
-    font-size: 1rem;
+    font-weight: 600;
+    font-size: 1.375rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     display: flex;
@@ -158,18 +160,22 @@
   }
 
   .user-action-btn {
-    color: #d1d5db;
+    color: #ffffff;
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     display: flex;
     align-items: center;
-    padding: 0.25rem;
+    padding: 0.5rem;
     border-radius: 0.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 
   .user-action-btn:hover {
-    color: #ffffff;
+    color: #ffd800;
+    background: rgba(0, 0, 0, 0.5);
   }
 
   .user-action-icon {
@@ -193,79 +199,104 @@
 
   /* Mobile Menu Overlay */
   .mobile-menu {
-    display: none;
+    display: flex;
+    flex-direction: column;
     position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.8);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95) !important;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    z-index: 51;
+    z-index: 9999 !important;
     opacity: 0;
-    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .mobile-menu.active {
-    display: flex;
-    flex-direction: column;
-    opacity: 1;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
   }
 
   .mobile-menu-header {
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: space-between;
-    padding: 1.5rem;
-    border-bottom: 1px solid rgba(209, 213, 219, 0.2);
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 
   .mobile-menu-logo {
-    height: 3rem;
+    height: 3.5rem;
     width: auto;
     cursor: pointer;
+    opacity: 1 !important;
   }
 
   .mobile-menu-close {
-    background: none;
+    background: rgba(255, 255, 255, 0.1) !important;
     border: none;
-    color: #d1d5db;
+    color: #ffffff !important;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    padding: 0.5rem;
+    padding: 0.75rem;
     border-radius: 0.5rem;
+    opacity: 1 !important;
   }
 
   .mobile-menu-close:hover {
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.1);
+    color: #ffd800 !important;
+    background: rgba(255, 255, 255, 0.2) !important;
   }
 
   .mobile-menu-close-icon {
     width: 1.5rem;
     height: 1.5rem;
+    opacity: 1 !important;
   }
 
   /* Mobile Navigation */
   .mobile-nav {
     flex: 1;
-    padding: 1.5rem;
+    padding: 0;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 
   .mobile-nav-link {
-    color: #d1d5db;
+    color: #ffffff !important;
     text-decoration: none;
     font-size: 1.25rem;
     font-weight: 500;
-    padding: 1.5rem 0;
-    border-bottom: 1px solid rgba(209, 213, 219, 0.2);
-    display: flex;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex !important;
     align-items: center;
     gap: 1rem;
-    transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 1 !important;
+    visibility: visible !important;
+    background: transparent;
   }
 
   .mobile-nav-link:hover {
-    color: #ffd800;
+    color: #ffd800 !important;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .mobile-nav-link:active {
+    background: rgba(255, 255, 255, 0.05);
   }
 
   .mobile-nav-link:last-child {
@@ -273,9 +304,11 @@
   }
 
   .mobile-nav-icon {
-    width: 2rem;
-    height: 2rem;
+    width: 1.75rem;
+    height: 1.75rem;
     flex-shrink: 0;
+    opacity: 0.9;
+    color: currentColor;
   }
 
   .mobile-check-icon {
@@ -288,6 +321,16 @@
 
   /* Responsive Design */
   @media (max-width: 768px) {
+    .header-wrapper {
+      background: rgba(0, 0, 0, 0.8) !important;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .header-content {
+      padding: 1.25rem 1rem;
+    }
+
     .nav {
       display: none;
     }
@@ -298,24 +341,91 @@
 
     .mobile-logo {
       display: block;
+      height: 3rem;
     }
 
     .logo-container {
       display: none;
     }
 
+    .user-actions {
+      gap: 0.75rem;
+    }
+
+    .user-action-icon {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+
+    .mobile-menu-toggle {
+      padding: 0.75rem;
+    }
+
+    .mobile-menu-icon {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+  }
+
+  /* Small Mobile Devices */
+  @media (max-width: 480px) {
     .header-content {
-      padding: 1rem;
+      padding: 1rem 0.75rem;
+    }
+
+    .mobile-logo {
+      height: 2.75rem;
+    }
+
+    .user-action-icon {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    .mobile-menu-toggle {
+      padding: 0.5rem;
+    }
+
+    .mobile-menu-icon {
+      width: 1.5rem;
+      height: 1.5rem;
     }
 
     .user-actions {
       gap: 0.5rem;
     }
+
+    .mobile-menu-header {
+      padding: 1rem 1.25rem;
+    }
+
+    .mobile-menu-logo {
+      height: 2.75rem;
+    }
+
+    .mobile-nav-link {
+      font-size: 1.125rem;
+      padding: 1rem 1.25rem;
+    }
+
+    .mobile-nav-icon {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    .mobile-menu-close {
+      padding: 0.5rem;
+    }
+
+    .mobile-menu-close-icon {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
   }
 
   @media (min-width: 769px) and (max-width: 1024px) {
     .logo {
-      height: 3.5rem;
+      height: 4rem;
     }
 
     .nav {
@@ -325,7 +435,7 @@
 
   @media (min-width: 1025px) {
     .logo {
-      height: 4rem;
+      height: 4.5rem;
     }
 
     .nav {
@@ -333,7 +443,8 @@
     }
 
     .nav-link {
-      font-size: 1.125rem;
+      font-size: 1.5rem;
+      font-weight: 700;
     }
 
     .nav-icon {
@@ -355,7 +466,7 @@
       <!-- Mobile Menu Button -->
       <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Open mobile menu">
         <svg class="mobile-menu-icon" fill="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+          <path fill-rule="evenodd" d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z" clip-rule="evenodd"/>
         </svg>
       </button>
 
@@ -364,11 +475,11 @@
         {% if section.settings.logo != blank %}
           <a href="{{ routes.root_url }}">
             <img
-              src="{{ section.settings.logo | image_url: width: 200 }}"
+              src="{{ section.settings.logo | image_url: width: 233 }}"
               alt="{{ shop.name }}"
               class="logo"
-              width="200"
-              height="60"
+              width="233"
+              height="70"
             >
           </a>
         {% else %}
@@ -377,8 +488,8 @@
               src="{{ 'BM.png' | asset_url }}"
               alt="BloxMania"
               class="logo"
-              width="200"
-              height="60"
+              width="233"
+              height="70"
             >
           </a>
         {% endif %}
@@ -395,7 +506,7 @@
             alt="{{ shop.name }}"
             class="mobile-logo"
             width="150"
-            height="45"
+            height="48"
           >
         </a>
       {% else %}
@@ -405,7 +516,7 @@
             alt="BloxMania"
             class="mobile-logo"
             width="150"
-            height="45"
+            height="48"
           >
         </a>
       {% endif %}
@@ -485,7 +596,7 @@
           alt="{{ shop.name }}"
           class="mobile-menu-logo"
           width="150"
-          height="45"
+          height="48"
         >
       {% else %}
         <img
@@ -493,12 +604,12 @@
           alt="BloxMania"
           class="mobile-menu-logo"
           width="150"
-          height="45"
+          height="48"
         >
       {% endif %}
       <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close mobile menu">
         <svg class="mobile-menu-close-icon" fill="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd"/>
         </svg>
       </button>
     </div>
@@ -597,8 +708,15 @@
       document.body.style.overflow = '';
     }
 
-    mobileMenuToggle?.addEventListener('click', openMobileMenu);
-    mobileMenuClose?.addEventListener('click', closeMobileMenu);
+    mobileMenuToggle?.addEventListener('click', function (e) {
+      e.preventDefault();
+      openMobileMenu();
+    });
+
+    mobileMenuClose?.addEventListener('click', function (e) {
+      e.preventDefault();
+      closeMobileMenu();
+    });
 
     // Close mobile menu when clicking outside
     mobileMenu?.addEventListener('click', function (e) {
