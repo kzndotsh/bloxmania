@@ -12,6 +12,9 @@ Tailwind CSS has been successfully configured for your Shopify theme. Here's wha
 4. **`package.json`** - Updated with Tailwind dependencies and build scripts
 5. **`assets/base.css`** - Generated output file (automatically compiled)
 
+### ⚠️ **Important Shopify Limitation:**
+Shopify themes require all assets to be in the flat `/assets/` directory. **Subdirectories are not supported** by Shopify - all CSS, JS, and image files must be directly in `/assets/`.
+
 ### 🎨 Custom Colors Available:
 
 ```css
