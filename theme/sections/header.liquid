@@ -270,7 +270,7 @@
   /* Mobile Navigation */
   .mobile-nav {
     flex: 1;
-    padding: 1rem 0 2rem 0;
+    padding: 0;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -280,82 +280,46 @@
   .mobile-nav-link {
     color: #e2e8f0 !important;
     text-decoration: none;
-    font-size: 1.125rem;
+    font-size: 1.25rem;
     font-weight: 500;
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1.5rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     display: flex !important;
     align-items: center;
-    gap: 0.875rem;
+    gap: 1rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 1 !important;
     visibility: visible !important;
     background: transparent;
     position: relative;
-    margin: 0 0.75rem;
-    border-radius: 0.5rem;
-    border-bottom: none;
-    margin-bottom: 0.25rem;
+    margin: 0;
+    border-radius: 0;
   }
 
   .mobile-nav-link:hover {
     color: #ffd800 !important;
     background: rgba(255, 216, 0, 0.08) !important;
-    transform: translateX(0.25rem);
   }
 
   .mobile-nav-link:active {
     background: rgba(255, 216, 0, 0.12) !important;
-    transform: translateX(0.125rem);
   }
 
   .mobile-nav-link:last-child {
     border-bottom: none;
-    margin-bottom: 0;
   }
 
   .mobile-nav-icon {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1.5rem;
+    height: 1.5rem;
     flex-shrink: 0;
-    opacity: 0.8;
+    opacity: 0.9;
     color: currentColor;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .mobile-nav-link:hover .mobile-nav-icon {
     opacity: 1;
-    transform: scale(1.1);
-  }
-
-  /* Entrance animations for nav items */
-  .mobile-menu:not(.active) .mobile-nav-link {
-    opacity: 0;
-    transform: translateX(-1rem);
-  }
-
-  .mobile-menu.active .mobile-nav-link {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  .mobile-menu.active .mobile-nav-link:nth-child(1) {
-    transition-delay: 0.1s;
-  }
-  .mobile-menu.active .mobile-nav-link:nth-child(2) {
-    transition-delay: 0.15s;
-  }
-  .mobile-menu.active .mobile-nav-link:nth-child(3) {
-    transition-delay: 0.2s;
-  }
-  .mobile-menu.active .mobile-nav-link:nth-child(4) {
-    transition-delay: 0.25s;
-  }
-  .mobile-menu.active .mobile-nav-link:nth-child(5) {
-    transition-delay: 0.3s;
-  }
-  .mobile-menu.active .mobile-nav-link:nth-child(6) {
-    transition-delay: 0.35s;
   }
 
   .mobile-check-icon {
@@ -451,19 +415,18 @@
     }
 
     .mobile-nav {
-      padding: 0.75rem 0;
+      padding: 0;
     }
 
     .mobile-nav-link {
-      font-size: 1rem;
-      padding: 0.875rem 1.25rem;
-      margin: 0 0.5rem;
-      gap: 0.75rem;
+      font-size: 1.125rem;
+      padding: 1.25rem 1.25rem;
+      gap: 0.875rem;
     }
 
     .mobile-nav-icon {
-      width: 1.125rem;
-      height: 1.125rem;
+      width: 1.375rem;
+      height: 1.375rem;
     }
 
     .mobile-menu-close {
