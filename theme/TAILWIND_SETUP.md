@@ -25,14 +25,20 @@ accent: #59bab9 (teal)
 ### 🛠️ Available Commands:
 
 ```bash
-# Development (with file watching)
+# Development with auto-rebuild (RECOMMENDED)
+npm run dev:concurrent
+
+# Development (builds CSS once, then starts Shopify dev server)
 npm run dev
+
+# Watch for CSS changes (run in separate terminal)
+npm run dev:watch
 
 # Build CSS for production
 npm run build:css:prod
 
-# Build CSS for development
-npm run build:css
+# Build CSS once for development
+npm run build:css:once
 
 # Deploy to Shopify
 npm run push
@@ -92,10 +98,23 @@ npm run push
 
 ### 🔧 Development Workflow:
 
-1. **Edit your Liquid files** with Tailwind classes
-2. **Run `npm run dev`** to start development server with CSS watching
+**Option 1: Concurrent Development (RECOMMENDED)**
+1. **Run `npm run dev:concurrent`** - Runs both CSS watching and Shopify dev server
+2. **Edit your Liquid files** with Tailwind classes
 3. **CSS automatically rebuilds** when you save changes
 4. **Deploy with `npm run push`** when ready
+
+**Option 2: Single Terminal (for quick changes)**
+1. **Run `npm run dev`** - Builds CSS once and starts Shopify dev server
+2. **Edit your Liquid files** with Tailwind classes
+3. **Run `npm run build:css:once`** manually when you add new Tailwind classes
+4. **Deploy with `npm run push`** when ready
+
+**Option 3: Two Terminals (manual control)**
+1. **Terminal 1: `npm run dev:watch`** - Watches for CSS changes
+2. **Terminal 2: `npm run dev`** - Starts Shopify dev server
+3. **Edit your Liquid files** with Tailwind classes
+4. **CSS automatically rebuilds** when you save changes
 
 ### 📋 Best Practices:
 
