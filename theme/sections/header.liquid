@@ -211,9 +211,10 @@
     height: 100dvh; /* Dynamic viewport height for mobile */
     max-height: 100vh;
     max-height: 100dvh;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    -moz-backdrop-filter: blur(24px) saturate(180%);
     z-index: 9999 !important;
     opacity: 0;
     visibility: hidden;
@@ -228,15 +229,53 @@
     pointer-events: auto !important;
   }
 
+  /* Fallback for browsers that don't support backdrop-filter */
+  @supports not (backdrop-filter: blur(24px)) {
+    .mobile-menu {
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    .mobile-menu-header {
+      background: rgba(15, 23, 42, 0.9);
+    }
+  }
+
+  /* Enhanced blur for modern browsers */
+  @supports (backdrop-filter: blur(24px)) {
+    .mobile-menu {
+      background: rgba(15, 23, 42, 0.85);
+    }
+  }
+
+  /* Add subtle texture overlay for visual depth */
+  .mobile-menu::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .mobile-menu-header,
+  .mobile-nav {
+    position: relative;
+    z-index: 2;
+  }
+
   .mobile-menu-header {
     display: flex !important;
     align-items: center;
     justify-content: space-between;
     padding: 2rem 2rem 1.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(15, 23, 42, 0.4);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    -moz-backdrop-filter: blur(20px) saturate(180%);
     flex-shrink: 0;
     min-height: 100px;
   }
