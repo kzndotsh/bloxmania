@@ -4,27 +4,29 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url('{{ 'slam.png' | asset_url }}');
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{{ 'hero.png' | asset_url }}');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
     overflow: hidden;
     padding-top: 8rem;
+    padding-bottom: 4rem;
   }
 
   .hero-content {
     text-align: center;
-    max-width: 80rem;
-    padding: 2rem;
+    max-width: 90rem;
+    padding: 3rem 2rem;
     position: relative;
     z-index: 2;
+    margin: 0 auto;
   }
 
   .hero-rating {
     display: flex;
     justify-content: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
   }
 
   .hero-rating img {
@@ -32,7 +34,7 @@
     width: auto;
     transition: all 0.3s ease;
     transform: scale(1.1);
-    filter: drop-shadow(0 0 10px rgba(255, 216, 0, 0.5));
+    filter: drop-shadow(0 0 4px rgba(255, 216, 0, 0.2));
     cursor: pointer;
   }
 
@@ -43,23 +45,19 @@
   .hero-title {
     font-size: clamp(2.5rem, 8vw, 4.5rem);
     font-weight: 900;
-    margin-bottom: 1.5rem;
-    line-height: 1.1;
+    margin-bottom: 2rem;
+    line-height: 1.2;
     color: #ffffff;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   }
 
   .hero-title-gradient {
-    background: linear-gradient(135deg, #a855f7, #ec4899, #ef4444);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    background-size: 200% 200%;
-    animation: gradient-shift 3s ease-in-out infinite;
+    color: #ffd800;
   }
 
   @keyframes gradient-shift {
-    0%, 100% {
+    0%,
+    100% {
       background-position: 0% 50%;
     }
     50% {
@@ -68,20 +66,15 @@
   }
 
   .hero-subtitle {
-    font-size: clamp(1.125rem, 4vw, 1.25rem);
-    color: #e5e7eb;
-    margin-bottom: 2rem;
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 3rem;
     max-width: 60rem;
     margin-left: auto;
     margin-right: auto;
-    line-height: 1.6;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  }
-
-  .hero-subtitle strong {
-    color: #ffd800;
-    font-weight: 600;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    line-height: 1.7;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   }
 
   .hero-cta {
@@ -95,18 +88,18 @@
     font-weight: 700;
     font-size: 1.125rem;
     border-radius: 50px;
-    box-shadow: 0 4px 20px rgba(255, 216, 0, 0.3);
+    box-shadow: 0 3px 15px rgba(255, 216, 0, 0.2);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    margin-bottom: 4rem;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    margin-bottom: 3.5rem;
   }
 
   .hero-cta:hover {
     background: #e6c200;
     transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(255, 216, 0, 0.4);
+    box-shadow: 0 5px 20px rgba(255, 216, 0, 0.3);
     color: #000;
   }
 
@@ -127,20 +120,20 @@
 
   /* Trusted by Creators Section */
   .creators-section {
-    margin-top: 4rem;
+    margin-top: 2rem;
   }
 
   .creators-title {
     font-size: clamp(1.5rem, 4vw, 2rem);
     font-weight: 700;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     color: #ffffff;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   }
 
   .creators-title .highlight {
     color: #ffd800;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   }
 
   .creators-reel {
@@ -155,7 +148,7 @@
   .creators-scroll {
     display: flex;
     animation: scroll 30s linear infinite;
-    gap: 3rem;
+    gap: 4rem;
   }
 
   @keyframes scroll {
@@ -170,17 +163,17 @@
   .creator-item {
     flex-shrink: 0;
     text-align: center;
-    min-width: 6rem;
+    min-width: 8rem;
   }
 
   .creator-avatar {
-    width: 5rem;
-    height: 5rem;
-    border-radius: 0.75rem;
-    margin: 0 auto 0.25rem;
+    width: 7rem;
+    height: 7rem;
+    border-radius: 1rem;
+    margin: 0 auto 0.5rem;
     transition: all 0.3s ease;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
   }
 
   .creator-avatar:hover {
@@ -189,12 +182,12 @@
   }
 
   .creator-name {
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: 600;
     color: #ffffff;
     margin-bottom: 0.25rem;
     white-space: nowrap;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
   }
 
   .creator-stats {
@@ -202,9 +195,9 @@
     align-items: center;
     justify-content: center;
     gap: 0.25rem;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     color: #ffffff;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
   }
 
   .youtube-icon {
@@ -214,23 +207,135 @@
     filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
   }
 
-  /* Responsive Design */
-  @media (max-width: 768px) {
+  /* Small Mobile Devices */
+  @media (max-width: 480px) {
     .hero-section {
-      padding-top: 6rem;
-      background-attachment: scroll;
+      padding-top: 4.5rem;
+      padding-bottom: 2.5rem;
+      min-height: 85vh;
     }
 
     .hero-content {
-      padding: 1rem;
+      padding: 1.5rem 0.75rem;
+      max-width: 95%;
+    }
+
+    .hero-rating {
+      margin-bottom: 1.5rem;
     }
 
     .hero-rating img {
-      height: 2.5rem;
+      height: 2rem;
+    }
+
+    .hero-title {
+      font-size: clamp(1.75rem, 12vw, 2.5rem);
+      margin-bottom: 1.25rem;
+      line-height: 1.05;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(0.9rem, 4.5vw, 1rem);
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+
+    .hero-cta {
+      padding: 0.875rem 1.75rem;
+      font-size: 0.95rem;
+      margin-bottom: 2.5rem;
+      min-width: 180px;
+    }
+
+    .creators-section {
+      margin-top: 1rem;
+    }
+
+    .creators-title {
+      font-size: clamp(1.125rem, 5vw, 1.25rem);
+      margin-bottom: 1.5rem;
+    }
+
+    .creators-scroll {
+      gap: 2rem;
+    }
+
+    .creator-item {
+      min-width: 4.5rem;
+    }
+
+    .creator-avatar {
+      width: 4rem;
+      height: 4rem;
+    }
+
+    .creator-name {
+      font-size: 0.8rem;
+    }
+
+    .creator-stats {
+      font-size: 0.7rem;
+    }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hero-section {
+      padding-top: 5rem;
+      padding-bottom: 3rem;
+      background-attachment: scroll;
+      min-height: 90vh;
+    }
+
+    .hero-content {
+      padding: 2rem 1rem;
+    }
+
+    .hero-rating {
+      margin-bottom: 2rem;
+    }
+
+    .hero-rating img {
+      height: 2.25rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 10vw, 3rem);
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 5vw, 1.125rem);
+      margin-bottom: 2.5rem;
+      max-width: 100%;
+      line-height: 1.6;
+    }
+
+    .hero-cta {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      margin-bottom: 3rem;
+      width: auto;
+      min-width: 200px;
+    }
+
+    .creators-section {
+      margin-top: 1.5rem;
+    }
+
+    .creators-title {
+      font-size: clamp(1.25rem, 6vw, 1.5rem);
+      margin-bottom: 2rem;
     }
 
     .creators-reel {
       max-width: 100%;
+      margin: 0 -1rem;
+    }
+
+    .creators-scroll {
+      gap: 2.5rem;
     }
 
     .creator-item {
@@ -238,13 +343,16 @@
     }
 
     .creator-avatar {
-      width: 3.75rem;
-      height: 3.75rem;
+      width: 4.5rem;
+      height: 4.5rem;
     }
 
-    .hero-cta {
-      padding: 0.875rem 2rem;
-      font-size: 1rem;
+    .creator-name {
+      font-size: 0.875rem;
+    }
+
+    .creator-stats {
+      font-size: 0.75rem;
     }
   }
 
@@ -258,12 +366,12 @@
     }
 
     .creator-avatar {
-      width: 6rem;
-      height: 6rem;
+      width: 8rem;
+      height: 8rem;
     }
 
     .creator-item {
-      min-width: 7rem;
+      min-width: 9rem;
     }
   }
 
@@ -288,10 +396,9 @@
 
     <!-- Main Title -->
     <h1 class="hero-title">
-      {{ section.settings.title_part1 | default: 'Instantly Buy Your Favorite Items - Fast,' }}
-      <span class="hero-title-gradient">
-        {{ section.settings.title_part2 | default: 'Safe, and Easy!' }}
-      </span>
+      Instantly Buy Your Favorite Items
+      <br>
+      <span class="hero-title-gradient">Fast, Safe, and Easy!</span>
     </h1>
 
     <!-- Subtitle -->
@@ -328,8 +435,8 @@
                   src="{{ creator_data[0] | append: '.png' | asset_url }}"
                   alt="{{ creator_data[0] }}"
                   class="creator-avatar"
-                  width="80"
-                  height="80"
+                  width="112"
+                  height="112"
                   loading="lazy"
                 >
               </a>
@@ -352,8 +459,8 @@
                   src="{{ creator_data[0] | append: '.png' | asset_url }}"
                   alt="{{ creator_data[0] }}"
                   class="creator-avatar"
-                  width="80"
-                  height="80"
+                  width="112"
+                  height="112"
                   loading="lazy"
                 >
               </a>
@@ -380,13 +487,13 @@
       "type": "text",
       "id": "title_part1",
       "label": "Hero Title Part 1",
-      "default": "Instantly Buy Your Favorite Items - Fast,"
+      "default": "Instantly Buy Your Favorite Items"
     },
     {
       "type": "text",
       "id": "title_part2",
-      "label": "Hero Title Part 2 (Gradient)",
-      "default": "Safe, and Easy!"
+      "label": "Hero Title Part 2 (Yellow)",
+      "default": "Fast, Safe, and Easy!"
     },
     {
       "type": "richtext",
