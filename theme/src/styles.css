@@ -137,16 +137,19 @@
     animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
-  /* Header scroll effects */
+  /* Header scroll effects - matching old site styling */
   .header-transparent {
-    background-color: transparent;
+    background-color: transparent !important;
+    border-color: transparent !important;
     backdrop-filter: none;
+    box-shadow: none;
   }
 
   .header-scrolled {
-    background-color: rgba(15, 23, 42, 0.95);
+    background-color: rgba(0, 0, 0, 0.8) !important;
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(51, 52, 65, 0.5);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
 
   /* Glow effects */
