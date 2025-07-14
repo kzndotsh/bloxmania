@@ -1,111 +1,5 @@
 {%- style -%}
-  .faq-section {
-    padding: 4rem 2rem;
-    background: rgba(29, 30, 38, 0.95);
-  }
-
-  .faq-container {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .faq-header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-
-  .faq-title {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 1rem;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  }
-
-  .faq-title span {
-    color: #ffd800;
-  }
-
-  .faq-subtitle {
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    color: #d1d5db;
-    margin-bottom: 2rem;
-    line-height: 1.6;
-  }
-
-  .faq-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .faq-item {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    overflow: hidden;
-    transition: all 0.3s ease;
-  }
-
-  .faq-item:hover {
-    border-color: #ffd800;
-    box-shadow: 0 5px 20px rgba(255, 216, 0, 0.2);
-    transform: translateY(-2px);
-  }
-
-  .faq-question {
-    width: 100%;
-    padding: 1.5rem 2rem;
-    background: transparent;
-    border: none;
-    text-align: left;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: all 0.3s ease;
-    color: #ffffff;
-    font-size: clamp(1rem, 2vw, 1.125rem);
-    font-weight: 600;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  }
-
-  .faq-question:hover {
-    color: #ffd800;
-  }
-
-  .faq-question-text {
-    flex: 1;
-    margin-right: 1rem;
-  }
-
-  .faq-icon {
-    width: 1.5rem;
-    height: 1.5rem;
-    background: #ffd800;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-  }
-
-  .faq-icon svg {
-    width: 0.875rem;
-    height: 0.875rem;
-    color: #000;
-    transition: transform 0.3s ease;
-  }
-
-  .faq-item.active .faq-icon {
-    background: #59bab9;
-  }
-
-  .faq-item.active .faq-icon svg {
-    transform: rotate(180deg);
-  }
-
+  /* Keep only essential JavaScript-dependent styles */
   .faq-answer {
     max-height: 0;
     overflow: hidden;
@@ -116,117 +10,41 @@
     max-height: 500px;
   }
 
-  .faq-answer-content {
-    padding: 0 2rem 1.5rem;
-    color: #d1d5db;
-    line-height: 1.6;
-    font-size: 1rem;
+  .faq-icon svg {
+    transition: transform 0.3s ease;
   }
 
-  .faq-cta {
-    margin-top: 3rem;
-    text-align: center;
-    padding: 2rem;
-    background: rgba(37, 39, 48, 0.8);
-    border-radius: 1rem;
-    border: 1px solid #333441;
-  }
-
-  .faq-cta-title {
-    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 1rem;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  }
-
-  .faq-cta-text {
-    color: #9ca3af;
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
-  }
-
-  .faq-cta-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    background: #ffd800;
-    color: #000;
-    text-decoration: none;
-    font-weight: 600;
-    border-radius: 50px;
-    transition: all 0.3s ease;
-  }
-
-  .faq-cta-btn:hover {
-    background: #e6c200;
-    transform: translateY(-2px);
-  }
-
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .faq-section {
-      padding: 3rem 1rem;
-    }
-
-    .faq-header {
-      margin-bottom: 2rem;
-    }
-
-    .faq-question {
-      padding: 1.25rem 1.5rem;
-    }
-
-    .faq-answer-content {
-      padding: 0 1.5rem 1.25rem;
-    }
-
-    .faq-cta {
-      padding: 1.5rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .faq-question {
-      padding: 1rem;
-    }
-
-    .faq-question-text {
-      margin-right: 0.75rem;
-    }
-
-    .faq-answer-content {
-      padding: 0 1rem 1rem;
-    }
-
-    .faq-cta {
-      padding: 1.25rem;
-    }
+  .faq-question[aria-expanded='true'] .faq-icon svg {
+    transform: rotate(45deg);
   }
 {%- endstyle -%}
 
-<section class="faq-section">
-  <div class="faq-container">
-    <div class="faq-header">
-      <h2 class="faq-title">Frequently Asked <span>Questions</span></h2>
-      <p class="faq-subtitle">
+<section class="py-16 px-8 bg-background/95">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+        Frequently Asked <span class="text-primary">Questions</span>
+      </h2>
+      <p class="text-lg md:text-xl lg:text-2xl text-gray-300 mb-8 leading-relaxed">
         {{ section.settings.subtitle | default: 'Everything you need to know about BloxMania' }}
       </p>
     </div>
 
-    <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          <span class="faq-question-text">How fast will I receive my items?</span>
-          <div class="faq-icon">
-            <svg fill="currentColor" viewBox="0 0 24 24">
+    <div class="flex flex-col gap-4">
+      <div class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1">
+        <button
+          class="w-full p-6 md:p-8 bg-transparent border-0 text-left cursor-pointer flex justify-between items-center transition-all duration-300 text-white text-lg md:text-xl font-semibold drop-shadow-sm hover:text-primary"
+          onclick="toggleFaq(this)"
+        >
+          <span class="flex-1 mr-4">How fast will I receive my items?</span>
+          <div class="faq-icon w-6 h-6 bg-primary rounded-full flex items-center justify-center transition-all duration-300 flex-shrink-0">
+            <svg class="w-3.5 h-3.5 text-black" fill="currentColor" viewBox="0 0 24 24">
               <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
             </svg>
           </div>
         </button>
         <div class="faq-answer">
-          <div class="faq-answer-content">
+          <div class="px-6 md:px-8 pb-6 md:pb-8 text-gray-300 leading-relaxed">
             Our automated system delivers items instantly after payment confirmation. Most customers receive their
             gaming items within 1-5 minutes of purchase. For rare items or during high traffic, delivery may take up to
             24 hours maximum.
@@ -234,103 +52,95 @@
         </div>
       </div>
 
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          <span class="faq-question-text">Are your items safe and legitimate?</span>
-          <div class="faq-icon">
-            <svg fill="currentColor" viewBox="0 0 24 24">
+      <div class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1">
+        <button
+          class="w-full p-6 md:p-8 bg-transparent border-0 text-left cursor-pointer flex justify-between items-center transition-all duration-300 text-white text-lg md:text-xl font-semibold drop-shadow-sm hover:text-primary"
+          onclick="toggleFaq(this)"
+        >
+          <span class="flex-1 mr-4">What payment methods do you accept?</span>
+          <div class="faq-icon w-6 h-6 bg-primary rounded-full flex items-center justify-center transition-all duration-300 flex-shrink-0">
+            <svg class="w-3.5 h-3.5 text-black" fill="currentColor" viewBox="0 0 24 24">
               <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
             </svg>
           </div>
         </button>
         <div class="faq-answer">
-          <div class="faq-answer-content">
-            Yes, all our items are obtained through legitimate gameplay and trading. We have strict quality control
-            measures and have been serving the gaming community for years with a 99.9% success rate. Your account safety
-            is our top priority.
+          <div class="px-6 md:px-8 pb-6 md:pb-8 text-gray-300 leading-relaxed">
+            We accept all major credit cards, PayPal, Apple Pay, Google Pay, and various cryptocurrency options
+            including Bitcoin and Ethereum. All transactions are secured with SSL encryption.
           </div>
         </div>
       </div>
 
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          <span class="faq-question-text">What payment methods do you accept?</span>
-          <div class="faq-icon">
-            <svg fill="currentColor" viewBox="0 0 24 24">
+      <div class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1">
+        <button
+          class="w-full p-6 md:p-8 bg-transparent border-0 text-left cursor-pointer flex justify-between items-center transition-all duration-300 text-white text-lg md:text-xl font-semibold drop-shadow-sm hover:text-primary"
+          onclick="toggleFaq(this)"
+        >
+          <span class="flex-1 mr-4">Is my purchase guaranteed?</span>
+          <div class="faq-icon w-6 h-6 bg-primary rounded-full flex items-center justify-center transition-all duration-300 flex-shrink-0">
+            <svg class="w-3.5 h-3.5 text-black" fill="currentColor" viewBox="0 0 24 24">
               <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
             </svg>
           </div>
         </button>
         <div class="faq-answer">
-          <div class="faq-answer-content">
-            We accept all major payment methods including credit cards, PayPal, Apple Pay, Google Pay, and various
-            cryptocurrency options. All transactions are processed through secure, encrypted payment gateways for your
-            protection.
+          <div class="px-6 md:px-8 pb-6 md:pb-8 text-gray-300 leading-relaxed">
+            Yes! We offer a 100% satisfaction guarantee. If you don't receive your items within 24 hours or encounter
+            any issues, we'll provide a full refund or replacement. Your satisfaction is our top priority.
           </div>
         </div>
       </div>
 
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          <span class="faq-question-text">Do you offer refunds or exchanges?</span>
-          <div class="faq-icon">
-            <svg fill="currentColor" viewBox="0 0 24 24">
+      <div class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1">
+        <button
+          class="w-full p-6 md:p-8 bg-transparent border-0 text-left cursor-pointer flex justify-between items-center transition-all duration-300 text-white text-lg md:text-xl font-semibold drop-shadow-sm hover:text-primary"
+          onclick="toggleFaq(this)"
+        >
+          <span class="flex-1 mr-4">Can I get a refund if I'm not satisfied?</span>
+          <div class="faq-icon w-6 h-6 bg-primary rounded-full flex items-center justify-center transition-all duration-300 flex-shrink-0">
+            <svg class="w-3.5 h-3.5 text-black" fill="currentColor" viewBox="0 0 24 24">
               <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
             </svg>
           </div>
         </button>
         <div class="faq-answer">
-          <div class="faq-answer-content">
-            We offer a satisfaction guarantee! If there's an issue with your order, contact our support team within 24
-            hours. We'll work to resolve any problems and ensure you're completely satisfied with your purchase.
+          <div class="px-6 md:px-8 pb-6 md:pb-8 text-gray-300 leading-relaxed">
+            Absolutely! We offer a 30-day money-back guarantee. If you're not completely satisfied with your purchase,
+            contact our support team and we'll process your refund quickly and hassle-free.
           </div>
         </div>
       </div>
 
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          <span class="faq-question-text">How do I contact customer support?</span>
-          <div class="faq-icon">
-            <svg fill="currentColor" viewBox="0 0 24 24">
+      <div class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1">
+        <button
+          class="w-full p-6 md:p-8 bg-transparent border-0 text-left cursor-pointer flex justify-between items-center transition-all duration-300 text-white text-lg md:text-xl font-semibold drop-shadow-sm hover:text-primary"
+          onclick="toggleFaq(this)"
+        >
+          <span class="flex-1 mr-4">How do I contact customer support?</span>
+          <div class="faq-icon w-6 h-6 bg-primary rounded-full flex items-center justify-center transition-all duration-300 flex-shrink-0">
+            <svg class="w-3.5 h-3.5 text-black" fill="currentColor" viewBox="0 0 24 24">
               <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
             </svg>
           </div>
         </button>
         <div class="faq-answer">
-          <div class="faq-answer-content">
-            Our support team is available 24/7 through our Discord server, live chat widget on the website, or email. We
-            typically respond to inquiries within 15 minutes and are always ready to help with any questions or
-            concerns.
-          </div>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          <span class="faq-question-text">Can I bulk order items for my group/guild?</span>
-          <div class="faq-icon">
-            <svg fill="currentColor" viewBox="0 0 24 24">
-              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-            </svg>
-          </div>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-content">
-            Absolutely! We offer special pricing for bulk orders and group purchases. Contact our team through Discord
-            or the website for custom quotes and volume discounts. We've helped hundreds of gaming communities with
-            their needs.
+          <div class="px-6 md:px-8 pb-6 md:pb-8 text-gray-300 leading-relaxed">
+            You can reach our 24/7 support team through our Discord server, live chat on our website, or by emailing
+            support@bloxmania.com. We typically respond within 15 minutes during business hours.
           </div>
         </div>
       </div>
     </div>
 
-    <div class="faq-cta">
-      <h3 class="faq-cta-title">Still have questions?</h3>
-      <p class="faq-cta-text">Our friendly support team is here to help 24/7</p>
-      <a href="{{ section.settings.contact_link | default: '#' }}" class="faq-cta-btn">
-        Contact Support
-        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+    <div class="mt-8 text-center">
+      <a
+        href="{{ section.settings.contact_link | default: '/pages/contact' }}"
+        class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-black no-underline font-medium rounded-md transition-all duration-200 hover:bg-primary-600 hover:-translate-y-1"
+      >
+        Still have questions? Contact us
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
         </svg>
       </a>
     </div>

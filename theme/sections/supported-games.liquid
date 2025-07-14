@@ -1,215 +1,80 @@
 {%- style -%}
-  .supported-games {
-    padding: 4rem 2rem;
-    background: rgba(29, 30, 38, 0.95);
-  }
-
-  .supported-games-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .supported-games-title {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 700;
-    margin-bottom: 3rem;
-    color: #ffffff;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  }
-
-  .games-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-
-  .game-card {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 1rem;
-    padding: 2rem;
-    position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    cursor: pointer;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-  }
-
-  .game-card:hover {
-    transform: translateY(-5px);
-    border-color: #ffd800;
-    box-shadow: 0 10px 30px rgba(255, 216, 0, 0.2);
-  }
-
-  .game-content {
-    position: relative;
-    z-index: 10;
-    transition: filter 0.3s ease;
-  }
-
+  /* Keep essential hover animations */
   .game-card:hover .game-content {
     filter: blur(2px);
   }
 
-  .game-image {
-    width: 160px;
-    height: 160px;
-    margin: 0 auto 1.5rem;
-    border-radius: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  }
-
-  .game-title {
-    font-size: clamp(1.125rem, 2vw, 1.25rem);
-    font-weight: 600;
-    color: #ffffff;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  }
-
   .coming-soon-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     opacity: 0;
     transition: opacity 0.3s ease;
-    z-index: 20;
   }
 
   .game-card:hover .coming-soon-overlay {
     opacity: 1;
   }
-
-  .coming-soon-content {
-    text-align: center;
-    color: #ffffff;
-  }
-
-  .coming-soon-title {
-    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: #ffd800;
-  }
-
-  .coming-soon-subtitle {
-    color: #d1d5db;
-    font-size: clamp(0.875rem, 1.5vw, 1rem);
-  }
-
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .supported-games {
-      padding: 3rem 1rem;
-    }
-
-    .supported-games-title {
-      margin-bottom: 2rem;
-    }
-
-    .games-grid {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-
-    .game-card {
-      padding: 1.5rem;
-    }
-
-    .game-image {
-      width: 140px;
-      height: 140px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .game-card {
-      padding: 1.25rem;
-    }
-
-    .game-image {
-      width: 120px;
-      height: 120px;
-      margin-bottom: 1rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .games-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
 {%- endstyle -%}
 
-<section class="supported-games">
-  <div class="supported-games-container">
-    <h2 class="supported-games-title">Supported Titles</h2>
+<section class="py-16 px-8 bg-background/95">
+  <div class="max-w-6xl mx-auto text-center">
+    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-12 text-white drop-shadow-lg">Supported Titles</h2>
 
-    <div class="games-grid">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
       <!-- Grow A Garden -->
-      <div class="game-card">
-        <div class="game-content">
+      <div class="game-card bg-white/5 rounded-2xl p-8 relative border border-white/10 cursor-pointer overflow-hidden transition-all duration-300 backdrop-blur-sm hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-2">
+        <div class="game-content relative z-10 transition-all duration-300">
           <img
             src="{{ 'grow.png' | asset_url }}"
             alt="Grow A Garden"
-            class="game-image"
+            class="w-40 h-40 mx-auto mb-6 rounded-2xl shadow-lg"
             width="160"
             height="160"
           >
-          <h3 class="game-title">Grow A Garden</h3>
+          <h3 class="text-xl md:text-2xl font-semibold text-white drop-shadow-sm">Grow A Garden</h3>
         </div>
-        <div class="coming-soon-overlay">
-          <div class="coming-soon-content">
-            <div class="coming-soon-title">Coming Soon</div>
-            <div class="coming-soon-subtitle">Stay tuned for updates!</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Pet Simulator 99 -->
-      <div class="game-card">
-        <div class="game-content">
-          <img
-            src="https://ext.same-assets.com/85213452/990301288.jpeg"
-            alt="Pet Simulator 99"
-            class="game-image"
-            width="160"
-            height="160"
-          >
-          <h3 class="game-title">Pet Simulator 99</h3>
-        </div>
-        <div class="coming-soon-overlay">
-          <div class="coming-soon-content">
-            <div class="coming-soon-title">Coming Soon</div>
-            <div class="coming-soon-subtitle">Stay tuned for updates!</div>
+        <div class="coming-soon-overlay absolute inset-0 bg-black/80 flex items-center justify-center z-20">
+          <div class="text-center text-white">
+            <div class="text-xl md:text-2xl font-bold mb-2 text-primary">Coming Soon</div>
+            <div class="text-gray-300 text-sm md:text-base">Stay tuned for updates!</div>
           </div>
         </div>
       </div>
 
       <!-- Fortnite -->
-      <div class="game-card">
-        <div class="game-content">
+      <div class="game-card bg-white/5 rounded-2xl p-8 relative border border-white/10 cursor-pointer overflow-hidden transition-all duration-300 backdrop-blur-sm hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-2">
+        <div class="game-content relative z-10 transition-all duration-300">
           <img
             src="{{ 'fortnite.png' | asset_url }}"
             alt="Fortnite"
-            class="game-image"
+            class="w-40 h-40 mx-auto mb-6 rounded-2xl shadow-lg"
             width="160"
             height="160"
           >
-          <h3 class="game-title">Fortnite</h3>
+          <h3 class="text-xl md:text-2xl font-semibold text-white drop-shadow-sm">Fortnite</h3>
         </div>
-        <div class="coming-soon-overlay">
-          <div class="coming-soon-content">
-            <div class="coming-soon-title">Coming Soon</div>
-            <div class="coming-soon-subtitle">Stay tuned for updates!</div>
+        <div class="coming-soon-overlay absolute inset-0 bg-black/80 flex items-center justify-center z-20">
+          <div class="text-center text-white">
+            <div class="text-xl md:text-2xl font-bold mb-2 text-primary">Coming Soon</div>
+            <div class="text-gray-300 text-sm md:text-base">Stay tuned for updates!</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slam -->
+      <div class="game-card bg-white/5 rounded-2xl p-8 relative border border-white/10 cursor-pointer overflow-hidden transition-all duration-300 backdrop-blur-sm hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-2">
+        <div class="game-content relative z-10 transition-all duration-300">
+          <img
+            src="{{ 'slam.png' | asset_url }}"
+            alt="Slam"
+            class="w-40 h-40 mx-auto mb-6 rounded-2xl shadow-lg"
+            width="160"
+            height="160"
+          >
+          <h3 class="text-xl md:text-2xl font-semibold text-white drop-shadow-sm">Slam</h3>
+        </div>
+        <div class="coming-soon-overlay absolute inset-0 bg-black/80 flex items-center justify-center z-20">
+          <div class="text-center text-white">
+            <div class="text-xl md:text-2xl font-bold mb-2 text-primary">Coming Soon</div>
+            <div class="text-gray-300 text-sm md:text-base">Stay tuned for updates!</div>
           </div>
         </div>
       </div>

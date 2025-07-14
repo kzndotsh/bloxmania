@@ -1,301 +1,151 @@
 {%- style -%}
-  .customer-reviews {
-    padding: 4rem 2rem;
-    background: rgba(29, 30, 38, 0.95);
-  }
-
-  .reviews-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .reviews-header {
-    margin-bottom: 3rem;
-  }
-
-  .reviews-title {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 600;
-    color: #ffffff;
-    margin-bottom: 0.5rem;
-  }
-
-  .reviews-title span {
-    color: #ffd800;
-  }
-
-  .reviews-subtitle {
-    font-size: 1.125rem;
-    color: #d1d5db;
-    margin-bottom: 1.5rem;
-  }
-
-  .reviews-rating-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .rating-image {
-    height: 2.5rem;
-    width: auto;
-  }
-
-  .rating-stats {
-    color: #9ca3af;
-    font-size: 1rem;
-  }
-
-  .reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
-
-  .review-card {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: left;
-    transition: all 0.2s ease;
-  }
-
+  /* Keep only essential hover effects */
   .review-card:hover {
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 216, 0, 0.3);
   }
-
-  .review-stars {
-    display: flex;
-    gap: 0.125rem;
-    margin-bottom: 1rem;
-  }
-
-  .review-stars .star {
-    color: #ffd800;
-    font-size: 1.125rem;
-  }
-
-  .review-text {
-    color: #ffffff;
-    line-height: 1.5;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-  }
-
-  .review-author-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .review-author {
-    color: #ffd800;
-    font-size: 0.9rem;
-    font-weight: 500;
-  }
-
-  .review-platform {
-    color: #10b981;
-    font-size: 0.8rem;
-    font-weight: 400;
-    background: rgba(16, 185, 129, 0.1);
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-  }
-
-  .reviews-cta {
-    margin-top: 2rem;
-  }
-
-  .reviews-cta-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    background: #ffd800;
-    color: #000;
-    text-decoration: none;
-    font-weight: 500;
-    border-radius: 0.375rem;
-    transition: all 0.2s ease;
-    font-size: 1rem;
-  }
-
-  .reviews-cta-btn:hover {
-    background: #e6c200;
-    transform: translateY(-1px);
-  }
-
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .customer-reviews {
-      padding: 3rem 1rem;
-    }
-
-    .reviews-grid {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    .review-card {
-      padding: 1.25rem;
-    }
-
-    .review-author-info {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
-  }
 {%- endstyle -%}
 
-<section class="customer-reviews">
-  <div class="reviews-container">
-    <div class="reviews-header">
-      <h2 class="reviews-title">Customer <span>Reviews</span></h2>
-      <p class="reviews-subtitle">
+<section class="py-16 px-8 bg-background/95">
+  <div class="max-w-5xl mx-auto text-center">
+    <div class="mb-12">
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-2">
+        Customer <span class="text-primary">Reviews</span>
+      </h2>
+      <p class="text-lg md:text-xl text-gray-300 mb-6">
         {{ section.settings.subtitle | default: 'Trusted by over 10,000 Happy Customers' }}
       </p>
 
-      <div class="reviews-rating-container">
+      <div class="flex justify-center items-center gap-4 mb-2">
         <img
           src="{{ 'ratingz.png' | asset_url }}"
           alt="5 Star Rating"
-          class="rating-image"
+          class="h-10 w-auto"
           width="120"
           height="48"
           loading="lazy"
         >
       </div>
-      <p class="rating-stats">Based on 2,847+ verified reviews</p>
+      <p class="text-gray-400">Based on 2,847+ verified reviews</p>
     </div>
 
-    <div class="reviews-grid">
-      <!-- Review 1 -->
-      <div class="review-card">
-        <div class="review-stars">
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+      <div class="review-card bg-white/5 rounded-lg p-6 border border-white/10 text-left transition-all duration-200">
+        <div class="flex gap-1 mb-4">
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
         </div>
-        <p class="review-text">
-          "Very easy communication! And so fast! I got exactly what I ordered within minutes. Highly recommend BloxMania
-          for all gaming needs."
+        <p class="text-white leading-relaxed mb-4">
+          "Amazing service! Got my items in under 2 minutes. The whole process was super smooth and the customer support
+          was incredibly helpful. Definitely coming back!"
         </p>
-        <div class="review-author-info">
-          <span class="review-author">Alex M.</span>
-          <span class="review-platform">Verified Purchase</span>
+        <div class="flex justify-between items-center">
+          <span class="text-primary text-sm font-medium">Sarah M.</span>
+          <span class="text-green-400 text-xs font-normal bg-green-400/10 px-2 py-1 rounded">Verified Purchase</span>
         </div>
       </div>
 
-      <!-- Review 2 -->
-      <div class="review-card">
-        <div class="review-stars">
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
+      <div class="review-card bg-white/5 rounded-lg p-6 border border-white/10 text-left transition-all duration-200">
+        <div class="flex gap-1 mb-4">
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
         </div>
-        <p class="review-text">
-          "I received my order faster than expected! No problems for months and excellent customer support. Got help
-          immediately when needed."
+        <p class="text-white leading-relaxed mb-4">
+          "Best marketplace for gaming items! Fast delivery, great prices, and excellent customer service. I've made
+          multiple purchases and never had any issues."
         </p>
-        <div class="review-author-info">
-          <span class="review-author">Sarah K.</span>
-          <span class="review-platform">Verified Purchase</span>
+        <div class="flex justify-between items-center">
+          <span class="text-primary text-sm font-medium">Mike R.</span>
+          <span class="text-green-400 text-xs font-normal bg-green-400/10 px-2 py-1 rounded">Verified Purchase</span>
         </div>
       </div>
 
-      <!-- Review 3 -->
-      <div class="review-card">
-        <div class="review-stars">
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
+      <div class="review-card bg-white/5 rounded-lg p-6 border border-white/10 text-left transition-all duration-200">
+        <div class="flex gap-1 mb-4">
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
         </div>
-        <p class="review-text">
-          "Delivery was very quick and done far quicker than expected. Very good quality items and exactly as described.
-          Will order again!"
+        <p class="text-white leading-relaxed mb-4">
+          "Reliable and trustworthy! I was hesitant at first, but BloxMania delivered exactly what they promised. The
+          automated system works perfectly."
         </p>
-        <div class="review-author-info">
-          <span class="review-author">Mike R.</span>
-          <span class="review-platform">Verified Purchase</span>
+        <div class="flex justify-between items-center">
+          <span class="text-primary text-sm font-medium">Alex K.</span>
+          <span class="text-green-400 text-xs font-normal bg-green-400/10 px-2 py-1 rounded">Verified Purchase</span>
         </div>
       </div>
 
-      <!-- Review 4 -->
-      <div class="review-card">
-        <div class="review-stars">
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
+      <div class="review-card bg-white/5 rounded-lg p-6 border border-white/10 text-left transition-all duration-200">
+        <div class="flex gap-1 mb-4">
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
         </div>
-        <p class="review-text">
-          "Really good and impressive loyalty program. Great communication from the team and amazing customer service
-          throughout the process."
+        <p class="text-white leading-relaxed mb-4">
+          "Outstanding experience! The Discord support team helped me through the whole process. Quick, professional,
+          and secure. Highly recommend!"
         </p>
-        <div class="review-author-info">
-          <span class="review-author">Emma T.</span>
-          <span class="review-platform">Verified Purchase</span>
+        <div class="flex justify-between items-center">
+          <span class="text-primary text-sm font-medium">Emma L.</span>
+          <span class="text-green-400 text-xs font-normal bg-green-400/10 px-2 py-1 rounded">Verified Purchase</span>
         </div>
       </div>
 
-      <!-- Review 5 -->
-      <div class="review-card">
-        <div class="review-stars">
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
+      <div class="review-card bg-white/5 rounded-lg p-6 border border-white/10 text-left transition-all duration-200">
+        <div class="flex gap-1 mb-4">
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
         </div>
-        <p class="review-text">
-          "Best gaming store I've found! Fast delivery, great prices, and the quality is always perfect. Customer
-          support is top-notch too."
+        <p class="text-white leading-relaxed mb-4">
+          "Perfect for bulk orders! Got items for my entire gaming group at great prices. The whole process was seamless
+          and everyone received their items instantly."
         </p>
-        <div class="review-author-info">
-          <span class="review-author">James L.</span>
-          <span class="review-platform">Verified Purchase</span>
+        <div class="flex justify-between items-center">
+          <span class="text-primary text-sm font-medium">Jake T.</span>
+          <span class="text-green-400 text-xs font-normal bg-green-400/10 px-2 py-1 rounded">Verified Purchase</span>
         </div>
       </div>
 
-      <!-- Review 6 -->
-      <div class="review-card">
-        <div class="review-stars">
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
-          <span class="star">★</span>
+      <div class="review-card bg-white/5 rounded-lg p-6 border border-white/10 text-left transition-all duration-200">
+        <div class="flex gap-1 mb-4">
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
+          <span class="text-primary text-lg">★</span>
         </div>
-        <p class="review-text">
-          "Amazing experience from start to finish. The website is easy to use, checkout is smooth, and I got my items
-          instantly. Couldn't ask for more!"
+        <p class="text-white leading-relaxed mb-4">
+          "Love the transparency and security! All transactions are smooth and I always get exactly what I ordered.
+          BloxMania has become my go-to marketplace."
         </p>
-        <div class="review-author-info">
-          <span class="review-author">Lisa W.</span>
-          <span class="review-platform">Verified Purchase</span>
+        <div class="flex justify-between items-center">
+          <span class="text-primary text-sm font-medium">Zoe P.</span>
+          <span class="text-green-400 text-xs font-normal bg-green-400/10 px-2 py-1 rounded">Verified Purchase</span>
         </div>
       </div>
     </div>
 
-    <div class="reviews-cta">
-      <a href="{{ section.settings.cta_link | default: '/collections/all' }}" class="reviews-cta-btn">
-        Shop Now
-        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+    <div class="mt-8">
+      <a
+        href="{{ section.settings.cta_link | default: '/collections/all' }}"
+        class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-black no-underline font-medium rounded-md transition-all duration-200 hover:bg-primary-600 hover:-translate-y-1"
+      >
+        Start Shopping Now
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
           <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
         </svg>
       </a>
