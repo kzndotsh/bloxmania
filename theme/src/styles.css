@@ -29,6 +29,29 @@
   .btn-secondary {
     @apply inline-flex items-center gap-2 px-6 py-3 bg-transparent text-primary border border-primary font-medium rounded-lg transition-all duration-300 hover:bg-primary hover:text-black;
   }
+
+  /* Accessibility: Skip to main content link */
+  .skip-to-content-link {
+    @apply absolute -top-40 left-6 z-50 bg-primary text-black px-4 py-2 rounded-md font-medium transition-all duration-300;
+  }
+
+  .skip-to-content-link:focus {
+    @apply top-6;
+  }
+
+  /* Visually hidden utility for screen readers */
+  .visually-hidden {
+    @apply absolute w-px h-px p-0 -m-px overflow-hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .visually-hidden:focus {
+    @apply static w-auto h-auto p-1 m-0 overflow-visible;
+    clip: auto;
+    white-space: normal;
+  }
 }
 
 /* Essential base styles only */
@@ -116,14 +139,14 @@
 
   /* Glow effects */
   .glow-primary {
-    box-shadow: 0 0 20px rgba(255, 216, 0, 0.3);
+    box-shadow: 0 0 20px rgba(255, 216, 0, 0.5);
   }
 
   .glow-secondary {
-    box-shadow: 0 0 20px rgba(71, 145, 240, 0.3);
+    box-shadow: 0 0 20px rgba(71, 145, 240, 0.5);
   }
 
   .glow-accent {
-    box-shadow: 0 0 20px rgba(89, 186, 185, 0.3);
+    box-shadow: 0 0 20px rgba(89, 186, 185, 0.5);
   }
 }

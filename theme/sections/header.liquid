@@ -24,9 +24,9 @@
   <div class="flex items-center justify-between px-4 md:px-8 py-6 max-w-6xl mx-auto">
     <!-- Left: Mobile Menu Button / Desktop Logo -->
     <div class="flex items-center flex-shrink-0">
-      <!-- Mobile Menu Button -->
+      <!-- Mobile Menu Button (Desktop Hidden) -->
       <button
-        class="hidden md:hidden bg-black/30 backdrop-blur-sm border-0 text-white cursor-pointer p-3 rounded-lg transition-all duration-300 hover:text-primary hover:bg-black/50 mobile-menu-toggle"
+        class="block md:hidden bg-black/30 backdrop-blur-sm border-0 text-white cursor-pointer p-3 rounded-lg transition-all duration-300 hover:text-primary hover:bg-black/50 mobile-menu-toggle"
         id="mobile-menu-toggle"
         aria-label="Open mobile menu"
       >
@@ -184,17 +184,6 @@
           <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd"/>
         </svg>
       </a>
-
-      <!-- Mobile Menu Button (shown on mobile) -->
-      <button
-        class="block md:hidden bg-black/30 backdrop-blur-sm border-0 text-white cursor-pointer p-3 rounded-lg transition-all duration-300 hover:text-primary hover:bg-black/50 mobile-menu-toggle"
-        id="mobile-menu-toggle-mobile"
-        aria-label="Open mobile menu"
-      >
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-          <path fill-rule="evenodd" d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z" clip-rule="evenodd"/>
-        </svg>
-      </button>
     </div>
   </div>
 
