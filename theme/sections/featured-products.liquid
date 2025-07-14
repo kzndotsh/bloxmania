@@ -44,7 +44,7 @@
 
   .products-grid {
     display: flex;
-    gap: 0.75rem;
+    gap: 1rem;
     overflow-x: auto;
     padding-bottom: 0.5rem;
   }
@@ -70,12 +70,12 @@
     transition: transform 0.2s ease;
     border: 1px solid #3a3d4a;
     flex-shrink: 0;
-    width: 240px;
-    height: 120px;
+    width: 280px;
+    height: 140px;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem;
+    gap: 1rem;
+    padding: 1rem;
   }
 
   .product-card:hover {
@@ -84,8 +84,8 @@
   }
 
   .product-image-container {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
     flex-shrink: 0;
     overflow: hidden;
     border-radius: 6px;
@@ -108,17 +108,20 @@
     flex-direction: column;
     justify-content: center;
     min-width: 0;
+    height: 100%;
   }
 
   .product-title {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: #ffffff;
-    margin: 0 0 0.25rem 0;
-    line-height: 1.2;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.3;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 
   .product-title a {
@@ -131,7 +134,7 @@
   }
 
   .product-price {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: #ffd800;
     margin: 0;
@@ -141,7 +144,7 @@
     text-decoration: line-through;
     color: #9ca3af;
     margin-right: 0.5rem;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 500;
   }
 
@@ -158,6 +161,28 @@
     }
 
     .product-card {
+      width: 240px;
+      height: 120px;
+      padding: 0.75rem;
+      gap: 0.75rem;
+    }
+
+    .product-image-container {
+      width: 70px;
+      height: 70px;
+    }
+
+    .product-title {
+      font-size: 0.8rem;
+    }
+
+    .product-price {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .product-card {
       width: 200px;
       height: 100px;
       padding: 0.5rem;
@@ -170,23 +195,11 @@
     }
 
     .product-title {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
     }
 
     .product-price {
       font-size: 0.9rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .product-card {
-      width: 180px;
-      height: 90px;
-    }
-
-    .product-image-container {
-      width: 50px;
-      height: 50px;
     }
   }
 {%- endstyle -%}
@@ -206,11 +219,11 @@
             <div class="product-image-container">
               {% if product.featured_image != blank %}
                 <img
-                  src="{{ product.featured_image | image_url: width: 160 }}"
+                  src="{{ product.featured_image | image_url: width: 180 }}"
                   alt="{{ product.title }}"
                   class="product-image"
-                  width="80"
-                  height="80"
+                  width="90"
+                  height="90"
                   loading="lazy"
                 >
               {% else %}
@@ -254,8 +267,8 @@
                 src="{{ img_asset | asset_url }}"
                 alt="{{ prod_name }}"
                 class="product-image"
-                width="80"
-                height="80"
+                width="90"
+                height="90"
                 loading="lazy"
               >
             </div>
