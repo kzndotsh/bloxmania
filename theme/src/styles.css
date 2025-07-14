@@ -4,321 +4,126 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Global Font Size Fixes */
-@layer base {
-
-  /* Reset and normalize font sizes */
-  html {
-    font-size: 16px !important;
-    /* Override any conflicting font size */
-  }
-
-  body {
-    font-size: 1rem !important;
-    /* Ensure consistent base font size */
-    line-height: 1.6 !important;
-    /* Better readability */
-    letter-spacing: 0.01em !important;
-    /* Reduce excessive letter spacing */
-  }
-
-  /* Ensure headings have proper sizing */
-  h1 {
-    font-size: clamp(2rem, 4vw, 3rem) !important;
-  }
-
-  h2 {
-    font-size: clamp(1.5rem, 3vw, 2.25rem) !important;
-  }
-
-  h3 {
-    font-size: clamp(1.25rem, 2.5vw, 1.875rem) !important;
-  }
-
-  h4 {
-    font-size: clamp(1.125rem, 2vw, 1.5rem) !important;
-  }
-
-  h5 {
-    font-size: clamp(1rem, 1.5vw, 1.25rem) !important;
-  }
-
-  h6 {
-    font-size: clamp(0.875rem, 1vw, 1.125rem) !important;
-  }
-
-  /* Ensure paragraphs and text have good readability */
-  p {
-    font-size: 1rem !important;
-    line-height: 1.6 !important;
-  }
-
-  /* Fix small text elements */
-  small {
-    font-size: 0.875rem !important;
-  }
-
-  @media screen and (min-width: 750px) {
-    body {
-      font-size: 1.125rem !important;
-    }
-
-    p {
-      font-size: 1.125rem !important;
-    }
-  }
-}
-
-/* Custom CSS Variables */
-@layer base {
-  :root {
-    --background: #1d1e26;
-    --foreground: #ffffff;
-    --card: #252730;
-    --card-foreground: #ffffff;
-    --popover: #252730;
-    --popover-foreground: #ffffff;
-    --primary: #59bab9;
-    --primary-foreground: #ffffff;
-    --secondary: #3b5db0;
-    --secondary-foreground: #ffffff;
-    --muted: #333441;
-    --muted-foreground: #94a3b8;
-    --accent: #59bab9;
-    --accent-foreground: #ffffff;
-    --destructive: #ef4444;
-    --destructive-foreground: #ffffff;
-    --border: #333441;
-    --input: #333441;
-    --ring: #59bab9;
-    --radius: 0.5rem;
-    --primary-color: #ffd800;
-  }
-
-  * {
-    @apply border-gray-600;
-  }
-
-  body {
-    background-color: var(--background);
-    color: var(--foreground);
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
-
-  html {
-    @apply scroll-smooth;
-  }
-}
-
-/* Custom Components */
+/* Custom Components for BloxMania */
 @layer components {
-  .btn-primary {
-    background-color: var(--primary-color);
-    @apply text-black font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105 active:scale-95;
-  }
 
-  .btn-primary:hover {
-    background-color: var(--primary-color);
-    opacity: 0.9;
-  }
-
-  .btn-secondary {
-    background-color: var(--secondary);
-    @apply text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105 active:scale-95;
-  }
-
-  .btn-secondary:hover {
-    background-color: var(--secondary);
-    opacity: 0.9;
-  }
-
-  .btn-outline {
-    border: 2px solid var(--primary-color);
-    color: var(--primary-color);
-    @apply font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105 active:scale-95;
-  }
-
-  .btn-outline:hover {
-    background-color: var(--primary-color);
-    @apply text-black;
-  }
-
+  /* Reusable card component */
   .card {
-    background-color: var(--card);
-    color: var(--card-foreground);
-    @apply rounded-lg border p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105;
-    border-color: var(--border);
+    @apply bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm transition-all duration-300;
   }
 
-  .text-gradient-primary {
+  .card-hover {
+    @apply hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1;
+  }
+
+  /* Gradient text utility */
+  .text-gradient {
     @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
   }
 
-  .text-gradient-purple-pink {
-    @apply bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent;
+  /* Custom button styles */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-primary text-black font-medium rounded-lg transition-all duration-300 hover:bg-primary-600 hover:-translate-y-1 hover:shadow-lg;
   }
 
-  .container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-transparent text-primary border border-primary font-medium rounded-lg transition-all duration-300 hover:bg-primary hover:text-black;
+  }
+}
+
+/* Essential base styles only */
+@layer base {
+
+  /* Ensure consistent base font size */
+  html {
+    font-size: 16px;
   }
 
-  .section-padding {
-    @apply py-20;
+  body {
+    @apply bg-background text-white font-sans antialiased;
   }
 
-  .section-padding-sm {
-    @apply py-12;
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
   }
 
-  .grid-auto-fit {
-    @apply grid gap-8;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  /* Focus styles for accessibility */
+  *:focus {
+    @apply outline-none ring-2 ring-primary ring-opacity-50;
   }
 
-  .flex-center {
-    @apply flex items-center justify-center;
+  /* Line clamp utility for text truncation */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
-  .flex-between {
-    @apply flex items-center justify-between;
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/* Custom utilities */
+@layer utilities {
+
+  /* Backdrop blur utilities */
+  .backdrop-blur-xs {
+    backdrop-filter: blur(2px);
   }
 
-  .shadow-glow-primary {
-    @apply shadow-lg;
+  .backdrop-blur-sm {
+    backdrop-filter: blur(4px);
+  }
+
+  .backdrop-blur-md {
+    backdrop-filter: blur(8px);
+  }
+
+  .backdrop-blur-lg {
+    backdrop-filter: blur(12px);
+  }
+
+  .backdrop-blur-xl {
+    backdrop-filter: blur(16px);
+  }
+
+  /* Animation utilities */
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Glow effects */
+  .glow-primary {
     box-shadow: 0 0 20px rgba(255, 216, 0, 0.3);
   }
 
-  .shadow-glow-secondary {
-    @apply shadow-lg;
+  .glow-secondary {
     box-shadow: 0 0 20px rgba(71, 145, 240, 0.3);
   }
 
-  .hover-scale {
-    @apply transition-transform duration-300 hover:scale-105;
+  .glow-accent {
+    box-shadow: 0 0 20px rgba(89, 186, 185, 0.3);
   }
-
-  .hover-scale-lg {
-    @apply transition-transform duration-300 hover:scale-110;
-  }
-
-  .hover-lift {
-    @apply transition-transform duration-300 hover:-translate-y-1;
-  }
-
-  .animate-gradient {
-    @apply animate-gradient;
-    background-size: 400% 400%;
-  }
-
-  .creator-reel-container {
-    mask: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-    -webkit-mask: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-  }
-
-  .loading {
-    @apply inline-block w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin;
-  }
-
-  .skip-to-content-link {
-    @apply absolute -top-10 left-2 bg-primary text-black px-3 py-2 rounded z-50 focus:top-2 transition-all duration-300;
-  }
-
-  .visually-hidden {
-    @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
-    clip: rect(0, 0, 0, 0);
-  }
-}
-
-/* FAQ Collapsible Animations */
-@layer utilities {
-  .faq-content-enter {
-    animation: slideDown 0.3s ease-out forwards;
-  }
-
-  .faq-content-exit {
-    animation: slideUp 0.2s ease-in forwards;
-  }
-
-  .faq-item {
-    @apply transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg;
-  }
-
-  .animate-scroll {
-    @apply animate-scroll;
-  }
-
-  .animate-scroll:hover {
-    animation-play-state: paused;
-  }
-
-  .mobile-hidden {
-    @apply hidden md:block;
-  }
-
-  .desktop-hidden {
-    @apply block md:hidden;
-  }
-}
-
-/* Custom Keyframes */
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  to {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-}
-
-/* Scrollbar Styling */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background-color: var(--muted);
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: var(--primary-color);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: var(--primary-color);
-  opacity: 0.8;
-}
-
-/* Focus and Accessibility */
-button:focus,
-a:focus,
-input:focus,
-textarea:focus,
-select:focus {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
-}
-
-/* Header transparency fix */
-.at-top header {
-  background-color: transparent !important;
-}
-
-header {
-  background-color: transparent;
 }
