@@ -56,12 +56,21 @@
     border: 1px solid #3a3d4a;
     width: 100%;
     max-width: 220px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .product-card:hover {
+    transform: translateY(-3px);
+    border-color: #ffd800;
+    box-shadow: 0 4px 15px rgba(255, 216, 0, 0.2);
   }
 
   .product-image-container {
     width: 100%;
     height: 180px;
     overflow: hidden;
+    padding: 0.5rem;
   }
 
   .product-image {
@@ -69,6 +78,7 @@
     height: 100%;
     object-fit: contain;
     background: #2a2d3a;
+    border-radius: 4px;
   }
 
   .product-info {
