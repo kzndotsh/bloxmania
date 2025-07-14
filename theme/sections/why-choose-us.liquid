@@ -1,82 +1,47 @@
 {%- style -%}
   .feature-card {
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
   }
 
   .feature-card:hover {
-    transform: translateY(-5px);
-  }
-
-  .feature-icon {
-    transition: transform 0.3s ease;
-  }
-
-  .feature-card:hover .feature-icon {
-    transform: scale(1.1);
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   }
 {%- endstyle -%}
 
-<section class="py-16 px-8" style="background-color: #2c3e50;">
-  <div class="max-w-6xl mx-auto text-center">
-    <div class="mb-12">
-      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-        Why Choose <span style="color: #f39c12;">BloxMania</span>?
-      </h2>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-      <!-- Feature 1: Fast and Reliable -->
-      <div
-        class="feature-card rounded-2xl p-8 text-center"
-        style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);"
-      >
-        <div class="feature-content">
-          <div class="feature-icon w-16 h-16 mx-auto mb-6 bg-white/20 rounded-2xl flex items-center justify-center">
-            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
-            </svg>
-          </div>
-          <h3 class="text-2xl font-bold text-white mb-4">Fast and Reliable</h3>
-          <p class="text-white/90 leading-relaxed">
-            Our automated system ensures your items are delivered almost instantly. Our dedicated team is here to ensure
-            your order is delivered as fast as possible.
-          </p>
-        </div>
+<section
+  class="py-20"
+  style="background-image: url(/okok1.png); background-size: cover; background-position: center; background-repeat: no-repeat;"
+>
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Why Choose BloxMania?</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="feature-card bg-gradient-to-br from-yellow-600 to-orange-600 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer">
+        <svg class="w-12 h-12 text-white mb-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
+        </svg>
+        <h3 class="text-xl font-bold text-white mb-4">Fast and Reliable</h3>
+        <p class="text-white/90 leading-relaxed">
+          Our automated system ensures your items are delivered almost instantly. Our dedicated team is here to ensure
+          your order is delivered as fast as possible.
+        </p>
       </div>
-
-      <!-- Feature 2: Secure Transactions -->
-      <div
-        class="feature-card rounded-2xl p-8 text-center"
-        style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);"
-      >
-        <div class="feature-content">
-          <div class="feature-icon w-16 h-16 mx-auto mb-6 bg-white/20 rounded-2xl flex items-center justify-center">
-            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11H16V16H8V11H9.2V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.4,8.7 10.4,10V11H13.6V10C13.6,8.7 12.8,8.2 12,8.2Z"/>
-            </svg>
-          </div>
-          <h3 class="text-2xl font-bold text-white mb-4">Secure Transactions</h3>
-          <p class="text-white/90 leading-relaxed">We use trusted payment systems to keep your data safe and secure.</p>
-        </div>
+      <div class="feature-card bg-gradient-to-br from-red-600 to-pink-600 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer">
+        <svg class="w-12 h-12 text-white mb-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11H16V16H8V11H9.2V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.4,8.7 10.4,10V11H13.6V10C13.6,8.7 12.8,8.2 12,8.2Z"/>
+        </svg>
+        <h3 class="text-xl font-bold text-white mb-4">Secure Transactions</h3>
+        <p class="text-white/90 leading-relaxed">We use trusted payment systems to keep your data safe and secure.</p>
       </div>
-
-      <!-- Feature 3: 24/7 Support -->
-      <div
-        class="feature-card rounded-2xl p-8 text-center"
-        style="background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);"
-      >
-        <div class="feature-content">
-          <div class="feature-icon w-16 h-16 mx-auto mb-6 bg-white/20 rounded-2xl flex items-center justify-center">
-            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12,3C17.5,3 22,6.58 22,11C22,15.42 17.5,19 12,19C10.76,19 9.57,18.82 8.47,18.5C5.55,21 2,21 2,21C4.33,18.67 4.7,17.1 4.75,16.5C3.05,15.07 2,13.13 2,11C2,6.58 6.5,3 12,3M12,17L18,12L17,11L12,15L8,11L7,12L12,17Z"/>
-            </svg>
-          </div>
-          <h3 class="text-2xl font-bold text-white mb-4">24/7 Support</h3>
-          <p class="text-white/90 leading-relaxed">
-            Our dedicated support team is always here to help you. If you ever have an issue, join our discord and we
-            will assist you right away.
-          </p>
-        </div>
+      <div class="feature-card bg-gradient-to-br from-green-600 to-teal-600 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer">
+        <svg class="w-12 h-12 text-white mb-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12,3C17.5,3 22,6.58 22,11C22,15.42 17.5,19 12,19C10.76,19 9.57,18.82 8.47,18.5C5.55,21 2,21 2,21C4.33,18.67 4.7,17.1 4.75,16.5C3.05,15.07 2,13.13 2,11C2,6.58 6.5,3 12,3M12,17L18,12L17,11L12,15L8,11L7,12L12,17Z"/>
+        </svg>
+        <h3 class="text-xl font-bold text-white mb-4">24/7 Support</h3>
+        <p class="text-white/90 leading-relaxed">
+          Our dedicated support team is always here to help you. If you ever have an issue, join our discord and we will
+          assist you right away.
+        </p>
       </div>
     </div>
   </div>
