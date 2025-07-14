@@ -1,6 +1,6 @@
 {%- style -%}
   .featured-products {
-    padding: 3rem 1rem;
+    padding: 2rem 1rem;
     background: #1a1b26;
   }
 
@@ -13,7 +13,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
 
   .featured-products-title {
@@ -43,9 +43,24 @@
   }
 
   .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+
+  .products-grid::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .products-grid::-webkit-scrollbar-track {
+    background: #2a2d3a;
+    border-radius: 2px;
+  }
+
+  .products-grid::-webkit-scrollbar-thumb {
+    background: #ffd800;
+    border-radius: 2px;
   }
 
   .product-card {
@@ -54,6 +69,13 @@
     overflow: hidden;
     transition: transform 0.2s ease;
     border: 1px solid #3a3d4a;
+    flex-shrink: 0;
+    width: 240px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
   }
 
   .product-card:hover {
@@ -62,9 +84,11 @@
   }
 
   .product-image-container {
-    position: relative;
-    height: 140px;
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
     overflow: hidden;
+    border-radius: 6px;
   }
 
   .product-image {
@@ -79,15 +103,22 @@
   }
 
   .product-info {
-    padding: 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
   }
 
   .product-title {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: #ffffff;
-    margin: 0 0 0.5rem 0;
-    line-height: 1.3;
+    margin: 0 0 0.25rem 0;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .product-title a {
@@ -100,7 +131,7 @@
   }
 
   .product-price {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 700;
     color: #ffd800;
     margin: 0;
@@ -110,14 +141,14 @@
     text-decoration: line-through;
     color: #9ca3af;
     margin-right: 0.5rem;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 500;
   }
 
   /* Responsive Design */
   @media (max-width: 768px) {
     .featured-products {
-      padding: 2rem 1rem;
+      padding: 1.5rem 1rem;
     }
 
     .featured-products-header {
@@ -126,24 +157,36 @@
       text-align: center;
     }
 
-    .products-grid {
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    .product-card {
+      width: 200px;
+      height: 100px;
+      padding: 0.5rem;
+      gap: 0.5rem;
     }
 
     .product-image-container {
-      height: 120px;
+      width: 60px;
+      height: 60px;
+    }
+
+    .product-title {
+      font-size: 0.8rem;
+    }
+
+    .product-price {
+      font-size: 0.9rem;
     }
   }
 
   @media (max-width: 480px) {
-    .products-grid {
-      grid-template-columns: repeat(2, 1fr);
+    .product-card {
+      width: 180px;
+      height: 90px;
     }
-  }
 
-  @media (min-width: 1200px) {
-    .products-grid {
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    .product-image-container {
+      width: 50px;
+      height: 50px;
     }
   }
 {%- endstyle -%}
@@ -163,17 +206,17 @@
             <div class="product-image-container">
               {% if product.featured_image != blank %}
                 <img
-                  src="{{ product.featured_image | image_url: width: 300 }}"
+                  src="{{ product.featured_image | image_url: width: 160 }}"
                   alt="{{ product.title }}"
                   class="product-image"
-                  width="300"
-                  height="300"
+                  width="80"
+                  height="80"
                   loading="lazy"
                 >
               {% else %}
                 <div
                   class="product-image"
-                  style="background: #3a3d4a; display: flex; align-items: center; justify-content: center; color: #9ca3af; font-size: 0.8rem;"
+                  style="background: #3a3d4a; display: flex; align-items: center; justify-content: center; color: #9ca3af; font-size: 0.7rem;"
                 >
                   No Image
                 </div>
@@ -211,8 +254,8 @@
                 src="{{ img_asset | asset_url }}"
                 alt="{{ prod_name }}"
                 class="product-image"
-                width="300"
-                height="300"
+                width="80"
+                height="80"
                 loading="lazy"
               >
             </div>
