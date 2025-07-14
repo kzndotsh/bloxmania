@@ -1,281 +1,42 @@
 {%- style -%}
+  /* Custom styles that can't be easily replicated with Tailwind */
   .hero-section {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{{ 'hero.png' | asset_url }}');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    position: relative;
-    overflow: hidden;
-    padding: 8rem 2rem 4rem;
-  }
-
-  .hero-content {
-    text-align: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-  }
-
-  .hero-rating {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2rem;
-  }
-
-  .hero-rating img {
-    height: 3rem;
-    width: auto;
-    transition: transform 0.3s ease;
-    filter: drop-shadow(0 0 4px rgba(255, 216, 0, 0.2));
-  }
-
-  .hero-rating img:hover {
-    transform: scale(1.1);
-  }
-
-  .hero-title {
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 800;
-    margin-bottom: 1.5rem;
-    line-height: 1.1;
-    color: #ffffff;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
 
   .hero-title-gradient {
     color: #ffd800;
   }
 
-  .hero-subtitle {
-    font-size: clamp(1.125rem, 2.5vw, 1.375rem);
-    font-weight: 400;
-    color: #d1d5db;
-    margin-bottom: 2.5rem;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.6;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  }
-
-  .hero-cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 2rem;
-    background: #ffd800;
-    color: #000;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.125rem;
-    border-radius: 50px;
-    box-shadow: 0 4px 15px rgba(255, 216, 0, 0.3);
-    transition: all 0.3s ease;
-    margin-bottom: 3rem;
-  }
-
-  .hero-cta:hover {
-    background: #e6c200;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 216, 0, 0.4);
-  }
-
-  /* Creators Section */
-  .creators-section {
-    margin-top: 2rem;
-  }
-
-  .creators-title {
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: 700;
-    margin-bottom: 2rem;
-    color: #ffffff;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  }
-
-  .creators-title .highlight {
-    color: #ffd800;
-  }
-
-  .creators-reel {
-    position: relative;
-    overflow: hidden;
-    margin: 0 auto;
-    max-width: 1000px;
-    mask: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-    -webkit-mask: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-  }
-
-  .creators-scroll {
-    display: flex;
-    animation: scroll 30s linear infinite;
-    gap: 3rem;
+  .creators-carousel {
+    animation: scroll 20s linear infinite;
   }
 
   @keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  .creator-item {
-    flex-shrink: 0;
-    text-align: center;
-    min-width: 7rem;
-  }
-
-  .creator-avatar {
-    width: 6rem;
-    height: 6rem;
-    border-radius: 1rem;
-    margin: 0 auto 0.5rem;
-    transition: transform 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  }
-
-  .creator-avatar:hover {
-    transform: scale(1.05);
-  }
-
-  .creator-name {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #ffffff;
-    margin-bottom: 0.25rem;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  }
-
-  .creator-stats {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.25rem;
-    font-size: 0.75rem;
-    color: #d1d5db;
-  }
-
-  .youtube-icon {
-    width: 0.75rem;
-    height: 0.75rem;
-    fill: currentColor;
-  }
-
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .hero-section {
-      padding: 6rem 1rem 3rem;
-      min-height: 90vh;
+    0% {
+      transform: translateX(0);
     }
-
-    .hero-rating {
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-rating img {
-      height: 2.5rem;
-    }
-
-    .hero-title {
-      margin-bottom: 1.25rem;
-    }
-
-    .hero-subtitle {
-      margin-bottom: 2rem;
-    }
-
-    .hero-cta {
-      padding: 0.875rem 1.75rem;
-      font-size: 1rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .creators-title {
-      margin-bottom: 1.5rem;
-    }
-
-    .creators-scroll {
-      gap: 2rem;
-    }
-
-    .creator-item {
-      min-width: 5rem;
-    }
-
-    .creator-avatar {
-      width: 4.5rem;
-      height: 4.5rem;
+    100% {
+      transform: translateX(-100%);
     }
   }
 
-  @media (max-width: 480px) {
-    .hero-section {
-      padding: 5rem 1rem 2rem;
-      min-height: 85vh;
-    }
-
-    .hero-rating img {
-      height: 2rem;
-    }
-
-    .hero-cta {
-      padding: 0.75rem 1.5rem;
-      font-size: 0.95rem;
-    }
-
-    .creators-scroll {
-      gap: 1.5rem;
-    }
-
-    .creator-item {
-      min-width: 4rem;
-    }
-
-    .creator-avatar {
-      width: 3.5rem;
-      height: 3.5rem;
-    }
-
-    .creator-name {
-      font-size: 0.8rem;
-    }
-
-    .creator-stats {
-      font-size: 0.7rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .creators-scroll {
-      gap: 4rem;
-    }
-
-    .creator-item {
-      min-width: 8rem;
-    }
-
-    .creator-avatar {
-      width: 7rem;
-      height: 7rem;
-    }
-  }
-
-  /* Pause animation on hover */
-  .creators-reel:hover .creators-scroll {
+  .creators-carousel:hover {
     animation-play-state: paused;
   }
 {%- endstyle -%}
 
-<section class="hero-section">
-  <div class="hero-content">
+<section class="hero-section min-h-screen flex items-center justify-center relative overflow-hidden py-32 px-8 md:px-4">
+  <div class="text-center max-w-6xl mx-auto relative z-10">
     <!-- Rating Badge -->
-    <div class="hero-rating">
+    <div class="flex justify-center mb-8">
       <img
         src="{{ 'ratingz.png' | asset_url }}"
         alt="5-Star Rating"
+        class="h-12 w-auto transition-transform duration-300 hover:scale-110 drop-shadow-lg"
         width="120"
         height="40"
         loading="lazy"
@@ -283,81 +44,124 @@
     </div>
 
     <!-- Main Title -->
-    <h1 class="hero-title">
+    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight text-white drop-shadow-lg">
       Instantly Buy Your Favorite Items
       <br>
       <span class="hero-title-gradient">Fast, Safe, and Easy!</span>
     </h1>
 
     <!-- Subtitle -->
-    <p class="hero-subtitle">
+    <p class="text-lg md:text-xl lg:text-2xl text-gray-300 mb-10 max-w-4xl mx-auto leading-relaxed drop-shadow-md">
       {% if section.settings.subtitle != blank %}
         {{ section.settings.subtitle }}
       {% else %}
         BloxMania is the fastest, cheapest, and safest shop for digital goods, with instant delivery. Our
-        <strong>automated system</strong> ensures you receive your items securely and swiftly!
+        <strong class="text-primary">automated system</strong> ensures you receive your items securely and swiftly!
       {% endif %}
     </p>
 
     <!-- Call to Action -->
-    <a href="{{ section.settings.cta_link | default: '/collections/all' }}" class="hero-cta">
+    <a
+      href="{{ section.settings.cta_link | default: '/collections/all' }}"
+      class="inline-flex items-center justify-center px-8 py-4 bg-primary text-black font-semibold text-lg rounded-full shadow-lg hover:bg-primary-600 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 mb-12"
+    >
       {{ section.settings.cta_text | default: 'SHOP NOW' }}
     </a>
 
     <!-- Trusted by Top Creators Section -->
-    <div class="creators-section">
-      <h3 class="creators-title">Trusted by <span class="highlight">Top</span> Creators</h3>
+    <div class="mt-8">
+      <div class="text-center mb-6">
+        <h3 class="text-xl md:text-2xl font-bold text-white mb-2 drop-shadow-md">Trusted by Top Creators</h3>
+        <p class="text-gray-300 text-sm md:text-base drop-shadow-sm">
+          Join thousands of satisfied customers who trust BloxMania
+        </p>
+      </div>
 
-      <div class="creators-reel">
-        <div class="creators-scroll">
-          <!-- First set of creators -->
-          {% assign creators = 'Ali-A,19.6M,https://www.youtube.com/@AliA|CaseOh,8M,https://www.youtube.com/@caseoh_|DanTDM,29M,https://www.youtube.com/@DanTDM|Flamingo,13M,https://www.youtube.com/@Flamingo|KreekCraft,12M,https://www.youtube.com/@KreekCraft|LanasLife,7.5M,https://www.youtube.com/@Lanaslifeee|SypherPK,10.6M,https://www.youtube.com/@SypherPK|TypicalGamer,15M,https://www.youtube.com/@TypicalGamer'
-            | split: '|'
-          %}
-
-          {% for creator_data_string in creators %}
-            {% assign creator_data = creator_data_string | split: ',' %}
-            <div class="creator-item">
-              <a href="{{ creator_data[2] }}" target="_blank" rel="noopener noreferrer">
+      <!-- Creators Carousel -->
+      <div class="relative overflow-hidden rounded-2xl bg-black/20 backdrop-blur-sm border border-white/10 p-6">
+        <div class="flex space-x-6 creators-carousel">
+          <!-- Repeat creators twice for seamless loop -->
+          {% for i in (1..2) %}
+            <div class="flex space-x-6 shrink-0">
+              <div class="group">
                 <img
-                  src="{{ creator_data[0] | append: '.png' | asset_url }}"
-                  alt="{{ creator_data[0] }}"
-                  class="creator-avatar"
-                  width="112"
-                  height="112"
+                  src="{{ 'Ali-A.png' | asset_url }}"
+                  alt="Ali-A"
+                  class="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-primary/50 group-hover:border-primary transition-all duration-300 group-hover:scale-110 shadow-lg"
+                  width="80"
+                  height="80"
                   loading="lazy"
                 >
-              </a>
-              <p class="creator-name">{{ creator_data[0] }}</p>
-              <div class="creator-stats">
-                <svg class="youtube-icon" viewBox="0 0 24 24">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
-                <span>{{ creator_data[1] }}</span>
               </div>
-            </div>
-          {% endfor %}
-
-          <!-- Duplicate set for seamless loop -->
-          {% for creator_data_string in creators %}
-            {% assign creator_data = creator_data_string | split: ',' %}
-            <div class="creator-item">
-              <a href="{{ creator_data[2] }}" target="_blank" rel="noopener noreferrer">
+              <div class="group">
                 <img
-                  src="{{ creator_data[0] | append: '.png' | asset_url }}"
-                  alt="{{ creator_data[0] }}"
-                  class="creator-avatar"
-                  width="112"
-                  height="112"
+                  src="{{ 'CaseOh.png' | asset_url }}"
+                  alt="CaseOh"
+                  class="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-primary/50 group-hover:border-primary transition-all duration-300 group-hover:scale-110 shadow-lg"
+                  width="80"
+                  height="80"
                   loading="lazy"
                 >
-              </a>
-              <p class="creator-name">{{ creator_data[0] }}</p>
-              <div class="creator-stats">
-                <svg class="youtube-icon" viewBox="0 0 24 24">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
-                <span>{{ creator_data[1] }}</span>
+              </div>
+              <div class="group">
+                <img
+                  src="{{ 'DanTDM.png' | asset_url }}"
+                  alt="DanTDM"
+                  class="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-primary/50 group-hover:border-primary transition-all duration-300 group-hover:scale-110 shadow-lg"
+                  width="80"
+                  height="80"
+                  loading="lazy"
+                >
+              </div>
+              <div class="group">
+                <img
+                  src="{{ 'Flamingo.png' | asset_url }}"
+                  alt="Flamingo"
+                  class="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-primary/50 group-hover:border-primary transition-all duration-300 group-hover:scale-110 shadow-lg"
+                  width="80"
+                  height="80"
+                  loading="lazy"
+                >
+              </div>
+              <div class="group">
+                <img
+                  src="{{ 'KreekCraft.png' | asset_url }}"
+                  alt="KreekCraft"
+                  class="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-primary/50 group-hover:border-primary transition-all duration-300 group-hover:scale-110 shadow-lg"
+                  width="80"
+                  height="80"
+                  loading="lazy"
+                >
+              </div>
+              <div class="group">
+                <img
+                  src="{{ 'LanasLife.png' | asset_url }}"
+                  alt="LanasLife"
+                  class="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-primary/50 group-hover:border-primary transition-all duration-300 group-hover:scale-110 shadow-lg"
+                  width="80"
+                  height="80"
+                  loading="lazy"
+                >
+              </div>
+              <div class="group">
+                <img
+                  src="{{ 'SypherPK.png' | asset_url }}"
+                  alt="SypherPK"
+                  class="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-primary/50 group-hover:border-primary transition-all duration-300 group-hover:scale-110 shadow-lg"
+                  width="80"
+                  height="80"
+                  loading="lazy"
+                >
+              </div>
+              <div class="group">
+                <img
+                  src="{{ 'TypicalGamer.png' | asset_url }}"
+                  alt="TypicalGamer"
+                  class="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-primary/50 group-hover:border-primary transition-all duration-300 group-hover:scale-110 shadow-lg"
+                  width="80"
+                  height="80"
+                  loading="lazy"
+                >
               </div>
             </div>
           {% endfor %}
