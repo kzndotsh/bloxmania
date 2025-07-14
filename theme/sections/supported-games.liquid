@@ -1,7 +1,6 @@
 {%- style -%}
   .supported-games {
-    padding: 4rem 2rem;
-    margin-top: -3.75rem;
+    padding: 5rem 2rem 7rem 2rem;
   }
 
   .supported-games-container {
@@ -21,7 +20,7 @@
   .games-grid {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
     align-items: center;
   }
 
@@ -29,7 +28,7 @@
     .games-grid {
       flex-direction: row;
       justify-content: center;
-      gap: 2rem;
+      gap: 3rem;
     }
   }
 
@@ -40,27 +39,24 @@
     background-repeat: no-repeat;
     border-radius: 1rem;
     padding: 2rem;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
     position: relative;
-    overflow: hidden;
     border: 1px solid transparent;
-    box-shadow: 0 0 20px rgba(255, 216, 0, 0.3);
     width: 100%;
     max-width: 300px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
   }
 
   .game-card:hover {
-    background-color: #2d3142;
     transform: scale(1.05);
     border-color: #ffd800;
-    box-shadow: 0 0 30px rgba(255, 216, 0, 0.5);
   }
 
   .game-content {
     position: relative;
     z-index: 10;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
   }
 
   .game-card:hover .game-content {
@@ -68,92 +64,58 @@
   }
 
   .game-image {
-    width: 10rem;
-    height: 10rem;
+    width: 160px;
+    height: 160px;
     margin: 0 auto 1.5rem;
-    border-radius: 0.75rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    object-fit: cover;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
   .game-title {
-    font-size: 1.25rem;
+    font-size: 20px;
     font-weight: 600;
     color: #ffffff;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 
-  .game-overlay {
+  .coming-soon-overlay {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background: rgba(0, 0, 0, 0.7);
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.3s ease;
     z-index: 20;
   }
 
-  .game-card:hover .game-overlay {
+  .game-card:hover .coming-soon-overlay {
     opacity: 1;
   }
 
-  .overlay-content {
+  .coming-soon-content {
     text-align: center;
-  }
-
-  .overlay-title {
-    font-size: 2rem;
-    font-weight: 700;
     color: #ffffff;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   }
 
-  .overlay-subtitle {
+  .coming-soon-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .coming-soon-subtitle {
     color: #d1d5db;
-    font-size: 1rem;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  }
-
-  /* Responsive Design */
-  @media (max-width: 767px) {
-    .supported-games {
-      padding: 3rem 1rem;
-      margin-top: -2rem;
-    }
-
-    .game-card {
-      max-width: 280px;
-    }
-
-    .game-image {
-      width: 8rem;
-      height: 8rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .games-grid {
-      gap: 2.5rem;
-    }
-
-    .game-card {
-      max-width: 320px;
-    }
-
-    .game-image {
-      width: 11rem;
-      height: 11rem;
-    }
+    font-size: 16px;
   }
 {%- endstyle -%}
 
 <section class="supported-games">
   <div class="supported-games-container">
-    <h2 class="supported-games-title">{{ section.settings.title | default: 'Supported Titles' }}</h2>
+    <h2 class="supported-games-title">Supported Titles</h2>
 
     <div class="games-grid">
       <!-- Grow A Garden -->
@@ -163,16 +125,13 @@
             src="{{ 'grow.png' | asset_url }}"
             alt="Grow A Garden"
             class="game-image"
-            width="160"
-            height="160"
-            loading="lazy"
           >
           <h3 class="game-title">Grow A Garden</h3>
         </div>
-        <div class="game-overlay">
-          <div class="overlay-content">
-            <h3 class="overlay-title">Coming Soon</h3>
-            <p class="overlay-subtitle">Stay tuned for updates!</p>
+        <div class="coming-soon-overlay">
+          <div class="coming-soon-content">
+            <div class="coming-soon-title">Coming Soon</div>
+            <div class="coming-soon-subtitle">Stay tuned for updates!</div>
           </div>
         </div>
       </div>
@@ -184,16 +143,13 @@
             src="https://ext.same-assets.com/85213452/990301288.jpeg"
             alt="Pet Simulator 99"
             class="game-image"
-            width="160"
-            height="160"
-            loading="lazy"
           >
           <h3 class="game-title">Pet Simulator 99</h3>
         </div>
-        <div class="game-overlay">
-          <div class="overlay-content">
-            <h3 class="overlay-title">Coming Soon</h3>
-            <p class="overlay-subtitle">Stay tuned for updates!</p>
+        <div class="coming-soon-overlay">
+          <div class="coming-soon-content">
+            <div class="coming-soon-title">Coming Soon</div>
+            <div class="coming-soon-subtitle">Stay tuned for updates!</div>
           </div>
         </div>
       </div>
@@ -205,16 +161,13 @@
             src="{{ 'fortnite.png' | asset_url }}"
             alt="Fortnite"
             class="game-image"
-            width="160"
-            height="160"
-            loading="lazy"
           >
           <h3 class="game-title">Fortnite</h3>
         </div>
-        <div class="game-overlay">
-          <div class="overlay-content">
-            <h3 class="overlay-title">Coming Soon</h3>
-            <p class="overlay-subtitle">Stay tuned for updates!</p>
+        <div class="coming-soon-overlay">
+          <div class="coming-soon-content">
+            <div class="coming-soon-title">Coming Soon</div>
+            <div class="coming-soon-subtitle">Stay tuned for updates!</div>
           </div>
         </div>
       </div>
