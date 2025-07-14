@@ -1,17 +1,14 @@
 {%- style -%}
-  /* Only keep complex animations that can't be easily replicated with Tailwind */
+  .feature-card {
+    transition: transform 0.3s ease;
+  }
+
   .feature-card:hover {
     transform: translateY(-5px);
   }
 
-  .feature-card:nth-child(2):hover {
-    border-color: #59bab9;
-    box-shadow: 0 10px 30px rgba(89, 186, 185, 0.2);
-  }
-
-  .feature-card:nth-child(3):hover {
-    border-color: #3b5db0;
-    box-shadow: 0 10px 30px rgba(59, 93, 176, 0.2);
+  .feature-icon {
+    transition: transform 0.3s ease;
   }
 
   .feature-card:hover .feature-icon {
@@ -19,87 +16,66 @@
   }
 {%- endstyle -%}
 
-<section class="py-16 px-8 bg-background/95">
+<section class="py-16 px-8" style="background-color: #2c3e50;">
   <div class="max-w-6xl mx-auto text-center">
     <div class="mb-12">
-      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">
-        Why Choose <span class="text-primary">BloxMania</span>?
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+        Why Choose <span style="color: #f39c12;">BloxMania</span>?
       </h2>
-      <p class="text-lg md:text-xl lg:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-        {{
-          section.settings.subtitle
-          | default: 'Experience the best gaming marketplace with unmatched quality, speed, and customer service.'
-        }}
-      </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-      <!-- Feature 1: Lightning Fast Delivery -->
-      <div class="feature-card bg-white/5 border border-white/10 rounded-2xl p-8 transition-all duration-300 text-center backdrop-blur-sm hover:border-primary hover:shadow-lg hover:shadow-primary/20">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+      <!-- Feature 1: Fast and Reliable -->
+      <div
+        class="feature-card rounded-2xl p-8 text-center"
+        style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);"
+      >
         <div class="feature-content">
-          <div class="feature-icon w-14 h-14 mx-auto mb-6 bg-gradient-to-br from-primary to-primary-600 rounded-2xl flex items-center justify-center transition-transform duration-300">
-            <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          <div class="feature-icon w-16 h-16 mx-auto mb-6 bg-white/20 rounded-2xl flex items-center justify-center">
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
             </svg>
           </div>
-          <h3 class="text-xl md:text-2xl font-bold text-white mb-4 drop-shadow-sm">Lightning Fast Delivery</h3>
-          <p class="text-gray-300 leading-relaxed">
-            Get your items instantly! Our automated system delivers your gaming items within minutes of purchase, no
-            waiting required.
+          <h3 class="text-2xl font-bold text-white mb-4">Fast and Reliable</h3>
+          <p class="text-white/90 leading-relaxed">
+            Our automated system ensures your items are delivered almost instantly. Our dedicated team is here to ensure
+            your order is delivered as fast as possible.
           </p>
         </div>
       </div>
 
-      <!-- Feature 2: 24/7 Customer Support -->
-      <div class="feature-card bg-white/5 border border-white/10 rounded-2xl p-8 transition-all duration-300 text-center backdrop-blur-sm hover:border-accent hover:shadow-lg hover:shadow-accent/20">
+      <!-- Feature 2: Secure Transactions -->
+      <div
+        class="feature-card rounded-2xl p-8 text-center"
+        style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);"
+      >
         <div class="feature-content">
-          <div class="feature-icon w-14 h-14 mx-auto mb-6 bg-gradient-to-br from-accent to-accent-600 rounded-2xl flex items-center justify-center transition-transform duration-300">
-            <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 2.5c0 .83-.67 1.5-1.5 1.5S12 7.33 12 6.5 12.67 5 13.5 5s1.5.67 1.5 1.5zM16 18H8v-.57c0-.81.48-1.53 1.22-1.85a6.95 6.95 0 015.56 0A2.01 2.01 0 0116 17.43V18z"/>
+          <div class="feature-icon w-16 h-16 mx-auto mb-6 bg-white/20 rounded-2xl flex items-center justify-center">
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11H16V16H8V11H9.2V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.4,8.7 10.4,10V11H13.6V10C13.6,8.7 12.8,8.2 12,8.2Z"/>
             </svg>
           </div>
-          <h3 class="text-xl md:text-2xl font-bold text-white mb-4 drop-shadow-sm">24/7 Customer Support</h3>
-          <p class="text-gray-300 leading-relaxed">
-            Our dedicated support team is always here to help. Get assistance anytime, anywhere with our round-the-clock
-            customer service.
-          </p>
+          <h3 class="text-2xl font-bold text-white mb-4">Secure Transactions</h3>
+          <p class="text-white/90 leading-relaxed">We use trusted payment systems to keep your data safe and secure.</p>
         </div>
       </div>
 
-      <!-- Feature 3: Secure & Trusted -->
-      <div class="feature-card bg-white/5 border border-white/10 rounded-2xl p-8 transition-all duration-300 text-center backdrop-blur-sm hover:border-secondary hover:shadow-lg hover:shadow-secondary/20">
+      <!-- Feature 3: 24/7 Support -->
+      <div
+        class="feature-card rounded-2xl p-8 text-center"
+        style="background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);"
+      >
         <div class="feature-content">
-          <div class="feature-icon w-14 h-14 mx-auto mb-6 bg-gradient-to-br from-secondary to-secondary-600 rounded-2xl flex items-center justify-center transition-transform duration-300">
-            <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path fill-rule="evenodd" d="M12.516 2.17a.75.75 0 00-1.032 0 11.209 11.209 0 01-7.877 3.08.75.75 0 00-.722.515A12.74 12.74 0 002.25 9.75c0 5.814 3.876 10.713 9.022 12.109a.75.75 0 00.956 0C17.424 20.463 21.3 15.564 21.3 9.75a12.74 12.74 0 00-.635-4.235.75.75 0 00-.722-.515 11.209 11.209 0 01-7.877-3.08zM15.75 9.75a3 3 0 11-6 0 3 3 0 016 0z" clip-rule="evenodd"/>
+          <div class="feature-icon w-16 h-16 mx-auto mb-6 bg-white/20 rounded-2xl flex items-center justify-center">
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12,3C17.5,3 22,6.58 22,11C22,15.42 17.5,19 12,19C10.76,19 9.57,18.82 8.47,18.5C5.55,21 2,21 2,21C4.33,18.67 4.7,17.1 4.75,16.5C3.05,15.07 2,13.13 2,11C2,6.58 6.5,3 12,3M12,17L18,12L17,11L12,15L8,11L7,12L12,17Z"/>
             </svg>
           </div>
-          <h3 class="text-xl md:text-2xl font-bold text-white mb-4 drop-shadow-sm">Secure & Trusted</h3>
-          <p class="text-gray-300 leading-relaxed">
-            Your transactions are protected with enterprise-grade security. Join thousands of satisfied customers who
-            trust BloxMania.
+          <h3 class="text-2xl font-bold text-white mb-4">24/7 Support</h3>
+          <p class="text-white/90 leading-relaxed">
+            Our dedicated support team is always here to help you. If you ever have an issue, join our discord and we
+            will assist you right away.
           </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="mt-12 p-8 bg-background-surface/80 rounded-2xl border border-gray-700">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-        <div class="text-center">
-          <div class="text-3xl md:text-4xl lg:text-5xl font-black text-primary mb-2 drop-shadow-lg">10K+</div>
-          <div class="text-gray-400 text-sm uppercase tracking-wide">Happy Customers</div>
-        </div>
-        <div class="text-center">
-          <div class="text-3xl md:text-4xl lg:text-5xl font-black text-primary mb-2 drop-shadow-lg">99.9%</div>
-          <div class="text-gray-400 text-sm uppercase tracking-wide">Uptime</div>
-        </div>
-        <div class="text-center">
-          <div class="text-3xl md:text-4xl lg:text-5xl font-black text-primary mb-2 drop-shadow-lg">24/7</div>
-          <div class="text-gray-400 text-sm uppercase tracking-wide">Support</div>
-        </div>
-        <div class="text-center">
-          <div class="text-3xl md:text-4xl lg:text-5xl font-black text-primary mb-2 drop-shadow-lg">5★</div>
-          <div class="text-gray-400 text-sm uppercase tracking-wide">Rating</div>
         </div>
       </div>
     </div>
