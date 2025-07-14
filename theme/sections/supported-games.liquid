@@ -1,6 +1,7 @@
 {%- style -%}
   .supported-games {
-    padding: 5rem 2rem 7rem 2rem;
+    padding: 4rem 2rem;
+    background: rgba(29, 30, 38, 0.95);
   }
 
   .supported-games-container {
@@ -18,45 +19,35 @@
   }
 
   .games-grid {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
-    align-items: center;
-  }
-
-  @media (min-width: 768px) {
-    .games-grid {
-      flex-direction: row;
-      justify-content: center;
-      gap: 3rem;
-    }
+    max-width: 1000px;
+    margin: 0 auto;
   }
 
   .game-card {
-    background: url('{{ 'widget-backing.png' | asset_url }}');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 1rem;
     padding: 2rem;
     position: relative;
-    border: 1px solid transparent;
-    width: 100%;
-    max-width: 300px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     cursor: pointer;
     overflow: hidden;
     transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
   }
 
   .game-card:hover {
-    transform: scale(1.05);
+    transform: translateY(-5px);
     border-color: #ffd800;
+    box-shadow: 0 10px 30px rgba(255, 216, 0, 0.2);
   }
 
   .game-content {
     position: relative;
     z-index: 10;
-    transition: all 0.3s ease;
+    transition: filter 0.3s ease;
   }
 
   .game-card:hover .game-content {
@@ -68,13 +59,14 @@
     height: 160px;
     margin: 0 auto 1.5rem;
     border-radius: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
 
   .game-title {
-    font-size: 20px;
+    font-size: clamp(1.125rem, 2vw, 1.25rem);
     font-weight: 600;
     color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 
   .coming-soon-overlay {
@@ -83,7 +75,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.8);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -102,14 +94,58 @@
   }
 
   .coming-soon-title {
-    font-size: 24px;
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
+    color: #ffd800;
   }
 
   .coming-soon-subtitle {
     color: #d1d5db;
-    font-size: 16px;
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .supported-games {
+      padding: 3rem 1rem;
+    }
+
+    .supported-games-title {
+      margin-bottom: 2rem;
+    }
+
+    .games-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .game-card {
+      padding: 1.5rem;
+    }
+
+    .game-image {
+      width: 140px;
+      height: 140px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .game-card {
+      padding: 1.25rem;
+    }
+
+    .game-image {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 1rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .games-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 {%- endstyle -%}
 
@@ -125,6 +161,8 @@
             src="{{ 'grow.png' | asset_url }}"
             alt="Grow A Garden"
             class="game-image"
+            width="160"
+            height="160"
           >
           <h3 class="game-title">Grow A Garden</h3>
         </div>
@@ -143,6 +181,8 @@
             src="https://ext.same-assets.com/85213452/990301288.jpeg"
             alt="Pet Simulator 99"
             class="game-image"
+            width="160"
+            height="160"
           >
           <h3 class="game-title">Pet Simulator 99</h3>
         </div>
@@ -161,6 +201,8 @@
             src="{{ 'fortnite.png' | asset_url }}"
             alt="Fortnite"
             class="game-image"
+            width="160"
+            height="160"
           >
           <h3 class="game-title">Fortnite</h3>
         </div>

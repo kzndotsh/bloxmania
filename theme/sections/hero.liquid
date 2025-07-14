@@ -10,130 +10,96 @@
     background-repeat: no-repeat;
     position: relative;
     overflow: hidden;
-    padding-top: 8rem;
-    padding-bottom: 4rem;
+    padding: 8rem 2rem 4rem;
   }
 
   .hero-content {
     text-align: center;
-    max-width: 90rem;
-    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
     position: relative;
     z-index: 2;
-    margin: 0 auto;
   }
 
   .hero-rating {
     display: flex;
     justify-content: center;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
 
   .hero-rating img {
     height: 3rem;
     width: auto;
-    transition: all 0.3s ease;
-    transform: scale(1.1);
+    transition: transform 0.3s ease;
     filter: drop-shadow(0 0 4px rgba(255, 216, 0, 0.2));
-    cursor: pointer;
   }
 
   .hero-rating img:hover {
-    transform: scale(1.25);
+    transform: scale(1.1);
   }
 
   .hero-title {
-    font-size: clamp(2.5rem, 8vw, 4.5rem);
-    font-weight: 900;
-    margin-bottom: 2rem;
-    line-height: 1.2;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
     color: #ffffff;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
 
   .hero-title-gradient {
     color: #ffd800;
   }
 
-  @keyframes gradient-shift {
-    0%,
-    100% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-  }
-
   .hero-subtitle {
-    font-size: clamp(1.25rem, 4vw, 1.5rem);
-    font-weight: 500;
-    color: #ffffff;
-    margin-bottom: 3rem;
-    max-width: 60rem;
+    font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+    font-weight: 400;
+    color: #d1d5db;
+    margin-bottom: 2.5rem;
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    line-height: 1.7;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    line-height: 1.6;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 
   .hero-cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem 2.5rem;
+    padding: 1rem 2rem;
     background: #ffd800;
     color: #000;
     text-decoration: none;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 1.125rem;
     border-radius: 50px;
-    box-shadow: 0 3px 15px rgba(255, 216, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(255, 216, 0, 0.3);
     transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-    margin-bottom: 3.5rem;
+    margin-bottom: 3rem;
   }
 
   .hero-cta:hover {
     background: #e6c200;
     transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(255, 216, 0, 0.3);
-    color: #000;
+    box-shadow: 0 6px 20px rgba(255, 216, 0, 0.4);
   }
 
-  .hero-cta::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-  }
-
-  .hero-cta:hover::before {
-    left: 100%;
-  }
-
-  /* Trusted by Creators Section */
+  /* Creators Section */
   .creators-section {
     margin-top: 2rem;
   }
 
   .creators-title {
-    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-size: clamp(1.5rem, 3vw, 2rem);
     font-weight: 700;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     color: #ffffff;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 
   .creators-title .highlight {
     color: #ffd800;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   }
 
   .creators-reel {
@@ -148,46 +114,39 @@
   .creators-scroll {
     display: flex;
     animation: scroll 30s linear infinite;
-    gap: 4rem;
+    gap: 3rem;
   }
 
   @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 
   .creator-item {
     flex-shrink: 0;
     text-align: center;
-    min-width: 8rem;
+    min-width: 7rem;
   }
 
   .creator-avatar {
-    width: 7rem;
-    height: 7rem;
+    width: 6rem;
+    height: 6rem;
     border-radius: 1rem;
     margin: 0 auto 0.5rem;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
 
   .creator-avatar:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
   }
 
   .creator-name {
-    font-size: 1rem;
+    font-size: 0.875rem;
     font-weight: 600;
     color: #ffffff;
     margin-bottom: 0.25rem;
-    white-space: nowrap;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 
   .creator-stats {
@@ -195,29 +154,21 @@
     align-items: center;
     justify-content: center;
     gap: 0.25rem;
-    font-size: 0.875rem;
-    color: #ffffff;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+    font-size: 0.75rem;
+    color: #d1d5db;
   }
 
   .youtube-icon {
     width: 0.75rem;
     height: 0.75rem;
     fill: currentColor;
-    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
   }
 
-  /* Small Mobile Devices */
-  @media (max-width: 480px) {
+  /* Responsive Design */
+  @media (max-width: 768px) {
     .hero-section {
-      padding-top: 4.5rem;
-      padding-bottom: 2.5rem;
-      min-height: 85vh;
-    }
-
-    .hero-content {
-      padding: 1.5rem 0.75rem;
-      max-width: 95%;
+      padding: 6rem 1rem 3rem;
+      min-height: 90vh;
     }
 
     .hero-rating {
@@ -225,34 +176,24 @@
     }
 
     .hero-rating img {
-      height: 2rem;
+      height: 2.5rem;
     }
 
     .hero-title {
-      font-size: clamp(1.75rem, 12vw, 2.5rem);
       margin-bottom: 1.25rem;
-      line-height: 1.05;
     }
 
     .hero-subtitle {
-      font-size: clamp(0.9rem, 4.5vw, 1rem);
       margin-bottom: 2rem;
-      line-height: 1.5;
     }
 
     .hero-cta {
       padding: 0.875rem 1.75rem;
-      font-size: 0.95rem;
+      font-size: 1rem;
       margin-bottom: 2.5rem;
-      min-width: 180px;
-    }
-
-    .creators-section {
-      margin-top: 1rem;
     }
 
     .creators-title {
-      font-size: clamp(1.125rem, 5vw, 1.25rem);
       margin-bottom: 1.5rem;
     }
 
@@ -261,12 +202,41 @@
     }
 
     .creator-item {
-      min-width: 4.5rem;
+      min-width: 5rem;
     }
 
     .creator-avatar {
-      width: 4rem;
-      height: 4rem;
+      width: 4.5rem;
+      height: 4.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-section {
+      padding: 5rem 1rem 2rem;
+      min-height: 85vh;
+    }
+
+    .hero-rating img {
+      height: 2rem;
+    }
+
+    .hero-cta {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .creators-scroll {
+      gap: 1.5rem;
+    }
+
+    .creator-item {
+      min-width: 4rem;
+    }
+
+    .creator-avatar {
+      width: 3.5rem;
+      height: 3.5rem;
     }
 
     .creator-name {
@@ -278,100 +248,18 @@
     }
   }
 
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .hero-section {
-      padding-top: 5rem;
-      padding-bottom: 3rem;
-      background-attachment: scroll;
-      min-height: 90vh;
-    }
-
-    .hero-content {
-      padding: 2rem 1rem;
-    }
-
-    .hero-rating {
-      margin-bottom: 2rem;
-    }
-
-    .hero-rating img {
-      height: 2.25rem;
-    }
-
-    .hero-title {
-      font-size: clamp(2rem, 10vw, 3rem);
-      margin-bottom: 1.5rem;
-      line-height: 1.1;
-    }
-
-    .hero-subtitle {
-      font-size: clamp(1rem, 5vw, 1.125rem);
-      margin-bottom: 2.5rem;
-      max-width: 100%;
-      line-height: 1.6;
-    }
-
-    .hero-cta {
-      padding: 1rem 2rem;
-      font-size: 1rem;
-      margin-bottom: 3rem;
-      width: auto;
-      min-width: 200px;
-    }
-
-    .creators-section {
-      margin-top: 1.5rem;
-    }
-
-    .creators-title {
-      font-size: clamp(1.25rem, 6vw, 1.5rem);
-      margin-bottom: 2rem;
-    }
-
-    .creators-reel {
-      max-width: 100%;
-      margin: 0 -1rem;
-    }
-
-    .creators-scroll {
-      gap: 2.5rem;
-    }
-
-    .creator-item {
-      min-width: 5rem;
-    }
-
-    .creator-avatar {
-      width: 4.5rem;
-      height: 4.5rem;
-    }
-
-    .creator-name {
-      font-size: 0.875rem;
-    }
-
-    .creator-stats {
-      font-size: 0.75rem;
-    }
-  }
-
   @media (min-width: 1024px) {
-    .hero-title {
-      font-size: clamp(3rem, 8vw, 5rem);
-    }
-
-    .creators-title {
-      font-size: clamp(2rem, 4vw, 2.5rem);
-    }
-
-    .creator-avatar {
-      width: 8rem;
-      height: 8rem;
+    .creators-scroll {
+      gap: 4rem;
     }
 
     .creator-item {
-      min-width: 9rem;
+      min-width: 8rem;
+    }
+
+    .creator-avatar {
+      width: 7rem;
+      height: 7rem;
     }
   }
 
