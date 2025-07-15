@@ -8,13 +8,28 @@
     transform: scale(1.05);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   }
+
+  @keyframes retro-grid {
+    0% {
+      transform: translateY(-10%);
+    }
+    100% {
+      transform: translateY(10%);
+    }
+  }
+
+  .retro-grid-animate {
+    animation: retro-grid 25s linear infinite;
+  }
 {%- endstyle -%}
 
 <section
-  class="py-20"
-  style="background-image: url({{ 'okok1.png' | asset_url }}); background-size: cover; background-position: center; background-repeat: no-repeat;"
+  class="py-20 relative overflow-hidden"
+  style="background-image: url({{ 'okok2.png' | asset_url }}); background-size: cover; background-position: center; background-repeat: no-repeat;"
 >
-  <div class="w-full px-8 md:px-16 lg:px-24 xl:px-32">
+  <div class="absolute inset-0 bg-gradient-to-tr from-purple-900/20 via-transparent to-blue-900/20"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/25 to-black/50"></div>
+  <div class="w-full px-8 md:px-16 lg:px-24 xl:px-32 relative z-10">
     <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Why Choose BloxMania?</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 lg:gap-16">
       <div class="feature-card bg-gradient-to-br from-yellow-600 to-orange-600 p-8 md:p-12 lg:p-16 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer">

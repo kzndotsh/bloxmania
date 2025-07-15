@@ -1,0 +1,56 @@
+{% comment %}
+  Game Card Component
+
+  Usage:
+    {% render 'content-game-card',
+      name: 'Fortnite',
+      image: 'fortnite.png',
+      coming_soon: false,
+      classes: 'custom-class'
+    %}
+
+  Parameters:
+    - name (required): Game name
+    - image (required): Image filename
+    - coming_soon (optional): Show coming soon overlay (default: false)
+    - classes (optional): Additional CSS classes
+{% endcomment %}
+
+{%- liquid
+  assign classes = classes | default: ''
+  assign coming_soon = coming_soon | default: false
+  assign all_classes = 'game-card bg-white/5 rounded-2xl p-8 relative border border-white/10 cursor-pointer overflow-hidden transition-all duration-300 backdrop-blur-sm hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-2' | append: ' ' | append: classes
+-%}
+
+<div class="{{ all_classes }}">
+  <div class="game-content relative z-10 transition-all duration-300">
+    <img
+      src="{{ image | asset_url }}"
+      alt="{{ name }}"
+      class="w-40 h-40 mx-auto mb-6 rounded-2xl shadow-lg"
+      width="160"
+      height="160"
+      loading="lazy"
+    >
+    <h3 class="text-xl md:text-2xl font-semibold text-white drop-shadow-sm">{{ name }}</h3>
+  </div>
+
+  {% if coming_soon %}
+    <div class="coming-soon-overlay absolute inset-0 bg-black/80 flex items-center justify-center z-20 opacity-0 transition-opacity duration-300">
+      <div class="text-center text-white">
+        <div class="text-xl md:text-2xl font-bold mb-2 text-primary">Coming Soon</div>
+        <div class="text-gray-300 text-sm md:text-base">Stay tuned for updates!</div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<style>
+  .game-card:hover .game-content {
+    filter: blur(2px);
+  }
+
+  .game-card:hover .coming-soon-overlay {
+    opacity: 1;
+  }
+</style>

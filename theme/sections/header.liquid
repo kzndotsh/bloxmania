@@ -1,24 +1,6 @@
-{%- style -%}
-  /* Custom animations and effects that can't be easily replicated with Tailwind */
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: #ffd800;
-    transition: width 0.3s ease;
-  }
-
-  .nav-link:hover::after {
-    width: 100%;
-  }
-
-  .mobile-menu.active {
-    display: flex;
-  }
-{%- endstyle -%}
+{% comment %}
+  Header Section - Refactored to use components
+{% endcomment %}
 
 <header class="fixed w-full top-0 z-50 transition-all duration-300 header-wrapper header-transparent" id="header">
   <div class="flex items-center justify-between px-4 md:px-8 py-6 max-w-7xl mx-auto">
@@ -26,13 +8,11 @@
     <div class="flex items-center flex-shrink-0">
       <!-- Mobile Menu Button (Desktop Hidden) -->
       <button
-        class="block md:hidden bg-black/30 backdrop-blur-sm border-0 text-white cursor-pointer p-3 rounded-lg transition-all duration-300 hover:text-primary hover:bg-black/50 mobile-menu-toggle"
+        class="block md:hidden bg-black/30 backdrop-blur-sm border-0 text-white cursor-pointer p-3 rounded-lg transition-all duration-300 hover:text-primary hover:bg-black/50"
         id="mobile-menu-toggle"
         aria-label="Open mobile menu"
       >
-        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-          <path fill-rule="evenodd" d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z" clip-rule="evenodd"/>
-        </svg>
+        {% render 'ui-icon', name: 'menu', classes: 'w-6 h-6' %}
       </button>
 
       <!-- Desktop Logo -->
@@ -48,303 +28,104 @@
             >
           </a>
         {% else %}
-          <a href="{{ routes.root_url }}">
-            <img
-              src="{{ 'BM.png' | asset_url }}"
-              alt="BloxMania"
-              class="h-14 lg:h-16 w-auto transition-transform duration-300 cursor-pointer hover:scale-105"
-              width="233"
-              height="70"
-            >
+          <a
+            href="{{ routes.root_url }}"
+            class="text-2xl font-bold text-white hover:text-primary transition-colors duration-300"
+          >
+            {{ shop.name }}
           </a>
         {% endif %}
       </div>
     </div>
 
-    <!-- Center: Mobile Logo / Desktop Navigation -->
-    <div class="flex justify-center flex-1 min-w-0">
-      <!-- Mobile Logo -->
-      <div class="block md:hidden">
+    <!-- Center: Desktop Navigation -->
+    {% render 'layout-navigation' %}
+
+    <!-- Right: Actions -->
+    <div class="flex items-center space-x-4">
+      {% if section.settings.discord_url != blank %}
+        {% render 'ui-button',
+          text: 'Discord',
+          url: section.settings.discord_url,
+          variant: 'outline',
+          size: 'small',
+          icon: 'discord',
+          classes: 'hidden md:inline-flex'
+        %}
+      {% endif %}
+
+      <!-- Mobile Logo (Mobile Only) -->
+      <div class="flex-shrink-0 block md:hidden">
         {% if section.settings.logo != blank %}
           <a href="{{ routes.root_url }}">
             <img
-              src="{{ section.settings.logo | image_url: width: 150 }}"
+              src="{{ section.settings.logo | image_url: width: 120 }}"
               alt="{{ shop.name }}"
-              class="h-12 w-auto cursor-pointer"
-              width="150"
-              height="48"
+              class="h-10 w-auto transition-transform duration-300 cursor-pointer hover:scale-105"
+              width="120"
+              height="36"
             >
           </a>
         {% else %}
-          <a href="{{ routes.root_url }}">
-            <img
-              src="{{ 'BM.png' | asset_url }}"
-              alt="BloxMania"
-              class="h-12 w-auto cursor-pointer"
-              width="150"
-              height="48"
-            >
+          <a
+            href="{{ routes.root_url }}"
+            class="text-xl font-bold text-white hover:text-primary transition-colors duration-300"
+          >
+            {{ shop.name }}
           </a>
         {% endif %}
       </div>
 
-      <!-- Desktop Navigation -->
-      <nav class="hidden md:flex items-center justify-center gap-10 lg:gap-12 xl:gap-14 min-w-0">
-        <a
-          href="{{ routes.all_products_collection_url }}"
-          class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary"
-        >
-          <svg class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119.997zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/>
-          </svg>
-          Shop Now
-        </a>
-
-        <a
-          href="{{ pages.guarantee.url | default: '/pages/guarantee' }}"
-          class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary"
-        >
-          <div class="relative">
-            <svg class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-              <path fill-rule="evenodd" d="M12.516 2.17a.75.75 0 00-1.032 0 11.209 11.209 0 01-7.877 3.08.75.75 0 00-.722.515A12.74 12.74 0 002.25 9.75c0 5.814 3.876 10.713 9.022 12.109a.75.75 0 00.956 0C17.424 20.463 21.3 15.564 21.3 9.75a12.74 12.74 0 00-.635-4.235.75.75 0 00-.722-.515 11.209 11.209 0 01-7.877-3.08zM15.75 9.75a3 3 0 11-6 0 3 3 0 016 0z" clip-rule="evenodd"/>
-            </svg>
-            <svg
-              class="absolute inset-0 w-2.5 h-2.5 lg:w-4 lg:h-4 m-auto transition-colors duration-300"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path fill-rule="evenodd" d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z" clip-rule="evenodd"/>
-            </svg>
-          </div>
-          Our Guarantee
-        </a>
-
-        {% if section.settings.discord_url != blank %}
-          <a
-            href="{{ section.settings.discord_url }}"
-            class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary"
-            target="_blank"
-            rel="noopener"
-          >
-            <svg class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
-            </svg>
-            Daily Giveaways
-          </a>
-        {% else %}
-          <a
-            href="https://discord.gg/bloxmania"
-            class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary"
-            target="_blank"
-            rel="noopener"
-          >
-            <svg class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
-            </svg>
-            Daily Giveaways
-          </a>
-        {% endif %}
-
-        <a
-          href="{{ pages['purchasing-guide'].url | default: '/pages/purchasing-guide' }}"
-          class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary"
-        >
-          <svg class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-            <path fill-rule="evenodd" d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625zM7.5 15a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 017.5 15zm.75 2.25a.75.75 0 000 1.5H12a.75.75 0 000-1.5H8.25z" clip-rule="evenodd"/>
-            <path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z"/>
-          </svg>
-          Purchasing Guide
-        </a>
-      </nav>
-    </div>
-
-    <!-- Right: User Actions -->
-    <div class="flex items-center justify-end gap-3 flex-shrink-0">
+      <!-- Cart Icon -->
       <a
         href="{{ routes.cart_url }}"
-        class="text-white no-underline transition-all duration-300 relative flex items-center p-2 rounded-lg bg-black/30 backdrop-blur-sm hover:text-primary hover:bg-black/50"
-        aria-label="Shopping cart"
+        class="relative p-2 text-white hover:text-primary transition-colors duration-300"
+        aria-label="View cart"
       >
-        <svg class="w-6 h-6 lg:w-7 lg:h-7" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 004.25 22.5h15.5a1.875 1.875 0 001.865-2.071l-1.263-12a1.875 1.875 0 00-1.865-1.679H16.5V6a4.5 4.5 0 10-9 0zM12 3a3 3 0 00-3 3v.75h6V6a3 3 0 00-3-3z"/>
-        </svg>
-        {% if cart.item_count > 0 %}
-          <span class="absolute -top-1 -right-1 bg-primary text-black text-xs font-semibold px-1.5 py-0.5 rounded-full min-w-5 text-center">
-            {{- cart.item_count -}}
-          </span>
-        {% endif %}
-      </a>
-
-      <a
-        href="{{ routes.account_url }}"
-        class="text-white no-underline transition-all duration-300 relative flex items-center p-2 rounded-lg bg-black/30 backdrop-blur-sm hover:text-primary hover:bg-black/50"
-        aria-label="User account"
-      >
-        <svg class="w-6 h-6 lg:w-7 lg:h-7" fill="currentColor" viewBox="0 0 24 24">
-          <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd"/>
-        </svg>
+        {% render 'ui-icon', name: 'shopping-cart', classes: 'w-6 h-6' %}
+        <span
+          class="absolute -top-1 -right-1 bg-primary text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold"
+          id="cart-count"
+        >
+          {{ cart.item_count }}
+        </span>
       </a>
     </div>
-  </div>
-
-  <!-- Mobile Menu -->
-  <div
-    class="mobile-menu fixed top-0 left-0 w-full h-screen bg-slate-900/98 backdrop-blur-xl z-60 hidden flex-col overflow-hidden"
-    id="mobile-menu"
-  >
-    <div class="flex items-center justify-between p-8 border-b border-white/10 bg-slate-900/90 flex-shrink-0">
-      {% if section.settings.logo != blank %}
-        <img
-          src="{{ section.settings.logo | image_url: width: 150 }}"
-          alt="{{ shop.name }}"
-          class="h-14 w-auto cursor-pointer"
-          width="150"
-          height="48"
-        >
-      {% else %}
-        <img
-          src="{{ 'BM.png' | asset_url }}"
-          alt="BloxMania"
-          class="h-14 w-auto cursor-pointer"
-          width="150"
-          height="48"
-        >
-      {% endif %}
-      <button
-        class="bg-white/8 border border-white/15 text-slate-100 cursor-pointer transition-all duration-200 p-3 rounded-lg hover:text-primary hover:bg-primary/12 hover:border-primary/25"
-        id="mobile-menu-close"
-        aria-label="Close mobile menu"
-      >
-        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-          <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd"/>
-        </svg>
-      </button>
-    </div>
-
-    <nav class="flex-1 overflow-y-auto flex flex-col">
-      <a
-        href="{{ routes.all_products_collection_url }}"
-        class="text-slate-100 no-underline text-xl md:text-2xl font-medium py-6 px-8 border-b border-white/10 flex items-center gap-4 transition-all duration-200 hover:text-primary hover:bg-primary/6"
-      >
-        <svg class="w-6 h-6 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119.997zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/>
-        </svg>
-        Shop Now
-      </a>
-
-      <a
-        href="{{ pages.guarantee.url | default: '/pages/guarantee' }}"
-        class="text-slate-100 no-underline text-xl md:text-2xl font-medium py-6 px-8 border-b border-white/10 flex items-center gap-4 transition-all duration-200 hover:text-primary hover:bg-primary/6"
-      >
-        <div class="relative flex-shrink-0">
-          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-            <path fill-rule="evenodd" d="M12.516 2.17a.75.75 0 00-1.032 0 11.209 11.209 0 01-7.877 3.08.75.75 0 00-.722.515A12.74 12.74 0 002.25 9.75c0 5.814 3.876 10.713 9.022 12.109a.75.75 0 00.956 0C17.424 20.463 21.3 15.564 21.3 9.75a12.74 12.74 0 00-.635-4.235.75.75 0 00-.722-.515 11.209 11.209 0 01-7.877-3.08zM15.75 9.75a3 3 0 11-6 0 3 3 0 016 0z" clip-rule="evenodd"/>
-          </svg>
-          <svg class="absolute inset-0 w-4 h-4 m-auto" fill="currentColor" viewBox="0 0 24 24">
-            <path fill-rule="evenodd" d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z" clip-rule="evenodd"/>
-          </svg>
-        </div>
-        Our Guarantee
-      </a>
-
-      {% if section.settings.discord_url != blank %}
-        <a
-          href="{{ section.settings.discord_url }}"
-          class="text-slate-100 no-underline text-xl md:text-2xl font-medium py-6 px-8 border-b border-white/10 flex items-center gap-4 transition-all duration-200 hover:text-primary hover:bg-primary/6"
-          target="_blank"
-          rel="noopener"
-        >
-          <svg class="w-6 h-6 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
-          </svg>
-          Daily Giveaways
-        </a>
-      {% else %}
-        <a
-          href="https://discord.gg/bloxmania"
-          class="text-slate-100 no-underline text-xl md:text-2xl font-medium py-6 px-8 border-b border-white/10 flex items-center gap-4 transition-all duration-200 hover:text-primary hover:bg-primary/6"
-          target="_blank"
-          rel="noopener"
-        >
-          <svg class="w-6 h-6 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.30a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
-          </svg>
-          Daily Giveaways
-        </a>
-      {% endif %}
-
-      <a
-        href="{{ pages['purchasing-guide'].url | default: '/pages/purchasing-guide' }}"
-        class="text-slate-100 no-underline text-xl md:text-2xl font-medium py-6 px-8 border-b border-white/10 flex items-center gap-4 transition-all duration-200 hover:text-primary hover:bg-primary/6"
-      >
-        <svg class="w-6 h-6 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-          <path fill-rule="evenodd" d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625zM7.5 15a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 017.5 15zm.75 2.25a.75.75 0 000 1.5H12a.75.75 0 000-1.5H8.25z" clip-rule="evenodd"/>
-          <path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z"/>
-        </svg>
-        Purchasing Guide
-      </a>
-    </nav>
   </div>
 </header>
+
+<!-- Mobile Menu -->
+{% render 'layout-mobile-menu' %}
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const header = document.getElementById('header');
-    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileMenuClose = document.getElementById('mobile-menu-close');
 
     // Header scroll effect
-    function handleScroll() {
-      if (window.scrollY > 10) {
-        header.classList.remove('header-transparent');
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 50) {
         header.classList.add('header-scrolled');
+        header.classList.remove('header-transparent');
       } else {
         header.classList.remove('header-scrolled');
         header.classList.add('header-transparent');
       }
-    }
-
-    // Initialize header state
-    handleScroll();
-    window.addEventListener('scroll', handleScroll);
-
-    // Mobile menu toggle
-    function openMobileMenu() {
-      mobileMenu.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeMobileMenu() {
-      mobileMenu.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    mobileMenuToggle?.addEventListener('click', function (e) {
-      e.preventDefault();
-      openMobileMenu();
-    });
-
-    mobileMenuClose?.addEventListener('click', function (e) {
-      e.preventDefault();
-      closeMobileMenu();
-    });
-
-    // Close mobile menu when clicking outside
-    mobileMenu?.addEventListener('click', function (e) {
-      if (e.target === mobileMenu) {
-        closeMobileMenu();
-      }
-    });
-
-    // Close mobile menu on escape key
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
-        closeMobileMenu();
-      }
     });
   });
 </script>
+
+<style>
+  .header-transparent {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+  }
+
+  .header-scrolled {
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  }
+</style>
 
 {% schema %}
 {
@@ -356,10 +137,9 @@
       "label": "Logo"
     },
     {
-      "type": "text",
+      "type": "url",
       "id": "discord_url",
-      "label": "Discord URL",
-      "default": "https://discord.gg/bloxmania"
+      "label": "Discord URL"
     }
   ]
 }

@@ -1,106 +1,43 @@
-{%- style -%}
-  /* Only keep essential hover effects */
-  .product-card:hover {
-    transform: translateY(-5px);
-  }
-{%- endstyle -%}
+{% comment %}
+  Featured Products Section - Refactored to use components
+{% endcomment %}
 
-<section
-  class="py-20"
-  style="background-image: url({{ 'okok1.png' | asset_url }}); background-size: cover; background-position: center; background-repeat: no-repeat;"
->
-  <div class="container mx-auto px-4">
-    <div class="flex flex-col md:flex-row justify-between items-center mb-12 text-center md:text-left gap-4">
-      <h2 class="text-3xl md:text-4xl font-bold text-white m-0">Featured Items</h2>
-      <a
-        href="{{ section.settings.view_all_link | default: '/collections/all' }}"
-        class="inline-flex items-center px-4 py-2 bg-transparent text-primary border border-primary no-underline font-medium rounded-md transition-all duration-300 text-sm hover:bg-primary hover:text-black cursor-pointer"
-      >
-        View all →
-      </a>
-    </div>
+{% render 'layout-section-wrapper', classes: 'bg-cover bg-center bg-no-repeat', background: 'image', padding: 'large' %}
+<div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-indigo-900/25"></div>
+<div class="absolute inset-0 bg-gradient-to-br from-cyan-900/15 via-transparent to-violet-900/15"></div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-      {% if section.settings.collection != blank %}
-        {% assign products = section.settings.collection.products | slice: 0, section.settings.products_to_show %}
-        {% for product in products %}
-          <div
-            class="product-card border border-gray-700 hover:border-primary transition-all duration-300 transform hover:scale-105 hover:shadow-xl h-full flex flex-col rounded-2xl overflow-hidden"
-            style="background-image: url({{ 'widget-backing.png' | asset_url }}); background-size: cover; background-position: center; background-repeat: no-repeat;"
-          >
-            <div class="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col">
-              <div class="relative group flex-1 flex flex-col justify-center">
-                {% if product.featured_image != blank %}
-                  <img
-                    src="{{ product.featured_image | image_url: width: 300 }}"
-                    alt="{{ product.title }}"
-                    class="w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto rounded-xl mb-4 sm:mb-6 transition-all duration-300 group-hover:brightness-110 object-cover"
-                    width="160"
-                    height="160"
-                    loading="lazy"
-                  >
-                {% else %}
-                  <div class="w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto rounded-xl mb-4 sm:mb-6 bg-gray-700 flex items-center justify-center text-gray-400 text-xs">
-                    No Image
-                  </div>
-                {% endif %}
-              </div>
-              <div class="text-center mt-auto">
-                <h3 class="font-semibold text-white mb-2 text-sm sm:text-base lg:text-lg line-clamp-2">
-                  <a href="{{ product.url }}" class="text-inherit no-underline">{{ product.title }}</a>
-                </h3>
-                <div class="text-primary font-bold text-base sm:text-lg lg:text-xl">
-                  {% if product.compare_at_price > product.price %}
-                    <span class="line-through text-gray-400 mr-2 text-sm font-medium">
-                      {{- product.compare_at_price | money -}}
-                    </span>
-                  {% endif %}
-                  {{ product.price | money }}
-                </div>
-              </div>
-            </div>
-          </div>
-        {% endfor %}
-      {% else %}
-        <!-- Demo Products -->
-        {% assign demo_products = '10T.jpg,RACCOON.jpg,FENNEC.jpg,DISCO-BEE.jpg,DRAGONFLY.jpg' | split: ',' %}
-        {% assign demo_names = '10 Trillion Sheckles,Raccoon,Fennec Fox,Disco Bee,Dragonfly' | split: ',' %}
-        {% assign demo_prices = '$15.99,$12.99,$24.99,$17.99,$12.99' | split: ',' %}
-
-        {% for i in (1..5) %}
-          {% assign index = forloop.index0 %}
-          {% assign img_asset = demo_products[index] | default: 'no-image.png' %}
-          {% assign prod_name = demo_names[index] | default: 'Featured Gaming Item' %}
-          {% assign prod_price = demo_prices[index] | default: '$9.99' %}
-
-          <div
-            class="product-card border border-gray-700 hover:border-primary transition-all duration-300 transform hover:scale-105 hover:shadow-xl h-full flex flex-col rounded-2xl overflow-hidden"
-            style="background-image: url({{ 'widget-backing.png' | asset_url }}); background-size: cover; background-position: center; background-repeat: no-repeat;"
-          >
-            <div class="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col">
-              <div class="relative group flex-1 flex flex-col justify-center">
-                <img
-                  src="{{ img_asset | asset_url }}"
-                  alt="{{ prod_name }}"
-                  class="w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto rounded-xl mb-4 sm:mb-6 transition-all duration-300 group-hover:brightness-110 object-cover"
-                  width="160"
-                  height="160"
-                  loading="lazy"
-                >
-              </div>
-              <div class="text-center mt-auto">
-                <h3 class="font-semibold text-white mb-2 text-sm sm:text-base lg:text-lg line-clamp-2">
-                  <a href="#" class="text-inherit no-underline">{{ prod_name }}</a>
-                </h3>
-                <div class="text-primary font-bold text-base sm:text-lg lg:text-xl">{{ prod_price }}</div>
-              </div>
-            </div>
-          </div>
-        {% endfor %}
-      {% endif %}
-    </div>
+<div class="relative z-10">
+  <div class="flex flex-col md:flex-row justify-between items-center mb-12 text-center md:text-left gap-4">
+    <h2 class="text-3xl md:text-4xl font-bold text-white m-0">Featured Items</h2>
+    {% render 'ui-button', text: 'View all →', url: section.settings.view_all_link, variant: 'outline', size: 'small' %}
   </div>
-</section>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+    {% if section.settings.collection != blank %}
+      {% assign products = section.settings.collection.products | slice: 0, section.settings.products_to_show %}
+      {% for product in products %}
+        {% render 'content-product-card', product: product, background: 'widget', classes: 'h-full' %}
+      {% endfor %}
+    {% else %}
+      {% comment %} Show placeholder products if no collection is selected {% endcomment %}
+      {% for i in (1..6) %}
+        <div class="border border-gray-700 rounded-2xl p-6 bg-gray-800/50 text-center">
+          <div class="w-32 h-32 mx-auto rounded-xl mb-4 bg-gray-700 flex items-center justify-center text-gray-400 text-xs">
+            Product {{ i }}
+          </div>
+          <h3 class="text-sm font-semibold text-white mb-2">Sample Product {{ i }}</h3>
+          <p class="text-primary font-bold text-sm">$19.99</p>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  .featured-products-section {
+    background-image: url({{'okok1.png'|asset_url}});
+  }
+</style>
 
 {% schema %}
 {
@@ -114,16 +51,17 @@
     {
       "type": "range",
       "id": "products_to_show",
-      "min": 4,
-      "max": 20,
+      "label": "Products to show",
+      "min": 2,
+      "max": 12,
       "step": 1,
-      "default": 8,
-      "label": "Number of products to show"
+      "default": 6
     },
     {
       "type": "url",
       "id": "view_all_link",
-      "label": "View All Link"
+      "label": "View all link",
+      "default": "/collections/all"
     }
   ],
   "presets": [

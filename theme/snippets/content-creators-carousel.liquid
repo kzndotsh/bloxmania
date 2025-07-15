@@ -1,0 +1,79 @@
+{% comment %}
+  Creators Carousel Component
+
+  Usage:
+    {% render 'content-creators-carousel',
+      creators: creators_array,
+      classes: 'custom-class'
+    %}
+
+  Parameters:
+    - creators (optional): Array of creator objects
+    - classes (optional): Additional CSS classes
+{% endcomment %}
+
+{%- liquid
+  assign classes = classes | default: ''
+  assign all_classes = 'relative overflow-hidden rounded-2xl bg-black/20 backdrop-blur-sm border border-white/10 p-8 py-6' | append: ' ' | append: classes
+
+  # Define creators data as arrays
+  assign creator_names = 'Ali-A,CaseOh,DanTDM,Flamingo,KreekCraft,LanasLife,SypherPK,TypicalGamer' | split: ','
+  assign creator_images = 'Ali-A.png,CaseOh.png,DanTDM.png,Flamingo.png,KreekCraft.png,LanasLife.png,SypherPK.png,TypicalGamer.png' | split: ','
+  assign creator_subscribers = '19.6M,8M,28.6M,12.1M,5.2M,2.8M,7.1M,14.8M' | split: ','
+-%}
+
+<div class="{{ all_classes }}">
+  <div class="creators-container">
+    <div class="creators-carousel flex space-x-16 md:space-x-20">
+      <!-- First set of creators -->
+      <div class="flex space-x-16 md:space-x-20 shrink-0">
+        {% render 'content-creator-card', name: 'Ali-A', image: 'Ali-A.png', subscribers: '19.6M' %}
+        {% render 'content-creator-card', name: 'CaseOh', image: 'CaseOh.png', subscribers: '8M' %}
+        {% render 'content-creator-card', name: 'DanTDM', image: 'DanTDM.png', subscribers: '28.6M' %}
+        {% render 'content-creator-card', name: 'Flamingo', image: 'Flamingo.png', subscribers: '12.1M' %}
+        {% render 'content-creator-card', name: 'KreekCraft', image: 'KreekCraft.png', subscribers: '5.2M' %}
+        {% render 'content-creator-card', name: 'LanasLife', image: 'LanasLife.png', subscribers: '2.8M' %}
+        {% render 'content-creator-card', name: 'SypherPK', image: 'SypherPK.png', subscribers: '7.1M' %}
+        {% render 'content-creator-card', name: 'TypicalGamer', image: 'TypicalGamer.png', subscribers: '14.8M' %}
+      </div>
+
+      <!-- Duplicate set for infinite scroll -->
+      <div class="flex space-x-16 md:space-x-20 shrink-0">
+        {% render 'content-creator-card', name: 'Ali-A', image: 'Ali-A.png', subscribers: '19.6M' %}
+        {% render 'content-creator-card', name: 'CaseOh', image: 'CaseOh.png', subscribers: '8M' %}
+        {% render 'content-creator-card', name: 'DanTDM', image: 'DanTDM.png', subscribers: '28.6M' %}
+        {% render 'content-creator-card', name: 'Flamingo', image: 'Flamingo.png', subscribers: '12.1M' %}
+        {% render 'content-creator-card', name: 'KreekCraft', image: 'KreekCraft.png', subscribers: '5.2M' %}
+        {% render 'content-creator-card', name: 'LanasLife', image: 'LanasLife.png', subscribers: '2.8M' %}
+        {% render 'content-creator-card', name: 'SypherPK', image: 'SypherPK.png', subscribers: '7.1M' %}
+        {% render 'content-creator-card', name: 'TypicalGamer', image: 'TypicalGamer.png', subscribers: '14.8M' %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .creators-carousel {
+    animation: scroll 30s linear infinite;
+  }
+
+  .creators-carousel:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .creators-carousel {
+      animation-duration: 20s;
+    }
+  }
+</style>

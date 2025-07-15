@@ -1,0 +1,65 @@
+{% comment %}
+  Card Component
+
+  Usage:
+    {% render 'components/ui/card',
+      classes: 'custom-class',
+      hover: true,
+      padding: 'large'
+    %}
+      <h3>Card Title</h3>
+      <p>Card content</p>
+    {% endrender %}
+
+  Parameters:
+    - classes (optional): Additional CSS classes
+    - hover (optional): Enable hover effects (default: true)
+    - padding (optional): 'small', 'medium', 'large' (default: 'medium')
+    - background (optional): Background style variant
+{% endcomment %}
+
+{%- liquid
+  assign classes = classes | default: ''
+  assign hover = hover | default: true
+  assign padding = padding | default: 'medium'
+  assign background = background | default: 'default'
+
+  case padding
+    when 'small'
+      assign padding_classes = 'p-4'
+    when 'medium'
+      assign padding_classes = 'p-6'
+    when 'large'
+      assign padding_classes = 'p-8'
+    else
+      assign padding_classes = 'p-6'
+  endcase
+
+  case background
+    when 'widget'
+      assign bg_classes = 'bg-cover bg-center bg-no-repeat'
+      assign bg_style = 'background-image: url(' | append: 'widget-backing.png' | asset_url | append: ');'
+    when 'gradient'
+      assign bg_classes = 'bg-gradient-to-br from-background-surface to-background'
+    else
+      assign bg_classes = 'bg-background-surface'
+  endcase
+
+  if hover
+    assign hover_classes = 'hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1 transition-all duration-300'
+  else
+    assign hover_classes = 'transition-all duration-300'
+  endif
+
+  assign base_classes = 'border border-border rounded-lg overflow-hidden'
+  assign all_classes = base_classes | append: ' ' | append: bg_classes | append: ' ' | append: padding_classes | append: ' ' | append: hover_classes | append: ' ' | append: classes
+-%}
+
+<div
+  class="{{ all_classes }}"
+  {% if background == 'widget' %}
+    style="{{ bg_style }}"
+  {% endif %}
+>
+  {{ content }}
+</div>

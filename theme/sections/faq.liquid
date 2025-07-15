@@ -1,176 +1,73 @@
-{%- style -%}
-  /* Keep only essential JavaScript-dependent styles */
-  .faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-  }
+{% comment %}
+  FAQ Section - Refactored to use components
+{% endcomment %}
 
-  .faq-answer.active {
-    max-height: 500px;
-  }
+{% render 'layout-section-wrapper', classes: 'bg-slate-900', padding: 'medium' %}
+<div
+  class="absolute inset-0 opacity-50"
+  style="
+    background-image:
+      radial-gradient(circle 1px at 20% 30%, rgba(255,216,0,0.3) 1px, transparent 1px),
+      radial-gradient(circle 1px at 80% 15%, rgba(255,216,0,0.25) 1px, transparent 1px),
+      radial-gradient(circle 1px at 60% 70%, rgba(255,216,0,0.2) 1px, transparent 1px);
+    background-size: 100px 100px, 150px 150px, 80px 80px;
+  "
+></div>
 
-  .faq-icon svg {
-    transition: transform 0.3s ease;
-  }
+<div class="text-center mb-12 relative z-10">
+  <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
+    {{ section.settings.title | default: 'Frequently Asked Questions' }}
+  </h2>
+  <p class="text-xl text-gray-300 max-w-3xl mx-auto drop-shadow-sm">
+    {{
+      section.settings.subtitle
+      | default: 'Got questions? We have answers! Check out our most commonly asked questions below.'
+    }}
+  </p>
+</div>
 
-  .faq-question[aria-expanded='true'] .faq-icon svg {
-    transform: rotate(45deg);
-  }
-{%- endstyle -%}
+<div class="max-w-4xl mx-auto relative z-10">
+  <div class="bg-slate-800/50 rounded-2xl overflow-hidden border border-slate-600 backdrop-blur-sm">
+    {%
+      render 'content-faq-item',
+      question: 'How does the purchasing process work?',
+      answer: 'Our purchasing process is simple and secure. Select your desired item, add it to cart, proceed to checkout, and complete your payment. Once payment is confirmed, you\'ll receive your item instantly through our automated delivery system.',
+      index: 1
+    %}
 
-<section class="py-16 px-8 bg-background/95">
-  <div class="max-w-4xl mx-auto">
-    <div class="text-center mb-12">
-      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">
-        Frequently Asked <span class="text-primary">Questions</span>
-      </h2>
-      <p class="text-lg md:text-xl lg:text-2xl text-gray-300 mb-8 leading-relaxed">
-        {{ section.settings.subtitle | default: 'Everything you need to know about BloxMania' }}
-      </p>
-    </div>
+    {% render 'content-faq-item',
+      question: 'Is my payment information secure?',
+      answer: 'Absolutely! We use industry-standard encryption and secure payment processors to protect your financial information. We never store your payment details on our servers, and all transactions are processed through trusted payment gateways.',
+      index: 2
+    %}
 
-    <div class="flex flex-col gap-4">
-      <div class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1">
-        <button
-          class="w-full p-6 md:p-8 bg-transparent border-0 text-left cursor-pointer flex justify-between items-center transition-all duration-300 text-white text-lg md:text-xl font-semibold drop-shadow-sm hover:text-primary"
-          onclick="toggleFaq(this)"
-        >
-          <span class="flex-1 mr-4">How fast will I receive my items?</span>
-          <div class="faq-icon w-6 h-6 bg-primary rounded-full flex items-center justify-center transition-all duration-300 flex-shrink-0">
-            <svg class="w-3.5 h-3.5 text-black" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-            </svg>
-          </div>
-        </button>
-        <div class="faq-answer">
-          <div class="px-6 md:px-8 pb-6 md:pb-8 text-gray-300 leading-relaxed">
-            Our automated system delivers items instantly after payment confirmation. Most customers receive their
-            gaming items within 1-5 minutes of purchase. For rare items or during high traffic, delivery may take up to
-            24 hours maximum.
-          </div>
-        </div>
-      </div>
+    {% render 'content-faq-item',
+      question: 'What payment methods do you accept?',
+      answer: 'We accept all major credit cards (Visa, MasterCard, American Express), PayPal, Apple Pay, Google Pay, and various cryptocurrency options. Choose the payment method that works best for you at checkout.',
+      index: 3
+    %}
 
-      <div class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1">
-        <button
-          class="w-full p-6 md:p-8 bg-transparent border-0 text-left cursor-pointer flex justify-between items-center transition-all duration-300 text-white text-lg md:text-xl font-semibold drop-shadow-sm hover:text-primary"
-          onclick="toggleFaq(this)"
-        >
-          <span class="flex-1 mr-4">What payment methods do you accept?</span>
-          <div class="faq-icon w-6 h-6 bg-primary rounded-full flex items-center justify-center transition-all duration-300 flex-shrink-0">
-            <svg class="w-3.5 h-3.5 text-black" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-            </svg>
-          </div>
-        </button>
-        <div class="faq-answer">
-          <div class="px-6 md:px-8 pb-6 md:pb-8 text-gray-300 leading-relaxed">
-            We accept all major credit cards, PayPal, Apple Pay, Google Pay, and various cryptocurrency options
-            including Bitcoin and Ethereum. All transactions are secured with SSL encryption.
-          </div>
-        </div>
-      </div>
+    {% render 'content-faq-item',
+      question: 'How long does delivery take?',
+      answer: 'Delivery is instant! Our automated system processes and delivers your items immediately after payment confirmation. In rare cases where manual processing is required, delivery typically takes less than 30 minutes.',
+      index: 4
+    %}
 
-      <div class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1">
-        <button
-          class="w-full p-6 md:p-8 bg-transparent border-0 text-left cursor-pointer flex justify-between items-center transition-all duration-300 text-white text-lg md:text-xl font-semibold drop-shadow-sm hover:text-primary"
-          onclick="toggleFaq(this)"
-        >
-          <span class="flex-1 mr-4">Is my purchase guaranteed?</span>
-          <div class="faq-icon w-6 h-6 bg-primary rounded-full flex items-center justify-center transition-all duration-300 flex-shrink-0">
-            <svg class="w-3.5 h-3.5 text-black" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-            </svg>
-          </div>
-        </button>
-        <div class="faq-answer">
-          <div class="px-6 md:px-8 pb-6 md:pb-8 text-gray-300 leading-relaxed">
-            Yes! We offer a 100% satisfaction guarantee. If you don't receive your items within 24 hours or encounter
-            any issues, we'll provide a full refund or replacement. Your satisfaction is our top priority.
-          </div>
-        </div>
-      </div>
+    {%
+      render 'content-faq-item',
+      question: 'What if I have issues with my order?',
+      answer: 'Our customer support team is available 24/7 to help you. Join our Discord server or contact us through our support system. We\'re committed to resolving any issues quickly and ensuring your satisfaction.',
+      index: 5
+    %}
 
-      <div class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1">
-        <button
-          class="w-full p-6 md:p-8 bg-transparent border-0 text-left cursor-pointer flex justify-between items-center transition-all duration-300 text-white text-lg md:text-xl font-semibold drop-shadow-sm hover:text-primary"
-          onclick="toggleFaq(this)"
-        >
-          <span class="flex-1 mr-4">Can I get a refund if I'm not satisfied?</span>
-          <div class="faq-icon w-6 h-6 bg-primary rounded-full flex items-center justify-center transition-all duration-300 flex-shrink-0">
-            <svg class="w-3.5 h-3.5 text-black" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-            </svg>
-          </div>
-        </button>
-        <div class="faq-answer">
-          <div class="px-6 md:px-8 pb-6 md:pb-8 text-gray-300 leading-relaxed">
-            Absolutely! We offer a 30-day money-back guarantee. If you're not completely satisfied with your purchase,
-            contact our support team and we'll process your refund quickly and hassle-free.
-          </div>
-        </div>
-      </div>
-
-      <div class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1">
-        <button
-          class="w-full p-6 md:p-8 bg-transparent border-0 text-left cursor-pointer flex justify-between items-center transition-all duration-300 text-white text-lg md:text-xl font-semibold drop-shadow-sm hover:text-primary"
-          onclick="toggleFaq(this)"
-        >
-          <span class="flex-1 mr-4">How do I contact customer support?</span>
-          <div class="faq-icon w-6 h-6 bg-primary rounded-full flex items-center justify-center transition-all duration-300 flex-shrink-0">
-            <svg class="w-3.5 h-3.5 text-black" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-            </svg>
-          </div>
-        </button>
-        <div class="faq-answer">
-          <div class="px-6 md:px-8 pb-6 md:pb-8 text-gray-300 leading-relaxed">
-            You can reach our 24/7 support team through our Discord server, live chat on our website, or by emailing
-            support@bloxmania.com. We typically respond within 15 minutes during business hours.
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="mt-8 text-center">
-      <a
-        href="{{ section.settings.contact_link | default: '/pages/contact' }}"
-        class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-black no-underline font-medium rounded-md transition-all duration-200 hover:bg-primary-600 hover:-translate-y-1"
-      >
-        Still have questions? Contact us
-        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-        </svg>
-      </a>
-    </div>
+    {%
+      render 'content-faq-item',
+      question: 'Do you offer refunds?',
+      answer: 'Yes, we offer a 30-day money-back guarantee. If you\'re not satisfied with your purchase, contact our support team within 30 days for a full refund. Terms and conditions apply.',
+      index: 6
+    %}
   </div>
-</section>
-
-<script>
-  function toggleFaq(button) {
-    const faqItem = button.parentNode;
-    const faqAnswer = faqItem.querySelector('.faq-answer');
-    const isActive = faqItem.classList.contains('active');
-
-    // Close all other FAQ items
-    document.querySelectorAll('.faq-item').forEach((item) => {
-      if (item !== faqItem) {
-        item.classList.remove('active');
-        item.querySelector('.faq-answer').classList.remove('active');
-      }
-    });
-
-    // Toggle current item
-    if (isActive) {
-      faqItem.classList.remove('active');
-      faqAnswer.classList.remove('active');
-    } else {
-      faqItem.classList.add('active');
-      faqAnswer.classList.add('active');
-    }
-  }
-</script>
+</div>
 
 {% schema %}
 {
@@ -186,12 +83,7 @@
       "type": "textarea",
       "id": "subtitle",
       "label": "Section Subtitle",
-      "default": "Everything you need to know about BloxMania"
-    },
-    {
-      "type": "url",
-      "id": "contact_link",
-      "label": "Contact Support Link"
+      "default": "Got questions? We have answers! Check out our most commonly asked questions below."
     }
   ],
   "presets": [

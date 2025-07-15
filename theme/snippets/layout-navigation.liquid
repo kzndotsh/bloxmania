@@ -1,0 +1,47 @@
+{% comment %}
+  Navigation Component
+
+  Usage:
+    {% render 'layout-navigation',
+      menu: linklists.main-menu,
+      classes: 'custom-class'
+    %}
+
+  Parameters:
+    - menu (optional): Menu object (default: linklists.main-menu)
+    - classes (optional): Additional CSS classes
+{% endcomment %}
+
+{%- liquid
+  assign menu = menu | default: linklists['main-menu']
+  assign classes = classes | default: ''
+  assign all_classes = 'hidden md:flex items-center space-x-8' | append: ' ' | append: classes
+-%}
+
+<nav class="{{ all_classes }}">
+  {% for link in menu.links %}
+    <a
+      href="{{ link.url }}"
+      class="nav-link relative text-white hover:text-primary transition-all duration-300 font-medium py-2 px-1"
+    >
+      {{ link.title }}
+    </a>
+  {% endfor %}
+</nav>
+
+<style>
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #ffd800;
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+</style>

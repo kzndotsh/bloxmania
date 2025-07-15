@@ -1,0 +1,79 @@
+{% comment %}
+  Button Component
+
+  Usage:
+    {% render 'components/ui/button',
+      text: 'Click me',
+      url: '/link',
+      variant: 'primary',
+      size: 'medium',
+      icon: 'arrow-right',
+      classes: 'custom-class'
+    %}
+
+  Parameters:
+    - text (required): Button text
+    - url (optional): Link URL
+    - variant (optional): 'primary', 'secondary', 'outline', 'ghost' (default: 'primary')
+    - size (optional): 'small', 'medium', 'large' (default: 'medium')
+    - icon (optional): Icon name to display
+    - classes (optional): Additional CSS classes
+    - type (optional): 'button', 'submit' (default: 'button')
+    - disabled (optional): Boolean to disable button
+{% endcomment %}
+
+{%- liquid
+  assign variant = variant | default: 'primary'
+  assign size = size | default: 'medium'
+  assign type = type | default: 'button'
+  assign classes = classes | default: ''
+
+  case variant
+    when 'primary'
+      assign variant_classes = 'bg-primary text-black hover:bg-primary-600 hover:shadow-lg'
+    when 'secondary'
+      assign variant_classes = 'bg-secondary text-white hover:bg-secondary-600'
+    when 'outline'
+      assign variant_classes = 'bg-transparent text-primary border border-primary hover:bg-primary hover:text-black'
+    when 'ghost'
+      assign variant_classes = 'bg-transparent text-white hover:bg-white/10'
+    else
+      assign variant_classes = 'bg-primary text-black hover:bg-primary-600'
+  endcase
+
+  case size
+    when 'small'
+      assign size_classes = 'px-4 py-2 text-sm'
+    when 'medium'
+      assign size_classes = 'px-6 py-3 text-base'
+    when 'large'
+      assign size_classes = 'px-8 py-4 text-lg'
+    else
+      assign size_classes = 'px-6 py-3 text-base'
+  endcase
+
+  assign base_classes = 'inline-flex items-center justify-center font-medium rounded-md transition-all duration-300 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed'
+  assign all_classes = base_classes | append: ' ' | append: variant_classes | append: ' ' | append: size_classes | append: ' ' | append: classes
+-%}
+
+{% if url %}
+  <a href="{{ url }}" class="{{ all_classes }}">
+    {% if icon %}
+      {% render 'components/ui/icon', name: icon, classes: 'w-4 h-4 mr-2' %}
+    {% endif %}
+    {{ text }}
+  </a>
+{% else %}
+  <button
+    type="{{ type }}"
+    class="{{ all_classes }}"
+    {% if disabled %}
+      disabled
+    {% endif %}
+  >
+    {% if icon %}
+      {% render 'components/ui/icon', name: icon, classes: 'w-4 h-4 mr-2' %}
+    {% endif %}
+    {{ text }}
+  </button>
+{% endif %}
