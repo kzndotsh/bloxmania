@@ -17,10 +17,44 @@
   .faq-question[aria-expanded='true'] .faq-icon svg {
     transform: rotate(45deg);
   }
+
+  .faq-question[aria-expanded='true'] {
+    background-color: rgb(51 65 85) !important; /* slate-700 */
+  }
+
+  .faq-question {
+    text-decoration: none !important;
+    outline: none !important;
+    border: none !important;
+  }
+
+  .faq-question:hover,
+  .faq-question:focus,
+  .faq-question:active {
+    text-decoration: none !important;
+    outline: none !important;
+    border: none !important;
+  }
+
+  .faq-question span {
+    text-decoration: none !important;
+  }
 {%- endstyle -%}
 
-<section class="py-16 px-8 bg-background/95">
-  <div class="max-w-4xl mx-auto">
+<section class="py-16 px-8 bg-slate-900 relative overflow-hidden">
+  <div
+    class="absolute inset-0 opacity-50"
+    style="
+      background-image:
+        radial-gradient(circle 1px at 20% 30%, rgba(255,216,0,0.3) 1px, transparent 1px),
+        radial-gradient(circle 1px at 80% 15%, rgba(255,216,0,0.25) 1px, transparent 1px),
+        radial-gradient(circle 1px at 35% 75%, rgba(255,216,0,0.3) 1px, transparent 1px),
+        radial-gradient(circle 1px at 75% 60%, rgba(255,216,0,0.25) 1px, transparent 1px),
+        radial-gradient(circle 1px at 15% 85%, rgba(255,216,0,0.3) 1px, transparent 1px);
+      background-size: 200px 200px, 180px 180px, 220px 220px, 190px 190px, 210px 210px;
+    "
+  ></div>
+  <div class="max-w-4xl mx-auto relative z-20">
     <div class="text-center mb-12">
       <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg">
         Frequently Asked <span class="text-primary">Questions</span>
@@ -30,11 +64,12 @@
       </p>
     </div>
 
-    <div class="flex flex-col gap-4">
-      <div class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1">
+    <div class="flex flex-col gap-6 relative z-30">
+      <div class="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 relative z-50">
         <button
-          class="w-full p-6 md:p-8 bg-transparent border-0 text-left cursor-pointer flex justify-between items-center transition-all duration-300 text-white text-lg md:text-xl font-semibold drop-shadow-sm hover:text-primary"
+          class="faq-question w-full p-6 md:p-8 bg-slate-800 border-0 text-left cursor-pointer flex justify-between items-center transition-all duration-300 text-white text-lg md:text-xl font-semibold hover:bg-slate-700"
           onclick="toggleFaq(this)"
+          aria-expanded="false"
         >
           <span class="flex-1 mr-4">How fast will I receive my items?</span>
           <div class="faq-icon w-6 h-6 bg-primary rounded-full flex items-center justify-center transition-all duration-300 flex-shrink-0">
@@ -44,7 +79,7 @@
           </div>
         </button>
         <div class="faq-answer">
-          <div class="px-6 md:px-8 pb-6 md:pb-8 text-gray-300 leading-relaxed">
+          <div class="px-6 md:px-8 pb-8 md:pb-10 pt-2 md:pt-4 text-gray-300 leading-relaxed text-base md:text-lg bg-slate-800">
             Our automated system delivers items instantly after payment confirmation. Most customers receive their
             gaming items within 1-5 minutes of purchase. For rare items or during high traffic, delivery may take up to
             24 hours maximum.
@@ -52,10 +87,11 @@
         </div>
       </div>
 
-      <div class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1">
+      <div class="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 relative z-50">
         <button
-          class="w-full p-6 md:p-8 bg-transparent border-0 text-left cursor-pointer flex justify-between items-center transition-all duration-300 text-white text-lg md:text-xl font-semibold drop-shadow-sm hover:text-primary"
+          class="faq-question w-full p-6 md:p-8 bg-slate-800 border-0 text-left cursor-pointer flex justify-between items-center transition-all duration-300 text-white text-lg md:text-xl font-semibold hover:bg-slate-700"
           onclick="toggleFaq(this)"
+          aria-expanded="false"
         >
           <span class="flex-1 mr-4">What payment methods do you accept?</span>
           <div class="faq-icon w-6 h-6 bg-primary rounded-full flex items-center justify-center transition-all duration-300 flex-shrink-0">
@@ -65,17 +101,18 @@
           </div>
         </button>
         <div class="faq-answer">
-          <div class="px-6 md:px-8 pb-6 md:pb-8 text-gray-300 leading-relaxed">
+          <div class="px-6 md:px-8 pb-8 md:pb-10 pt-2 md:pt-4 text-gray-300 leading-relaxed text-base md:text-lg bg-slate-800">
             We accept all major credit cards, PayPal, Apple Pay, Google Pay, and various cryptocurrency options
             including Bitcoin and Ethereum. All transactions are secured with SSL encryption.
           </div>
         </div>
       </div>
 
-      <div class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1">
+      <div class="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 relative z-50">
         <button
-          class="w-full p-6 md:p-8 bg-transparent border-0 text-left cursor-pointer flex justify-between items-center transition-all duration-300 text-white text-lg md:text-xl font-semibold drop-shadow-sm hover:text-primary"
+          class="faq-question w-full p-6 md:p-8 bg-slate-800 border-0 text-left cursor-pointer flex justify-between items-center transition-all duration-300 text-white text-lg md:text-xl font-semibold hover:bg-slate-700"
           onclick="toggleFaq(this)"
+          aria-expanded="false"
         >
           <span class="flex-1 mr-4">Is my purchase guaranteed?</span>
           <div class="faq-icon w-6 h-6 bg-primary rounded-full flex items-center justify-center transition-all duration-300 flex-shrink-0">
@@ -85,17 +122,18 @@
           </div>
         </button>
         <div class="faq-answer">
-          <div class="px-6 md:px-8 pb-6 md:pb-8 text-gray-300 leading-relaxed">
+          <div class="px-6 md:px-8 pb-8 md:pb-10 pt-2 md:pt-4 text-gray-300 leading-relaxed text-base md:text-lg bg-slate-800">
             Yes! We offer a 100% satisfaction guarantee. If you don't receive your items within 24 hours or encounter
             any issues, we'll provide a full refund or replacement. Your satisfaction is our top priority.
           </div>
         </div>
       </div>
 
-      <div class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1">
+      <div class="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 relative z-50">
         <button
-          class="w-full p-6 md:p-8 bg-transparent border-0 text-left cursor-pointer flex justify-between items-center transition-all duration-300 text-white text-lg md:text-xl font-semibold drop-shadow-sm hover:text-primary"
+          class="faq-question w-full p-6 md:p-8 bg-slate-800 border-0 text-left cursor-pointer flex justify-between items-center transition-all duration-300 text-white text-lg md:text-xl font-semibold hover:bg-slate-700"
           onclick="toggleFaq(this)"
+          aria-expanded="false"
         >
           <span class="flex-1 mr-4">Can I get a refund if I'm not satisfied?</span>
           <div class="faq-icon w-6 h-6 bg-primary rounded-full flex items-center justify-center transition-all duration-300 flex-shrink-0">
@@ -105,17 +143,18 @@
           </div>
         </button>
         <div class="faq-answer">
-          <div class="px-6 md:px-8 pb-6 md:pb-8 text-gray-300 leading-relaxed">
+          <div class="px-6 md:px-8 pb-8 md:pb-10 pt-2 md:pt-4 text-gray-300 leading-relaxed text-base md:text-lg bg-slate-800">
             Absolutely! We offer a 30-day money-back guarantee. If you're not completely satisfied with your purchase,
             contact our support team and we'll process your refund quickly and hassle-free.
           </div>
         </div>
       </div>
 
-      <div class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden transition-all duration-300 hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1">
+      <div class="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 relative z-50">
         <button
-          class="w-full p-6 md:p-8 bg-transparent border-0 text-left cursor-pointer flex justify-between items-center transition-all duration-300 text-white text-lg md:text-xl font-semibold drop-shadow-sm hover:text-primary"
+          class="faq-question w-full p-6 md:p-8 bg-slate-800 border-0 text-left cursor-pointer flex justify-between items-center transition-all duration-300 text-white text-lg md:text-xl font-semibold hover:bg-slate-700"
           onclick="toggleFaq(this)"
+          aria-expanded="false"
         >
           <span class="flex-1 mr-4">How do I contact customer support?</span>
           <div class="faq-icon w-6 h-6 bg-primary rounded-full flex items-center justify-center transition-all duration-300 flex-shrink-0">
@@ -125,7 +164,7 @@
           </div>
         </button>
         <div class="faq-answer">
-          <div class="px-6 md:px-8 pb-6 md:pb-8 text-gray-300 leading-relaxed">
+          <div class="px-6 md:px-8 pb-8 md:pb-10 pt-2 md:pt-4 text-gray-300 leading-relaxed text-base md:text-lg bg-slate-800">
             You can reach our 24/7 support team through our Discord server, live chat on our website, or by emailing
             support@bloxmania.com. We typically respond within 15 minutes during business hours.
           </div>
@@ -154,10 +193,11 @@
     const isActive = faqItem.classList.contains('active');
 
     // Close all other FAQ items
-    document.querySelectorAll('.faq-item').forEach((item) => {
-      if (item !== faqItem) {
-        item.classList.remove('active');
-        item.querySelector('.faq-answer').classList.remove('active');
+    document.querySelectorAll('.faq-question').forEach((btn) => {
+      if (btn !== button) {
+        btn.parentNode.classList.remove('active');
+        btn.parentNode.querySelector('.faq-answer').classList.remove('active');
+        btn.setAttribute('aria-expanded', 'false');
       }
     });
 
@@ -165,9 +205,11 @@
     if (isActive) {
       faqItem.classList.remove('active');
       faqAnswer.classList.remove('active');
+      button.setAttribute('aria-expanded', 'false');
     } else {
       faqItem.classList.add('active');
       faqAnswer.classList.add('active');
+      button.setAttribute('aria-expanded', 'true');
     }
   }
 </script>

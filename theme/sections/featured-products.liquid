@@ -6,10 +6,12 @@
 {%- endstyle -%}
 
 <section
-  class="py-20"
+  class="py-20 relative overflow-hidden"
   style="background-image: url({{ 'okok1.png' | asset_url }}); background-size: cover; background-position: center; background-repeat: no-repeat;"
 >
-  <div class="container mx-auto px-4">
+  <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-indigo-900/25"></div>
+  <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/15 via-transparent to-violet-900/15"></div>
+  <div class="container mx-auto px-4 relative z-10">
     <div class="flex flex-col md:flex-row justify-between items-center mb-12 text-center md:text-left gap-4">
       <h2 class="text-3xl md:text-4xl font-bold text-white m-0">Featured Items</h2>
       <a
