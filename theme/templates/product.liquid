@@ -1,520 +1,298 @@
-{%- style -%}
-  .product-page {
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-top: 100px;
-  }
+{% comment %}
+  Comprehensive Product Page Template
+  Uses modern component-based architecture with Tailwind CSS
+{% endcomment %}
 
-  .product-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: start;
-  }
+{{ 'component-product-media-gallery.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-form.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-info.css' | asset_url | stylesheet_tag }}
 
-  .product-gallery {
-    position: sticky;
-    top: 100px;
-  }
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
 
-  .product-image {
-    width: 100%;
-    border-radius: 16px;
-    overflow: hidden;
-    background: var(--surface-color);
-    border: 1px solid var(--border-color);
-  }
+{%- liquid
+  assign product_form_id = 'product-form-template'
+  assign current_variant = product.selected_or_first_available_variant
+  assign featured_media = current_variant.featured_media | default: product.featured_media
+-%}
 
-  .product-image img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  .product-thumbnails {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-
-  .product-thumbnail {
-    width: 80px;
-    height: 80px;
-    border-radius: 8px;
-    overflow: hidden;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
-  }
-
-  .product-thumbnail.active {
-    border-color: var(--primary-color);
-  }
-
-  .product-thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .product-info {
-    padding: 1rem 0;
-  }
-
-  .product-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: var(--text-color);
-  }
-
-  .product-price {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    margin-bottom: 1.5rem;
-  }
-
-  .product-compare-price {
-    text-decoration: line-through;
-    color: var(--text-muted);
-    margin-right: 1rem;
-    font-size: 1.5rem;
-  }
-
-  .product-description {
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 2rem;
-  }
-
-  .product-variants {
-    margin-bottom: 2rem;
-  }
-
-  .variant-group {
-    margin-bottom: 1.5rem;
-  }
-
-  .variant-label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: var(--text-color);
-  }
-
-  .variant-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .variant-option {
-    padding: 0.5rem 1rem;
-    border: 2px solid var(--border-color);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background: transparent;
-    color: var(--text-color);
-  }
-
-  .variant-option:hover {
-    border-color: var(--primary-color);
-  }
-
-  .variant-option.selected {
-    background: var(--primary-color);
-    color: #000;
-    border-color: var(--primary-color);
-  }
-
-  .variant-option.disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  .quantity-selector {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  .quantity-btn {
-    width: 40px;
-    height: 40px;
-    border: 2px solid var(--border-color);
-    background: transparent;
-    color: var(--text-color);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .quantity-btn:hover {
-    border-color: var(--primary-color);
-  }
-
-  .quantity-input {
-    width: 60px;
-    height: 40px;
-    text-align: center;
-    border: 2px solid var(--border-color);
-    background: transparent;
-    color: var(--text-color);
-    border-radius: 8px;
-  }
-
-  .add-to-cart-section {
-    margin-bottom: 2rem;
-  }
-
-  .add-to-cart-btn {
-    width: 100%;
-    padding: 1rem 2rem;
-    background: var(--primary-color);
-    color: #000;
-    border: none;
-    border-radius: 12px;
-    font-size: 1.125rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-bottom: 1rem;
-  }
-
-  .add-to-cart-btn:hover {
-    background: #e6c200;
-    transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(255, 216, 0, 0.3);
-  }
-
-  .add-to-cart-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-  }
-
-  .product-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 0;
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
-    margin-bottom: 2rem;
-  }
-
-  .product-rating {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .stars {
-    color: var(--primary-color);
-  }
-
-  .product-stock {
-    color: #10b981;
-    font-weight: 600;
-  }
-
-  .product-stock.low {
-    color: #f59e0b;
-  }
-
-  .product-stock.out {
-    color: #ef4444;
-  }
-
-  .product-features {
-    margin-bottom: 2rem;
-  }
-
-  .feature-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--text-muted);
-  }
-
-  .feature-icon {
-    color: var(--primary-color);
-    width: 16px;
-    height: 16px;
-  }
-
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .product-page {
-      padding: 1rem;
-      padding-top: 80px;
-    }
-
-    .product-container {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    .product-gallery {
-      position: static;
-    }
-
-    .product-title {
-      font-size: 2rem;
-    }
-
-    .product-price {
-      font-size: 1.5rem;
+<!-- Product Schema Markup -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "image": [
+    {%- for media in product.media -%}
+      {%- if media.media_type == 'image' -%}
+        {{ media | image_url: width: 1200 | json }}
+        {%- unless forloop.last -%},{%- endunless -%}
+      {%- endif -%}
+    {%- endfor -%}
+  ],
+  "description": {{ product.description | strip_html | json }},
+  "sku": {{ current_variant.sku | json }},
+  "brand": {
+    "@type": "Brand",
+    "name": {{ product.vendor | json }}
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": {{ request.origin | append: product.url | json }},
+    "priceCurrency": {{ cart.currency.iso_code | json }},
+    "price": {{ current_variant.price | divided_by: 100.0 | json }},
+    "availability": "{% if current_variant.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+    "seller": {
+      "@type": "Organization",
+      "name": {{ shop.name | json }}
     }
   }
-{%- endstyle -%}
+}
+</script>
 
-<div class="product-page">
-  <div class="product-container">
-    <!-- Product Gallery -->
-    <div class="product-gallery">
-      <div class="product-image">
-        {% if product.featured_image != blank %}
-          <img
-            src="{{ product.featured_image | image_url: width: 600 }}"
-            alt="{{ product.title }}"
-            id="main-product-image"
-            width="600"
-            height="600"
-            loading="lazy"
-          >
-        {% else %}
-          <div style="height: 400px; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
-            No Image Available
-          </div>
-        {% endif %}
+<div class="bg-background text-white min-h-screen pt-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- Breadcrumb Navigation -->
+    {% render 'breadcrumb', product: product %}
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-8">
+      
+      <!-- Product Media Gallery -->
+      <div class="product-media-gallery">
+        {% render 'product-media-gallery', 
+          product: product, 
+          variant_images: product.images,
+          enable_zoom: true,
+          enable_video_looping: false
+        %}
       </div>
 
-      {% if product.images.size > 1 %}
-        <div class="product-thumbnails">
-          {% for image in product.images %}
-            <div
-              class="product-thumbnail {% if forloop.first %}active{% endif %}"
-              data-image="{{ image | image_url: width: 600 }}"
-            >
-              <img src="{{ image | image_url: width: 80 }}" alt="{{ product.title }}" width="80" height="80">
-            </div>
-          {% endfor %}
+      <!-- Product Information -->
+      <div class="product-info space-y-6">
+        
+        <!-- Vendor -->
+        {%- if product.vendor != blank -%}
+          <div class="product-vendor">
+            <p class="text-sm font-medium text-gray-400 uppercase tracking-wider">
+              {{ product.vendor }}
+            </p>
+          </div>
+        {%- endif -%}
+
+        <!-- Title -->
+        <div class="product-title">
+          <h1 class="text-3xl lg:text-4xl font-bold text-white mb-2">
+            {{ product.title | escape }}
+          </h1>
         </div>
-      {% endif %}
-    </div>
 
-    <!-- Product Information -->
-    <div class="product-info">
-      <h1 class="product-title">{{ product.title }}</h1>
-
-      <div class="product-price">
-        {% if product.compare_at_price > product.price %}
-          <span class="product-compare-price">{{ product.compare_at_price | money }}</span>
-        {% endif %}
-        {{ product.price | money }}
-      </div>
-
-      {% if product.description != blank %}
-        <div class="product-description">
-          {{ product.description }}
+        <!-- Price -->
+        <div class="product-price" id="price-template" role="status">
+          {% render 'product-price', 
+            product: product, 
+            use_variant: true, 
+            show_badges: true,
+            price_class: 'text-2xl lg:text-3xl font-bold'
+          %}
         </div>
-      {% endif %}
 
-      <!-- Product Variants -->
-      {% if product.variants.size > 1 %}
-        <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" id="product-form">
-          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" id="variant-id">
-
-          {% for option in product.options_with_values %}
-            <div class="variant-group">
-              <label class="variant-label">{{ option.name }}</label>
-              <div class="variant-options">
-                {% for value in option.values %}
-                  <button
-                    type="button"
-                    class="variant-option {% if option.selected_value == value %}selected{% endif %}"
-                    data-option="{{ option.name | handleize }}"
-                    data-value="{{ value | handleize }}"
-                  >
-                    {{ value }}
-                  </button>
-                {% endfor %}
-              </div>
-            </div>
-          {% endfor %}
-
-          <!-- Quantity Selector -->
-          <div class="quantity-selector">
-            <label class="variant-label">Quantity</label>
-            <button type="button" class="quantity-btn" onclick="changeQuantity(-1)">-</button>
-            <input type="number" name="quantity" value="1" min="1" class="quantity-input" id="quantity-input">
-            <button type="button" class="quantity-btn" onclick="changeQuantity(1)">+</button>
-          </div>
-
-          <!-- Add to Cart -->
-          <div class="add-to-cart-section">
-            <button
-              type="submit"
-              class="add-to-cart-btn"
-              {% unless product.available %}
-                disabled
-              {% endunless %}
-            >
-              {% if product.available %}
-                Add to Cart
-              {% else %}
-                Out of Stock
-              {% endif %}
-            </button>
-          </div>
-        </form>
-      {% else %}
-        <!-- Single variant product -->
-        <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data">
-          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-
-          <div class="quantity-selector">
-            <label class="variant-label">Quantity</label>
-            <button type="button" class="quantity-btn" onclick="changeQuantity(-1)">-</button>
-            <input type="number" name="quantity" value="1" min="1" class="quantity-input" id="quantity-input">
-            <button type="button" class="quantity-btn" onclick="changeQuantity(1)">+</button>
-          </div>
-
-          <div class="add-to-cart-section">
-            <button
-              type="submit"
-              class="add-to-cart-btn"
-              {% unless product.available %}
-                disabled
-              {% endunless %}
-            >
-              {% if product.available %}
-                Add to Cart
-              {% else %}
-                Out of Stock
-              {% endif %}
-            </button>
-          </div>
-        </form>
-      {% endif %}
-
-      <!-- Product Meta -->
-      <div class="product-meta">
+        <!-- Rating -->
         <div class="product-rating">
-          <span class="stars">★★★★★</span>
-          <span>4.8 (127 reviews)</span>
+          {% render 'product-rating', product: product %}
         </div>
-        <div class="product-stock {% unless product.available %}out{% endunless %}">
-          {% if product.available %}
-            {% if product.inventory_quantity <= 5 and product.inventory_quantity > 0 %}
-              <span class="low">Low Stock</span>
-            {% else %}
-              <span>In Stock</span>
-            {% endif %}
-          {% else %}
-            <span>Out of Stock</span>
-          {% endif %}
-        </div>
-      </div>
 
-      <!-- Product Features -->
-      <div class="product-features">
-        <div class="feature-item">
-          <svg class="feature-icon" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-          <span>Instant Delivery</span>
+        <!-- Description -->
+        {%- if product.description != blank -%}
+          <div class="product-description prose prose-invert max-w-none">
+            {{ product.description }}
+          </div>
+        {%- endif -%}
+
+        <!-- Variant Picker -->
+        {% render 'product-variant-picker', 
+          product: product, 
+          product_form_id: product_form_id,
+          update_url: false
+        %}
+
+        <!-- Quantity Selector -->
+        <div class="product-quantity">
+          {% render 'quantity-input', 
+            product: product, 
+            section_id: 'template',
+            product_form_id: product_form_id
+          %}
         </div>
-        <div class="feature-item">
-          <svg class="feature-icon" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-          <span>Secure Payment</span>
+
+        <!-- Buy Buttons -->
+        {% render 'product-buy-buttons', 
+          product: product, 
+          product_form_id: product_form_id, 
+          section_id: 'template'
+        %}
+
+        <!-- Inventory Status -->
+        <div class="product-inventory">
+          {% render 'product-inventory', 
+            variant: current_variant, 
+            section_id: 'template'
+          %}
         </div>
-        <div class="feature-item">
-          <svg class="feature-icon" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-          <span>24/7 Support</span>
+
+        <!-- Product Features -->
+        <div class="product-features">
+          <div class="bg-gray-900/50 rounded-xl p-6 border border-gray-700">
+            <h3 class="text-lg font-semibold text-white mb-4">Features</h3>
+            <ul class="space-y-3">
+              <li class="flex items-center text-gray-300">
+                <svg class="w-5 h-5 text-primary mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>⚡ Instant Delivery</span>
+              </li>
+              <li class="flex items-center text-gray-300">
+                <svg class="w-5 h-5 text-primary mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>🔒 Secure Payment</span>
+              </li>
+              <li class="flex items-center text-gray-300">
+                <svg class="w-5 h-5 text-primary mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>🎮 Works on All Platforms</span>
+              </li>
+              <li class="flex items-center text-gray-300">
+                <svg class="w-5 h-5 text-primary mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>💰 Money Back Guarantee</span>
+              </li>
+              <li class="flex items-center text-gray-300">
+                <svg class="w-5 h-5 text-primary mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>🎯 24/7 Support</span>
+              </li>
+              <li class="flex items-center text-gray-300">
+                <svg class="w-5 h-5 text-primary mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>🏆 Premium Quality</span>
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <!-- Collapsible Content Sections -->
+        <div class="product-accordion space-y-4">
+          <!-- Product Details -->
+          <details class="collapsible-content border border-gray-700 rounded-lg overflow-hidden">
+            <summary class="collapsible-summary flex items-center justify-between p-4 cursor-pointer hover:bg-gray-800 transition-colors duration-200">
+              <div class="flex items-center">
+                <div class="collapsible-icon mr-3 text-primary">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <h3 class="text-white font-medium">Product Details</h3>
+              </div>
+              <div class="collapsible-chevron text-gray-400 transition-transform duration-200">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </div>
+            </summary>
+            <div class="collapsible-content-body p-4 pt-0 text-gray-300">
+              <p>Get detailed information about this gaming product, including compatibility, requirements, and what's included with your purchase.</p>
+            </div>
+          </details>
+
+          <!-- Delivery & Support -->
+          <details class="collapsible-content border border-gray-700 rounded-lg overflow-hidden">
+            <summary class="collapsible-summary flex items-center justify-between p-4 cursor-pointer hover:bg-gray-800 transition-colors duration-200">
+              <div class="flex items-center">
+                <div class="collapsible-icon mr-3 text-primary">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+                    <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707L16 7.586A1 1 0 0015.414 7H14z"/>
+                  </svg>
+                </div>
+                <h3 class="text-white font-medium">Delivery & Support</h3>
+              </div>
+              <div class="collapsible-chevron text-gray-400 transition-transform duration-200">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </div>
+            </summary>
+            <div class="collapsible-content-body p-4 pt-0 text-gray-300">
+              <p>• Instant digital delivery via email<br>• Compatible with all major gaming platforms<br>• 24/7 customer support available<br>• Step-by-step setup instructions included</p>
+            </div>
+          </details>
+
+          <!-- Refund Policy -->
+          <details class="collapsible-content border border-gray-700 rounded-lg overflow-hidden">
+            <summary class="collapsible-summary flex items-center justify-between p-4 cursor-pointer hover:bg-gray-800 transition-colors duration-200">
+              <div class="flex items-center">
+                <div class="collapsible-icon mr-3 text-primary">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <h3 class="text-white font-medium">Refund Policy</h3>
+              </div>
+              <div class="collapsible-chevron text-gray-400 transition-transform duration-200">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </div>
+            </summary>
+            <div class="collapsible-content-body p-4 pt-0 text-gray-300">
+              <p>We offer a 30-day money-back guarantee on all digital products. If you're not satisfied with your purchase, contact our support team for a full refund.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- Share Button -->
+        <div class="product-share">
+          {% liquid
+            assign share_url = current_variant.url | default: product.url | prepend: request.origin
+            render 'share-button', share_link: share_url
+          %}
+        </div>
+
       </div>
     </div>
+
+    <!-- Product Reviews Section -->
+    <div class="mt-16">
+      {% render 'product-reviews', product: product, section_id: 'template' %}
+    </div>
+
+    <!-- Related Products -->
+    <div class="mt-16">
+      {% render 'related-products', 
+        product: product, 
+        heading: 'You might also like',
+        products_to_show: 4
+      %}
+    </div>
+
   </div>
 </div>
 
-<script>
-  // Product image gallery
-  document.querySelectorAll('.product-thumbnail').forEach((thumbnail) => {
-    thumbnail.addEventListener('click', function () {
-      const mainImage = document.getElementById('main-product-image');
-      const newImageSrc = this.dataset.image;
-
-      if (mainImage && newImageSrc) {
-        mainImage.src = newImageSrc;
-
-        // Update active thumbnail
-        document.querySelectorAll('.product-thumbnail').forEach((t) => t.classList.remove('active'));
-        this.classList.add('active');
-      }
-    });
-  });
-
-  // Quantity selector
-  function changeQuantity(change) {
-    const input = document.getElementById('quantity-input');
-    const newValue = Math.max(1, parseInt(input.value) + change);
-    input.value = newValue;
+<style>
+  .collapsible-content[open] .collapsible-chevron {
+    transform: rotate(180deg);
   }
-
-  // Variant selection
-  document.querySelectorAll('.variant-option').forEach((option) => {
-    option.addEventListener('click', function () {
-      const optionName = this.dataset.option;
-      const optionValue = this.dataset.value;
-
-      // Update selected state
-      document.querySelectorAll(`[data-option="${optionName}"]`).forEach((opt) => {
-        opt.classList.remove('selected');
-      });
-      this.classList.add('selected');
-
-      // Update variant ID (simplified - in real implementation, you'd need to map variants)
-      updateVariantSelection();
-    });
-  });
-
-  function updateVariantSelection() {
-    // This is a simplified version - in a real implementation,
-    // you'd need to map the selected options to the correct variant ID
-    const selectedOptions = {};
-
-    document.querySelectorAll('.variant-option.selected').forEach((option) => {
-      selectedOptions[option.dataset.option] = option.dataset.value;
-    });
-
-    // For now, we'll just use the first available variant
-    // In a real implementation, you'd find the matching variant
-    const variantId = document.querySelector('input[name="id"]').value;
-    document.getElementById('variant-id').value = variantId;
+  
+  .collapsible-content summary::-webkit-details-marker {
+    display: none;
   }
-
-  // Form submission
-  document.querySelectorAll('form').forEach((form) => {
-    form.addEventListener('submit', function (e) {
-      const submitButton = this.querySelector('.add-to-cart-btn');
-      const originalText = submitButton.textContent;
-
-      submitButton.textContent = 'Adding...';
-      submitButton.disabled = true;
-
-      // Form will be handled by Shopify
-      // This is just for UI feedback
-    });
-  });
-</script>
+  
+  .collapsible-content summary::marker {
+    display: none;
+  }
+</style>
