@@ -1,0 +1,194 @@
+{% comment %}
+  Renders pagination for collections and other paginated content
+  
+  Accepts:
+  - paginate: {Object} Paginate object (required)
+  
+  Usage:
+  {% render 'pagination', paginate: paginate %}
+{% endcomment %}
+
+{%- if paginate.pages > 1 -%}
+  <nav class="pagination" role="navigation" aria-label="{{ 'general.pagination.label' | t | default: 'Pagination' }}">
+    <div class="flex items-center justify-center space-x-2">
+      
+      {%- comment -%} Previous Page {%- endcomment -%}
+      {%- if paginate.previous -%}
+        <a
+          href="{{ paginate.previous.url }}"
+          class="pagination-btn pagination-btn--prev flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white border border-gray-600 rounded-lg transition-colors duration-200"
+          aria-label="{{ 'general.pagination.previous' | t | default: 'Previous page' }}"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+          <span class="hidden sm:inline">{{ 'general.pagination.previous' | t | default: 'Previous' }}</span>
+        </a>
+      {%- else -%}
+        <span class="pagination-btn pagination-btn--prev pagination-btn--disabled flex items-center gap-2 px-4 py-2 bg-gray-900 text-gray-500 border border-gray-700 rounded-lg cursor-not-allowed">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+          <span class="hidden sm:inline">{{ 'general.pagination.previous' | t | default: 'Previous' }}</span>
+        </span>
+      {%- endif -%}
+
+      {%- comment -%} Page Numbers {%- endcomment -%}
+      <div class="pagination-numbers flex items-center space-x-1">
+        {%- liquid
+          assign start_page = paginate.current_page | minus: 2
+          assign end_page = paginate.current_page | plus: 2
+          
+          if start_page < 1
+            assign start_page = 1
+          endif
+          
+          if end_page > paginate.pages
+            assign end_page = paginate.pages
+          endif
+        -%}
+
+        {%- comment -%} First page if not in range {%- endcomment -%}
+        {%- if start_page > 1 -%}
+          <a
+            href="{{ paginate.parts.first.url }}"
+            class="pagination-number px-3 py-2 bg-gray-800 hover:bg-gray-700 text-white border border-gray-600 rounded-lg transition-colors duration-200"
+            aria-label="{{ 'general.pagination.page' | t: page: 1 | default: 'Page 1' }}"
+          >
+            1
+          </a>
+          {%- if start_page > 2 -%}
+            <span class="pagination-ellipsis text-gray-500 px-2">...</span>
+          {%- endif -%}
+        {%- endif -%}
+
+        {%- comment -%} Page range {%- endcomment -%}
+        {%- for page in (start_page..end_page) -%}
+          {%- if page == paginate.current_page -%}
+            <span
+              class="pagination-number pagination-number--current px-3 py-2 bg-primary text-black border border-primary rounded-lg font-medium"
+              aria-current="page"
+              aria-label="{{ 'general.pagination.current_page' | t: page: page | default: 'Current page, page ' | append: page }}"
+            >
+              {{ page }}
+            </span>
+          {%- else -%}
+            <a
+              href="{{ paginate.parts[page].url }}"
+              class="pagination-number px-3 py-2 bg-gray-800 hover:bg-gray-700 text-white border border-gray-600 rounded-lg transition-colors duration-200"
+              aria-label="{{ 'general.pagination.page' | t: page: page | default: 'Page ' | append: page }}"
+            >
+              {{ page }}
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- comment -%} Last page if not in range {%- endcomment -%}
+        {%- if end_page < paginate.pages -%}
+          {%- if end_page < paginate.pages | minus: 1 -%}
+            <span class="pagination-ellipsis text-gray-500 px-2">...</span>
+          {%- endif -%}
+          <a
+            href="{{ paginate.parts.last.url }}"
+            class="pagination-number px-3 py-2 bg-gray-800 hover:bg-gray-700 text-white border border-gray-600 rounded-lg transition-colors duration-200"
+            aria-label="{{ 'general.pagination.page' | t: page: paginate.pages | default: 'Page ' | append: paginate.pages }}"
+          >
+            {{ paginate.pages }}
+          </a>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Next Page {%- endcomment -%}
+      {%- if paginate.next -%}
+        <a
+          href="{{ paginate.next.url }}"
+          class="pagination-btn pagination-btn--next flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white border border-gray-600 rounded-lg transition-colors duration-200"
+          aria-label="{{ 'general.pagination.next' | t | default: 'Next page' }}"
+        >
+          <span class="hidden sm:inline">{{ 'general.pagination.next' | t | default: 'Next' }}</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </a>
+      {%- else -%}
+        <span class="pagination-btn pagination-btn--next pagination-btn--disabled flex items-center gap-2 px-4 py-2 bg-gray-900 text-gray-500 border border-gray-700 rounded-lg cursor-not-allowed">
+          <span class="hidden sm:inline">{{ 'general.pagination.next' | t | default: 'Next' }}</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </span>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Page Info {%- endcomment -%}
+    <div class="pagination-info text-center mt-4 text-sm text-gray-400">
+      {{ 'general.pagination.showing_items' | t: 
+        first: paginate.current_offset | plus: 1,
+        last: paginate.current_offset | plus: paginate.parts.size,
+        total: paginate.items
+        | default: 'Showing ' | append: paginate.current_offset | plus: 1 | append: '-' | append: paginate.current_offset | plus: paginate.parts.size | append: ' of ' | append: paginate.items | append: ' items'
+      }}
+    </div>
+  </nav>
+{%- endif -%}
+
+<style>
+  .pagination-btn,
+  .pagination-number {
+    min-width: 2.5rem;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  
+  .pagination-btn--disabled {
+    opacity: 0.5;
+  }
+  
+  .pagination-number--current {
+    font-weight: 600;
+  }
+  
+  .pagination-ellipsis {
+    font-weight: 500;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 640px) {
+    .pagination-numbers {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .pagination-btn,
+    .pagination-number {
+      min-width: 2rem;
+      padding: 0.5rem;
+    }
+    
+    .pagination-btn span,
+    .pagination-ellipsis {
+      display: none;
+    }
+  }
+  
+  /* Accessibility improvements */
+  @media (prefers-reduced-motion: reduce) {
+    .pagination-btn,
+    .pagination-number {
+      transition: none;
+    }
+  }
+  
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .pagination-btn,
+    .pagination-number {
+      border-width: 2px;
+    }
+    
+    .pagination-number--current {
+      border-width: 3px;
+    }
+  }
+</style>

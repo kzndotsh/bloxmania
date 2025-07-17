@@ -1,0 +1,430 @@
+{% comment %}
+  Renders product media gallery with zoom functionality and proper accessibility
+  
+  Accepts:
+  - product: {Object} Product Liquid object (required)
+  - variant_images: {Array} Array of variant images (optional)
+  - enable_zoom: {Boolean} Enable image zoom functionality (optional)
+  - enable_video_looping: {Boolean} Enable video looping (optional)
+  
+  Usage:
+  {% render 'product-media-gallery', product: product, enable_zoom: true %}
+{% endcomment %}
+
+{%- liquid
+  assign featured_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media
+  assign media_count = product.media.size
+  assign enable_zoom = enable_zoom | default: true
+  assign enable_video_looping = enable_video_looping | default: false
+-%}
+
+<div class="product-media-gallery" data-media-count="{{ media_count }}">
+  
+  <!-- Main Media Display -->
+  <div class="main-media-container relative bg-gray-900 rounded-2xl overflow-hidden mb-4">
+    {%- if featured_media -%}
+      <div class="main-media" id="main-media-{{ product.id }}">
+        {%- case featured_media.media_type -%}
+          {%- when 'image' -%}
+            <img
+              src="{{ featured_media | image_url: width: 800 }}"
+              alt="{{ featured_media.alt | escape }}"
+              class="w-full h-auto object-cover transition-transform duration-300 {% if enable_zoom %}cursor-zoom-in{% endif %}"
+              width="{{ featured_media.width }}"
+              height="{{ featured_media.height }}"
+              loading="eager"
+              id="main-product-image"
+              data-zoom-src="{{ featured_media | image_url: width: 1600 }}"
+            >
+            
+            {%- if enable_zoom -%}
+              <!-- Zoom overlay -->
+              <div class="zoom-overlay absolute inset-0 opacity-0 pointer-events-none transition-opacity duration-300">
+                <div class="zoom-lens absolute border-2 border-primary pointer-events-none"></div>
+                <div class="zoom-result absolute top-0 left-full ml-4 w-96 h-96 bg-gray-900 border border-gray-700 rounded-lg overflow-hidden z-10"></div>
+              </div>
+            {%- endif -%}
+
+          {%- when 'video' -%}
+            <video
+              class="w-full h-auto object-cover"
+              {% if enable_video_looping %}loop{% endif %}
+              muted
+              playsinline
+              controls
+              preload="metadata"
+            >
+              <source src="{{ featured_media.sources[1].url }}" type="{{ featured_media.sources[1].mime_type }}">
+              <source src="{{ featured_media.sources[0].url }}" type="{{ featured_media.sources[0].mime_type }}">
+              <p>{{ 'general.accessibility.video_not_supported' | t }}</p>
+            </video>
+
+          {%- when 'external_video' -%}
+            <div class="external-video-container relative pb-[56.25%] h-0">
+              {%- if featured_media.host == 'youtube' -%}
+                <iframe
+                  src="https://www.youtube.com/embed/{{ featured_media.external_id }}?enablejsapi=1"
+                  class="absolute top-0 left-0 w-full h-full"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  title="{{ featured_media.alt | escape }}"
+                ></iframe>
+              {%- elsif featured_media.host == 'vimeo' -%}
+                <iframe
+                  src="https://player.vimeo.com/video/{{ featured_media.external_id }}"
+                  class="absolute top-0 left-0 w-full h-full"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowfullscreen
+                  title="{{ featured_media.alt | escape }}"
+                ></iframe>
+              {%- endif -%}
+            </div>
+
+          {%- when 'model' -%}
+            <model-viewer
+              src="{{ featured_media.sources[1].url }}"
+              alt="{{ featured_media.alt | escape }}"
+              auto-rotate
+              camera-controls
+              class="w-full h-96"
+            ></model-viewer>
+        {%- endcase -%}
+      </div>
+    {%- else -%}
+      <!-- No media placeholder -->
+      <div class="no-media-placeholder flex items-center justify-center h-96 bg-gray-800 text-gray-400">
+        <div class="text-center">
+          <svg class="w-16 h-16 mx-auto mb-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M4 4h16v12H4V4zm2 2v8h12V6H6zm2 2h8v4H8V8z"/>
+          </svg>
+          <p>{{ 'general.media.no_image' | t }}</p>
+        </div>
+      </div>
+    {%- endif -%}
+
+    <!-- Media Navigation Arrows -->
+    {%- if media_count > 1 -%}
+      <button
+        type="button"
+        class="media-nav-btn media-nav-prev absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 text-white rounded-full flex items-center justify-center transition-all duration-200 opacity-0 group-hover:opacity-100"
+        aria-label="{{ 'general.accessibility.previous_image' | t }}"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      
+      <button
+        type="button"
+        class="media-nav-btn media-nav-next absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 text-white rounded-full flex items-center justify-center transition-all duration-200 opacity-0 group-hover:opacity-100"
+        aria-label="{{ 'general.accessibility.next_image' | t }}"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+    {%- endif -%}
+  </div>
+
+  <!-- Thumbnail Gallery -->
+  {%- if media_count > 1 -%}
+    <div class="thumbnail-gallery">
+      <div class="flex gap-2 overflow-x-auto pb-2">
+        {%- for media in product.media -%}
+          <button
+            type="button"
+            class="thumbnail-btn flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all duration-200 {% if forloop.first %}border-primary{% else %}border-gray-600 hover:border-gray-400{% endif %}"
+            data-media-id="{{ media.id }}"
+            data-media-type="{{ media.media_type }}"
+            aria-label="{{ 'general.accessibility.load_image' | t: index: forloop.index }}"
+          >
+            {%- case media.media_type -%}
+              {%- when 'image' -%}
+                <img
+                  src="{{ media | image_url: width: 80 }}"
+                  alt="{{ media.alt | escape }}"
+                  class="w-full h-full object-cover"
+                  width="80"
+                  height="80"
+                  loading="lazy"
+                >
+              {%- when 'video' -%}
+                <div class="relative w-full h-full bg-gray-800">
+                  <img
+                    src="{{ media.preview_image | image_url: width: 80 }}"
+                    alt="{{ media.alt | escape }}"
+                    class="w-full h-full object-cover"
+                    width="80"
+                    height="80"
+                    loading="lazy"
+                  >
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </div>
+                </div>
+              {%- when 'external_video' -%}
+                <div class="relative w-full h-full bg-gray-800">
+                  <img
+                    src="{{ media | image_url: width: 80 }}"
+                    alt="{{ media.alt | escape }}"
+                    class="w-full h-full object-cover"
+                    width="80"
+                    height="80"
+                    loading="lazy"
+                  >
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </div>
+                </div>
+              {%- when 'model' -%}
+                <div class="relative w-full h-full bg-gray-800">
+                  <img
+                    src="{{ media | image_url: width: 80 }}"
+                    alt="{{ media.alt | escape }}"
+                    class="w-full h-full object-cover"
+                    width="80"
+                    height="80"
+                    loading="lazy"
+                  >
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                    </svg>
+                  </div>
+                </div>
+            {%- endcase -%}
+          </button>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+</div>
+
+<!-- Hidden media elements for gallery functionality -->
+<div class="hidden" id="media-data-{{ product.id }}">
+  {%- for media in product.media -%}
+    <div
+      data-media-id="{{ media.id }}"
+      data-media-type="{{ media.media_type }}"
+      data-media-url="{{ media | image_url: width: 800 }}"
+      data-media-zoom-url="{{ media | image_url: width: 1600 }}"
+      data-media-alt="{{ media.alt | escape }}"
+      {%- if media.media_type == 'video' -%}
+        data-video-url="{{ media.sources[1].url }}"
+        data-video-type="{{ media.sources[1].mime_type }}"
+      {%- elsif media.media_type == 'external_video' -%}
+        data-external-id="{{ media.external_id }}"
+        data-external-host="{{ media.host }}"
+      {%- elsif media.media_type == 'model' -%}
+        data-model-url="{{ media.sources[1].url }}"
+      {%- endif -%}
+    ></div>
+  {%- endfor -%}
+</div>
+
+<script>
+  // Product media gallery functionality
+  class ProductMediaGallery {
+    constructor(container) {
+      this.container = container;
+      this.mainMedia = container.querySelector('.main-media');
+      this.thumbnails = container.querySelectorAll('.thumbnail-btn');
+      this.navButtons = container.querySelectorAll('.media-nav-btn');
+      this.currentIndex = 0;
+      this.mediaData = this.getMediaData();
+      this.enableZoom = {{ enable_zoom | json }};
+      
+      this.init();
+    }
+
+    init() {
+      this.bindEvents();
+      if (this.enableZoom) {
+        this.initZoom();
+      }
+    }
+
+    bindEvents() {
+      // Thumbnail clicks
+      this.thumbnails.forEach((thumb, index) => {
+        thumb.addEventListener('click', () => this.switchMedia(index));
+      });
+
+      // Navigation arrows
+      this.navButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          if (btn.classList.contains('media-nav-prev')) {
+            this.previousMedia();
+          } else {
+            this.nextMedia();
+          }
+        });
+      });
+
+      // Keyboard navigation
+      this.container.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+          this.previousMedia();
+        } else if (e.key === 'ArrowRight') {
+          this.nextMedia();
+        }
+      });
+    }
+
+    getMediaData() {
+      const dataContainer = document.getElementById('media-data-{{ product.id }}');
+      if (!dataContainer) return [];
+      
+      return Array.from(dataContainer.children).map(el => ({
+        id: el.dataset.mediaId,
+        type: el.dataset.mediaType,
+        url: el.dataset.mediaUrl,
+        zoomUrl: el.dataset.mediaZoomUrl,
+        alt: el.dataset.mediaAlt,
+        videoUrl: el.dataset.videoUrl,
+        videoType: el.dataset.videoType,
+        externalId: el.dataset.externalId,
+        externalHost: el.dataset.externalHost,
+        modelUrl: el.dataset.modelUrl
+      }));
+    }
+
+    switchMedia(index) {
+      if (index < 0 || index >= this.mediaData.length) return;
+      
+      this.currentIndex = index;
+      const media = this.mediaData[index];
+      
+      // Update main media
+      this.updateMainMedia(media);
+      
+      // Update thumbnail states
+      this.updateThumbnails(index);
+    }
+
+    updateMainMedia(media) {
+      let html = '';
+      
+      switch (media.type) {
+        case 'image':
+          html = `
+            <img
+              src="${media.url}"
+              alt="${media.alt}"
+              class="w-full h-auto object-cover transition-transform duration-300 ${this.enableZoom ? 'cursor-zoom-in' : ''}"
+              id="main-product-image"
+              data-zoom-src="${media.zoomUrl}"
+            >
+          `;
+          break;
+        case 'video':
+          html = `
+            <video
+              class="w-full h-auto object-cover"
+              ${{{ enable_video_looping | json }} ? 'loop' : ''}
+              muted
+              playsinline
+              controls
+              preload="metadata"
+            >
+              <source src="${media.videoUrl}" type="${media.videoType}">
+            </video>
+          `;
+          break;
+        case 'external_video':
+          if (media.externalHost === 'youtube') {
+            html = `
+              <div class="external-video-container relative pb-[56.25%] h-0">
+                <iframe
+                  src="https://www.youtube.com/embed/${media.externalId}?enablejsapi=1"
+                  class="absolute top-0 left-0 w-full h-full"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  title="${media.alt}"
+                ></iframe>
+              </div>
+            `;
+          } else if (media.externalHost === 'vimeo') {
+            html = `
+              <div class="external-video-container relative pb-[56.25%] h-0">
+                <iframe
+                  src="https://player.vimeo.com/video/${media.externalId}"
+                  class="absolute top-0 left-0 w-full h-full"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowfullscreen
+                  title="${media.alt}"
+                ></iframe>
+              </div>
+            `;
+          }
+          break;
+        case 'model':
+          html = `
+            <model-viewer
+              src="${media.modelUrl}"
+              alt="${media.alt}"
+              auto-rotate
+              camera-controls
+              class="w-full h-96"
+            ></model-viewer>
+          `;
+          break;
+      }
+      
+      this.mainMedia.innerHTML = html;
+      
+      if (this.enableZoom && media.type === 'image') {
+        this.initZoom();
+      }
+    }
+
+    updateThumbnails(activeIndex) {
+      this.thumbnails.forEach((thumb, index) => {
+        if (index === activeIndex) {
+          thumb.classList.remove('border-gray-600', 'hover:border-gray-400');
+          thumb.classList.add('border-primary');
+        } else {
+          thumb.classList.remove('border-primary');
+          thumb.classList.add('border-gray-600', 'hover:border-gray-400');
+        }
+      });
+    }
+
+    previousMedia() {
+      const newIndex = this.currentIndex > 0 ? this.currentIndex - 1 : this.mediaData.length - 1;
+      this.switchMedia(newIndex);
+    }
+
+    nextMedia() {
+      const newIndex = this.currentIndex < this.mediaData.length - 1 ? this.currentIndex + 1 : 0;
+      this.switchMedia(newIndex);
+    }
+
+    initZoom() {
+      const image = this.mainMedia.querySelector('#main-product-image');
+      if (!image) return;
+
+      // Simple zoom on hover implementation
+      image.addEventListener('mouseenter', () => {
+        image.style.transform = 'scale(1.2)';
+      });
+
+      image.addEventListener('mouseleave', () => {
+        image.style.transform = 'scale(1)';
+      });
+    }
+  }
+
+  // Initialize gallery when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    const gallery = document.querySelector('.product-media-gallery');
+    if (gallery) {
+      new ProductMediaGallery(gallery);
+    }
+  });
+</script>

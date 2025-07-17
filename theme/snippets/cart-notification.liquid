@@ -3,7 +3,7 @@
   Displays notifications when items are added to cart
 {% endcomment %}
 
-<div id="cart-notification" class="cart-notification" style="display: none;">
+<div id="cart-notification" class="cart-notification" style="display: none !important; visibility: hidden; opacity: 0;" aria-hidden="true">
   <div class="cart-notification__header">
     <h2 class="cart-notification__heading">Item added to cart</h2>
     <button type="button" class="cart-notification__close" aria-label="Close cart notification">
@@ -15,7 +15,7 @@
 
   <div class="cart-notification__content">
     <div class="cart-notification__item">
-      <img src="{{ 'no-image.png' | asset_url }}" alt="" class="cart-notification__image" width="60" height="60">
+      <img src="{{ 'image-no-image.png' | asset_url }}" alt="" class="cart-notification__image" width="60" height="60">
       <div class="cart-notification__details">
         <h3 class="cart-notification__title"></h3>
         <p class="cart-notification__price"></p>
@@ -128,22 +128,73 @@
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
+  // Initialize cart notification after critical initialization
+  document.addEventListener('theme:page:loaded', function () {
     const cartNotification = document.getElementById('cart-notification');
+    if (!cartNotification) return;
+
     const closeButtons = document.querySelectorAll('.cart-notification__close');
 
-    // Close notification
+    // Close notification function
+    function hideNotification() {
+      cartNotification.style.display = 'none';
+      cartNotification.setAttribute('aria-hidden', 'true');
+      cartNotification.classList.remove('show', 'active');
+    }
+
+    // Show notification function
+    function showNotification() {
+      cartNotification.style.display = 'block';
+      cartNotification.style.visibility = 'visible';
+      cartNotification.style.opacity = '1';
+      cartNotification.setAttribute('aria-hidden', 'false');
+      cartNotification.classList.add('show', 'active');
+    }
+
+    // Close notification event listeners
     closeButtons.forEach((button) => {
-      button.addEventListener('click', function () {
-        cartNotification.style.display = 'none';
-      });
+      button.addEventListener('click', hideNotification);
     });
 
-    // Auto-hide after 5 seconds
+    // Auto-hide after 5 seconds when shown
+    let autoHideTimeout;
+    function scheduleAutoHide() {
+      clearTimeout(autoHideTimeout);
+      autoHideTimeout = setTimeout(hideNotification, 5000);
+    }
+
+    // Expose functions globally for cart functionality
+    window.cartNotification = {
+      show: function(data) {
+        if (data) {
+          // Update notification content if data is provided
+          const image = cartNotification.querySelector('.cart-notification__image');
+          const title = cartNotification.querySelector('.cart-notification__title');
+          const price = cartNotification.querySelector('.cart-notification__price');
+          const quantity = cartNotification.querySelector('.cart-notification__quantity');
+
+          if (image && data.image) image.src = data.image;
+          if (title && data.title) title.textContent = data.title;
+          if (price && data.price) price.textContent = data.price;
+          if (quantity && data.quantity) quantity.textContent = `Quantity: ${data.quantity}`;
+        }
+        
+        showNotification();
+        scheduleAutoHide();
+      },
+      hide: hideNotification
+    };
+
+    // Ensure notification is hidden by default
+    hideNotification();
+  });
+
+  // Fallback initialization if theme:page:loaded doesn't fire
+  document.addEventListener('DOMContentLoaded', function () {
     setTimeout(() => {
-      if (cartNotification.style.display !== 'none') {
-        cartNotification.style.display = 'none';
+      if (!window.cartNotification) {
+        document.dispatchEvent(new CustomEvent('theme:page:loaded'));
       }
-    }, 5000);
+    }, 1000);
   });
 </script>

@@ -1,0 +1,171 @@
+{% comment %}
+  Renders a product card following Dawn's patterns with BloxMania styling
+
+  Accepts:
+  - card_product: {Object} Product Liquid object (optional)
+  - show_vendor: {Boolean} Show the product vendor. Default: false
+  - show_quick_add: {Boolean} Show the quick add button. Default: false (optional)
+  - section_id: {String} The ID of the section that contains this card.
+  - show_compare_at_price: {Boolean} Show compare at price. Default: true (optional)
+  - lazy_load: {Boolean} Image should be lazy loaded. Default: true (optional)
+  - layout: {String} Card layout: 'grid' or 'list'. Default: 'grid'
+
+  Usage:
+  {% render 'card-product', card_product: product, section_id: section.id, layout: 'list' %}
+{% endcomment %}
+
+{%- if card_product and card_product != empty -%}
+  {%- liquid
+    assign layout = layout | default: 'grid'
+    assign show_compare_at_price = show_compare_at_price | default: true
+  -%}
+
+  {%- if layout == 'list' -%}
+    <!-- List Layout -->
+    <div class="product-card-list flex items-center bg-gray-800/50 border border-gray-700 hover:border-primary rounded-xl p-4 transition-all duration-300 hover:bg-gray-800/70 hover:shadow-lg">
+      <!-- Product Image -->
+      <div class="flex-shrink-0 mr-6">
+        <a href="{{ card_product.url }}" class="block">
+          {%- if card_product.featured_image != blank -%}
+            <img
+              src="{{ card_product.featured_image | image_url: width: 160 }}"
+              alt="{{ card_product.title | escape }}"
+              class="w-24 h-24 rounded-xl object-cover shadow-md"
+              width="96"
+              height="96"
+              {% if lazy_load %}loading="lazy"{% endif %}
+            >
+          {%- else -%}
+            <div class="w-24 h-24 rounded-xl bg-gray-700 flex items-center justify-center shadow-md">
+              <svg class="w-8 h-8 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          {%- endif -%}
+        </a>
+      </div>
+      
+      <!-- Product Info -->
+      <div class="flex-1 min-w-0">
+        <div class="flex items-start justify-between">
+          <div class="flex-1 min-w-0 mr-4">
+            <!-- Product Title -->
+            <h3 class="text-lg font-semibold text-white mb-1">
+              <a href="{{ card_product.url }}" class="hover:text-primary transition-colors duration-200 line-clamp-1">
+                {{ card_product.title | escape }}
+              </a>
+            </h3>
+            
+            <!-- Product Vendor -->
+            {%- if show_vendor and card_product.vendor != blank -%}
+              <p class="text-sm text-gray-400 mb-2">{{ card_product.vendor }}</p>
+            {%- endif -%}
+            
+            <!-- Stock Status -->
+            <div class="mb-2">
+              {%- if card_product.available -%}
+                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-900/50 text-green-300">
+                  <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  In Stock
+                </span>
+              {%- else -%}
+                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-900/50 text-red-300">
+                  <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                  </svg>
+                  Out of Stock
+                </span>
+              {%- endif -%}
+            </div>
+          </div>
+          
+          <!-- Price and Actions -->
+          <div class="flex-shrink-0 text-right">
+            <!-- Price -->
+            <div class="mb-3">
+              {%- if show_compare_at_price and card_product.compare_at_price > card_product.price -%}
+                <div class="text-sm text-gray-400 line-through mb-1">
+                  {{ card_product.compare_at_price | money }}
+                </div>
+                <div class="text-xl font-bold text-primary">
+                  {{ card_product.price | money }}
+                </div>
+              {%- else -%}
+                <div class="text-xl font-bold text-primary">
+                  {{ card_product.price | money }}
+                </div>
+              {%- endif -%}
+            </div>
+            
+            <!-- Action Button -->
+            <a
+              href="{{ card_product.url }}"
+              class="inline-flex items-center justify-center px-4 py-2 bg-primary hover:bg-primary-dark text-black font-medium rounded-lg transition-all duration-200 text-sm"
+            >
+              View Details
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  {%- else -%}
+    <!-- Grid Layout (Default) -->
+    <div
+      class="product-card-widget border border-gray-700 hover:border-primary transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 hover:shadow-xl h-full flex flex-col rounded-2xl overflow-hidden bg-cover bg-center bg-no-repeat"
+      style="--widget-bg-image: url({{ 'image-widget-backing.png' | asset_url }});"
+    >
+      <div class="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col">
+        <div class="relative group flex-1 flex flex-col justify-center">
+          {% if card_product.featured_image != blank %}
+            <img
+              src="{{ card_product.featured_image | image_url: width: 300 }}"
+              alt="{{ card_product.title }}"
+              class="w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto rounded-xl mb-4 sm:mb-6 transition-all duration-300 group-hover:brightness-110 object-cover"
+              width="160"
+              height="160"
+              {% if lazy_load %}loading="lazy"{% endif %}
+            >
+          {% else %}
+            <div class="w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto rounded-xl mb-4 sm:mb-6 bg-gray-700 flex items-center justify-center text-gray-400 text-xs">
+              No Image
+            </div>
+          {% endif %}
+        </div>
+        <div class="text-center mt-auto">
+          <h3 class="font-semibold mb-2 text-sm sm:text-base lg:text-lg line-clamp-2 text-white">
+            <a href="{{ card_product.url }}" class="no-underline text-white hover:text-primary transition-colors duration-200">{{ card_product.title }}</a>
+          </h3>
+          
+          {%- if show_vendor -%}
+            <div class="text-xs mb-2 text-gray-400">{{ card_product.vendor }}</div>
+          {%- endif -%}
+          
+          <div class="font-bold text-base sm:text-lg lg:text-xl text-primary">
+            {% if show_compare_at_price and card_product.compare_at_price > card_product.price %}
+              <span class="line-through mr-2 text-sm font-medium text-gray-400">
+                {{- card_product.compare_at_price | money -}}
+              </span>
+            {% endif %}
+            {{ card_product.price | money }}
+          </div>
+          
+          {%- if show_quick_add -%}
+            <div class="mt-4">
+              <a
+                href="{{ card_product.url }}"
+                class="inline-flex items-center justify-center px-4 py-2 bg-transparent text-primary border border-primary no-underline font-medium rounded-md transition-all duration-300 text-sm hover:bg-primary hover:text-black w-full"
+              >
+                View Product
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+{%- endif -%}

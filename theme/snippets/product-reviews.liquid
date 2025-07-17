@@ -1,0 +1,320 @@
+{% comment %}
+  Renders product reviews section with proper schema markup and accessibility
+  
+  Accepts:
+  - product: {Object} Product Liquid object (required)
+  - section_id: {String} Section ID (required)
+  
+  Usage:
+  {% render 'product-reviews', product: product, section_id: section.id %}
+{% endcomment %}
+
+{%- liquid
+  assign reviews_count = product.metafields.reviews.count | default: 0
+  assign average_rating = product.metafields.reviews.rating | default: 0
+  assign reviews_data = product.metafields.reviews.data
+-%}
+
+<div class="product-reviews" id="reviews-{{ section_id }}">
+  <div class="reviews-header mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">
+      {{ 'products.product.reviews.title' | t }}
+      {%- if reviews_count > 0 -%}
+        <span class="text-gray-400 text-lg font-normal ml-2">({{ reviews_count }})</span>
+      {%- endif -%}
+    </h2>
+    
+    {%- if average_rating > 0 -%}
+      <div class="reviews-summary flex items-center gap-4 mb-6">
+        <div class="rating-display flex items-center gap-2">
+          <div class="stars flex" aria-label="{{ 'products.product.reviews.rating' | t: rating: average_rating, max: 5 }}">
+            {%- for i in (1..5) -%}
+              <svg class="w-5 h-5 {% if i <= average_rating %}text-yellow-400{% else %}text-gray-600{% endif %}" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+            {%- endfor -%}
+          </div>
+          <span class="rating-text text-white font-medium">{{ average_rating | round: 1 }} out of 5</span>
+        </div>
+        
+        <button 
+          type="button"
+          class="write-review-btn bg-primary hover:bg-primary-dark text-black font-medium px-4 py-2 rounded-lg transition-colors duration-200"
+          onclick="document.getElementById('review-form-{{ section_id }}').scrollIntoView({ behavior: 'smooth' })"
+        >
+          {{ 'products.product.reviews.write_review' | t }}
+        </button>
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- if reviews_count > 0 -%}
+    <div class="reviews-list space-y-6 mb-8">
+      {%- if reviews_data -%}
+        {%- for review in reviews_data limit: 5 -%}
+          <div class="review-item bg-gray-800/50 border border-gray-700 rounded-xl p-6">
+            <div class="review-header flex items-start justify-between mb-4">
+              <div class="reviewer-info">
+                <div class="reviewer-name text-white font-medium mb-1">
+                  {{ review.author | default: 'Anonymous' }}
+                </div>
+                <div class="review-rating flex items-center gap-2 mb-2">
+                  <div class="stars flex" aria-label="{{ 'products.product.reviews.rating' | t: rating: review.rating, max: 5 }}">
+                    {%- for i in (1..5) -%}
+                      <svg class="w-4 h-4 {% if i <= review.rating %}text-yellow-400{% else %}text-gray-600{% endif %}" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                      </svg>
+                    {%- endfor -%}
+                  </div>
+                  <span class="sr-only">{{ review.rating }} out of 5 stars</span>
+                </div>
+                <div class="review-date text-gray-400 text-sm">
+                  {{ review.created_at | date: '%B %d, %Y' }}
+                </div>
+              </div>
+              
+              {%- if review.verified -%}
+                <span class="verified-badge bg-green-600 text-white text-xs px-2 py-1 rounded-full">
+                  {{ 'products.product.reviews.verified' | t }}
+                </span>
+              {%- endif -%}
+            </div>
+            
+            {%- if review.title -%}
+              <h3 class="review-title text-white font-medium mb-2">{{ review.title }}</h3>
+            {%- endif -%}
+            
+            <div class="review-content text-gray-300 leading-relaxed">
+              {{ review.content | newline_to_br }}
+            </div>
+            
+            {%- if review.helpful_count > 0 -%}
+              <div class="review-helpful mt-4 text-sm text-gray-400">
+                {{ 'products.product.reviews.helpful' | t: count: review.helpful_count }}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <!-- Placeholder reviews for demo -->
+        <div class="review-item bg-gray-800/50 border border-gray-700 rounded-xl p-6">
+          <div class="review-header flex items-start justify-between mb-4">
+            <div class="reviewer-info">
+              <div class="reviewer-name text-white font-medium mb-1">Gaming Pro</div>
+              <div class="review-rating flex items-center gap-2 mb-2">
+                <div class="stars flex">
+                  {%- for i in (1..5) -%}
+                    <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                    </svg>
+                  {%- endfor -%}
+                </div>
+              </div>
+              <div class="review-date text-gray-400 text-sm">December 15, 2024</div>
+            </div>
+            <span class="verified-badge bg-green-600 text-white text-xs px-2 py-1 rounded-full">Verified</span>
+          </div>
+          <h3 class="review-title text-white font-medium mb-2">Amazing quality!</h3>
+          <div class="review-content text-gray-300 leading-relaxed">
+            This product exceeded my expectations. Fast delivery, great quality, and works perfectly with all my games. Highly recommend!
+          </div>
+        </div>
+      {%- endif -%}
+      
+      {%- if reviews_count > 5 -%}
+        <div class="text-center">
+          <button 
+            type="button"
+            class="load-more-reviews bg-gray-800 hover:bg-gray-700 text-white font-medium px-6 py-3 rounded-lg border border-gray-600 transition-colors duration-200"
+          >
+            {{ 'products.product.reviews.load_more' | t }}
+          </button>
+        </div>
+      {%- endif -%}
+    </div>
+  {%- else -%}
+    <div class="no-reviews text-center py-8">
+      <div class="text-gray-400 mb-4">
+        <svg class="w-16 h-16 mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+        </svg>
+        <p class="text-lg">{{ 'products.product.reviews.no_reviews' | t }}</p>
+        <p class="text-sm">{{ 'products.product.reviews.be_first' | t }}</p>
+      </div>
+    </div>
+  {%- endif -%}
+
+  <!-- Review Form -->
+  <div class="review-form-section" id="review-form-{{ section_id }}">
+    <h3 class="text-xl font-bold text-white mb-6">{{ 'products.product.reviews.write_review' | t }}</h3>
+    
+    <form class="review-form space-y-6" action="#" method="post">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="form-group">
+          <label for="review-name-{{ section_id }}" class="block text-white font-medium mb-2">
+            {{ 'products.product.reviews.name' | t }} <span class="text-red-400">*</span>
+          </label>
+          <input
+            type="text"
+            id="review-name-{{ section_id }}"
+            name="review[name]"
+            required
+            class="w-full bg-gray-800 border border-gray-600 text-white rounded-lg px-4 py-3 focus:border-primary focus:outline-none transition-colors duration-200"
+            placeholder="{{ 'products.product.reviews.name_placeholder' | t }}"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label for="review-email-{{ section_id }}" class="block text-white font-medium mb-2">
+            {{ 'products.product.reviews.email' | t }} <span class="text-red-400">*</span>
+          </label>
+          <input
+            type="email"
+            id="review-email-{{ section_id }}"
+            name="review[email]"
+            required
+            class="w-full bg-gray-800 border border-gray-600 text-white rounded-lg px-4 py-3 focus:border-primary focus:outline-none transition-colors duration-200"
+            placeholder="{{ 'products.product.reviews.email_placeholder' | t }}"
+          >
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label class="block text-white font-medium mb-2">
+          {{ 'products.product.reviews.rating' | t }} <span class="text-red-400">*</span>
+        </label>
+        <div class="rating-input flex gap-1">
+          {%- for i in (1..5) -%}
+            <input
+              type="radio"
+              id="rating-{{ i }}-{{ section_id }}"
+              name="review[rating]"
+              value="{{ i }}"
+              class="sr-only"
+              required
+            >
+            <label
+              for="rating-{{ i }}-{{ section_id }}"
+              class="rating-star cursor-pointer text-gray-600 hover:text-yellow-400 transition-colors duration-200"
+            >
+              <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+            </label>
+          {%- endfor -%}
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="review-title-{{ section_id }}" class="block text-white font-medium mb-2">
+          {{ 'products.product.reviews.title' | t }}
+        </label>
+        <input
+          type="text"
+          id="review-title-{{ section_id }}"
+          name="review[title]"
+          class="w-full bg-gray-800 border border-gray-600 text-white rounded-lg px-4 py-3 focus:border-primary focus:outline-none transition-colors duration-200"
+          placeholder="{{ 'products.product.reviews.title_placeholder' | t }}"
+        >
+      </div>
+      
+      <div class="form-group">
+        <label for="review-content-{{ section_id }}" class="block text-white font-medium mb-2">
+          {{ 'products.product.reviews.review' | t }} <span class="text-red-400">*</span>
+        </label>
+        <textarea
+          id="review-content-{{ section_id }}"
+          name="review[content]"
+          rows="5"
+          required
+          class="w-full bg-gray-800 border border-gray-600 text-white rounded-lg px-4 py-3 focus:border-primary focus:outline-none transition-colors duration-200 resize-vertical"
+          placeholder="{{ 'products.product.reviews.review_placeholder' | t }}"
+        ></textarea>
+      </div>
+      
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="bg-primary hover:bg-primary-dark text-black font-bold px-8 py-3 rounded-lg transition-colors duration-200"
+        >
+          {{ 'products.product.reviews.submit' | t }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Schema markup for reviews -->
+{%- if reviews_count > 0 -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": {{ average_rating | json }},
+      "reviewCount": {{ reviews_count | json }},
+      "bestRating": "5",
+      "worstRating": "1"
+    }
+  }
+  </script>
+{%- endif -%}
+
+<style>
+  .rating-input input[type="radio"]:checked + label,
+  .rating-input input[type="radio"]:checked ~ label {
+    color: #fbbf24;
+  }
+  
+  .rating-input label:hover,
+  .rating-input label:hover ~ label {
+    color: #fbbf24;
+  }
+</style>
+
+<script>
+  // Rating input functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const ratingInputs = document.querySelectorAll('.rating-input');
+    
+    ratingInputs.forEach(ratingInput => {
+      const stars = ratingInput.querySelectorAll('.rating-star');
+      const inputs = ratingInput.querySelectorAll('input[type="radio"]');
+      
+      stars.forEach((star, index) => {
+        star.addEventListener('mouseenter', () => {
+          stars.forEach((s, i) => {
+            if (i <= index) {
+              s.classList.add('text-yellow-400');
+              s.classList.remove('text-gray-600');
+            } else {
+              s.classList.add('text-gray-600');
+              s.classList.remove('text-yellow-400');
+            }
+          });
+        });
+        
+        star.addEventListener('click', () => {
+          inputs[index].checked = true;
+        });
+      });
+      
+      ratingInput.addEventListener('mouseleave', () => {
+        const checkedInput = ratingInput.querySelector('input[type="radio"]:checked');
+        const checkedIndex = checkedInput ? Array.from(inputs).indexOf(checkedInput) : -1;
+        
+        stars.forEach((star, index) => {
+          if (index <= checkedIndex) {
+            star.classList.add('text-yellow-400');
+            star.classList.remove('text-gray-600');
+          } else {
+            star.classList.add('text-gray-600');
+            star.classList.remove('text-yellow-400');
+          }
+        });
+      });
+    });
+  });
+</script>
