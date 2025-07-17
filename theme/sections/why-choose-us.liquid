@@ -1,31 +1,8 @@
-{%- style -%}
-  .feature-card {
-    transition: all 0.3s ease;
-    min-height: 180px;
-  }
 
-  .feature-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  }
-
-  @keyframes retro-grid {
-    0% {
-      transform: translateY(-10%);
-    }
-    100% {
-      transform: translateY(10%);
-    }
-  }
-
-  .retro-grid-animate {
-    animation: retro-grid 25s linear infinite;
-  }
-{%- endstyle -%}
 
 <section
-  class="py-20 relative overflow-hidden"
-  style="background-image: url({{ 'okok2.png' | asset_url }}); background-size: cover; background-position: center; background-repeat: no-repeat;"
+  class="why-choose-us-section py-20 relative overflow-hidden bg-cover bg-center bg-no-repeat"
+  style="--why-choose-bg-image: url({{ 'image-okok2.png' | asset_url }});"
 >
   <div class="absolute inset-0 bg-gradient-to-tr from-purple-900/20 via-transparent to-blue-900/20"></div>
   <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/25 to-black/50"></div>

@@ -1,20 +1,6 @@
-{%- style -%}
-  /* Keep essential hover animations */
-  .game-card:hover .game-content {
-    filter: blur(2px);
-  }
+{{ 'component-game-card.css' | asset_url | stylesheet_tag }}
 
-  .coming-soon-overlay {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .game-card:hover .coming-soon-overlay {
-    opacity: 1;
-  }
-{%- endstyle -%}
-
-<section class="py-16 px-8 relative overflow-hidden" style="background-color: #1A1B26;">
+<section class="py-16 px-8 relative overflow-hidden bg-slate-900">
   <div class="absolute inset-0 bg-gradient-to-r from-primary/3 via-transparent to-secondary/3"></div>
   <div
     class="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,216,0,0.06),transparent_50%)] opacity-70"
@@ -27,7 +13,7 @@
       <div class="game-card bg-white/5 rounded-2xl p-8 relative border border-white/10 cursor-pointer overflow-hidden transition-all duration-300 backdrop-blur-sm hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-2">
         <div class="game-content relative z-10 transition-all duration-300">
           <img
-            src="{{ 'grow.png' | asset_url }}"
+            src="{{ 'image-grow.png' | asset_url }}"
             alt="Grow A Garden"
             class="w-40 h-40 mx-auto mb-6 rounded-2xl shadow-lg"
             width="160"
@@ -35,7 +21,7 @@
           >
           <h3 class="text-xl md:text-2xl font-semibold text-white drop-shadow-sm">Grow A Garden</h3>
         </div>
-        <div class="coming-soon-overlay absolute inset-0 bg-black/80 flex items-center justify-center z-20">
+        <div class="absolute inset-0 bg-black/80 flex items-center justify-center z-20 opacity-0 transition-opacity duration-300 ease-in-out">
           <div class="text-center text-white">
             <div class="text-xl md:text-2xl font-bold mb-2 text-primary">Coming Soon</div>
             <div class="text-gray-300 text-sm md:text-base">Stay tuned for updates!</div>
@@ -47,7 +33,7 @@
       <div class="game-card bg-white/5 rounded-2xl p-8 relative border border-white/10 cursor-pointer overflow-hidden transition-all duration-300 backdrop-blur-sm hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-2">
         <div class="game-content relative z-10 transition-all duration-300">
           <img
-            src="{{ 'fortnite.png' | asset_url }}"
+            src="{{ 'image-fortnite.png' | asset_url }}"
             alt="Fortnite"
             class="w-40 h-40 mx-auto mb-6 rounded-2xl shadow-lg"
             width="160"
@@ -55,7 +41,7 @@
           >
           <h3 class="text-xl md:text-2xl font-semibold text-white drop-shadow-sm">Fortnite</h3>
         </div>
-        <div class="coming-soon-overlay absolute inset-0 bg-black/80 flex items-center justify-center z-20">
+        <div class="absolute inset-0 bg-black/80 flex items-center justify-center z-20 opacity-0 transition-opacity duration-300 ease-in-out">
           <div class="text-center text-white">
             <div class="text-xl md:text-2xl font-bold mb-2 text-primary">Coming Soon</div>
             <div class="text-gray-300 text-sm md:text-base">Stay tuned for updates!</div>
@@ -75,7 +61,7 @@
           >
           <h3 class="text-xl md:text-2xl font-semibold text-white drop-shadow-sm">Pet Simulator 99</h3>
         </div>
-        <div class="coming-soon-overlay absolute inset-0 bg-black/80 flex items-center justify-center z-20">
+        <div class="absolute inset-0 bg-black/80 flex items-center justify-center z-20 opacity-0 transition-opacity duration-300 ease-in-out">
           <div class="text-center text-white">
             <div class="text-xl md:text-2xl font-bold mb-2 text-primary">Coming Soon</div>
             <div class="text-gray-300 text-sm md:text-base">Stay tuned for updates!</div>

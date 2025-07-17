@@ -1,34 +1,18 @@
-{%- style -%}
-  /* Custom animations and effects that can't be easily replicated with Tailwind */
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: #ffd800;
-    transition: width 0.3s ease;
-  }
 
-  .nav-link:hover::after {
-    width: 100%;
-  }
 
-  .mobile-menu.active {
-    display: flex;
-  }
-{%- endstyle -%}
-
-<header class="fixed w-full top-0 z-50 transition-all duration-300 header-wrapper header-transparent" id="header">
+<header-drawer>
+<header class="fixed w-full top-0 z-50 transition-all duration-300 bg-transparent" id="header" role="banner">
   <div class="flex items-center justify-between px-4 md:px-8 py-6 max-w-7xl mx-auto">
     <!-- Left: Mobile Menu Button / Desktop Logo -->
     <div class="flex items-center flex-shrink-0">
       <!-- Mobile Menu Button (Desktop Hidden) -->
       <button
-        class="block md:hidden bg-black/30 backdrop-blur-sm border-0 text-white cursor-pointer p-3 rounded-lg transition-all duration-300 hover:text-primary hover:bg-black/50 mobile-menu-toggle"
+        class="block md:hidden bg-black/30 backdrop-blur-sm border-0 text-white cursor-pointer p-3 rounded-lg transition-all duration-300 hover:text-primary hover:bg-black/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background mobile-menu-toggle"
         id="mobile-menu-toggle"
         aria-label="Open mobile menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        type="button"
       >
         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
           <path fill-rule="evenodd" d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z" clip-rule="evenodd"/>
@@ -49,13 +33,14 @@
           </a>
         {% else %}
           <a href="{{ routes.root_url }}">
-            <img
-              src="{{ 'BM.png' | asset_url }}"
-              alt="BloxMania"
-              class="h-14 lg:h-16 w-auto transition-transform duration-300 cursor-pointer hover:scale-105"
-              width="233"
-              height="70"
-            >
+            {% render 'responsive-image',
+              image: 'image-BM.png',
+              alt: 'BloxMania',
+              class: 'h-14 lg:h-16 w-auto transition-transform duration-300 cursor-pointer hover:scale-105',
+              width: 233,
+              height: 70,
+              loading: 'eager',
+              sizes: '233px' %}
           </a>
         {% endif %}
       </div>
@@ -78,7 +63,7 @@
         {% else %}
           <a href="{{ routes.root_url }}">
             <img
-              src="{{ 'BM.png' | asset_url }}"
+              src="{{ 'image-BM.png' | asset_url }}"
               alt="BloxMania"
               class="h-12 w-auto cursor-pointer"
               width="150"
@@ -89,10 +74,10 @@
       </div>
 
       <!-- Desktop Navigation -->
-      <nav class="hidden md:flex items-center justify-center gap-10 lg:gap-12 xl:gap-14 min-w-0">
+      <nav class="hidden md:flex items-center justify-center gap-10 lg:gap-12 xl:gap-14 min-w-0" role="navigation" aria-label="Main navigation">
         <a
           href="{{ routes.all_products_collection_url }}"
-          class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary"
+          class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background"
         >
           <svg class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
             <path d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119.997zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/>
@@ -102,7 +87,7 @@
 
         <a
           href="{{ pages.guarantee.url | default: '/pages/guarantee' }}"
-          class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary"
+          class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background"
         >
           <div class="relative">
             <svg class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
@@ -122,7 +107,7 @@
         {% if section.settings.discord_url != blank %}
           <a
             href="{{ section.settings.discord_url }}"
-            class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary"
+            class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background"
             target="_blank"
             rel="noopener"
           >
@@ -134,7 +119,7 @@
         {% else %}
           <a
             href="https://discord.gg/bloxmania"
-            class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary"
+            class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background"
             target="_blank"
             rel="noopener"
           >
@@ -147,7 +132,7 @@
 
         <a
           href="{{ pages['purchasing-guide'].url | default: '/pages/purchasing-guide' }}"
-          class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary"
+          class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background"
         >
           <svg class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
             <path fill-rule="evenodd" d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625zM7.5 15a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 017.5 15zm.75 2.25a.75.75 0 000 1.5H12a.75.75 0 000-1.5H8.25z" clip-rule="evenodd"/>
@@ -162,7 +147,7 @@
     <div class="flex items-center justify-end gap-3 flex-shrink-0">
       <a
         href="{{ routes.cart_url }}"
-        class="text-white no-underline transition-all duration-300 relative flex items-center p-2 rounded-lg bg-black/30 backdrop-blur-sm hover:text-primary hover:bg-black/50"
+        class="text-white no-underline transition-all duration-300 relative flex items-center p-2 rounded-lg bg-black/30 backdrop-blur-sm hover:text-primary hover:bg-black/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background"
         aria-label="Shopping cart"
       >
         <svg class="w-6 h-6 lg:w-7 lg:h-7" fill="currentColor" viewBox="0 0 24 24">
@@ -177,7 +162,7 @@
 
       <a
         href="{{ routes.account_url }}"
-        class="text-white no-underline transition-all duration-300 relative flex items-center p-2 rounded-lg bg-black/30 backdrop-blur-sm hover:text-primary hover:bg-black/50"
+        class="text-white no-underline transition-all duration-300 relative flex items-center p-2 rounded-lg bg-black/30 backdrop-blur-sm hover:text-primary hover:bg-black/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background"
         aria-label="User account"
       >
         <svg class="w-6 h-6 lg:w-7 lg:h-7" fill="currentColor" viewBox="0 0 24 24">
@@ -189,8 +174,12 @@
 
   <!-- Mobile Menu -->
   <div
-    class="mobile-menu fixed top-0 left-0 w-full h-screen bg-slate-900/98 backdrop-blur-xl z-60 hidden flex-col overflow-hidden"
+    class="mobile-menu fixed top-0 left-0 w-full h-screen bg-slate-900/98 backdrop-blur-xl z-60 hidden flex-col overflow-hidden transition-all duration-300 ease-in-out"
     id="mobile-menu"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="mobile-menu-title"
+    aria-hidden="true"
   >
     <div class="flex items-center justify-between p-8 border-b border-white/10 bg-slate-900/90 flex-shrink-0">
       {% if section.settings.logo != blank %}
@@ -203,7 +192,7 @@
         >
       {% else %}
         <img
-          src="{{ 'BM.png' | asset_url }}"
+          src="{{ 'image-BM.png' | asset_url }}"
           alt="BloxMania"
           class="h-14 w-auto cursor-pointer"
           width="150"
@@ -211,7 +200,7 @@
         >
       {% endif %}
       <button
-        class="bg-white/8 border border-white/15 text-slate-100 cursor-pointer transition-all duration-200 p-3 rounded-lg hover:text-primary hover:bg-primary/12 hover:border-primary/25"
+        class="bg-white/8 border border-white/15 text-slate-100 cursor-pointer transition-all duration-200 p-3 rounded-lg hover:text-primary hover:bg-primary/12 hover:border-primary/25 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-slate-900"
         id="mobile-menu-close"
         aria-label="Close mobile menu"
       >
@@ -221,7 +210,8 @@
       </button>
     </div>
 
-    <nav class="flex-1 overflow-y-auto flex flex-col">
+    <h2 id="mobile-menu-title" class="sr-only">Mobile Navigation Menu</h2>
+    <nav class="flex-1 overflow-y-auto flex flex-col" role="navigation" aria-label="Mobile navigation">
       <a
         href="{{ routes.all_products_collection_url }}"
         class="text-slate-100 no-underline text-xl md:text-2xl font-medium py-6 px-8 border-b border-white/10 flex items-center gap-4 transition-all duration-200 hover:text-primary hover:bg-primary/6"
@@ -297,11 +287,13 @@
     // Header scroll effect
     function handleScroll() {
       if (window.scrollY > 10) {
-        header.classList.remove('header-transparent');
-        header.classList.add('header-scrolled');
+        // Scrolled state: add background and blur
+        header.classList.remove('bg-transparent');
+        header.classList.add('bg-black/80', 'backdrop-blur-xl', 'border-b', 'border-white/10', 'shadow-lg');
       } else {
-        header.classList.remove('header-scrolled');
-        header.classList.add('header-transparent');
+        // Transparent state: remove background and blur
+        header.classList.add('bg-transparent');
+        header.classList.remove('bg-black/80', 'backdrop-blur-xl', 'border-b', 'border-white/10', 'shadow-lg');
       }
     }
 
@@ -311,13 +303,39 @@
 
     // Mobile menu toggle
     function openMobileMenu() {
-      mobileMenu.classList.add('active');
+      mobileMenu.classList.remove('hidden');
+      mobileMenu.classList.add('flex');
+      mobileMenu.setAttribute('aria-hidden', 'false');
+      mobileMenuToggle.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
+      
+      // Focus first focusable element in menu
+      const firstFocusable = mobileMenu.querySelector('a, button');
+      if (firstFocusable) {
+        firstFocusable.focus();
+      }
+      
+      // Trap focus within mobile menu
+      if (window.accessibilityUtils) {
+        window.mobileMenuFocusTrap = window.accessibilityUtils.trapFocus(mobileMenu);
+      }
     }
 
     function closeMobileMenu() {
-      mobileMenu.classList.remove('active');
+      mobileMenu.classList.remove('flex');
+      mobileMenu.classList.add('hidden');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      mobileMenuToggle.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
+      
+      // Return focus to menu toggle button
+      mobileMenuToggle.focus();
+      
+      // Remove focus trap
+      if (window.mobileMenuFocusTrap) {
+        window.mobileMenuFocusTrap();
+        window.mobileMenuFocusTrap = null;
+      }
     }
 
     mobileMenuToggle?.addEventListener('click', function (e) {
@@ -339,12 +357,14 @@
 
     // Close mobile menu on escape key
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+      if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
         closeMobileMenu();
       }
     });
   });
 </script>
+
+</header-drawer>
 
 {% schema %}
 {

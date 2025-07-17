@@ -1,0 +1,458 @@
+{% comment %}
+  Main product section following Dawn's patterns with BloxMania styling
+  Includes comprehensive product page functionality with accessibility and modern features
+{% endcomment %}
+
+{{ 'component-product-media-gallery.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-form.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-info.css' | asset_url | stylesheet_tag }}
+{{ 'component-breadcrumb.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-reviews.css' | asset_url | stylesheet_tag }}
+
+
+
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
+
+{%- if request.design_mode -%}
+  <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+{%- liquid
+  assign product_form_id = 'product-form-' | append: section.id
+  assign current_variant = product.selected_or_first_available_variant
+  assign featured_media = current_variant.featured_media | default: product.featured_media
+-%}
+
+<div 
+  class="bg-background text-white section-padding"
+  style="--padding-top-mobile: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px; --padding-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px; --padding-top-desktop: {{ section.settings.padding_top }}px; --padding-bottom-desktop: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Breadcrumb Navigation -->
+    {% render 'breadcrumb', product: product %}
+    
+    <!-- Product Schema Markup -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": {{ product.title | json }},
+        "image": [
+          {%- for media in product.media -%}
+            {%- if media.media_type == 'image' -%}
+              {{ media | image_url: width: 1200 | json }}
+              {%- unless forloop.last -%},{%- endunless -%}
+            {%- endif -%}
+          {%- endfor -%}
+        ],
+        "description": {{ product.description | strip_html | json }},
+        "sku": {{ current_variant.sku | json }},
+        "brand": {
+          "@type": "Brand",
+          "name": {{ product.vendor | json }}
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": {{ request.origin | append: product.url | json }},
+          "priceCurrency": {{ cart.currency.iso_code | json }},
+          "price": {{ current_variant.price | divided_by: 100.0 | json }},
+          "availability": "{% if current_variant.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+          "seller": {
+            "@type": "Organization",
+            "name": {{ shop.name | json }}
+          }
+        }
+      }
+    </script>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-8">
+      
+      <!-- Product Media Gallery -->
+      <div class="product-media-gallery">
+        {% render 'product-media-gallery', 
+          product: product, 
+          variant_images: product.images,
+          enable_zoom: section.settings.enable_zoom,
+          enable_video_looping: section.settings.enable_video_looping
+        %}
+      </div>
+
+      <!-- Product Information -->
+      <div class="product-info space-y-6">
+        
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            
+            {%- when 'vendor' -%}
+              {%- if product.vendor != blank -%}
+                <div class="product-vendor" {{ block.shopify_attributes }}>
+                  <p class="text-sm font-medium text-gray-400 uppercase tracking-wider">
+                    {{ product.vendor }}
+                  </p>
+                </div>
+              {%- endif -%}
+
+            {%- when 'title' -%}
+              <div class="product-title" {{ block.shopify_attributes }}>
+                <h1 class="text-3xl lg:text-4xl font-bold text-white mb-2">
+                  {{ product.title | escape }}
+                </h1>
+              </div>
+
+            {%- when 'price' -%}
+              <div class="product-price" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+                {% render 'product-price', 
+                  product: product, 
+                  use_variant: true, 
+                  show_badges: true,
+                  price_class: 'text-2xl lg:text-3xl font-bold'
+                %}
+              </div>
+
+            {%- when 'rating' -%}
+              <div class="product-rating" {{ block.shopify_attributes }}>
+                {% render 'product-rating', product: product %}
+              </div>
+
+            {%- when 'description' -%}
+              {%- if product.description != blank -%}
+                <div class="product-description prose prose-invert max-w-none" {{ block.shopify_attributes }}>
+                  {{ product.description }}
+                </div>
+              {%- endif -%}
+
+            {%- when 'variant_picker' -%}
+              {% render 'product-variant-picker', 
+                product: product, 
+                block: block, 
+                product_form_id: product_form_id,
+                update_url: false
+              %}
+
+            {%- when 'quantity_selector' -%}
+              <div class="product-quantity" {{ block.shopify_attributes }}>
+                {% render 'quantity-input', 
+                  product: product, 
+                  section_id: section.id,
+                  product_form_id: product_form_id
+                %}
+              </div>
+
+            {%- when 'buy_buttons' -%}
+              {% render 'product-buy-buttons', 
+                block: block, 
+                product: product, 
+                product_form_id: product_form_id, 
+                section_id: section.id 
+              %}
+
+            {%- when 'inventory' -%}
+              <div class="product-inventory" {{ block.shopify_attributes }}>
+                {% render 'product-inventory', 
+                  variant: current_variant, 
+                  block: block,
+                  section_id: section.id
+                %}
+              </div>
+
+            {%- when 'share' -%}
+              <div class="product-share" {{ block.shopify_attributes }}>
+                {% liquid
+                  assign share_url = current_variant.url | default: product.url | prepend: request.origin
+                  render 'share-button', block: block, share_link: share_url
+                %}
+              </div>
+
+            {%- when 'collapsible_tab' -%}
+              <div class="product-accordion" {{ block.shopify_attributes }}>
+                {% render 'collapsible-content', 
+                  block: block, 
+                  section_id: section.id 
+                %}
+              </div>
+
+            {%- when 'features' -%}
+              <div class="product-features" {{ block.shopify_attributes }}>
+                {% render 'product-features', block: block %}
+              </div>
+
+          {%- endcase -%}
+        {%- endfor -%}
+
+      </div>
+    </div>
+
+    <!-- Product Reviews Section -->
+    {%- if section.settings.show_reviews -%}
+      <div class="mt-16">
+        {% render 'product-reviews', product: product, section_id: section.id %}
+      </div>
+    {%- endif -%}
+
+    <!-- Related Products -->
+    {%- if section.settings.show_related_products -%}
+      <div class="mt-16">
+        {% render 'related-products', 
+          product: product, 
+          heading: section.settings.related_products_heading,
+          products_to_show: section.settings.related_products_count
+        %}
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product information",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_info",
+      "default": true,
+      "label": "Enable sticky product info"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_zoom",
+      "default": true,
+      "label": "Enable image zoom"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video_looping",
+      "default": false,
+      "label": "Enable video looping"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reviews",
+      "default": true,
+      "label": "Show product reviews"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_related_products",
+      "default": true,
+      "label": "Show related products"
+    },
+    {
+      "type": "text",
+      "id": "related_products_heading",
+      "default": "You may also like",
+      "label": "Related products heading"
+    },
+    {
+      "type": "range",
+      "id": "related_products_count",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4,
+      "label": "Number of related products to show"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "vendor",
+      "name": "Vendor",
+      "limit": 1
+    },
+    {
+      "type": "title",
+      "name": "Title",
+      "limit": 1
+    },
+    {
+      "type": "price",
+      "name": "Price",
+      "limit": 1
+    },
+    {
+      "type": "rating",
+      "name": "Product rating",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "To display a rating, add a product rating app. [Learn more](https://help.shopify.com/manual/online-store/themes/theme-structure/theme-features#featured-product-rating)"
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Description",
+      "limit": 1
+    },
+    {
+      "type": "variant_picker",
+      "name": "Variant picker",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "picker_type",
+          "options": [
+            {
+              "value": "dropdown",
+              "label": "Dropdown"
+            },
+            {
+              "value": "button",
+              "label": "Buttons"
+            }
+          ],
+          "default": "button",
+          "label": "Type"
+        }
+      ]
+    },
+    {
+      "type": "quantity_selector",
+      "name": "Quantity selector",
+      "limit": 1
+    },
+    {
+      "type": "buy_buttons",
+      "name": "Buy buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_dynamic_checkout",
+          "default": true,
+          "label": "Show dynamic checkout buttons",
+          "info": "Using the payment methods available on your store, customers see their preferred option, like PayPal or Apple Pay. [Learn more](https://help.shopify.com/manual/using-shopify/payments/accelerated-checkouts)"
+        }
+      ]
+    },
+    {
+      "type": "inventory",
+      "name": "Inventory",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "inventory_threshold",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "label": "Low inventory threshold",
+          "default": 10
+        },
+        {
+          "type": "checkbox",
+          "id": "show_inventory_quantity",
+          "default": false,
+          "label": "Show inventory quantity"
+        }
+      ]
+    },
+    {
+      "type": "share",
+      "name": "Share",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "share_label",
+          "label": "Share label",
+          "default": "Share"
+        }
+      ]
+    },
+    {
+      "type": "collapsible_tab",
+      "name": "Collapsible row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Collapsible row",
+          "info": "Include a heading that explains the content.",
+          "label": "Heading"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "options": [
+            {
+              "value": "none",
+              "label": "No icon"
+            },
+            {
+              "value": "truck",
+              "label": "Truck"
+            },
+            {
+              "value": "heart",
+              "label": "Heart"
+            },
+            {
+              "value": "check_mark",
+              "label": "Check mark"
+            },
+            {
+              "value": "return",
+              "label": "Return"
+            }
+          ],
+          "default": "none",
+          "label": "Icon"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Row content"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "Row content from page"
+        }
+      ]
+    },
+    {
+      "type": "features",
+      "name": "Product features",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "features_list",
+          "label": "Features (one per line)",
+          "default": "Instant Delivery\nSecure Payment\n24/7 Support\nMoney Back Guarantee"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

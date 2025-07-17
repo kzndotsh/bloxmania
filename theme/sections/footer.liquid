@@ -1,79 +1,9 @@
-{%- style -%}
-  .footer {
-    background: linear-gradient(135deg, #1d1e26 0%, #252730 100%);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .footer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('{{ 'slam.png' | asset_url }}');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.03;
-    z-index: 0;
-  }
-
-  .footer-content {
-    position: relative;
-    z-index: 1;
-  }
-
-  .footer-link {
-    color: #9ca3af;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-weight: 500;
-  }
-
-  .footer-link:hover {
-    color: #ffd800;
-    transform: translateY(-2px);
-  }
-
-  .social-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 50%;
-    color: #9ca3af;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .social-link:hover {
-    background: rgba(255, 216, 0, 0.1);
-    color: #ffd800;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(255, 216, 0, 0.2);
-  }
-
-  .footer-divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 216, 0, 0.3), transparent);
-    margin: 2rem 0;
-  }
-
-  .footer-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-  }
-{%- endstyle -%}
-
-<footer class="footer py-16 px-8">
-  <div class="footer-content max-w-6xl mx-auto">
+<footer class="relative overflow-hidden bg-gradient-to-br from-slate-900/70 to-indigo-900/25 py-16 px-8" role="contentinfo">
+  <div 
+    class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.03] z-0"
+    style="background-image: url('{{ 'image-slam.png' | asset_url }}');"
+  ></div>
+  <div class="relative z-10 max-w-6xl mx-auto">
     <!-- Main Footer Content -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
       <!-- Brand Section -->
@@ -87,11 +17,11 @@
         </p>
 
         <!-- Social Links -->
-        <div class="flex justify-center md:justify-start space-x-3">
+        <div class="flex justify-center md:justify-start space-x-3" role="list" aria-label="Social media links">
           {% if section.settings.discord_url != blank %}
             <a
               href="{{ section.settings.discord_url }}"
-              class="social-link"
+              class="inline-flex items-center justify-center w-10 h-10 bg-white/5 border border-white/10 rounded-full text-gray-400 no-underline transition-all duration-300 backdrop-blur-sm hover:bg-primary/10 hover:text-primary hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/20"
               target="_blank"
               rel="noopener"
               aria-label="Discord"
@@ -105,7 +35,7 @@
           {% if section.settings.twitter_url != blank %}
             <a
               href="{{ section.settings.twitter_url }}"
-              class="social-link"
+              class="inline-flex items-center justify-center w-10 h-10 bg-white/5 border border-white/10 rounded-full text-gray-400 no-underline transition-all duration-300 backdrop-blur-sm hover:bg-primary/10 hover:text-primary hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/20"
               target="_blank"
               rel="noopener"
               aria-label="Twitter"
@@ -119,7 +49,7 @@
           {% if section.settings.youtube_url != blank %}
             <a
               href="{{ section.settings.youtube_url }}"
-              class="social-link"
+              class="inline-flex items-center justify-center w-10 h-10 bg-white/5 border border-white/10 rounded-full text-gray-400 no-underline transition-all duration-300 backdrop-blur-sm hover:bg-primary/10 hover:text-primary hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/20"
               target="_blank"
               rel="noopener"
               aria-label="YouTube"
@@ -136,52 +66,52 @@
       <div class="hidden md:block"></div>
 
       <!-- Quick Links -->
-      <div class="text-center md:text-left">
-        <h4 class="text-lg font-semibold text-white mb-4">Quick Links</h4>
-        <ul class="space-y-3">
+      <nav class="text-center md:text-left" role="navigation" aria-labelledby="quick-links-heading">
+        <h4 id="quick-links-heading" class="text-lg font-semibold text-white mb-4">Quick Links</h4>
+        <ul class="space-y-3" role="list">
           <li>
-            <a href="{{ routes.all_products_collection_url }}" class="footer-link"> Shop All Items </a>
+            <a href="{{ routes.all_products_collection_url }}" class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5"> Shop All Items </a>
           </li>
           <li>
-            <a href="{{ pages.guarantee.url | default: '/pages/guarantee' }}" class="footer-link"> Our Guarantee </a>
+            <a href="{{ pages.guarantee.url | default: '/pages/guarantee' }}" class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5"> Our Guarantee </a>
           </li>
           <li>
-            <a href="{{ pages.faq.url | default: '/pages/faq' }}" class="footer-link"> FAQ </a>
+            <a href="{{ pages.faq.url | default: '/pages/faq' }}" class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5"> FAQ </a>
           </li>
           <li>
-            <a href="https://discord.gg/bloxmania" class="footer-link" target="_blank" rel="noopener"> Support </a>
+            <a href="https://discord.gg/bloxmania" class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5" target="_blank" rel="noopener"> Support </a>
           </li>
         </ul>
-      </div>
+      </nav>
 
       <!-- Legal -->
-      <div class="text-center md:text-left">
-        <h4 class="text-lg font-semibold text-white mb-4">Legal</h4>
-        <ul class="space-y-3">
+      <nav class="text-center md:text-left" role="navigation" aria-labelledby="legal-links-heading">
+        <h4 id="legal-links-heading" class="text-lg font-semibold text-white mb-4">Legal</h4>
+        <ul class="space-y-3" role="list">
           <li>
-            <a href="{{ pages['privacy-policy'].url | default: '/pages/privacy-policy' }}" class="footer-link">
+            <a href="{{ pages['privacy-policy'].url | default: '/pages/privacy-policy' }}" class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5">
               Privacy Policy
             </a>
           </li>
           <li>
-            <a href="{{ pages['terms-of-service'].url | default: '/pages/terms-of-service' }}" class="footer-link">
+            <a href="{{ pages['terms-of-service'].url | default: '/pages/terms-of-service' }}" class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5">
               Terms of Service
             </a>
           </li>
           <li>
-            <a href="{{ pages['refund-policy'].url | default: '/pages/refund-policy' }}" class="footer-link">
+            <a href="{{ pages['refund-policy'].url | default: '/pages/refund-policy' }}" class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5">
               Refund Policy
             </a>
           </li>
         </ul>
-      </div>
+      </nav>
     </div>
 
     <!-- Divider -->
-    <div class="footer-divider"></div>
+    <div class="h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent my-8"></div>
 
     <!-- Bottom Section -->
-    <div class="footer-bottom -mx-8 px-8 py-6 mt-8">
+    <div class="border-t border-white/10 bg-black/20 backdrop-blur-sm -mx-8 px-8 py-6 mt-8">
       <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-4">
         <p class="text-gray-400 text-sm">© {{ 'now' | date: '%Y' }} BloxMania. All rights reserved.</p>
         <p class="text-gray-400 text-sm">Made with <span class="text-red-500">❤️</span> for the gaming community</p>

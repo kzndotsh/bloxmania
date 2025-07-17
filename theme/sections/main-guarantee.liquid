@@ -1,0 +1,212 @@
+{{ 'component-guarantee.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="guarantee-hero section-{{ section.id }}-padding" 
+     style="background-image: url('{{ 'image-okok1.png' | asset_url }}');">
+  
+  <div class="guarantee-hero-content">
+    <div class="guarantee-rating">
+      <span class="font-semibold text-gray-200 text-lg">Excellent</span>
+      <span class="flex items-center text-[#ffd800] font-bold text-lg">
+        {% render 'icon', icon: 'star', class: 'w-5 h-5 mr-1 fill-[#ffd800]' %}
+        5.0
+      </span>
+      <span class="text-gray-400 text-lg">out of 5</span>
+      <span class="text-green-400 font-semibold text-lg">Trusted</span>
+    </div>
+    
+    <div class="guarantee-heading-container">
+      <!-- Left side icons in organic formation - only visible on larger screens -->
+      <div class="guarantee-icon-container absolute left-0 top-1/2 transform -translate-y-1/3 -translate-x-[28rem]">
+        <div class="flex flex-col items-center space-y-24">
+          <img 
+            src="{{ 'image-ICON1.png' | asset_url }}" 
+            alt="Gaming Icon 1" 
+            class="guarantee-icon-float guarantee-icon-float--orange transform -translate-x-8"
+            width="96"
+            height="96"
+            loading="lazy"
+          >
+          <div class="flex space-x-32">
+            <img 
+              src="{{ 'image-ICON2.png' | asset_url }}" 
+              alt="Gaming Icon 2" 
+              class="guarantee-icon-float guarantee-icon-float--purple transform translate-y-4"
+              width="96"
+              height="96"
+              loading="lazy"
+            >
+            <img 
+              src="{{ 'image-ICON3.png' | asset_url }}" 
+              alt="Gaming Icon 3" 
+              class="guarantee-icon-float guarantee-icon-float--blue transform -translate-y-2"
+              width="96"
+              height="96"
+              loading="lazy"
+            >
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right side icons in organic formation - only visible on larger screens -->
+      <div class="guarantee-icon-container absolute right-0 top-1/2 transform -translate-y-1/3 translate-x-[28rem]">
+        <div class="flex flex-col items-center space-y-24">
+          <img 
+            src="{{ 'image-ICON4.png' | asset_url }}" 
+            alt="Gaming Icon 4" 
+            class="guarantee-icon-float guarantee-icon-float--yellow transform translate-x-8"
+            width="96"
+            height="96"
+            loading="lazy"
+          >
+          <div class="flex space-x-32">
+            <img 
+              src="{{ 'image-ICON5.png' | asset_url }}" 
+              alt="Gaming Icon 5" 
+              class="guarantee-icon-float guarantee-icon-float--green transform -translate-y-4"
+              width="96"
+              height="96"
+              loading="lazy"
+            >
+            <img 
+              src="{{ 'image-ICON6.png' | asset_url }}" 
+              alt="Gaming Icon 6" 
+              class="guarantee-icon-float guarantee-icon-float--red transform translate-y-2"
+              width="96"
+              height="96"
+              loading="lazy"
+            >
+          </div>
+        </div>
+      </div>
+      
+      <h1 class="guarantee-heading">
+        Your Satisfaction, Our <span class="underline decoration-[#ffd800]">Promise</span>
+      </h1>
+    </div>
+    
+    <p class="guarantee-description">
+      At BloxMania, we're dedicated to delivering joy straight to your gaming experience. When you make a purchase, you want it quick, easy, and secure—and that's exactly what we deliver!
+    </p>
+    
+    <div class="guarantee-tags">
+      <span class="guarantee-tag guarantee-tag--blue">
+        {% render 'icon', icon: 'zap', class: 'w-5 h-5 mr-2' %}
+        Fast Delivery
+      </span>
+      <span class="guarantee-tag guarantee-tag--yellow">
+        {% render 'icon', icon: 'tag', class: 'w-5 h-5 mr-2' %}
+        Best Prices
+      </span>
+      <span class="guarantee-tag guarantee-tag--blue">
+        {% render 'icon', icon: 'message-circle', class: 'w-5 h-5 mr-2' %}
+        24/7 Support
+      </span>
+    </div>
+  </div>
+  
+  <div class="guarantee-card">
+    <div class="guarantee-icon">
+      {% render 'icon', icon: 'shield', class: 'w-12 h-12 text-[#ffd800]' %}
+      {% render 'icon', icon: 'check', class: 'absolute inset-0 w-6 h-6 text-[#ffd800] m-auto' %}
+    </div>
+    
+    <h2 class="guarantee-card-title">Our Guarantee</h2>
+    
+    <p class="guarantee-card-description">
+      We promise a smooth, secure, and reliable experience every time you shop with BloxMania. If you ever have an issue with your order, our support team is available 24/7 to help you resolve it quickly.
+    </p>
+    
+    <ul class="guarantee-list">
+      <li><b>Flawless Delivery:</b> We ensure your items are delivered securely and efficiently every time.</li>
+      <li><b>Best Prices:</b> We constantly monitor the market to ensure you get the best deals.</li>
+      <li><b>24/7 Support:</b> Our friendly team is always here to help, day or night.</li>
+      <li><b>Secure Payments:</b> All transactions are processed through trusted gateways like Stripe, Apple Pay, and Google Pay.</li>
+      <li><b>Refund Policy:</b> If you don't receive your order due to an error on our end, you'll get a full refund according to our policy.</li>
+    </ul>
+    
+    <div class="guarantee-disclaimer">
+      BloxMania operates independently and is not affiliated with Roblox Corporation or any game publishers. All trademarks are property of their respective owners.
+    </div>
+  </div>
+  
+  <!-- Promotional section with controller image -->
+  <div class="guarantee-promo">
+    <!-- Controller Image -->
+    <div class="guarantee-promo-image">
+      <img 
+        src="{{ 'image-Controller.png' | asset_url }}" 
+        alt="Gaming Controller" 
+        class="w-96 h-96 lg:w-[28rem] lg:h-[28rem] xl:w-[32rem] xl:h-[32rem] object-contain transition-all duration-300 transform hover:scale-105 drop-shadow-[0_0_1px_rgba(255,255,255,0.3)]"
+        loading="lazy"
+        width="512"
+        height="512"
+      />
+    </div>
+    
+    <!-- Promotional Text -->
+    <div class="guarantee-promo-content">
+      <h3 class="guarantee-promo-heading">
+        Why Wait? Join the Thousands of Happy <span class="text-[#ffd800]">BloxMania</span> Customers Today!
+      </h3>
+      <p class="guarantee-promo-description">
+        With BloxMania, you're not just buying items - you're joining a community that's all about fast, secure, and happy transactions. So go ahead, make that purchase, and let us show you how we do it!
+      </p>
+      <a href="{{ routes.collections_url }}" class="guarantee-button">
+        Shop Now!
+      </a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Guarantee Page",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Padding Settings"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Guarantee Page"
+    }
+  ]
+}
+{% endschema %}
