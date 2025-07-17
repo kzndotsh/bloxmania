@@ -1,155 +1,209 @@
 // BloxMania Theme - Global JavaScript
 
+// Wait for critical initialization to complete before starting main features
+document.addEventListener('theme:page:loaded', function () {
+  // Initialize utility modules
+  if (window.HeaderUtils) window.bloxManiaHeader = new window.HeaderUtils();
+  if (window.CartUtils) window.bloxManiaCart = new window.CartUtils();
+  if (window.SearchUtils) window.bloxManiaSearch = new window.SearchUtils();
+
+  // Initialize theme features
+  initializeThemeFeatures();
+});
+
+// Fallback initialization for DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function () {
-  // Header scroll effect
-  const header = document.querySelector('.header-wrapper');
-  if (header) {
-    window.addEventListener('scroll', function () {
-      if (window.scrollY > 10) {
-        header.classList.add('scrolled');
+  // Wait for utilities to load, then initialize
+  document.addEventListener('theme:utilities:loaded', initializeThemeFeatures);
+  
+  // Fallback initialization if utilities are already loaded
+  if (window.ThemeUtilities && window.ThemeUtilities.initialized) {
+    initializeThemeFeatures();
+  }
+  
+  // Trigger page loaded event if init.js hasn't already
+  setTimeout(() => {
+    if (!document.documentElement.classList.contains('page-loaded')) {
+      document.dispatchEvent(new CustomEvent('theme:page:loaded'));
+    }
+  }, 500);
+});
+
+// Initialize theme features using enhanced utilities
+function initializeThemeFeatures() {
+  const utilities = window.ThemeUtilities;
+  
+  if (!utilities) {
+    console.warn('ThemeUtilities not available, falling back to basic initialization');
+    initBasicFeatures();
+    return;
+  }
+
+  // Initialize smooth scrolling using animation utility
+  initSmoothScrolling(utilities);
+  
+  // Initialize newsletter form
+  initNewsletterForm(utilities);
+  
+  // Initialize animations using animation utility
+  initAnimations(utilities);
+  
+  // Initialize lazy loading using performance utility
+  initLazyLoading(utilities);
+  
+  // Initialize accessibility features
+  initAccessibilityFeatures(utilities);
+}
+
+// Enhanced smooth scrolling using utilities
+function initSmoothScrolling(utilities) {
+  const animationUtil = utilities.getUtility('animation');
+  
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = this.getAttribute('href');
+      
+      if (animationUtil) {
+        animationUtil.scrollTo(target);
       } else {
-        header.classList.remove('scrolled');
+        // Fallback
+        const element = document.querySelector(target);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
     });
-  }
+  });
+}
 
-  // Mobile menu functionality
-  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const mobileMenuClose = document.getElementById('mobile-menu-close');
+// Enhanced newsletter form with utilities
+function initNewsletterForm(utilities) {
+  const newsletterForm = document.querySelector('.newsletter-form');
+  if (!newsletterForm) return;
 
-  if (mobileMenuToggle && mobileMenu && mobileMenuClose) {
-    mobileMenuToggle.addEventListener('click', function () {
-      mobileMenu.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    });
+  const formUtil = utilities.getUtility('form');
+  const a11yUtil = utilities.getUtility('a11y');
 
-    mobileMenuClose.addEventListener('click', function () {
-      mobileMenu.classList.remove('active');
-      document.body.style.overflow = '';
-    });
+  newsletterForm.addEventListener('submit', function (e) {
+    const submitButton = this.querySelector('button[type="submit"]');
+    const originalText = submitButton.textContent;
 
-    // Close mobile menu when clicking outside
-    mobileMenu.addEventListener('click', function (e) {
-      if (e.target === mobileMenu) {
-        mobileMenu.classList.remove('active');
-        document.body.style.overflow = '';
+    // Validate form if utility is available
+    if (formUtil) {
+      const validation = formUtil.validate(this, {
+        email: {
+          required: true,
+          pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+          message: 'Please enter a valid email address'
+        }
+      });
+
+      if (!validation.isValid) {
+        e.preventDefault();
+        if (a11yUtil) {
+          a11yUtil.announce('Please correct the form errors', 'assertive');
+        }
+        return;
       }
-    });
-  }
+    }
 
-  // Smooth scrolling for anchor links
+    setButtonState(submitButton, 'Subscribing...', true);
+
+    // Form will be handled by Shopify's customer form
+    setTimeout(() => {
+      setButtonState(submitButton, 'Subscribed!', true, '#10b981');
+      
+      if (a11yUtil) {
+        a11yUtil.announce('Successfully subscribed to newsletter');
+      }
+      
+      setTimeout(() => {
+        setButtonState(submitButton, originalText, false);
+      }, 2000);
+    }, 1000);
+  });
+}
+
+// Enhanced animations using utilities
+function initAnimations(utilities) {
+  const animationUtil = utilities.getUtility('animation');
+  
+  if (animationUtil) {
+    const elements = document.querySelectorAll('.product-card, .feature-card, .hero-content');
+    animationUtil.observeForAnimation(elements, 'animate-fade-in-up');
+  } else {
+    // Fallback to basic animation
+    initBasicAnimations();
+  }
+}
+
+// Enhanced lazy loading using utilities
+function initLazyLoading(utilities) {
+  const performanceUtil = utilities.getUtility('performance');
+  
+  if (performanceUtil) {
+    // Use enhanced lazy loading with multiple selectors
+    performanceUtil.lazyLoadImages('.product-image[data-src], img[data-src], [data-background-image]');
+    performanceUtil.lazyLoadSections('[data-lazy-section]');
+    
+    // Add resource hints for better performance
+    performanceUtil.addResourceHints();
+  } else {
+    // Fallback to basic lazy loading
+    initBasicLazyLoading();
+  }
+}
+
+// Initialize accessibility features
+function initAccessibilityFeatures(utilities) {
+  const a11yUtil = utilities.getUtility('a11y');
+  
+  if (a11yUtil) {
+    a11yUtil.setupSkipLinks();
+  }
+}
+
+// Fallback functions for when utilities aren't available
+function initBasicFeatures() {
+  initBasicSmoothScrolling();
+  initBasicNewsletterForm();
+  initBasicAnimations();
+  initBasicLazyLoading();
+}
+
+function initBasicSmoothScrolling() {
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', function (e) {
       e.preventDefault();
       const target = document.querySelector(this.getAttribute('href'));
       if (target) {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        });
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
   });
+}
 
-  // Add to cart functionality
-  document.querySelectorAll('.add-to-cart-btn').forEach((button) => {
-    button.addEventListener('click', function (e) {
-      const form = this.closest('form');
-      if (form) {
-        const submitButton = this;
-        const originalText = submitButton.innerHTML;
-
-        // Show loading state
-        submitButton.innerHTML = '<span class="loading"></span> Adding...';
-        submitButton.disabled = true;
-
-        // Submit form
-        fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.status === 200) {
-              // Success
-              submitButton.innerHTML = '✓ Added!';
-              submitButton.style.background = '#10b981';
-
-              // Update cart count
-              updateCartCount();
-
-              setTimeout(() => {
-                submitButton.innerHTML = originalText;
-                submitButton.style.background = '';
-                submitButton.disabled = false;
-              }, 2000);
-            } else {
-              // Error
-              submitButton.innerHTML = 'Error';
-              submitButton.style.background = '#ef4444';
-
-              setTimeout(() => {
-                submitButton.innerHTML = originalText;
-                submitButton.style.background = '';
-                submitButton.disabled = false;
-              }, 2000);
-            }
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-            submitButton.innerHTML = 'Error';
-            submitButton.style.background = '#ef4444';
-
-            setTimeout(() => {
-              submitButton.innerHTML = originalText;
-              submitButton.style.background = '';
-              submitButton.disabled = false;
-            }, 2000);
-          });
-      }
-    });
-  });
-
-  // Update cart count
-  function updateCartCount() {
-    fetch('/cart.js')
-      .then((response) => response.json())
-      .then((cart) => {
-        const cartCountElements = document.querySelectorAll('.cart-count');
-        cartCountElements.forEach((element) => {
-          element.textContent = cart.item_count;
-        });
-      })
-      .catch((error) => console.error('Error updating cart count:', error));
-  }
-
-  // Newsletter form submission
+function initBasicNewsletterForm() {
   const newsletterForm = document.querySelector('.newsletter-form');
-  if (newsletterForm) {
-    newsletterForm.addEventListener('submit', function (e) {
-      const submitButton = this.querySelector('button[type="submit"]');
-      const originalText = submitButton.textContent;
+  if (!newsletterForm) return;
 
-      submitButton.textContent = 'Subscribing...';
-      submitButton.disabled = true;
+  newsletterForm.addEventListener('submit', function () {
+    const submitButton = this.querySelector('button[type="submit"]');
+    const originalText = submitButton.textContent;
 
-      // Form will be handled by Shopify's customer form
-      // This is just for UI feedback
+    setButtonState(submitButton, 'Subscribing...', true);
+
+    setTimeout(() => {
+      setButtonState(submitButton, 'Subscribed!', true, '#10b981');
       setTimeout(() => {
-        submitButton.textContent = 'Subscribed!';
-        submitButton.style.background = '#10b981';
+        setButtonState(submitButton, originalText, false);
+      }, 2000);
+    }, 1000);
+  });
+}
 
-        setTimeout(() => {
-          submitButton.textContent = originalText;
-          submitButton.style.background = '';
-          submitButton.disabled = false;
-        }, 2000);
-      }, 1000);
-    });
-  }
-
-  // Intersection Observer for animations
+function initBasicAnimations() {
   const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px',
@@ -164,20 +218,23 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }, observerOptions);
 
-  // Observe elements for animation
-  document
-    .querySelectorAll('.product-card, .feature-card, .hero-content')
-    .forEach((el) => {
-      observer.observe(el);
-    });
+  document.querySelectorAll('.product-card, .feature-card, .hero-content').forEach((el) => {
+    observer.observe(el);
+  });
+}
 
-  // Product image lazy loading
-  const productImages = document.querySelectorAll('.product-image[data-src]');
+function initBasicLazyLoading() {
+  const productImages = document.querySelectorAll('.product-image[data-src], img[data-src]');
+  if (productImages.length === 0) return;
+
   const imageObserver = new IntersectionObserver(function (entries) {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const img = entry.target;
-        img.src = img.dataset.src;
+        if (img.dataset.src) {
+          img.src = img.dataset.src;
+          img.removeAttribute('data-src');
+        }
         img.classList.remove('lazy');
         imageObserver.unobserve(img);
       }
@@ -185,85 +242,66 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   productImages.forEach((img) => imageObserver.observe(img));
+}
 
-  // Search functionality
-  const searchInput = document.querySelector('.search-input');
-  if (searchInput) {
-    let searchTimeout;
+// Utility function for button states
+function setButtonState(button, text, disabled, backgroundColor = '') {
+  button.textContent = text;
+  button.disabled = disabled;
+  if (backgroundColor) button.style.background = backgroundColor;
+}
 
-    searchInput.addEventListener('input', function () {
-      clearTimeout(searchTimeout);
-      const query = this.value.trim();
+// Import centralized theme configuration
+const config = window.THEME_CONFIG || {};
 
-      if (query.length >= 2) {
-        searchTimeout = setTimeout(() => {
-          performSearch(query);
-        }, 300);
-      }
-    });
-  }
+// Theme settings from centralized config
+const themeSettings = {
+  primaryColor: config.COLORS?.primary?.DEFAULT || '#ffd800',
+  secondaryColor: config.COLORS?.secondary?.DEFAULT || '#4791f0',
+  backgroundColor: config.COLORS?.background?.DEFAULT || '#1d1e26',
+  textColor: config.COLORS?.text?.DEFAULT || '#ffffff',
+  // Animation settings
+  animationDuration: config.ANIMATIONS?.durations?.normal || '300ms',
+  animationEasing: config.ANIMATIONS?.easings?.smooth || 'cubic-bezier(0.4, 0, 0.2, 1)',
+  // Layout settings
+  pageWidth: config.LAYOUT?.spacing?.pageWidth || '1200px',
+  sectionSpacing: config.LAYOUT?.spacing?.sections || '52px'
+};
 
-  function performSearch(query) {
-    fetch(
-      `/search/suggest.json?q=${encodeURIComponent(
-        query
-      )}&resources[type]=product`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle search results
-        console.log('Search results:', data);
-      })
-      .catch((error) => console.error('Search error:', error));
-  }
+// Global theme utilities
+window.BloxManiaTheme = {
+  config: config,
+  themeSettings: themeSettings,
+  showNotification: showNotification,
+  formatPrice: formatPrice,
+};
 
-  // Theme settings
-  const themeSettings = {
-    primaryColor:
-      getComputedStyle(document.documentElement).getPropertyValue(
-        '--primary-color'
-      ) || '#ffd800',
-    secondaryColor:
-      getComputedStyle(document.documentElement).getPropertyValue(
-        '--secondary-color'
-      ) || '#4791f0',
-  };
+// Show notification utility
+function showNotification(message, type = 'success') {
+  const notification = document.createElement('div');
+  notification.className = `notification notification-${type}`;
+  notification.textContent = message;
 
-  // Utility functions
-  window.BloxManiaTheme = {
-    updateCartCount: updateCartCount,
-    themeSettings: themeSettings,
+  document.body.appendChild(notification);
 
-    // Show notification
-    showNotification: function (message, type = 'success') {
-      const notification = document.createElement('div');
-      notification.className = `notification notification-${type}`;
-      notification.textContent = message;
+  setTimeout(() => notification.classList.add('show'), 100);
 
-      document.body.appendChild(notification);
+  setTimeout(() => {
+    notification.classList.remove('show');
+    setTimeout(() => document.body.removeChild(notification), 300);
+  }, 3000);
+}
 
-      setTimeout(() => {
-        notification.classList.add('show');
-      }, 100);
+// Format price utility
+function formatPrice(price, currency = 'USD') {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: currency,
+  }).format(price);
+}
 
-      setTimeout(() => {
-        notification.classList.remove('show');
-        setTimeout(() => {
-          document.body.removeChild(notification);
-        }, 300);
-      }, 3000);
-    },
-
-    // Format price
-    formatPrice: function (price, currency = 'USD') {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: currency,
-      }).format(price);
-    },
-  };
-
-  // Add notification styles
+// Initialize notification styles
+function initNotificationStyles() {
   const notificationStyles = document.createElement('style');
   notificationStyles.textContent = `
     .notification {
@@ -278,25 +316,16 @@ document.addEventListener('DOMContentLoaded', function () {
       transform: translateX(100%);
       transition: transform 0.3s ease;
     }
-    
-    .notification.show {
-      transform: translateX(0);
-    }
-    
-    .notification-success {
-      background: #10b981;
-    }
-    
-    .notification-error {
-      background: #ef4444;
-    }
-    
-    .notification-warning {
-      background: #f59e0b;
-    }
+    .notification.show { transform: translateX(0); }
+    .notification-success { background: #10b981; }
+    .notification-error { background: #ef4444; }
+    .notification-warning { background: #f59e0b; }
   `;
   document.head.appendChild(notificationStyles);
-});
+}
+
+// Initialize notification styles immediately
+initNotificationStyles();
 
 // Handle page visibility changes
 document.addEventListener('visibilitychange', function () {
