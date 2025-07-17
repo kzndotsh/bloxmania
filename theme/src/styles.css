@@ -1,8 +1,111 @@
-/* BloxMania Dark Gaming Theme - Tailwind Source */
+/* BloxMania Dark Gaming Theme - Modern Build System */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Dawn-style CSS Custom Properties Architecture */
+:root {
+  /* Color system - RGB values for alpha manipulation */
+  --color-background: 29 30 38;
+  --color-surface: 37 39 48;
+  --color-foreground: 255 255 255;
+  --color-primary: 255 216 0;
+  --color-secondary: 71 145 240;
+  --color-accent: 89 186 185;
+  --color-border: 51 52 65;
+  --color-shadow: 0 0 0;
+  
+  /* Button colors */
+  --color-button: var(--color-primary);
+  --color-button-text: 0 0 0;
+  --color-button-hover: 217 119 6;
+  
+  /* Alpha values for transparency */
+  --alpha-button-background: 1;
+  --alpha-button-border: 1;
+  --alpha-link: 0.85;
+  --alpha-badge-border: 0.1;
+  
+  /* Layout */
+  --page-width: 1280px;
+  --container-padding: 1.5rem;
+  
+  /* Typography */
+  --font-body-scale: 1;
+  --font-heading-scale: 1.2;
+  
+  /* Spacing scale */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  
+  /* Border radius */
+  --border-radius-sm: 0.25rem;
+  --border-radius: 0.5rem;
+  --border-radius-lg: 1rem;
+  --border-radius-xl: 1.5rem;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  
+  /* Animation */
+  --duration-short: 150ms;
+  --duration-default: 300ms;
+  --duration-long: 500ms;
+  
+  /* Focus styles */
+  --focused-base-outline: 0.2rem solid rgba(var(--color-primary), 0.5);
+  --focused-base-outline-offset: 0.3rem;
+  --focused-base-box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0.5rem 0.4rem rgba(var(--color-primary), 0.3);
+  
+  /* Header */
+  --header-background-opacity: 0.95;
+  --header-border-opacity: 0.1;
+  --header-blur: 12px;
+  
+  /* Logo */
+  --logo-width: 100px;
+}
+
+/* Component-specific custom properties following Dawn patterns */
+.product-card-wrapper .card,
+.contains-card--product {
+  --border-radius: var(--product-card-corner-radius, 1rem);
+  --border-width: var(--product-card-border-width, 1px);
+  --border-opacity: var(--product-card-border-opacity, 0.1);
+  --shadow-horizontal-offset: var(--product-card-shadow-horizontal-offset, 0);
+  --shadow-vertical-offset: var(--product-card-shadow-vertical-offset, 4px);
+  --shadow-blur-radius: var(--product-card-shadow-blur-radius, 8px);
+  --shadow-opacity: var(--product-card-shadow-opacity, 0.1);
+  --image-padding: var(--product-card-image-padding, 0);
+  --text-alignment: var(--product-card-text-alignment, center);
+}
+
+.collection-card-wrapper .card,
+.contains-card--collection {
+  --border-radius: var(--collection-card-corner-radius, 1rem);
+  --border-width: var(--collection-card-border-width, 1px);
+  --border-opacity: var(--collection-card-border-opacity, 0.1);
+  --shadow-horizontal-offset: var(--collection-card-shadow-horizontal-offset, 0);
+  --shadow-vertical-offset: var(--collection-card-shadow-vertical-offset, 4px);
+  --shadow-blur-radius: var(--collection-card-shadow-blur-radius, 8px);
+  --shadow-opacity: var(--collection-card-shadow-opacity, 0.1);
+  --image-padding: var(--collection-card-image-padding, 0);
+  --text-alignment: var(--collection-card-text-alignment, center);
+}
+
+/* Page width utility following Dawn pattern */
+.page-width {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
 
 /* Custom Components for BloxMania */
 @layer components {
@@ -135,6 +238,37 @@
 
   .animate-pulse-slow {
     animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Hero section background */
+  .hero-section {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), var(--hero-bg-image);
+  }
+
+  /* Featured products section background */
+  .featured-products-section {
+    background-image: var(--featured-bg-image);
+  }
+
+  /* Product card widget background */
+  .product-card-widget {
+    background-image: var(--widget-bg-image);
+  }
+
+  /* Why choose us section background */
+  .why-choose-us-section {
+    background-image: var(--why-choose-bg-image);
+  }
+
+  /* FAQ section background pattern */
+  .faq-pattern {
+    background-image:
+      radial-gradient(circle 1px at 20% 30%, rgba(255,216,0,0.3) 1px, transparent 1px),
+      radial-gradient(circle 1px at 80% 15%, rgba(255,216,0,0.25) 1px, transparent 1px),
+      radial-gradient(circle 1px at 35% 75%, rgba(255,216,0,0.3) 1px, transparent 1px),
+      radial-gradient(circle 1px at 75% 60%, rgba(255,216,0,0.25) 1px, transparent 1px),
+      radial-gradient(circle 1px at 15% 85%, rgba(255,216,0,0.3) 1px, transparent 1px);
+    background-size: 200px 200px, 180px 180px, 220px 220px, 190px 190px, 210px 210px;
   }
 
   /* Header scroll effects - matching old site styling */

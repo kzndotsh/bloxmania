@@ -14,6 +14,9 @@
     "slideshow": {
       "pause_slideshow": "Pause slideshow",
       "play_slideshow": "Play slideshow"
+    },
+    "featured_collection": {
+      "view_all": "View all"
     }
   },
   "products": {
@@ -22,14 +25,97 @@
       "sold_out": "Sold out",
       "unavailable": "Unavailable",
       "value_unavailable": "Option [value] is unavailable",
+      "product_variants": "Product variants",
+      "on_sale": "Sale",
+      "save": "Save",
+      "features": "Features",
+      "related_products_fallback": "More Products",
+      "price": {
+        "regular_price": "Regular price",
+        "sale_price": "Sale price",
+        "unit_price": "Unit price"
+      },
+      "quantity": {
+        "label": "Quantity",
+        "increase": "Increase quantity for {product}",
+        "decrease": "Decrease quantity for {product}",
+        "minimum_of": "Minimum of {quantity}",
+        "maximum_of": "Maximum of {quantity}",
+        "multiples_of": "Increments of {quantity}",
+        "in_cart_html": "{quantity} in cart"
+      },
+      "inventory": {
+        "in_stock": "In stock",
+        "in_stock_with_quantity": "{quantity} in stock",
+        "low_stock": "Low stock",
+        "low_stock_with_quantity": "Only {quantity} left",
+        "out_of_stock": "Out of stock",
+        "backorder": "Available to backorder"
+      },
+      "rating": {
+        "stars": "{rating} out of {max} stars",
+        "reviews": "{count} review",
+        "reviews_plural": "{count} reviews",
+        "no_rating": "No rating available",
+        "write_first_review": "Write the first review"
+      },
+      "reviews": {
+        "title": "Customer Reviews",
+        "write_review": "Write a Review",
+        "no_reviews": "No reviews yet",
+        "be_first": "Be the first to write a review!",
+        "rating": "{rating} out of {max} stars",
+        "verified": "Verified Purchase",
+        "helpful": "{count} people found this helpful",
+        "load_more": "Load More Reviews",
+        "name": "Name",
+        "email": "Email",
+        "rating": "Rating",
+        "title": "Review Title",
+        "review": "Your Review",
+        "submit": "Submit Review",
+        "name_placeholder": "Enter your name",
+        "email_placeholder": "Enter your email",
+        "title_placeholder": "Give your review a title",
+        "review_placeholder": "Tell us what you think about this product"
+      },
       "media": {
         "image_available": "Image [index] is available"
       }
     }
   },
   "general": {
+    "accessibility": {
+      "previous_image": "Previous image",
+      "next_image": "Next image",
+      "load_image": "Load image {index}",
+      "video_not_supported": "Your browser does not support the video tag.",
+      "no_content": "No content available."
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "products": "Products"
+    },
+    "media": {
+      "no_image": "No image available"
+    },
     "share": {
-      "success_message": "Link copied to clipboard"
+      "success_message": "Link copied to clipboard",
+      "share_this": "Share this",
+      "share_on_facebook": "Share on Facebook",
+      "share_on_twitter": "Share on Twitter",
+      "share_on_pinterest": "Share on Pinterest",
+      "share_on_whatsapp": "Share on WhatsApp",
+      "copy_link": "Copy link",
+      "link_copied": "Link copied!"
+    },
+    "pagination": {
+      "label": "Pagination",
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page {page}",
+      "current_page": "Current page, page {page}",
+      "showing_items": "Showing {first}-{last} of {total} items"
     }
   },
   "templates": {
@@ -165,5 +251,33 @@
     "no_results": "No products found",
     "results_for": "Results for \"{query}\"",
     "loading": "Searching..."
+  },
+  "collections": {
+    "general": {
+      "item": "item",
+      "items": "items",
+      "view": "View:",
+      "grid_view": "Grid view",
+      "list_view": "List view",
+      "no_matches": "No products found",
+      "no_matches_description": "This collection is empty or no products match your current filters.",
+      "browse_all": "Browse All Products"
+    },
+    "filtering": {
+      "filter_button": "Filter",
+      "clear_all": "Clear all",
+      "apply_filters": "Apply filters"
+    },
+    "sorting": {
+      "sort_by": "Sort by:",
+      "featured": "Featured",
+      "best_selling": "Best selling",
+      "alphabetically_a_z": "Alphabetically, A-Z",
+      "alphabetically_z_a": "Alphabetically, Z-A",
+      "price_low_to_high": "Price, low to high",
+      "price_high_to_low": "Price, high to low",
+      "date_old_to_new": "Date, old to new",
+      "date_new_to_old": "Date, new to old"
+    }
   }
 }

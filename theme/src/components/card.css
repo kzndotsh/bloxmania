@@ -1,0 +1,124 @@
+/**
+ * Card Component - Following Dawn theme patterns
+ * Provides flexible card layouts with theme settings integration
+ */
+
+.card-wrapper {
+  @apply text-inherit h-full relative;
+  text-decoration: none;
+}
+
+.card {
+  @apply flex flex-col h-full;
+  text-decoration: none;
+  text-align: var(--text-alignment, center);
+}
+
+.card--horizontal {
+  --text-alignment: left;
+  --image-padding: 0rem;
+  @apply flex-row items-start gap-6;
+}
+
+.card--standard,
+.card--media {
+  @apply relative box-border;
+  border-radius: var(--border-radius, 1rem);
+  border: var(--border-width, 1px) solid rgba(var(--color-border, 255 255 255), var(--border-opacity, 0.1));
+}
+
+.card--standard::after,
+.card--media::after {
+  content: '';
+  @apply absolute -z-10;
+  width: calc(var(--border-width, 1px) * 2 + 100%);
+  height: calc(var(--border-width, 1px) * 2 + 100%);
+  top: calc(var(--border-width, 1px) * -1);
+  left: calc(var(--border-width, 1px) * -1);
+  border-radius: var(--border-radius, 1rem);
+  box-shadow: var(--shadow-horizontal-offset, 0) var(--shadow-vertical-offset, 4px) var(--shadow-blur-radius, 8px)
+    rgba(var(--color-shadow, 0 0 0), var(--shadow-opacity, 0.1));
+}
+
+.card__media {
+  @apply overflow-hidden relative;
+  margin: var(--image-padding, 0);
+  width: calc(100% - 2 * var(--image-padding, 0));
+  border-radius: calc(var(--border-radius, 1rem) - var(--border-width, 1px) - var(--image-padding, 0));
+}
+
+.card__content {
+  @apply grid w-full flex-grow p-4;
+  grid-template-rows: minmax(0, 1fr) max-content minmax(0, 1fr);
+}
+
+.card__information {
+  grid-row-start: 2;
+  @apply p-5;
+}
+
+.card__heading {
+  @apply mt-0 mb-0;
+}
+
+.card__heading a::after {
+  @apply absolute inset-0 z-10;
+  content: '';
+}
+
+.card__heading a:focus::after {
+  @apply outline-2 outline-offset-1;
+  outline: 0.2rem solid rgba(var(--color-primary, 255 216 0), 0.5);
+  box-shadow: 0 0 0 0.3rem rgb(var(--color-background, 29 30 38)), 
+              0 0 0.5rem 0.4rem rgba(var(--color-primary, 255 216 0), 0.3);
+}
+
+/* Card variants */
+.card--gaming {
+  @apply bg-white/5 border-white/10 backdrop-blur-sm transition-all duration-300;
+}
+
+.card--gaming:hover {
+  @apply border-primary shadow-lg shadow-primary/20 -translate-y-1;
+}
+
+.card--product {
+  --border-radius: var(--product-card-corner-radius, 1rem);
+  --border-width: var(--product-card-border-width, 1px);
+  --border-opacity: var(--product-card-border-opacity, 0.1);
+  --shadow-horizontal-offset: var(--product-card-shadow-horizontal-offset, 0);
+  --shadow-vertical-offset: var(--product-card-shadow-vertical-offset, 4px);
+  --shadow-blur-radius: var(--product-card-shadow-blur-radius, 8px);
+  --shadow-opacity: var(--product-card-shadow-opacity, 0.1);
+  --image-padding: var(--product-card-image-padding, 0);
+  --text-alignment: var(--product-card-text-alignment, center);
+}
+
+.card--collection {
+  --border-radius: var(--collection-card-corner-radius, 1rem);
+  --border-width: var(--collection-card-border-width, 1px);
+  --border-opacity: var(--collection-card-border-opacity, 0.1);
+  --shadow-horizontal-offset: var(--collection-card-shadow-horizontal-offset, 0);
+  --shadow-vertical-offset: var(--collection-card-shadow-vertical-offset, 4px);
+  --shadow-blur-radius: var(--collection-card-shadow-blur-radius, 8px);
+  --shadow-opacity: var(--collection-card-shadow-opacity, 0.1);
+  --image-padding: var(--collection-card-image-padding, 0);
+  --text-alignment: var(--collection-card-text-alignment, center);
+}
+
+/* Responsive adjustments */
+@media screen and (min-width: 750px) {
+  .card__information {
+    @apply py-7;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .card .media--hover-effect > img:only-child {
+    @apply transition-transform duration-500 ease-in-out;
+  }
+
+  .card:hover .media--hover-effect > img:first-child:only-child {
+    @apply scale-105;
+  }
+}

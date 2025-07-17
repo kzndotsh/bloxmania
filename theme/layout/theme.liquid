@@ -24,8 +24,14 @@
 
     {% render 'meta-tags' %}
 
-    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+
+
+    {%- comment -%} Required Shopify content_for_header tag {%- endcomment -%}
     {{ content_for_header }}
+
+
+    
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
 
     {%- liquid
       assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
@@ -211,7 +217,8 @@
     {% endstyle %}
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
-    {{ 'enhanced-animations.css' | asset_url | stylesheet_tag }}
+    {{ 'animation-utilities.css' | asset_url | stylesheet_tag }}
+    {{ 'accessibility.css' | asset_url | stylesheet_tag }}
 
     {%- unless settings.type_body_font.system? -%}
       {{ settings.type_body_font | font_url | preload_tag: as: 'font', type: 'font/woff2' }}
@@ -235,12 +242,12 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
+    
+    {%- comment -%} Load init script immediately to prevent FOUC {%- endcomment -%}
+    <script src="{{ 'init.js' | asset_url }}"></script>
   </head>
 
   <body class="bloxmania-theme">
-    <a class="skip-to-content-link button visually-hidden" href="#MainContent">
-      {{ 'accessibility.skip_to_text' | t }}
-    </a>
 
     {%- if settings.cart_type == 'notification' -%}
       {%- render 'cart-notification' -%}
@@ -291,8 +298,48 @@
       };
     </script>
 
+    {%- comment -%} Load utility scripts in correct order {%- endcomment -%}
+    <script src="{{ 'dom-utils.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'html-update-utility.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'section-id-utility.js' | asset_url }}" defer="defer"></script>
+    
+    {%- comment -%} Load essential utilities {%- endcomment -%}
+    <script src="{{ 'api-utils.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'accessibility-utils.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'keyboard-navigation.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'screen-reader-optimization.js' | asset_url }}" defer="defer"></script>
+    
+    <script src="{{ 'header-utils.js' | asset_url }}" defer="defer"></script>
+    
+
+
+    {%- comment -%} Load Web Components {%- endcomment -%}
+    <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'search-modal.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'quantity-input.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
+
+    {%- comment -%} Load enhanced predictive search if enabled {%- endcomment -%}
     {%- if settings.predictive_search_enabled -%}
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    {%- comment -%} Service Worker Registration {%- endcomment -%}
+    <script>
+      // Register service worker for performance optimization
+      if ('serviceWorker' in navigator && !window.Shopify?.designMode) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('{{ "sw.js" | asset_url }}')
+            .then(function(registration) {
+              console.log('ServiceWorker registration successful');
+            })
+            .catch(function(error) {
+              console.log('ServiceWorker registration failed:', error);
+            });
+        });
+      }
+    </script>
   </body>
 </html>

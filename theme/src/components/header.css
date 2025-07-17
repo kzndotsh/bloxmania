@@ -1,0 +1,207 @@
+/**
+ * Header Component - Following Dawn theme patterns
+ * Provides responsive header with scroll effects and navigation
+ */
+
+.header {
+  @apply sticky top-0 z-50 w-full transition-all duration-300;
+  background-color: rgba(var(--color-background, 29 30 38), var(--header-background-opacity, 0.95));
+  border-bottom: 1px solid rgba(var(--color-border, 255 255 255), var(--header-border-opacity, 0.1));
+  backdrop-filter: blur(var(--header-blur, 12px));
+}
+
+.header--transparent {
+  @apply bg-transparent border-transparent;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+
+.header--scrolled {
+  background-color: rgba(var(--color-background, 0 0 0), 0.95) !important;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(var(--color-border, 51 52 65), 0.5);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.header__wrapper {
+  @apply flex items-center justify-between px-6 py-4;
+  max-width: var(--page-width, 1280px);
+  margin: 0 auto;
+}
+
+.header__logo {
+  @apply flex items-center gap-3;
+}
+
+.header__logo-image {
+  @apply h-8 w-auto;
+  max-width: var(--logo-width, 100px);
+}
+
+.header__logo-text {
+  @apply text-xl font-bold;
+  background: linear-gradient(to right, rgb(var(--color-primary, 255 216 0)), rgb(var(--color-secondary, 71 145 240)));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.header__nav {
+  @apply hidden md:flex items-center gap-8;
+}
+
+.header__nav-link {
+  @apply text-white/80 hover:text-white transition-colors duration-200;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  position: relative;
+}
+
+.header__nav-link::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+}
+
+.header__nav-link:hover::after,
+.header__nav-link--active::after {
+  @apply w-full;
+}
+
+.header__nav-link--active {
+  @apply text-white;
+}
+
+/* Mobile menu toggle */
+.header__menu-toggle {
+  @apply md:hidden p-2 text-white hover:text-primary transition-colors duration-200;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background;
+}
+
+.header__menu-icon {
+  @apply w-6 h-6;
+}
+
+/* Mobile menu drawer */
+.header__drawer {
+  @apply fixed inset-y-0 right-0 z-50 w-80 bg-background border-l border-white/10;
+  @apply transform transition-transform duration-300 ease-in-out;
+  @apply translate-x-full;
+  backdrop-filter: blur(12px);
+}
+
+.header__drawer--open {
+  @apply translate-x-0;
+}
+
+.header__drawer-overlay {
+  @apply fixed inset-0 bg-black/50 z-40 opacity-0 pointer-events-none;
+  @apply transition-opacity duration-300;
+}
+
+.header__drawer-overlay--open {
+  @apply opacity-100 pointer-events-auto;
+}
+
+.header__drawer-content {
+  @apply flex flex-col h-full p-6;
+}
+
+.header__drawer-header {
+  @apply flex items-center justify-between mb-8;
+}
+
+.header__drawer-close {
+  @apply p-2 text-white hover:text-primary transition-colors duration-200;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary/50;
+}
+
+.header__drawer-nav {
+  @apply flex flex-col gap-4;
+}
+
+.header__drawer-link {
+  @apply text-lg text-white/80 hover:text-white transition-colors duration-200;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background;
+  @apply py-3 border-b border-white/10;
+  text-decoration: none;
+}
+
+.header__drawer-link--active {
+  @apply text-primary;
+}
+
+/* Cart and account icons */
+.header__actions {
+  @apply flex items-center gap-4;
+}
+
+.header__action-button {
+  @apply p-2 text-white hover:text-primary transition-colors duration-200 relative;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background;
+}
+
+.header__action-icon {
+  @apply w-6 h-6;
+}
+
+.header__cart-count {
+  @apply absolute -top-1 -right-1 bg-primary text-black text-xs font-bold;
+  @apply w-5 h-5 rounded-full flex items-center justify-center;
+  min-width: 1.25rem;
+}
+
+/* Search functionality */
+.header__search {
+  @apply hidden lg:flex items-center gap-2 bg-white/10 rounded-lg px-4 py-2;
+  @apply border border-white/20 focus-within:border-primary transition-colors duration-200;
+}
+
+.header__search-input {
+  @apply bg-transparent text-white placeholder-white/60 border-none outline-none;
+  @apply focus:ring-0;
+}
+
+.header__search-button {
+  @apply text-white/60 hover:text-white transition-colors duration-200;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .header__wrapper {
+    @apply px-4 py-3;
+  }
+  
+  .header__logo-image {
+    @apply h-6;
+  }
+  
+  .header__logo-text {
+    @apply text-lg;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .header__nav-link::after,
+  .header__drawer {
+    @apply transition-none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .header {
+    @apply border-b-2;
+  }
+  
+  .header__nav-link {
+    @apply border-b border-transparent;
+  }
+  
+  .header__nav-link:hover,
+  .header__nav-link--active {
+    @apply border-current;
+  }
+}
