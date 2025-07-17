@@ -1,0 +1,113 @@
+/* Cart Notification Component */
+.cart-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgb(var(--color-surface));
+  border: 1px solid rgb(var(--color-primary));
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 400px;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.cart-notification.hidden {
+  display: none;
+}
+
+.cart-notification__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.cart-notification__heading {
+  margin: 0;
+  font-size: 18px;
+  color: rgb(var(--color-foreground));
+}
+
+.cart-notification__close {
+  background: none;
+  border: none;
+  color: rgb(var(--color-foreground));
+  cursor: pointer;
+  padding: 5px;
+  transition: color 0.2s ease;
+}
+
+.cart-notification__close:hover {
+  color: rgb(var(--color-primary));
+}
+
+.cart-notification__item {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.cart-notification__image {
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.cart-notification__details {
+  flex: 1;
+}
+
+.cart-notification__title {
+  margin: 0 0 5px 0;
+  font-size: 16px;
+  color: rgb(var(--color-foreground));
+}
+
+.cart-notification__price {
+  margin: 0 0 5px 0;
+  color: rgb(var(--color-primary));
+  font-weight: bold;
+}
+
+.cart-notification__quantity {
+  margin: 0;
+  color: rgb(var(--color-foreground) / 0.7);
+  font-size: 14px;
+}
+
+.cart-notification__footer {
+  display: flex;
+  gap: 10px;
+}
+
+.cart-notification .btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.cart-notification .btn--primary {
+  background: rgb(var(--color-primary));
+  color: rgb(var(--color-background));
+}
+
+.cart-notification .btn--primary:hover {
+  background: rgb(var(--color-primary) / 0.9);
+}
+
+.cart-notification .btn--secondary {
+  background: transparent;
+  color: rgb(var(--color-foreground));
+  border: 1px solid rgb(var(--color-border));
+}
+
+.cart-notification .btn--secondary:hover {
+  background: rgb(var(--color-foreground) / 0.1);
+}

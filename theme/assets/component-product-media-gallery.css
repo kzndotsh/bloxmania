@@ -1,0 +1,212 @@
+/* Product Media Gallery Component Styles */
+
+.product-media-gallery {
+  position: relative;
+}
+
+.main-media-container {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.main-media {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-media img,
+.main-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.main-media img[data-zoom-src] {
+  cursor: zoom-in;
+}
+
+.main-media img[data-zoom-src]:hover {
+  transform: scale(1.05);
+}
+
+/* Media Navigation */
+.media-nav-btn {
+  opacity: 0;
+  transition: opacity 0.3s ease, background-color 0.2s ease;
+  z-index: 10;
+}
+
+.main-media-container:hover .media-nav-btn {
+  opacity: 1;
+}
+
+.media-nav-btn:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.media-nav-btn:focus {
+  opacity: 1;
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+}
+
+/* Thumbnail Gallery */
+.thumbnail-gallery {
+  margin-top: 1rem;
+}
+
+.thumbnail-btn {
+  transition: border-color 0.2s ease, transform 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.thumbnail-btn:hover {
+  transform: scale(1.05);
+}
+
+.thumbnail-btn:focus {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+}
+
+.thumbnail-btn img {
+  transition: opacity 0.2s ease;
+}
+
+.thumbnail-btn:hover img {
+  opacity: 0.8;
+}
+
+/* Video and External Video Styles */
+.external-video-container {
+  background-color: #000;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.external-video-container iframe {
+  border: none;
+}
+
+/* Model Viewer */
+model-viewer {
+  background-color: #1f2937;
+  border-radius: 0.5rem;
+}
+
+/* No Media Placeholder */
+.no-media-placeholder {
+  background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+  border: 2px dashed #6b7280;
+}
+
+/* Zoom Functionality */
+.zoom-overlay {
+  pointer-events: none;
+}
+
+.zoom-lens {
+  width: 100px;
+  height: 100px;
+  background-color: rgba(255, 216, 0, 0.1);
+  border: 2px solid var(--color-primary);
+  border-radius: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.zoom-result {
+  background-image: var(--zoom-image);
+  background-repeat: no-repeat;
+  background-size: 200% 200%;
+  display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-media-container {
+    aspect-ratio: 4/3;
+  }
+
+  .media-nav-btn {
+    opacity: 1;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .thumbnail-gallery {
+    margin-top: 0.75rem;
+  }
+
+  .thumbnail-btn {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .zoom-result {
+    display: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .thumbnail-gallery .flex {
+    gap: 0.5rem;
+  }
+
+  .thumbnail-btn {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+}
+
+/* Using fadeIn animation - can be replaced with Tailwind's fade utilities */
+
+.main-media>* {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+
+  .main-media img,
+  .main-media video,
+  .thumbnail-btn,
+  .media-nav-btn {
+    transition: none;
+  }
+
+  .main-media img[data-zoom-src]:hover {
+    transform: none;
+  }
+
+  .thumbnail-btn:hover {
+    transform: none;
+  }
+
+  .main-media>* {
+    animation: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .media-nav-btn {
+    background-color: #000;
+    border: 2px solid #fff;
+  }
+
+  .thumbnail-btn {
+    border-width: 3px;
+  }
+
+  .no-media-placeholder {
+    border-width: 3px;
+    border-style: solid;
+  }
+}

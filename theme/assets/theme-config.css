@@ -1,0 +1,303 @@
+/**
+ * Theme Configuration CSS Variables
+ * Auto-generated CSS custom properties from centralized theme configuration
+ * This file provides CSS variables that can be used throughout the theme
+ */
+
+:root {
+  /* ===== COLORS ===== */
+  
+  /* Primary Colors */
+  --color-primary-50: #fffbeb;
+  --color-primary-100: #fff3c4;
+  --color-primary-200: #ffe285;
+  --color-primary-300: #ffca46;
+  --color-primary-400: #ffb31b;
+  --color-primary-500: #ffd800;
+  --color-primary-600: #d97706;
+  --color-primary-700: #b45309;
+  --color-primary-800: #92400e;
+  --color-primary-900: #78350f;
+  --color-primary: #ffd800;
+  
+  /* Secondary Colors */
+  --color-secondary-50: #eff6ff;
+  --color-secondary-100: #dbeafe;
+  --color-secondary-200: #bfdbfe;
+  --color-secondary-300: #93c5fd;
+  --color-secondary-400: #60a5fa;
+  --color-secondary-500: #4791f0;
+  --color-secondary-600: #2563eb;
+  --color-secondary-700: #1d4ed8;
+  --color-secondary-800: #1e40af;
+  --color-secondary-900: #1e3a8a;
+  --color-secondary: #4791f0;
+  
+  /* Background Colors */
+  --color-background: #1d1e26;
+  --color-background-surface: #252730;
+  --color-background-card: #252730;
+  
+  /* Text Colors */
+  --color-text: #ffffff;
+  --color-text-muted: #94a3b8;
+  
+  /* Accent Colors */
+  --color-accent: #59bab9;
+  --color-accent-foreground: #ffffff;
+  
+  /* Utility Colors */
+  --color-border: #333441;
+  --color-input: #333441;
+  --color-ring: #59bab9;
+  --color-destructive: #ef4444;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  
+  /* ===== TYPOGRAPHY ===== */
+  
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 3.75rem;
+  
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  
+  /* Font Families */
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+  --font-family-heading: 'Inter', system-ui, sans-serif;
+  --font-family-mono: ui-monospace, 'SFMono-Regular', monospace;
+  
+  /* ===== LAYOUT & SPACING ===== */
+  
+  /* Breakpoints (for reference in JS) */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+  
+  /* Spacing */
+  --spacing-sections: 52px;
+  --spacing-gridVertical: 32px;
+  --spacing-gridHorizontal: 32px;
+  --spacing-pageWidth: 1200px;
+  
+  /* Z-Index Layers */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-notification: 10000;
+  
+  /* ===== ANIMATIONS ===== */
+  
+  /* Animation Durations */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 1000ms;
+  
+  /* Animation Easings */
+  --easing-linear: linear;
+  --easing-ease: ease;
+  --easing-ease-in: ease-in;
+  --easing-ease-out: ease-out;
+  --easing-ease-in-out: ease-in-out;
+  --easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* ===== COMPONENT DEFAULTS ===== */
+  
+  /* Card Component */
+  --card-border-radius: 16px;
+  --card-border-thickness: 1px;
+  --card-border-opacity: 5%;
+  --card-shadow-opacity: 10%;
+  --card-shadow-offset-x: 0px;
+  --card-shadow-offset-y: 4px;
+  --card-shadow-blur: 6px;
+  --card-padding: 1rem;
+  
+  /* Button Component */
+  --button-border-radius: 50px;
+  --button-border-thickness: 1px;
+  --button-border-opacity: 0%;
+  --button-shadow-opacity: 10%;
+  --button-shadow-offset-x: 0px;
+  --button-shadow-offset-y: 4px;
+  --button-shadow-blur: 6px;
+  --button-padding-x: 1.5rem;
+  --button-padding-y: 0.75rem;
+  
+  /* Input Component */
+  --input-border-radius: 8px;
+  --input-border-thickness: 1px;
+  --input-border-opacity: 55%;
+  --input-shadow-opacity: 0%;
+  --input-padding-x: 1rem;
+  --input-padding-y: 0.75rem;
+  
+  /* Modal Component */
+  --modal-border-radius: 8px;
+  --modal-border-thickness: 1px;
+  --modal-border-opacity: 10%;
+  --modal-shadow-opacity: 5%;
+  --modal-backdrop-opacity: 50%;
+  
+  /* ===== NOTIFICATION STYLES ===== */
+  
+  /* Notification Colors */
+  --notification-success-bg: #10b981;
+  --notification-error-bg: #ef4444;
+  --notification-warning-bg: #f59e0b;
+  --notification-info-bg: #3b82f6;
+  --notification-text: #ffffff;
+  --notification-duration: 3000ms;
+  
+  /* ===== PERFORMANCE SETTINGS ===== */
+  
+  /* Lazy Loading */
+  --lazy-loading-root-margin: 200px;
+  --lazy-loading-threshold: 0.01;
+  
+  /* Animation Observer */
+  --animation-root-margin: -50px;
+  --animation-threshold: 0.1;
+}
+
+/* ===== UTILITY CLASSES USING CSS VARIABLES ===== */
+
+/* Color Utilities */
+.text-primary { color: var(--color-primary); }
+.text-secondary { color: var(--color-secondary); }
+.text-muted { color: var(--color-text-muted); }
+.text-success { color: var(--color-success); }
+.text-warning { color: var(--color-warning); }
+.text-destructive { color: var(--color-destructive); }
+
+.bg-primary { background-color: var(--color-primary); }
+.bg-secondary { background-color: var(--color-secondary); }
+.bg-surface { background-color: var(--color-background-surface); }
+.bg-card { background-color: var(--color-background-card); }
+
+/* Border Utilities */
+.border-primary { border-color: var(--color-primary); }
+.border-secondary { border-color: var(--color-secondary); }
+.border-default { border-color: var(--color-border); }
+
+/* Animation Utilities */
+.duration-fast { transition-duration: var(--duration-fast); }
+.duration-normal { transition-duration: var(--duration-normal); }
+.duration-slow { transition-duration: var(--duration-slow); }
+
+.ease-smooth { transition-timing-function: var(--easing-smooth); }
+.ease-bounce { transition-timing-function: var(--easing-bounce); }
+
+/* Component Base Styles */
+.card-base {
+  border-radius: var(--card-border-radius);
+  padding: var(--card-padding);
+  background-color: var(--color-background-card);
+  border: var(--card-border-thickness) solid rgba(255, 255, 255, var(--card-border-opacity));
+  box-shadow: var(--card-shadow-offset-x) var(--card-shadow-offset-y) var(--card-shadow-blur) rgba(0, 0, 0, var(--card-shadow-opacity));
+}
+
+.button-base {
+  border-radius: var(--button-border-radius);
+  padding: var(--button-padding-y) var(--button-padding-x);
+  border: var(--button-border-thickness) solid rgba(255, 255, 255, var(--button-border-opacity));
+  box-shadow: var(--button-shadow-offset-x) var(--button-shadow-offset-y) var(--button-shadow-blur) rgba(0, 0, 0, var(--button-shadow-opacity));
+  transition: all var(--duration-normal) var(--easing-smooth);
+  font-weight: var(--font-weight-medium);
+}
+
+.input-base {
+  border-radius: var(--input-border-radius);
+  padding: var(--input-padding-y) var(--input-padding-x);
+  border: var(--input-border-thickness) solid rgba(255, 255, 255, var(--input-border-opacity));
+  background-color: var(--color-input);
+  color: var(--color-text);
+  transition: border-color var(--duration-normal) var(--easing-smooth);
+}
+
+.input-base:focus {
+  outline: none;
+  border-color: var(--color-ring);
+  box-shadow: 0 0 0 2px rgba(89, 186, 185, 0.2);
+}
+
+/* ===== RESPONSIVE DESIGN HELPERS ===== */
+
+/* Container with max-width */
+.container {
+  max-width: var(--spacing-pageWidth);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Section spacing */
+.section-spacing {
+  padding-top: var(--spacing-sections);
+  padding-bottom: var(--spacing-sections);
+}
+
+/* Grid spacing */
+.grid-gap {
+  gap: var(--spacing-gridVertical) var(--spacing-gridHorizontal);
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+
+/* The theme is primarily dark, but we can add light mode overrides if needed */
+@media (prefers-color-scheme: light) {
+  :root {
+    /* Override specific colors for light mode if needed */
+    /* Currently keeping dark theme as default */
+  }
+}
+
+/* ===== REDUCED MOTION SUPPORT ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0.01ms;
+    --duration-normal: 0.01ms;
+    --duration-slow: 0.01ms;
+    --duration-slower: 0.01ms;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===== HIGH CONTRAST SUPPORT ===== */
+
+@media (prefers-contrast: high) {
+  :root {
+    --card-border-opacity: 20%;
+    --input-border-opacity: 80%;
+    --modal-border-opacity: 30%;
+  }
+}

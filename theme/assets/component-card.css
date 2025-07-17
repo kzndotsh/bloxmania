@@ -1,0 +1,160 @@
+/**
+ * Card Component - Following Dawn theme patterns
+ * Provides flexible card layouts with theme settings integration
+ */
+
+.card-wrapper {
+  position: relative;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.card {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  text-decoration: none;
+  text-align: var(--text-alignment, center);
+}
+
+.card--horizontal {
+  --text-alignment: left;
+  --image-padding: 0rem;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.card--standard,
+.card--media {
+  position: relative;
+  box-sizing: border-box;
+  border-radius: var(--border-radius, 1rem);
+  border: var(--border-width, 1px) solid rgba(var(--color-border, 255 255 255), var(--border-opacity, 0.1));
+}
+
+.card--standard::after,
+.card--media::after {
+  content: '';
+  position: absolute;
+  z-index: -10;
+  width: calc(var(--border-width, 1px) * 2 + 100%);
+  height: calc(var(--border-width, 1px) * 2 + 100%);
+  top: calc(var(--border-width, 1px) * -1);
+  left: calc(var(--border-width, 1px) * -1);
+  border-radius: var(--border-radius, 1rem);
+  box-shadow: var(--shadow-horizontal-offset, 0) var(--shadow-vertical-offset, 4px) var(--shadow-blur-radius, 8px)
+    rgba(var(--color-shadow, 0 0 0), var(--shadow-opacity, 0.1));
+}
+
+.card__media {
+  position: relative;
+  overflow: hidden;
+  margin: var(--image-padding, 0);
+  width: calc(100% - 2 * var(--image-padding, 0));
+  border-radius: calc(var(--border-radius, 1rem) - var(--border-width, 1px) - var(--image-padding, 0));
+}
+
+.card__content {
+  display: grid;
+  width: 100%;
+  flex-grow: 1;
+  padding: 1rem;
+  grid-template-rows: minmax(0, 1fr) max-content minmax(0, 1fr);
+}
+
+.card__information {
+  grid-row-start: 2;
+  padding: 1.25rem;
+}
+
+.card__heading {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.card__heading a::after {
+  position: absolute;
+  inset: 0px;
+  z-index: 10;
+  content: '';
+}
+
+.card__heading a:focus::after {
+  outline-width: 2px;
+  outline-offset: 1px;
+  outline: 0.2rem solid rgba(var(--color-primary, 255 216 0), 0.5);
+  box-shadow: 0 0 0 0.3rem rgb(var(--color-background, 29 30 38)), 
+              0 0 0.5rem 0.4rem rgba(var(--color-primary, 255 216 0), 0.3);
+}
+
+/* Card variants */
+.card--gaming {
+  border-color: rgb(255 255 255 / 0.1);
+  background-color: rgb(255 255 255 / 0.05);
+  --tw-backdrop-blur: blur(4px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.card--gaming:hover {
+  --tw-translate-y: -0.25rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  --tw-border-opacity: 1;
+  border-color: rgb(var(--color-primary) / var(--tw-border-opacity, 1));
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  --tw-shadow-color: rgb(var(--color-primary) / 0.2);
+  --tw-shadow: var(--tw-shadow-colored);
+}
+
+.card--product {
+  --border-radius: var(--product-card-corner-radius, 1rem);
+  --border-width: var(--product-card-border-width, 1px);
+  --border-opacity: var(--product-card-border-opacity, 0.1);
+  --shadow-horizontal-offset: var(--product-card-shadow-horizontal-offset, 0);
+  --shadow-vertical-offset: var(--product-card-shadow-vertical-offset, 4px);
+  --shadow-blur-radius: var(--product-card-shadow-blur-radius, 8px);
+  --shadow-opacity: var(--product-card-shadow-opacity, 0.1);
+  --image-padding: var(--product-card-image-padding, 0);
+  --text-alignment: var(--product-card-text-alignment, center);
+}
+
+.card--collection {
+  --border-radius: var(--collection-card-corner-radius, 1rem);
+  --border-width: var(--collection-card-border-width, 1px);
+  --border-opacity: var(--collection-card-border-opacity, 0.1);
+  --shadow-horizontal-offset: var(--collection-card-shadow-horizontal-offset, 0);
+  --shadow-vertical-offset: var(--collection-card-shadow-vertical-offset, 4px);
+  --shadow-blur-radius: var(--collection-card-shadow-blur-radius, 8px);
+  --shadow-opacity: var(--collection-card-shadow-opacity, 0.1);
+  --image-padding: var(--collection-card-image-padding, 0);
+  --text-alignment: var(--collection-card-text-alignment, center);
+}
+
+/* Responsive adjustments */
+@media screen and (min-width: 750px) {
+  .card__information {
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .card .media--hover-effect > img:only-child {
+    transition-property: transform;
+    transition-duration: 500ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card:hover .media--hover-effect > img:first-child:only-child {
+    --tw-scale-x: 1.05;
+    --tw-scale-y: 1.05;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+}

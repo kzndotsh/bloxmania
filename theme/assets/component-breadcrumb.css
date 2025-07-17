@@ -1,0 +1,135 @@
+/**
+ * Breadcrumb Component - Following Dawn theme patterns
+ * Uses centralized theme configuration via CSS custom properties
+ */
+
+.breadcrumb {
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 0;
+}
+
+.breadcrumb ol {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb li {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.breadcrumb a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--easing-smooth);
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--button-border-radius);
+}
+
+.breadcrumb a:hover {
+  color: var(--color-primary);
+  background-color: rgba(255, 216, 0, 0.1);
+}
+
+.breadcrumb li:not(:last-child)::after {
+  content: '/';
+  color: var(--color-text-muted);
+  margin: 0 0.25rem;
+  opacity: 0.5;
+}
+
+.breadcrumb li:last-child {
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+}
+
+.breadcrumb li:last-child a {
+  color: var(--color-text);
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Breadcrumb with icons */
+.breadcrumb--with-icons li::before {
+  content: '';
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.7;
+}
+
+.breadcrumb--with-icons li:first-child::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' /%3E%3C/svg%3E");
+}
+
+/* Compact breadcrumb for mobile */
+.breadcrumb--compact {
+  margin-bottom: 1rem;
+}
+
+.breadcrumb--compact ol {
+  font-size: var(--font-size-xs);
+}
+
+.breadcrumb--compact li:not(:last-child):not(:first-child) {
+  display: none;
+}
+
+.breadcrumb--compact li:nth-last-child(2)::before {
+  content: '...';
+  margin: 0 0.5rem;
+  color: var(--color-text-muted);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 749px) {
+  .breadcrumb {
+    margin-bottom: 1rem;
+  }
+  
+  .breadcrumb ol {
+    font-size: var(--font-size-xs);
+  }
+  
+  /* Hide middle items on mobile */
+  .breadcrumb li:not(:first-child):not(:last-child) {
+    display: none;
+  }
+  
+  .breadcrumb li:first-child:not(:last-child)::after {
+    content: '...';
+    margin: 0 0.5rem;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .breadcrumb a {
+    text-decoration: underline;
+  }
+  
+  .breadcrumb li:not(:last-child)::after {
+    opacity: 1;
+    font-weight: var(--font-weight-bold);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .breadcrumb a {
+    transition: none;
+  }
+}
