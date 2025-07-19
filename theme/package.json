@@ -62,7 +62,7 @@
   },
   "homepage": "https://github.com/your-username/bloxmania-shopify-theme#readme",
   "devDependencies": {
-    "@shopify/cli": "^3.0.0",
+    "@shopify/cli": "^3.82.1",
     "@shopify/theme": "^3.0.0",
     "autoprefixer": "^10.4.0",
     "chokidar": "^3.5.0",

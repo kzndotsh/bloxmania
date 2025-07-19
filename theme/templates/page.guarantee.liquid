@@ -1,21 +1,17 @@
 {% comment %}
-  Guarantee page template - requires a page with handle 'guarantee' to be created in Shopify admin
-  Template: page.guarantee.liquid
-  URL: /pages/guarantee
+  Template: page.guarantee
 {% endcomment %}
 
-<div class="container mx-auto px-4 py-8">
-  <div class="max-w-4xl mx-auto text-center">
-    <h1 class="text-4xl font-bold text-white mb-8">{{ page.title | default: 'Our Guarantee' }}</h1>
-    <p class="text-xl text-gray-300 mb-8">This is a test to see if the guarantee page is working.</p>
-    <div class="bg-card rounded-lg p-8">
-      <h2 class="text-2xl font-semibold text-primary mb-4">Page Details</h2>
-      <p class="text-gray-300">Page Handle: {{ page.handle }}</p>
-      <p class="text-gray-300">Page ID: {{ page.id }}</p>
-      <p class="text-gray-300">Template: page.guarantee.liquid</p>
-    </div>
+<div class="bg-background text-white min-h-screen pt-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <h1 class="text-4xl font-bold text-white mb-8 text-center">{{ page.title }}</h1>
+    
+    {% if page.content != blank %}
+      <div class="prose prose-invert max-w-none mb-12">
+        {{ page.content }}
+      </div>
+    {% endif %}
+    
+    {% section 'main-guarantee' %}
   </div>
 </div>
-
-{% comment %} Original section call - uncomment when page is working {% endcomment %}
-{% comment %} {% section 'main-guarantee' %} {% endcomment %}

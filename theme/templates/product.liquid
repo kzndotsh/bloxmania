@@ -13,55 +13,52 @@
 {%- liquid
   assign product_form_id = 'product-form-template'
   assign current_variant = product.selected_or_first_available_variant
-  assign featured_media = current_variant.featured_media | default: product.featured_media
 -%}
 
 <!-- Product Schema Markup -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org/",
-  "@type": "Product",
-  "name": {{ product.title | json }},
-  "image": [
-    {%- for media in product.media -%}
-      {%- if media.media_type == 'image' -%}
-        {{ media | image_url: width: 1200 | json }}
-        {%- unless forloop.last -%},{%- endunless -%}
-      {%- endif -%}
-    {%- endfor -%}
-  ],
-  "description": {{ product.description | strip_html | json }},
-  "sku": {{ current_variant.sku | json }},
-  "brand": {
-    "@type": "Brand",
-    "name": {{ product.vendor | json }}
-  },
-  "offers": {
-    "@type": "Offer",
-    "url": {{ request.origin | append: product.url | json }},
-    "priceCurrency": {{ cart.currency.iso_code | json }},
-    "price": {{ current_variant.price | divided_by: 100.0 | json }},
-    "availability": "{% if current_variant.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
-    "seller": {
-      "@type": "Organization",
-      "name": {{ shop.name | json }}
+  {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "image": [
+      {%- for media in product.media -%}
+        {%- if media.media_type == 'image' -%}
+          {{ media | image_url: width: 1200 | json }}
+          {%- unless forloop.last -%},{%- endunless -%}
+        {%- endif -%}
+      {%- endfor -%}
+    ],
+    "description": {{ product.description | strip_html | json }},
+    "sku": {{ current_variant.sku | json }},
+    "brand": {
+      "@type": "Brand",
+      "name": {{ product.vendor | json }}
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": {{ request.origin | append: product.url | json }},
+      "priceCurrency": {{ cart.currency.iso_code | json }},
+      "price": {{ current_variant.price | divided_by: 100.0 | json }},
+      "availability": "{% if current_variant.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+      "seller": {
+        "@type": "Organization",
+        "name": {{ shop.name | json }}
+      }
     }
   }
-}
 </script>
 
 <div class="bg-background text-white min-h-screen pt-20">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    
     <!-- Breadcrumb Navigation -->
     {% render 'breadcrumb', product: product %}
-    
+
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-8">
-      
       <!-- Product Media Gallery -->
       <div class="product-media-gallery">
-        {% render 'product-media-gallery', 
-          product: product, 
+        {% render 'product-media-gallery',
+          product: product,
           variant_images: product.images,
           enable_zoom: true,
           enable_video_looping: false
@@ -70,7 +67,6 @@
 
       <!-- Product Information -->
       <div class="product-info space-y-6">
-        
         <!-- Vendor -->
         {%- if product.vendor != blank -%}
           <div class="product-vendor">
@@ -89,9 +85,9 @@
 
         <!-- Price -->
         <div class="product-price" id="price-template" role="status">
-          {% render 'product-price', 
-            product: product, 
-            use_variant: true, 
+          {% render 'product-price',
+            product: product,
+            use_variant: true,
             show_badges: true,
             price_class: 'text-2xl lg:text-3xl font-bold'
           %}
@@ -110,34 +106,19 @@
         {%- endif -%}
 
         <!-- Variant Picker -->
-        {% render 'product-variant-picker', 
-          product: product, 
-          product_form_id: product_form_id,
-          update_url: false
-        %}
+        {% render 'product-variant-picker', product: product, product_form_id: product_form_id, update_url: false %}
 
         <!-- Quantity Selector -->
         <div class="product-quantity">
-          {% render 'quantity-input', 
-            product: product, 
-            section_id: 'template',
-            product_form_id: product_form_id
-          %}
+          {% render 'quantity-input', product: product, section_id: 'template', product_form_id: product_form_id %}
         </div>
 
         <!-- Buy Buttons -->
-        {% render 'product-buy-buttons', 
-          product: product, 
-          product_form_id: product_form_id, 
-          section_id: 'template'
-        %}
+        {% render 'product-buy-buttons', product: product, product_form_id: product_form_id, section_id: 'template' %}
 
         <!-- Inventory Status -->
         <div class="product-inventory">
-          {% render 'product-inventory', 
-            variant: current_variant, 
-            section_id: 'template'
-          %}
+          {% render 'product-inventory', variant: current_variant, section_id: 'template' %}
         </div>
 
         <!-- Product Features -->
@@ -205,7 +186,10 @@
               </div>
             </summary>
             <div class="collapsible-content-body p-4 pt-0 text-gray-300">
-              <p>Get detailed information about this gaming product, including compatibility, requirements, and what's included with your purchase.</p>
+              <p>
+                Get detailed information about this gaming product, including compatibility, requirements, and what's
+                included with your purchase.
+              </p>
             </div>
           </details>
 
@@ -228,7 +212,12 @@
               </div>
             </summary>
             <div class="collapsible-content-body p-4 pt-0 text-gray-300">
-              <p>• Instant digital delivery via email<br>• Compatible with all major gaming platforms<br>• 24/7 customer support available<br>• Step-by-step setup instructions included</p>
+              <p>
+                • Instant digital delivery via email<br>
+                • Compatible with all major gaming platforms<br>
+                • 24/7 customer support available<br>
+                • Step-by-step setup instructions included
+              </p>
             </div>
           </details>
 
@@ -250,7 +239,10 @@
               </div>
             </summary>
             <div class="collapsible-content-body p-4 pt-0 text-gray-300">
-              <p>We offer a 30-day money-back guarantee on all digital products. If you're not satisfied with your purchase, contact our support team for a full refund.</p>
+              <p>
+                We offer a 30-day money-back guarantee on all digital products. If you're not satisfied with your
+                purchase, contact our support team for a full refund.
+              </p>
             </div>
           </details>
         </div>
@@ -262,7 +254,6 @@
             render 'share-button', share_link: share_url
           %}
         </div>
-
       </div>
     </div>
 
@@ -273,13 +264,8 @@
 
     <!-- Related Products -->
     <div class="mt-16">
-      {% render 'related-products', 
-        product: product, 
-        heading: 'You might also like',
-        products_to_show: 4
-      %}
+      {% render 'related-products', product: product, heading: 'You might also like', products_to_show: 4 %}
     </div>
-
   </div>
 </div>
 
@@ -287,11 +273,11 @@
   .collapsible-content[open] .collapsible-chevron {
     transform: rotate(180deg);
   }
-  
+
   .collapsible-content summary::-webkit-details-marker {
     display: none;
   }
-  
+
   .collapsible-content summary::marker {
     display: none;
   }

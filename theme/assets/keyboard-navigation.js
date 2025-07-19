@@ -55,67 +55,8 @@ class KeyboardNavigation {
    * Setup global keyboard shortcuts
    */
   setupGlobalKeyboardShortcuts() {
-    // Register common shortcuts
-    this.registerShortcut('/', () => {
-      const searchInput = document.querySelector('input[type=\"search\"], input[name=\"q\"]');
-      if (searchInput) {
-        searchInput.focus();
-        return true;
-      }
-      return false;
-    }, 'Focus search');
-
-    this.registerShortcut('Escape', () => {
-      // Close any open modals or dropdowns
-      const openModal = document.querySelector('.modal.active, [role=\"dialog\"][aria-hidden=\"false\"]');
-      if (openModal) {
-        this.closeModal(openModal);
-        return true;
-      }
-
-      const openDropdown = document.querySelector('[aria-expanded=\"true\"]');
-      if (openDropdown) {
-        openDropdown.setAttribute('aria-expanded', 'false');
-        openDropdown.focus();
-        return true;
-      }
-
-      // Clear focus if nothing to close
-      document.activeElement?.blur();
-      return true;
-    }, 'Close modal or dropdown');
-
-    this.registerShortcut('h', () => {
-      window.location.href = '/';
-      return true;
-    }, 'Go to homepage');
-
-    this.registerShortcut('c', () => {
-      const cartLink = document.querySelector('a[href*=\"cart\"]');
-      if (cartLink) {
-        cartLink.click();
-        return true;
-      }
-      return false;
-    }, 'Go to cart');
-
-    // Listen for keyboard shortcuts
-    document.addEventListener('keydown', (event) => {
-      // Don't trigger shortcuts when typing in inputs
-      if (this.isTypingContext(event.target)) return;
-
-      const key = event.key;
-      const shortcut = this.shortcuts.get(key);
-
-      if (shortcut && shortcut.handler()) {
-        event.preventDefault();
-        
-        // Announce shortcut action to screen readers
-        if (window.accessibilityUtils) {
-          window.accessibilityUtils.announce(`Shortcut activated: ${shortcut.description}`);
-        }
-      }
-    });
+    // Global keyboard shortcuts have been disabled
+    // Only essential accessibility shortcuts remain active through other components
   }
 
   /**
