@@ -1,7 +1,3 @@
-{{ 'component-cart.css' | asset_url | stylesheet_tag }}
-{{ 'component-totals.css' | asset_url | stylesheet_tag }}
-{{ 'component-price.css' | asset_url | stylesheet_tag }}
-
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
@@ -18,7 +14,7 @@
 
 {%- unless cart == empty -%}
   <div
-    class="gradient color-{{ section.settings.color_scheme }}{% if cart == empty %} is-empty{% endif %}"
+    class="gradient color-{{ section.settings.color_scheme }} cart-page{% if cart == empty %} is-empty{% endif %}"
     id="main-cart-footer"
     data-id="{{ section.id }}"
   >
@@ -117,69 +113,6 @@
     </div>
   </div>
 {%- endunless -%}
-
-<style>
-  /* Simple Dawn-style cart footer layout */
-  .cart__footer .cart__blocks {
-    max-width: 40rem;
-    margin: 0 auto;
-  }
-
-  .cart__footer .js-contents {
-    margin-bottom: 2rem;
-  }
-
-  .cart__footer .totals {
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-
-  .cart__footer .tax-note {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-
-  .cart__footer .cart__ctas {
-    text-align: center;
-  }
-
-  .cart__footer .cart__checkout-button {
-    width: 100%;
-    max-width: 36rem;
-    padding: 1.5rem 2rem;
-    font-size: 1.6rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border: none;
-    border-radius: 0.8rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .cart__footer .cart__checkout-button:not(:disabled) {
-    background: linear-gradient(135deg, var(--primary-color), #e6c200);
-    color: var(--background);
-    box-shadow: 0 4px 15px rgba(255, 216, 0, 0.3);
-  }
-
-  .cart__footer .cart__checkout-button:not(:disabled):hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(255, 216, 0, 0.4);
-    background: linear-gradient(135deg, #e6c200, var(--primary-color));
-  }
-
-  .cart__footer .cart__checkout-button:disabled {
-    background: #666;
-    color: #999;
-    cursor: not-allowed;
-    opacity: 0.6;
-  }
-
-  .cart__footer .cart__dynamic-checkout-buttons {
-    margin-top: 1rem;
-  }
-</style>
 
 {% schema %}
 {

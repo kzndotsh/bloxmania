@@ -1,5 +1,9 @@
 <header-drawer>
-  <header class="fixed w-full top-0 z-50 transition-all duration-300 bg-transparent" id="header" role="banner">
+  <header
+    class="fixed w-full top-0 z-50 transition-colors duration-300 bg-black/20 backdrop-blur-sm"
+    id="header"
+    role="banner"
+  >
     <div class="flex items-center justify-between px-4 md:px-8 py-6 max-w-7xl mx-auto">
       <!-- Left: Mobile Menu Button / Desktop Logo -->
       <div class="flex items-center flex-shrink-0">
@@ -80,7 +84,7 @@
         >
           <a
             href="{{ routes.all_products_collection_url }}"
-            class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background"
+            class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
           >
             <svg class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
               <path d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119.997zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/>
@@ -90,7 +94,7 @@
 
           <a
             href="{{ pages.guarantee.url | default: '/pages/guarantee' }}"
-            class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background"
+            class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
           >
             <div class="relative">
               <svg class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
@@ -110,7 +114,7 @@
           {% if section.settings.discord_url != blank %}
             <a
               href="{{ section.settings.discord_url }}"
-              class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background"
+              class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
               target="_blank"
               rel="noopener"
             >
@@ -122,7 +126,7 @@
           {% else %}
             <a
               href="https://discord.gg/bloxmania"
-              class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background"
+              class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
               target="_blank"
               rel="noopener"
             >
@@ -135,7 +139,7 @@
 
           <a
             href="{{ pages['purchasing-guide'].url | default: '/pages/purchasing-guide' }}"
-            class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background"
+            class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
           >
             <svg class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
               <path fill-rule="evenodd" d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625zM7.5 15a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 017.5 15zm.75 2.25a.75.75 0 000 1.5H12a.75.75 0 000-1.5H8.25z" clip-rule="evenodd"/>
@@ -150,7 +154,7 @@
       <div class="flex items-center justify-end gap-3 flex-shrink-0">
         <a
           href="{{ routes.cart_url }}"
-          class="text-white no-underline transition-all duration-300 relative flex items-center p-2 rounded-lg bg-black/30 backdrop-blur-sm hover:text-primary hover:bg-black/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background"
+          class="text-white no-underline transition-all duration-300 relative flex items-center p-2 rounded-lg bg-black/30 backdrop-blur-sm hover:text-primary hover:bg-black/50"
           aria-label="Shopping cart"
         >
           <svg class="w-6 h-6 lg:w-7 lg:h-7" fill="currentColor" viewBox="0 0 24 24">
@@ -165,7 +169,7 @@
 
         <a
           href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
-          class="text-white no-underline transition-all duration-300 relative flex items-center p-2 rounded-lg bg-black/30 backdrop-blur-sm hover:text-primary hover:bg-black/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background"
+          class="text-white no-underline transition-all duration-300 relative flex items-center p-2 rounded-lg bg-black/30 backdrop-blur-sm hover:text-primary hover:bg-black/50"
           aria-label="{% if customer %}User account{% else %}Sign in{% endif %}"
         >
           <svg class="w-6 h-6 lg:w-7 lg:h-7" fill="currentColor" viewBox="0 0 24 24">
@@ -291,12 +295,12 @@
       function handleScroll() {
         if (window.scrollY > 10) {
           // Scrolled state: add background and blur
-          header.classList.remove('bg-transparent');
-          header.classList.add('bg-black/80', 'backdrop-blur-xl', 'border-b', 'border-white/10', 'shadow-lg');
+          header.classList.remove('bg-black/20');
+          header.classList.add('bg-black/80', 'backdrop-blur-xl', 'shadow-lg');
         } else {
           // Transparent state: remove background and blur
-          header.classList.add('bg-transparent');
-          header.classList.remove('bg-black/80', 'backdrop-blur-xl', 'border-b', 'border-white/10', 'shadow-lg');
+          header.classList.remove('bg-black/80', 'backdrop-blur-xl', 'shadow-lg');
+          header.classList.add('bg-black/20', 'backdrop-blur-sm');
         }
       }
 

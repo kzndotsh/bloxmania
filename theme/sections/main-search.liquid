@@ -1,12 +1,8 @@
-{{ 'component-card.css' | asset_url | stylesheet_tag }}
-{{ 'component-price.css' | asset_url | stylesheet_tag }}
-{{ 'component-search.css' | asset_url | stylesheet_tag }}
-
 {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
-  <script src="{{ 'collection-filters.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'feature-collection.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
 
-<script src="{{ 'search-modal.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'ui-search-modal.js' | asset_url }}" defer="defer"></script>
 
 <style>
   .template-search__header {

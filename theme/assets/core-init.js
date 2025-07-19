@@ -23,19 +23,7 @@ async function initializeTheme() {
       window.PerformanceMonitor.mark('theme:init:start');
     }
 
-    // Load core utilities first
-    await loadScript('/assets/constants.js');
-    await loadScript('/assets/dawn-utilities.js');
-
-    // Load Web Components
-    await loadScript('/assets/web-components.js');
-
-    // Load performance monitor
-    await loadScript('/assets/performance-monitor.js');
-
-    // Load global functionality
-    await loadScript('/assets/global.js');
-
+    // All scripts are loaded via theme.liquid, just initialize
     // Mark initialization complete
     if (window.PerformanceMonitor) {
       window.PerformanceMonitor.mark('theme:init:complete');
@@ -62,14 +50,6 @@ async function initializeTheme() {
     console.log('BloxMania theme initialized successfully');
   } catch (error) {
     console.error('Theme initialization failed:', error);
-
-    // Fallback: try to load basic functionality
-    try {
-      await loadScript('/assets/global.js');
-      console.log('Fallback theme initialization completed');
-    } catch (fallbackError) {
-      console.error('Fallback initialization also failed:', fallbackError);
-    }
   }
 }
 

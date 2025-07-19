@@ -109,9 +109,9 @@ class PerformanceMonitor {
   setupResourceTiming() {
     // Monitor critical resources
     const criticalResources = [
-      '/assets/base.css',
-      '/assets/global.js',
-      '/assets/init.js',
+      '/assets/style-base.css',
+      '/assets/core-global.js',
+      '/assets/core-init.js',
     ];
 
     criticalResources.forEach((resource) => {
