@@ -1,10 +1,31 @@
 /* Game Card Component Styles */
-/* Essential hover animations that require complex selectors */
-
-.game-card:hover .game-content {
-  filter: blur(2px);
+.game-card {
+  position: relative;
+  transition: all 0.3s ease-in-out;
 }
 
-.game-card:hover .opacity-0 {
+.game-card:hover .game-content {
+  transform: scale(0.95);
+  opacity: 0.8;
+}
+
+.game-card:hover .absolute {
   opacity: 1;
+}
+
+.game-content {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hover effects for game cards */
+.game-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(255, 216, 0, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .game-card {
+    margin-bottom: 1rem;
+  }
 }

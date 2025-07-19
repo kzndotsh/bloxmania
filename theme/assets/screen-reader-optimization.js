@@ -29,40 +29,24 @@ class ScreenReaderOptimization {
   }
 
   /**
-   * Setup live regions for dynamic content
+   * Setup live regions for dynamic content (uses AccessibilityUtils)
    */
   setupLiveRegions() {
-    // Create main announcement region if it doesn't exist
-    if (!document.getElementById('sr-announcements')) {
-      const announcer = document.createElement('div');
-      announcer.id = 'sr-announcements';
-      announcer.className = 'sr-only';
-      announcer.setAttribute('aria-live', 'polite');
-      announcer.setAttribute('aria-atomic', 'true');
-      document.body.appendChild(announcer);
-      this.liveRegions.set('main', announcer);
-    }
-
-    // Create assertive announcement region
-    if (!document.getElementById('sr-announcements-assertive')) {
-      const assertiveAnnouncer = document.createElement('div');
-      assertiveAnnouncer.id = 'sr-announcements-assertive';
-      assertiveAnnouncer.className = 'sr-only';
-      assertiveAnnouncer.setAttribute('aria-live', 'assertive');
-      assertiveAnnouncer.setAttribute('aria-atomic', 'true');
-      document.body.appendChild(assertiveAnnouncer);
-      this.liveRegions.set('assertive', assertiveAnnouncer);
-    }
-
-    // Create status region
-    if (!document.getElementById('sr-status')) {
-      const statusRegion = document.createElement('div');
-      statusRegion.id = 'sr-status';
-      statusRegion.className = 'sr-only';
-      statusRegion.setAttribute('role', 'status');
-      statusRegion.setAttribute('aria-live', 'polite');
-      document.body.appendChild(statusRegion);
-      this.liveRegions.set('status', statusRegion);
+    // Use AccessibilityUtils for basic live region setup
+    if (window.AccessibilityUtils) {
+      // AccessibilityUtils handles the main announcement region
+      // We only need to add additional specialized regions
+      
+      // Create status region for status updates
+      if (!document.getElementById('sr-status')) {
+        const statusRegion = document.createElement('div');
+        statusRegion.id = 'sr-status';
+        statusRegion.className = 'sr-only';
+        statusRegion.setAttribute('role', 'status');
+        statusRegion.setAttribute('aria-live', 'polite');
+        document.body.appendChild(statusRegion);
+        this.liveRegions.set('status', statusRegion);
+      }
     }
   }
 
@@ -554,26 +538,22 @@ class ScreenReaderOptimization {
   }
 
   /**
-   * Announce message to screen readers
+   * Announce message to screen readers (uses AccessibilityUtils)
    */
   announce(message, priority = 'polite') {
-    const region = this.liveRegions.get(priority === 'assertive' ? 'assertive' : 'main');
-    if (!region) return;
-
-    // Clear previous announcement
-    region.textContent = '';
-
-    // Add new announcement after a brief delay
-    setTimeout(() => {
-      region.textContent = message;
-    }, 100);
-
-    // Clear announcement after it's been read
-    setTimeout(() => {
-      if (region.textContent === message) {
-        region.textContent = '';
+    // Use AccessibilityUtils for announcements if available
+    if (window.AccessibilityUtils && window.AccessibilityUtils.announce) {
+      window.AccessibilityUtils.announce(message, priority);
+    } else {
+      // Fallback to direct announcement
+      const announcer = document.getElementById('sr-announcements');
+      if (announcer) {
+        announcer.textContent = '';
+        setTimeout(() => {
+          announcer.textContent = message;
+        }, 100);
       }
-    }, 5000);
+    }
   }
 
   /**

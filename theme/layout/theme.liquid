@@ -246,7 +246,7 @@
     </script>
 
     {%- comment -%} Load init script immediately to prevent FOUC {%- endcomment -%}
-    <script src="{{ 'init.js' | asset_url }}"></script>
+    <script src="{{ 'init.js' | asset_url }}" defer="defer"></script>
   </head>
 
   <body class="bloxmania-theme">

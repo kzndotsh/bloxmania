@@ -1,6 +1,5 @@
-<section 
+<section
   class="hero-section min-h-screen flex items-center justify-center relative overflow-hidden py-32 px-8 md:px-4 bg-cover bg-center bg-no-repeat"
-  style="background-image: url('{{ 'image-hero.png' | asset_url }}');"
 >
   <!-- Dark overlay for better text readability -->
   <div class="absolute inset-0 bg-black/60"></div>
@@ -14,7 +13,8 @@
         width: 120,
         height: 40,
         loading: 'eager',
-        sizes: '120px' %}
+        sizes: '120px'
+      %}
     </div>
 
     <!-- Main Title -->
@@ -57,6 +57,12 @@
     </div>
   </div>
 </section>
+
+<style>
+  .hero-section {
+    background-image: url('{{ 'image-hero.png' | asset_url }}');
+  }
+</style>
 
 {% schema %}
 {

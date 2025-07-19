@@ -1,0 +1,276 @@
+<style type="text/css">
+  .template-404 .title + * {
+    margin-top: 1.5rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .template-404 .title + * {
+      margin-top: 2rem;
+    }
+  }
+
+  .template-404 {
+    min-height: 65vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 2rem 3rem 2rem;
+    margin-top: 2rem;
+  }
+
+  .template-404 .error-code {
+    font-size: 9rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    .template-404 .error-code {
+      font-size: 5.5rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .template-404 .title {
+    font-size: 2.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: white;
+  }
+
+  @media screen and (max-width: 749px) {
+    .template-404 .title {
+      font-size: 1.75rem;
+    }
+  }
+
+  .template-404 p {
+    font-size: 1.125rem;
+    color: #d1d5db;
+    margin-bottom: 2.5rem;
+    max-width: 500px;
+    line-height: 1.5;
+  }
+
+  .template-404 .search-form {
+    max-width: 450px;
+    width: 100%;
+    margin: 2rem 0;
+  }
+
+  .template-404 .search-container {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 0.75rem;
+    align-items: center;
+    width: 100%;
+  }
+
+  .template-404 .search__input {
+    flex: 1;
+    min-width: 0;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 216, 0, 0.3);
+    border-radius: 12px;
+    color: white;
+    font-size: 1rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    display: block;
+  }
+
+  .template-404 .search__input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .template-404 .search__input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 3px rgba(255, 216, 0, 0.1);
+  }
+
+  .template-404 .search__input:hover {
+    border-color: rgba(255, 216, 0, 0.5);
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .template-404 .search__button {
+    background: var(--primary-color);
+    border: none;
+    border-radius: 12px;
+    padding: 1rem;
+    color: black;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 3.5rem;
+    height: 3.5rem;
+    min-width: 3.5rem;
+  }
+
+  .template-404 .search__button:hover {
+    background: #e6c200;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 216, 0, 0.3);
+  }
+
+  .template-404 .search__button .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .template-404 .helpful-links {
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .template-404 .helpful-links h2 {
+    font-size: 1.375rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: white;
+  }
+
+  .template-404 .helpful-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.25rem;
+  }
+
+  .template-404 .helpful-links a {
+    color: var(--primary-color);
+    text-decoration: none;
+    padding: 0.75rem 1.25rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+
+  .template-404 .helpful-links a:hover {
+    background-color: var(--primary-color);
+    color: var(--background);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 216, 0, 0.3);
+  }
+
+  .template-404 .cta-button {
+    margin-top: 2.5rem;
+    padding: 0.875rem 1.75rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+  }
+</style>
+
+<div class="template-404 page-width page-margin">
+  <div class="error-code">404</div>
+
+  <h1 class="title">
+    {{ 'templates.404.title' | t }}
+  </h1>
+
+  <p>
+    {{ 'templates.404.subtext' | t }}
+  </p>
+
+  <!-- Search form for better user experience -->
+  <div class="search-form">
+    <div class="search-container">
+      <input
+        class="search__input"
+        id="Search-404"
+        type="search"
+        name="q"
+        placeholder="{{ 'general.search.search' | t }}"
+        aria-label="{{ 'general.search.search' | t }}"
+      >
+      <button
+        type="button"
+        class="search__button"
+        onclick="submitSearch()"
+        aria-label="{{ 'general.search.search' | t }}"
+      >
+        <svg class="icon icon-search" aria-hidden="true" focusable="false" viewBox="0 0 18 19">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M11.03 11.68A5.784 5.784 0 112.85 3.5a5.784 5.784 0 018.18 8.18zm.26 1.12a6.78 6.78 0 11.72-.72l5.4 5.4a.5.5 0 11-.71.7l-5.41-5.38z" fill="currentColor"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function submitSearch() {
+      const input = document.getElementById('Search-404');
+      const query = input.value.trim();
+      if (query) {
+        window.location.href = '{{ routes.search_url }}?q=' + encodeURIComponent(query);
+      }
+    }
+
+    // Allow Enter key to submit search
+    document.getElementById('Search-404').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        submitSearch();
+      }
+    });
+  </script>
+
+  <!-- Helpful navigation links -->
+  <div class="helpful-links">
+    <h2>{{ 'templates.404.helpful_links' | t | default: 'Helpful Links' }}</h2>
+    <ul>
+      <li>
+        <a href="{{ routes.root_url }}">{{ 'general.404.link_home' | t | default: 'Home' }}</a>
+      </li>
+      <li>
+        <a href="{{ routes.all_products_collection_url }}">
+          {{- 'general.404.link_products' | t | default: 'All Products' -}}
+        </a>
+      </li>
+      {%- if blog.handles.size > 0 -%}
+        <li>
+          <a href="/blogs/{{ blog.handles.first }}">{{ 'general.404.link_blog' | t | default: 'Blog' }}</a>
+        </li>
+      {%- endif -%}
+      <li>
+        <a href="{{ routes.search_url }}">{{ 'general.404.link_search' | t | default: 'Search' }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Primary CTA button -->
+  <a href="{{ routes.all_products_collection_url }}" class="button cta-button">
+    {{ 'general.continue_shopping' | t }}
+  </a>
+</div>
+
+<style>
+  .cta-button {
+    margin-top: 2.5rem;
+    padding: 0.875rem 1.75rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "t:sections.main-404.name",
+  "tag": "section",
+  "class": "section"
+}
+{% endschema %}

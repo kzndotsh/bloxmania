@@ -3,7 +3,7 @@
   Displays notifications when items are added to cart
 {% endcomment %}
 
-<div id="cart-notification" class="cart-notification" style="display: none !important; visibility: hidden; opacity: 0;" aria-hidden="true">
+<div id="cart-notification" class="cart-notification cart-notification--hidden" aria-hidden="true">
   <div class="cart-notification__header">
     <h2 class="cart-notification__heading">Item added to cart</h2>
     <button type="button" class="cart-notification__close" aria-label="Close cart notification">
@@ -42,6 +42,19 @@
     max-width: 400px;
     z-index: 1000;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .cart-notification--hidden {
+    display: none !important;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .cart-notification--visible {
+    display: block;
+    visibility: visible;
+    opacity: 1;
   }
 
   .cart-notification__header {
@@ -137,18 +150,16 @@
 
     // Close notification function
     function hideNotification() {
-      cartNotification.style.display = 'none';
+      cartNotification.classList.remove('cart-notification--visible');
+      cartNotification.classList.add('cart-notification--hidden');
       cartNotification.setAttribute('aria-hidden', 'true');
-      cartNotification.classList.remove('show', 'active');
     }
 
     // Show notification function
     function showNotification() {
-      cartNotification.style.display = 'block';
-      cartNotification.style.visibility = 'visible';
-      cartNotification.style.opacity = '1';
+      cartNotification.classList.remove('cart-notification--hidden');
+      cartNotification.classList.add('cart-notification--visible');
       cartNotification.setAttribute('aria-hidden', 'false');
-      cartNotification.classList.add('show', 'active');
     }
 
     // Close notification event listeners
@@ -165,7 +176,7 @@
 
     // Expose functions globally for cart functionality
     window.cartNotification = {
-      show: function(data) {
+      show: function (data) {
         if (data) {
           // Update notification content if data is provided
           const image = cartNotification.querySelector('.cart-notification__image');
@@ -178,11 +189,11 @@
           if (price && data.price) price.textContent = data.price;
           if (quantity && data.quantity) quantity.textContent = `Quantity: ${data.quantity}`;
         }
-        
+
         showNotification();
         scheduleAutoHide();
       },
-      hide: hideNotification
+      hide: hideNotification,
     };
 
     // Ensure notification is hidden by default

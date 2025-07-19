@@ -5,8 +5,6 @@ Snippets are reusable components that can be included in templates and sections.
 ## Available Snippets
 
 
-### [theme-settings-css](theme-settings-css.md)
-
 
 ### [share-button](share-button.md)
 

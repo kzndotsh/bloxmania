@@ -1,10 +1,10 @@
 {% comment %}
   Renders social media sharing buttons with proper accessibility
-  
+
   Accepts:
   - block: {Object} Block settings (optional)
   - share_link: {String} URL to share (required)
-  
+
   Usage:
   {% render 'share-button', block: block, share_link: share_url %}
 {% endcomment %}
@@ -13,7 +13,6 @@
   assign share_label = block.settings.share_label | default: 'Share'
   assign share_url = share_link | url_encode
   assign share_title = product.title | default: page.title | default: 'Check this out' | url_encode
-  assign share_description = product.description | strip_html | truncate: 160 | url_encode
 -%}
 
 <div class="product-share">
@@ -112,7 +111,10 @@
             </svg>
           </button>
         </div>
-        <div class="copy-feedback text-xs text-green-400 mt-1 opacity-0 transition-opacity duration-200" id="copy-feedback">
+        <div
+          class="copy-feedback text-xs text-green-400 mt-1 opacity-0 transition-opacity duration-200"
+          id="copy-feedback"
+        >
           {{ 'general.share.link_copied' | t }}
         </div>
       </div>
@@ -124,21 +126,21 @@
   .share-button-details[open] .share-button-summary svg:last-child {
     transform: rotate(180deg);
   }
-  
+
   .share-options {
     position: absolute;
     right: 0;
     top: 100%;
     z-index: 50;
   }
-  
+
   @media (max-width: 640px) {
     .share-options {
       right: auto;
       left: 0;
       min-width: 100%;
     }
-    
+
     .share-buttons {
       grid-template-columns: 1fr;
     }
@@ -150,12 +152,15 @@
   function copyToClipboard(text) {
     if (navigator.clipboard && window.isSecureContext) {
       // Use modern clipboard API
-      navigator.clipboard.writeText(text).then(() => {
-        showCopyFeedback();
-      }).catch(err => {
-        console.error('Failed to copy: ', err);
-        fallbackCopyTextToClipboard(text);
-      });
+      navigator.clipboard
+        .writeText(text)
+        .then(() => {
+          showCopyFeedback();
+        })
+        .catch((err) => {
+          console.error('Failed to copy: ', err);
+          fallbackCopyTextToClipboard(text);
+        });
     } else {
       // Fallback for older browsers
       fallbackCopyTextToClipboard(text);
@@ -163,18 +168,18 @@
   }
 
   function fallbackCopyTextToClipboard(text) {
-    const textArea = document.createElement("textarea");
+    const textArea = document.createElement('textarea');
     textArea.value = text;
-    
+
     // Avoid scrolling to bottom
-    textArea.style.top = "0";
-    textArea.style.left = "0";
-    textArea.style.position = "fixed";
-    
+    textArea.style.top = '0';
+    textArea.style.left = '0';
+    textArea.style.position = 'fixed';
+
     document.body.appendChild(textArea);
     textArea.focus();
     textArea.select();
-    
+
     try {
       const successful = document.execCommand('copy');
       if (successful) {
@@ -183,7 +188,7 @@
     } catch (err) {
       console.error('Fallback: Oops, unable to copy', err);
     }
-    
+
     document.body.removeChild(textArea);
   }
 
@@ -198,7 +203,7 @@
   }
 
   // Close share dropdown when clicking outside
-  document.addEventListener('click', function(event) {
+  document.addEventListener('click', function (event) {
     const shareDetails = document.querySelector('.share-button-details');
     if (shareDetails && !shareDetails.contains(event.target)) {
       shareDetails.removeAttribute('open');
@@ -206,7 +211,7 @@
   });
 
   // Prevent closing when clicking inside the dropdown
-  document.addEventListener('click', function(event) {
+  document.addEventListener('click', function (event) {
     if (event.target.closest('.share-options')) {
       event.stopPropagation();
     }

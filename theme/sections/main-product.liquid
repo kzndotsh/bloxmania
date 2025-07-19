@@ -9,8 +9,6 @@
 {{ 'component-breadcrumb.css' | asset_url | stylesheet_tag }}
 {{ 'component-product-reviews.css' | asset_url | stylesheet_tag }}
 
-
-
 <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
 
@@ -21,18 +19,16 @@
 {%- liquid
   assign product_form_id = 'product-form-' | append: section.id
   assign current_variant = product.selected_or_first_available_variant
-  assign featured_media = current_variant.featured_media | default: product.featured_media
 -%}
 
-<div 
+<div
   class="bg-background text-white section-padding"
   style="--padding-top-mobile: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px; --padding-bottom-mobile: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px; --padding-top-desktop: {{ section.settings.padding_top }}px; --padding-bottom-desktop: {{ section.settings.padding_bottom }}px;"
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    
     <!-- Breadcrumb Navigation -->
     {% render 'breadcrumb', product: product %}
-    
+
     <!-- Product Schema Markup -->
     <script type="application/ld+json">
       {
@@ -68,11 +64,10 @@
     </script>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-8">
-      
       <!-- Product Media Gallery -->
       <div class="product-media-gallery">
-        {% render 'product-media-gallery', 
-          product: product, 
+        {% render 'product-media-gallery',
+          product: product,
           variant_images: product.images,
           enable_zoom: section.settings.enable_zoom,
           enable_video_looping: section.settings.enable_video_looping
@@ -81,10 +76,8 @@
 
       <!-- Product Information -->
       <div class="product-info space-y-6">
-        
         {%- for block in section.blocks -%}
           {%- case block.type -%}
-            
             {%- when 'vendor' -%}
               {%- if product.vendor != blank -%}
                 <div class="product-vendor" {{ block.shopify_attributes }}>
@@ -103,9 +96,9 @@
 
             {%- when 'price' -%}
               <div class="product-price" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
-                {% render 'product-price', 
-                  product: product, 
-                  use_variant: true, 
+                {% render 'product-price',
+                  product: product,
+                  use_variant: true,
                   show_badges: true,
                   price_class: 'text-2xl lg:text-3xl font-bold'
                 %}
@@ -124,37 +117,33 @@
               {%- endif -%}
 
             {%- when 'variant_picker' -%}
-              {% render 'product-variant-picker', 
-                product: product, 
-                block: block, 
+              {% render 'product-variant-picker',
+                product: product,
+                block: block,
                 product_form_id: product_form_id,
                 update_url: false
               %}
 
             {%- when 'quantity_selector' -%}
               <div class="product-quantity" {{ block.shopify_attributes }}>
-                {% render 'quantity-input', 
-                  product: product, 
+                {% render 'quantity-input',
+                  product: product,
                   section_id: section.id,
                   product_form_id: product_form_id
                 %}
               </div>
 
             {%- when 'buy_buttons' -%}
-              {% render 'product-buy-buttons', 
-                block: block, 
-                product: product, 
-                product_form_id: product_form_id, 
-                section_id: section.id 
+              {% render 'product-buy-buttons',
+                block: block,
+                product: product,
+                product_form_id: product_form_id,
+                section_id: section.id
               %}
 
             {%- when 'inventory' -%}
               <div class="product-inventory" {{ block.shopify_attributes }}>
-                {% render 'product-inventory', 
-                  variant: current_variant, 
-                  block: block,
-                  section_id: section.id
-                %}
+                {% render 'product-inventory', variant: current_variant, block: block, section_id: section.id %}
               </div>
 
             {%- when 'share' -%}
@@ -167,20 +156,15 @@
 
             {%- when 'collapsible_tab' -%}
               <div class="product-accordion" {{ block.shopify_attributes }}>
-                {% render 'collapsible-content', 
-                  block: block, 
-                  section_id: section.id 
-                %}
+                {% render 'collapsible-content', block: block, section_id: section.id %}
               </div>
 
             {%- when 'features' -%}
               <div class="product-features" {{ block.shopify_attributes }}>
                 {% render 'product-features', block: block %}
               </div>
-
           {%- endcase -%}
         {%- endfor -%}
-
       </div>
     </div>
 
@@ -194,14 +178,13 @@
     <!-- Related Products -->
     {%- if section.settings.show_related_products -%}
       <div class="mt-16">
-        {% render 'related-products', 
-          product: product, 
+        {% render 'related-products',
+          product: product,
           heading: section.settings.related_products_heading,
           products_to_show: section.settings.related_products_count
         %}
       </div>
     {%- endif -%}
-
   </div>
 </div>
 

@@ -1,8 +1,5 @@
-
-
 <section
   class="why-choose-us-section py-20 relative overflow-hidden bg-cover bg-center bg-no-repeat"
-  style="--why-choose-bg-image: url({{ 'image-okok2.png' | asset_url }});"
 >
   <div class="absolute inset-0 bg-gradient-to-tr from-purple-900/20 via-transparent to-blue-900/20"></div>
   <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/25 to-black/50"></div>
@@ -61,6 +58,12 @@
     </div>
   </div>
 </section>
+
+<style>
+  .why-choose-us-section {
+    background-image: url('{{ 'image-okok2.png' | asset_url }}');
+  }
+</style>
 
 {% schema %}
 {

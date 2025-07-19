@@ -1,0 +1,215 @@
+.newsletter {
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+.newsletter__wrapper {
+  padding-right: calc(4rem / var(--font-body-scale));
+  padding-left: calc(4rem / var(--font-body-scale));
+  background: var(--color-surface);
+  border: 1px solid rgba(255, 216, 0, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (min-width: 750px) {
+  .newsletter__wrapper {
+    padding-right: 9rem;
+    padding-left: 9rem;
+  }
+}
+
+.newsletter__wrapper > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.newsletter__wrapper > * + * {
+  margin-top: 2rem;
+}
+
+.newsletter__wrapper > * + .newsletter-form {
+  margin-top: 3rem;
+}
+
+.newsletter__subheading {
+  max-width: 70rem;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--color-text-muted);
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+.newsletter__wrapper .newsletter-form__field-wrapper {
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+.newsletter-form__field-wrapper .newsletter-form__message {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.4rem;
+}
+
+.newsletter-form__message--success {
+  color: #10b981;
+}
+
+.newsletter-form__message:not(.newsletter-form__message--success) {
+  color: #ef4444;
+}
+
+.newsletter__button {
+  margin-top: 3rem;
+  width: fit-content;
+}
+
+@media screen and (min-width: 750px) {
+  .newsletter__button {
+    flex-shrink: 0;
+    margin: 0 0 0 1rem;
+  }
+}
+
+/* Newsletter form styling */
+.newsletter-form {
+  width: 100%;
+}
+
+.newsletter-form .field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--color-background);
+  border: 2px solid rgba(255, 216, 0, 0.3);
+  border-radius: 8px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.newsletter-form .field:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(255, 216, 0, 0.1);
+}
+
+.newsletter-form .field__input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 1.2rem 1.6rem;
+  color: var(--color-text);
+  font-size: 1.6rem;
+  outline: none;
+}
+
+.newsletter-form .field__input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.newsletter-form .field__label {
+  position: absolute;
+  left: 1.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  font-size: 1.6rem;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.newsletter-form .field:focus-within .field__label,
+.newsletter-form .field__input:not(:placeholder-shown) + .field__label {
+  top: 0.8rem;
+  font-size: 1.2rem;
+  color: var(--color-primary);
+}
+
+.newsletter-form .field__button {
+  background: var(--color-primary);
+  border: none;
+  border-radius: 6px;
+  padding: 1.2rem 1.6rem;
+  margin: 0.4rem;
+  color: var(--color-background);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.newsletter-form .field__button:hover {
+  background: #e6c200;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 216, 0, 0.3);
+}
+
+.newsletter-form .field__button:active {
+  transform: translateY(0);
+}
+
+.newsletter-form .field__button .svg-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.newsletter-form .field__button svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Animation classes */
+.scroll-trigger {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.scroll-trigger.animate--slide-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Color scheme variations */
+.color-scheme-1 .newsletter__wrapper {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.color-scheme-2 .newsletter__wrapper {
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+.color-scheme-3 .newsletter__wrapper {
+  background: var(--color-primary);
+  color: var(--color-background);
+}
+
+.color-scheme-3 .newsletter__subheading {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.color-scheme-3 .field__input {
+  color: var(--color-background);
+}
+
+.color-scheme-3 .field__input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.color-scheme-3 .field__label {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.color-scheme-3 .field__button {
+  background: var(--color-background);
+  color: var(--color-primary);
+}
+
+.color-scheme-3 .field__button:hover {
+  background: #f3f4f6;
+}

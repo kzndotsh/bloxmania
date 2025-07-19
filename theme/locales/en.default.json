@@ -2,14 +2,39 @@
   "accessibility": {
     "skip_to_text": "Skip to main content",
     "refresh_page": "Refresh page",
+    "loading": "Loading",
+    "error": "Error",
+    "close": "Close",
+    "unit_price_separator": "per",
     "link_messages": {
       "new_window": "Opens in a new window"
     }
   },
   "sections": {
     "cart": {
+      "title": "Your cart",
+      "empty": "Your cart is empty",
       "cart_error": "There was an error while updating your cart. Please try again.",
-      "cart_quantity_error_html": "You can only add [quantity] of this item to your cart."
+      "cart_quantity_error_html": "You can only add [quantity] of this item to your cart.",
+      "headings": {
+        "product": "Product",
+        "price": "Price",
+        "total": "Total",
+        "quantity": "Quantity",
+        "subtotal": "Subtotal"
+      },
+      "update": "Update",
+      "checkout": "Check out",
+      "remove_title": "Remove {title}",
+      "note": "Order special instructions",
+      "login": {
+        "title": "Have an account?",
+        "paragraph_html": "<a href=\"{link}\" class=\"link underlined-link\">Log in</a> to check out faster."
+      },
+      "taxes_included_and_shipping_policy_html": "Tax included. <a href=\"{link}\">Shipping</a> calculated at checkout.",
+      "taxes_included_but_shipping_at_checkout": "Tax included. Shipping calculated at checkout.",
+      "taxes_and_shipping_policy_at_checkout_html": "Taxes and <a href=\"{link}\">shipping</a> calculated at checkout.",
+      "taxes_and_shipping_at_checkout": "Taxes and shipping calculated at checkout."
     },
     "slideshow": {
       "pause_slideshow": "Pause slideshow",
@@ -17,6 +42,11 @@
     },
     "featured_collection": {
       "view_all": "View all"
+    },
+    "collection_template": {
+      "empty": "No products found",
+      "use_fewer_filters_html": "Use fewer filters or <a class=\"{class}\" href=\"{link}\">remove all</a>",
+      "title": "Collection"
     }
   },
   "products": {
@@ -37,12 +67,14 @@
       },
       "quantity": {
         "label": "Quantity",
+        "input_label": "Quantity for {product}",
         "increase": "Increase quantity for {product}",
         "decrease": "Decrease quantity for {product}",
         "minimum_of": "Minimum of {quantity}",
         "maximum_of": "Maximum of {quantity}",
         "multiples_of": "Increments of {quantity}",
-        "in_cart_html": "{quantity} in cart"
+        "in_cart_html": "{quantity} in cart",
+        "input_aria_label": "Quantity for {product}"
       },
       "inventory": {
         "in_stock": "In stock",
@@ -64,14 +96,21 @@
         "write_review": "Write a Review",
         "no_reviews": "No reviews yet",
         "be_first": "Be the first to write a review!",
+        "rating_stars": "{rating} out of {max} stars",
         "rating": "{rating} out of {max} stars",
+        "rating_select": "Select a rating",
+        "rating_poor": "Poor - Not recommended",
+        "rating_fair": "Fair - Below average",
+        "rating_good": "Good - Average quality",
+        "rating_very_good": "Very Good - Above average",
+        "rating_excellent": "Excellent - Highly recommended",
         "verified": "Verified Purchase",
         "helpful": "{count} people found this helpful",
         "load_more": "Load More Reviews",
         "name": "Name",
         "email": "Email",
-        "rating": "Rating",
-        "title": "Review Title",
+        "rating_label": "Rating",
+        "review_title": "Review Title",
         "review": "Your Review",
         "submit": "Submit Review",
         "name_placeholder": "Enter your name",
@@ -82,9 +121,44 @@
       "media": {
         "image_available": "Image [index] is available"
       }
+    },
+    "facets": {
+      "apply": "Apply",
+      "clear": "Clear",
+      "clear_all": "Clear all",
+      "from": "From",
+      "filter_and_sort": "Filter and sort",
+      "filter_by_label": "Filter:",
+      "filter_button": "Filter",
+      "filters_selected": "{count} selected",
+      "max_price": "The highest price is {price}",
+      "product_count": "{product_count} of {count} products",
+      "product_count_simple": "{count} products",
+      "reset": "Reset",
+      "sort_button": "Sort",
+      "sort_by_label": "Sort by:",
+      "to": "To",
+      "clear_filter": "Clear filter"
     }
   },
   "general": {
+    "continue_shopping": "Continue shopping",
+    "search": {
+      "search": "Search",
+      "reset": "Reset"
+    },
+    "password_page": {
+      "login_form_heading": "Enter store using password",
+      "login_form_password_label": "Password",
+      "login_form_password_placeholder": "Your password",
+      "login_form_submit": "Enter"
+    },
+    "404": {
+      "link_home": "Home",
+      "link_products": "All Products",
+      "link_blog": "Blog",
+      "link_search": "Search"
+    },
     "accessibility": {
       "previous_image": "Previous image",
       "next_image": "Next image",
@@ -141,10 +215,21 @@
       "title": "Article"
     },
     "search": {
-      "title": "Search"
+      "title": "Search results",
+      "results_with_count": "Search results for \"{terms}\" ({count} results)",
+      "results_with_count_and_term": "Search results for \"{terms}\" ({count} results)",
+      "no_results": "No results found for \"{terms}\"",
+      "page": "Page"
     },
     "404": {
-      "title": "Page not found"
+      "title": "Page not found",
+      "subtext": "The page you are looking for cannot be found.",
+      "helpful_links": "Helpful Links"
+    },
+    "contact": {
+      "form": {
+        "error_heading": "Please correct the following errors:"
+      }
     }
   },
   "layout": {
@@ -278,6 +363,127 @@
       "price_high_to_low": "Price, high to low",
       "date_old_to_new": "Date, old to new",
       "date_new_to_old": "Date, new to old"
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "Account",
+      "details": "Account details",
+      "view_addresses": "View addresses",
+      "return": "Return to Account"
+    },
+    "activate_account": {
+      "title": "Activate Account",
+      "subtext": "Create your password to activate your account.",
+      "password": "Password",
+      "password_confirm": "Confirm Password",
+      "submit": "Activate Account",
+      "cancel": "Decline Invitation"
+    },
+    "addresses": {
+      "title": "Addresses",
+      "default": "Default",
+      "add_new": "Add a new address",
+      "edit_address": "Edit address",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "company": "Company",
+      "address1": "Address 1",
+      "address2": "Address 2",
+      "city": "City",
+      "country": "Country/Region",
+      "province": "Province",
+      "zip": "Postal/ZIP code",
+      "phone": "Phone",
+      "set_default": "Set as default address",
+      "add": "Add address",
+      "update": "Update address",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "delete": "Delete",
+      "delete_confirm": "Are you sure you wish to delete this address?",
+      "no_addresses": "No addresses saved",
+      "no_addresses_description": "You haven't saved any addresses yet."
+    },
+    "log_out": "Log out",
+    "login_page": {
+      "title": "Login",
+      "sign_in": "Sign in",
+      "email": "Email",
+      "password": "Password",
+      "forgot_password": "Forgot your password?",
+      "create_account": "Create account",
+      "new_customer_title": "New customer?",
+      "new_customer_description": "Sign up for early Sale access plus tailored new arrivals, trends and promotions. To opt out, click unsubscribe in our emails."
+    },
+    "orders": {
+      "title": "Order history",
+      "order_number": "Order",
+      "order_number_link": "Order number {number}",
+      "date": "Date",
+      "payment_status": "Payment status",
+      "fulfillment_status": "Fulfillment status",
+      "total": "Total",
+      "none": "You haven't placed any orders yet.",
+      "none_description": "Start shopping to create your first order."
+    },
+    "order": {
+      "title": "Order {name}",
+      "order_details": "Order details",
+      "date": "Placed on",
+      "cancelled": "Order Cancelled on",
+      "cancelled_reason": "Reason: {reason}",
+      "billing_address": "Billing Address",
+      "payment_status": "Payment Status",
+      "shipping_address": "Shipping Address",
+      "fulfillment_status": "Fulfillment Status",
+      "discount": "Discount",
+      "shipping": "Shipping",
+      "tax": "Tax",
+      "product": "Product",
+      "sku": "SKU",
+      "price": "Price",
+      "quantity": "Quantity",
+      "total": "Total",
+      "fulfilled_at": "Fulfilled {date}",
+      "track_shipment": "Track shipment",
+      "tracking_url": "Tracking link",
+      "tracking_company": "Carrier",
+      "tracking_number": "Tracking number",
+      "subtotal": "Subtotal"
+    },
+    "recover_password": {
+      "title": "Reset your password",
+      "subtext": "We will send you an email to reset your password",
+      "success": "We've sent you an email with a link to update your password.",
+      "submit": "Submit",
+      "cancel": "Cancel"
+    },
+    "register": {
+      "title": "Register",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Create",
+      "returning_customer_title": "Already have an account?",
+      "returning_customer_description": "Sign in to access your account.",
+      "sign_in": "Sign in"
+    }
+  },
+  "newsletter": {
+    "label": "Email",
+    "success": "Thanks for subscribing",
+    "button_label": "Subscribe"
+  },
+  "onboarding": {
+    "product_title": "Sample Product Title",
+    "product_description": "This is a sample product description. Update your product to see real content."
+  },
+  "blogs": {
+    "article": {
+      "comments": "Comments",
+      "blog": "Blog"
     }
   }
 }

@@ -6,22 +6,22 @@
 <div class="container mx-auto px-4 py-8">
   <div class="max-w-4xl mx-auto">
     <h1 class="text-4xl font-bold text-white mb-8 text-center">FOUC Test Page</h1>
-    
+
     <div class="bg-card rounded-lg p-6 mb-8">
       <h2 class="text-2xl font-semibold text-white mb-4">Test Results</h2>
       <p class="text-gray-300 mb-4">
         This page tests the Flash of Unstyled Content (FOUC) fixes. Open the browser console to see test results.
       </p>
-      
+
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        <button 
-          onclick="FOUCTest.simulateHardRefresh()" 
+        <button
+          onclick="FOUCTest.simulateHardRefresh()"
           class="btn btn--primary"
         >
           Simulate Hard Refresh
         </button>
-        <button 
-          onclick="FOUCTest.testCartNotificationShow()" 
+        <button
+          onclick="FOUCTest.testCartNotificationShow()"
           class="btn btn--secondary"
         >
           Test Cart Notification
@@ -31,7 +31,7 @@
 
     <div class="bg-card rounded-lg p-6 mb-8">
       <h2 class="text-2xl font-semibold text-white mb-4">Visual Elements Test</h2>
-      
+
       <!-- Test hero content visibility -->
       <div class="hero-content mb-6 p-4 bg-gray-800 rounded">
         <h3 class="text-xl text-white mb-2">Hero Content (should fade in)</h3>
@@ -41,32 +41,38 @@
       <!-- Test product cards -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
         <div class="product-card bg-gray-800 p-4 rounded">
-          <img 
-            src="{{ 'image-10T.jpg' | asset_url }}" 
-            alt="Test Product 1" 
+          <img
+            src="{{ 'image-10T.jpg' | asset_url }}"
+            alt="Test Product 1"
             class="w-full h-32 object-cover rounded mb-2"
+            width="400"
+            height="128"
             loading="lazy"
           >
           <h4 class="text-white font-semibold">Test Product 1</h4>
           <p class="text-primary">$19.99</p>
         </div>
-        
+
         <div class="product-card bg-gray-800 p-4 rounded">
-          <img 
-            src="{{ 'image-RACCOON.jpg' | asset_url }}" 
-            alt="Test Product 2" 
+          <img
+            src="{{ 'image-RACCOON.jpg' | asset_url }}"
+            alt="Test Product 2"
             class="w-full h-32 object-cover rounded mb-2"
+            width="400"
+            height="128"
             loading="lazy"
           >
           <h4 class="text-white font-semibold">Test Product 2</h4>
           <p class="text-primary">$24.99</p>
         </div>
-        
+
         <div class="product-card bg-gray-800 p-4 rounded">
-          <img 
-            src="{{ 'image-FENNEC.jpg' | asset_url }}" 
-            alt="Test Product 3" 
+          <img
+            src="{{ 'image-FENNEC.jpg' | asset_url }}"
+            alt="Test Product 3"
             class="w-full h-32 object-cover rounded mb-2"
+            width="400"
+            height="128"
             loading="lazy"
           >
           <h4 class="text-white font-semibold">Test Product 3</h4>
@@ -94,12 +100,12 @@
   .test-element {
     transition: all 0.3s ease;
   }
-  
+
   .test-hidden {
     opacity: 0;
     transform: translateY(20px);
   }
-  
+
   .test-visible {
     opacity: 1;
     transform: translateY(0);
@@ -108,12 +114,12 @@
 
 <script>
   // Additional test functionality
-  document.addEventListener('theme:page:loaded', function() {
+  document.addEventListener('theme:page:loaded', function () {
     console.log('✅ FOUC Test Page: theme:page:loaded event received');
-    
+
     // Test element visibility
     const testElements = document.querySelectorAll('.hero-content, .product-card');
-    testElements.forEach(el => {
+    testElements.forEach((el) => {
       el.classList.add('test-element');
     });
   });

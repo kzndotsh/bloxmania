@@ -10,13 +10,12 @@ Page templates that define the structure of different page types.
 - [product](./templates/product.md)
 - [page.guarantee](./templates/page.guarantee.md)
 - [page.fouc-test](./templates/page.fouc-test.md)
-- [index](./templates/index.md)
-- [debug-collections](./templates/debug-collections.md)
+
 - [collection](./templates/collection.md)
 
 ### 🧩 [Snippets](./snippets/README.md)
 Reusable components that can be included in templates and sections.
-- [theme-settings-css](./snippets/theme-settings-css.md)
+
 - [share-button](./snippets/share-button.md)
 - [responsive-image](./snippets/responsive-image.md)
 - [related-products](./snippets/related-products.md)
@@ -30,14 +29,10 @@ Reusable components that can be included in templates and sections.
 - [product-features](./snippets/product-features.md)
 - [product-buy-buttons](./snippets/product-buy-buttons.md)
 - [pagination](./snippets/pagination.md)
-- [meta-tags](./snippets/meta-tags.md)
 - [loading-spinner](./snippets/loading-spinner.md)
 - [icon](./snippets/icon.md)
-- [critical-css-loader](./snippets/critical-css-loader.md)
-- [critical-css-inline](./snippets/critical-css-inline.md)
 - [creators-carousel](./snippets/creators-carousel.md)
 - [collapsible-content](./snippets/collapsible-content.md)
-- [chat-widget](./snippets/chat-widget.md)
 - [cart-notification](./snippets/cart-notification.md)
 - [card-product](./snippets/card-product.md)
 - [button](./snippets/button.md)
@@ -61,8 +56,7 @@ Customizable content blocks that can be added to pages through the theme editor.
 ### 🎨 [Assets](./assets/README.md)
 JavaScript, CSS, and other static files.
 - [theme.config.js](./assets/theme.config.js.md)
-- [theme-editor.js](./assets/theme-editor.js.md)
-- [sw.js](./assets/sw.js.md)
+
 - [section-id-utility.js](./assets/section-id-utility.js.md)
 - [search-modal.js](./assets/search-modal.js.md)
 - [screen-reader-optimization.js](./assets/screen-reader-optimization.js.md)
@@ -86,7 +80,7 @@ JavaScript, CSS, and other static files.
 - [component-product-form.css](./assets/component-product-form.css.md)
 - [component-predictive-search.css](./assets/component-predictive-search.css.md)
 - [component-header.css](./assets/component-header.css.md)
-- [component-game-card.css](./assets/component-game-card.css.md)
+
 - [component-faq.css](./assets/component-faq.css.md)
 - [component-cart-notification.css](./assets/component-cart-notification.css.md)
 - [component-card.css](./assets/component-card.css.md)

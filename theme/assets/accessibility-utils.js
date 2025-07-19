@@ -5,20 +5,7 @@
 
 class AccessibilityUtils {
   constructor() {
-    this.focusableSelectors = [
-      'a[href]:not([tabindex="-1"])',
-      'button:not([disabled]):not([tabindex="-1"])',
-      'input:not([disabled]):not([tabindex="-1"])',
-      'select:not([disabled]):not([tabindex="-1"])',
-      'textarea:not([disabled]):not([tabindex="-1"])',
-      '[tabindex="0"]',
-      'details:not([tabindex="-1"])',
-      'summary:not([tabindex="-1"])',
-      'iframe:not([tabindex="-1"])',
-      'audio[controls]:not([tabindex="-1"])',
-      'video[controls]:not([tabindex="-1"])',
-    ].join(", ");
-
+    // Use DOMUtils for consistent focusable element selection
     this.init();
   }
 
@@ -280,12 +267,12 @@ class AccessibilityUtils {
   }
 
   /**
-   * Get all focusable elements within a container
+   * Get all focusable elements within a container (uses DOMUtils)
    * @param {HTMLElement} container - Container element
    * @returns {NodeList} - List of focusable elements
    */
   getFocusableElements(container = document) {
-    return container.querySelectorAll(this.focusableSelectors);
+    return DOMUtils.getFocusableElements(container);
   }
 
   /**

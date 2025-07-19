@@ -1,0 +1,79 @@
+{
+  "sections": {
+    "featured-product": {
+      "name": "Featured product"
+    },
+    "main-collection-banner": {
+      "name": "Collection banner"
+    },
+    "main-collection-product-grid": {
+      "name": "Collection product grid"
+    },
+    "image-banner": {
+      "name": "Image banner"
+    },
+    "rich-text": {
+      "name": "Rich text"
+    },
+    "newsletter": {
+      "name": "Newsletter"
+    },
+    "main-blog": {
+      "name": "Main blog"
+    },
+    "main-article": {
+      "name": "Main article"
+    },
+    "featured-collection": {
+      "name": "Featured collection"
+    },
+    "contact-form": {
+      "name": "Contact form"
+    },
+    "image-with-text": {
+      "name": "Image with text"
+    },
+    "main-404": {
+      "name": "404 Page"
+    },
+    "main-account": {
+      "name": "Account Page"
+    },
+    "main-activate-account": {
+      "name": "Activate Account"
+    },
+    "main-addresses": {
+      "name": "Customer Addresses"
+    },
+    "main-cart-footer": {
+      "name": "Cart Footer"
+    },
+    "main-cart-items": {
+      "name": "Cart Items"
+    },
+    "main-login": {
+      "name": "Login Page"
+    },
+    "main-order": {
+      "name": "Order Details"
+    },
+    "main-password": {
+      "name": "Password Page"
+    },
+    "main-password-header": {
+      "name": "Password Header"
+    },
+    "main-register": {
+      "name": "Register Page"
+    },
+    "main-reset-password": {
+      "name": "Reset Password"
+    },
+    "main-search": {
+      "name": "Search Results"
+    },
+    "supported-games": {
+      "name": "Supported Games"
+    }
+  }
+}

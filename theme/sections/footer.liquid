@@ -1,7 +1,9 @@
-<footer class="relative overflow-hidden bg-gradient-to-br from-slate-900/70 to-indigo-900/25 py-16 px-8" role="contentinfo">
-  <div 
-    class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.03] z-0"
-    style="background-image: url('{{ 'image-slam.png' | asset_url }}');"
+<footer
+  class="relative overflow-hidden bg-gradient-to-br from-slate-900/70 to-indigo-900/25 py-16 px-8"
+  role="contentinfo"
+>
+  <div
+    class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.03] z-0 footer-background"
   ></div>
   <div class="relative z-10 max-w-6xl mx-auto">
     <!-- Main Footer Content -->
@@ -70,16 +72,38 @@
         <h4 id="quick-links-heading" class="text-lg font-semibold text-white mb-4">Quick Links</h4>
         <ul class="space-y-3" role="list">
           <li>
-            <a href="{{ routes.all_products_collection_url }}" class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5"> Shop All Items </a>
+            <a
+              href="{{ routes.all_products_collection_url }}"
+              class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5"
+            >
+              Shop All Items
+            </a>
           </li>
           <li>
-            <a href="{{ pages.guarantee.url | default: '/pages/guarantee' }}" class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5"> Our Guarantee </a>
+            <a
+              href="{{ pages.guarantee.url | default: '/pages/guarantee' }}"
+              class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5"
+            >
+              Our Guarantee
+            </a>
           </li>
           <li>
-            <a href="{{ pages.faq.url | default: '/pages/faq' }}" class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5"> FAQ </a>
+            <a
+              href="{{ pages.faq.url | default: '/pages/faq' }}"
+              class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5"
+            >
+              FAQ
+            </a>
           </li>
           <li>
-            <a href="https://discord.gg/bloxmania" class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5" target="_blank" rel="noopener"> Support </a>
+            <a
+              href="https://discord.gg/bloxmania"
+              class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5"
+              target="_blank"
+              rel="noopener"
+            >
+              Support
+            </a>
           </li>
         </ul>
       </nav>
@@ -89,17 +113,26 @@
         <h4 id="legal-links-heading" class="text-lg font-semibold text-white mb-4">Legal</h4>
         <ul class="space-y-3" role="list">
           <li>
-            <a href="{{ pages['privacy-policy'].url | default: '/pages/privacy-policy' }}" class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5">
+            <a
+              href="{{ pages['privacy-policy'].url | default: '/pages/privacy-policy' }}"
+              class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5"
+            >
               Privacy Policy
             </a>
           </li>
           <li>
-            <a href="{{ pages['terms-of-service'].url | default: '/pages/terms-of-service' }}" class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5">
+            <a
+              href="{{ pages['terms-of-service'].url | default: '/pages/terms-of-service' }}"
+              class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5"
+            >
               Terms of Service
             </a>
           </li>
           <li>
-            <a href="{{ pages['refund-policy'].url | default: '/pages/refund-policy' }}" class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5">
+            <a
+              href="{{ pages['refund-policy'].url | default: '/pages/refund-policy' }}"
+              class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5"
+            >
               Refund Policy
             </a>
           </li>
@@ -119,6 +152,12 @@
     </div>
   </div>
 </footer>
+
+<style>
+  .footer-background {
+    background-image: url('{{ 'image-slam.png' | asset_url }}');
+  }
+</style>
 
 {% schema %}
 {

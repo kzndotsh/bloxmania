@@ -33,7 +33,9 @@
               class="w-24 h-24 rounded-xl object-cover shadow-md"
               width="96"
               height="96"
-              {% if lazy_load %}loading="lazy"{% endif %}
+              {% if lazy_load %}
+                loading="lazy"
+              {% endif %}
             >
           {%- else -%}
             <div class="w-24 h-24 rounded-xl bg-gray-700 flex items-center justify-center shadow-md">
@@ -44,7 +46,7 @@
           {%- endif -%}
         </a>
       </div>
-      
+
       <!-- Product Info -->
       <div class="flex-1 min-w-0">
         <div class="flex items-start justify-between">
@@ -55,12 +57,12 @@
                 {{ card_product.title | escape }}
               </a>
             </h3>
-            
+
             <!-- Product Vendor -->
             {%- if show_vendor and card_product.vendor != blank -%}
               <p class="text-sm text-gray-400 mb-2">{{ card_product.vendor }}</p>
             {%- endif -%}
-            
+
             <!-- Stock Status -->
             <div class="mb-2">
               {%- if card_product.available -%}
@@ -80,7 +82,7 @@
               {%- endif -%}
             </div>
           </div>
-          
+
           <!-- Price and Actions -->
           <div class="flex-shrink-0 text-right">
             <!-- Price -->
@@ -98,7 +100,7 @@
                 </div>
               {%- endif -%}
             </div>
-            
+
             <!-- Action Button -->
             <a
               href="{{ card_product.url }}"
@@ -117,7 +119,6 @@
     <!-- Grid Layout (Default) -->
     <div
       class="product-card-widget border border-gray-700 hover:border-primary transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 hover:shadow-xl h-full flex flex-col rounded-2xl overflow-hidden bg-cover bg-center bg-no-repeat"
-      style="--widget-bg-image: url({{ 'image-widget-backing.png' | asset_url }});"
     >
       <div class="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col">
         <div class="relative group flex-1 flex flex-col justify-center">
@@ -128,7 +129,9 @@
               class="w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto rounded-xl mb-4 sm:mb-6 transition-all duration-300 group-hover:brightness-110 object-cover"
               width="160"
               height="160"
-              {% if lazy_load %}loading="lazy"{% endif %}
+              {% if lazy_load %}
+                loading="lazy"
+              {% endif %}
             >
           {% else %}
             <div class="w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto rounded-xl mb-4 sm:mb-6 bg-gray-700 flex items-center justify-center text-gray-400 text-xs">
@@ -138,13 +141,18 @@
         </div>
         <div class="text-center mt-auto">
           <h3 class="font-semibold mb-2 text-sm sm:text-base lg:text-lg line-clamp-2 text-white">
-            <a href="{{ card_product.url }}" class="no-underline text-white hover:text-primary transition-colors duration-200">{{ card_product.title }}</a>
+            <a
+              href="{{ card_product.url }}"
+              class="no-underline text-white hover:text-primary transition-colors duration-200"
+            >
+              {{- card_product.title -}}
+            </a>
           </h3>
-          
+
           {%- if show_vendor -%}
             <div class="text-xs mb-2 text-gray-400">{{ card_product.vendor }}</div>
           {%- endif -%}
-          
+
           <div class="font-bold text-base sm:text-lg lg:text-xl text-primary">
             {% if show_compare_at_price and card_product.compare_at_price > card_product.price %}
               <span class="line-through mr-2 text-sm font-medium text-gray-400">
@@ -153,7 +161,7 @@
             {% endif %}
             {{ card_product.price | money }}
           </div>
-          
+
           {%- if show_quick_add -%}
             <div class="mt-4">
               <a
@@ -169,3 +177,9 @@
     </div>
   {%- endif -%}
 {%- endif -%}
+
+<style>
+  .product-card-widget {
+    background-image: url('{{ 'image-widget-backing.png' | asset_url }}');
+  }
+</style>

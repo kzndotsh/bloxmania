@@ -1,8 +1,5 @@
-
-
 <section
   class="featured-products-section py-20 relative overflow-hidden bg-cover bg-center bg-no-repeat"
-  style="background-image: url('{{ 'image-okok1.png' | asset_url }}');"
 >
   <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-indigo-900/25"></div>
   <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/15 via-transparent to-violet-900/15"></div>
@@ -21,19 +18,16 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
       {% comment %} Use Featured collection by default, or section setting collection {% endcomment %}
       {% liquid
-        assign featured_collection = collections['featured']
+        assign featured_collection = collections.featured
         assign collection_to_use = section.settings.collection | default: featured_collection
       %}
-      
 
-      
       {% if collection_to_use != blank and collection_to_use.products.size > 0 %}
         {% assign products_to_show = section.settings.products_to_show | default: 8 %}
-        
+
         {% for product in collection_to_use.products limit: products_to_show %}
           <div
             class="product-card-widget border border-gray-700 hover:border-primary transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 hover:shadow-xl h-full flex flex-col rounded-2xl overflow-hidden bg-cover bg-center bg-no-repeat"
-            style="background-image: url('{{ 'image-widget-backing.png' | asset_url }}');"
           >
             <div class="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col">
               <div class="relative group flex-1 flex flex-col justify-center">
@@ -54,7 +48,13 @@
               </div>
               <div class="text-center mt-auto">
                 <h3 class="font-semibold mb-2 text-sm sm:text-base lg:text-lg line-clamp-2 text-white">
-                  <a href="{{ product.url }}" class="no-underline text-white hover:text-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-gray-900 rounded" aria-label="View {{ product.title }}">{{ product.title }}</a>
+                  <a
+                    href="{{ product.url }}"
+                    class="no-underline text-white hover:text-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-gray-900 rounded"
+                    aria-label="View {{ product.title }}"
+                  >
+                    {{- product.title -}}
+                  </a>
                 </h3>
                 <div class="font-bold text-base sm:text-lg lg:text-xl text-primary">
                   {% if product.compare_at_price > product.price %}
@@ -70,7 +70,9 @@
         {% endfor %}
       {% else %}
         <!-- Demo Products -->
-        {% assign demo_products = 'image-10T.jpg,image-RACCOON.jpg,image-FENNEC.jpg,image-DISCO-BEE.jpg,image-DRAGONFLY.jpg' | split: ',' %}
+        {% assign demo_products = 'image-10T.jpg,image-RACCOON.jpg,image-FENNEC.jpg,image-DISCO-BEE.jpg,image-DRAGONFLY.jpg'
+          | split: ','
+        %}
         {% assign demo_names = '10 Trillion Sheckles,Raccoon,Fennec Fox,Disco Bee,Dragonfly' | split: ',' %}
         {% assign demo_prices = '$15.99,$12.99,$24.99,$17.99,$12.99' | split: ',' %}
 
@@ -82,7 +84,6 @@
 
           <div
             class="product-card-widget border border-gray-700 hover:border-primary transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 hover:shadow-xl h-full flex flex-col rounded-2xl overflow-hidden bg-cover bg-center bg-no-repeat"
-            style="background-image: url('{{ 'image-widget-backing.png' | asset_url }}');"
           >
             <div class="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col">
               <div class="relative group flex-1 flex flex-col justify-center">
@@ -97,7 +98,13 @@
               </div>
               <div class="text-center mt-auto">
                 <h3 class="font-semibold text-white mb-2 text-sm sm:text-base lg:text-lg line-clamp-2">
-                  <a href="#" class="text-inherit no-underline hover:text-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-gray-900 rounded" aria-label="View {{ prod_name }}">{{ prod_name }}</a>
+                  <a
+                    href="#"
+                    class="text-inherit no-underline hover:text-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-gray-900 rounded"
+                    aria-label="View {{ prod_name }}"
+                  >
+                    {{- prod_name -}}
+                  </a>
                 </h3>
                 <div class="text-primary font-bold text-base sm:text-lg lg:text-xl">{{ prod_price }}</div>
               </div>
@@ -108,6 +115,16 @@
     </div>
   </div>
 </section>
+
+<style>
+  .featured-products-section {
+    background-image: url('{{ 'image-okok1.png' | asset_url }}');
+  }
+
+  .product-card-widget {
+    background-image: url('{{ 'image-widget-backing.png' | asset_url }}');
+  }
+</style>
 
 {% schema %}
 {
