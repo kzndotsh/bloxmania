@@ -23,6 +23,18 @@ async function initializeTheme() {
       window.PerformanceMonitor.mark('theme:init:start');
     }
 
+    // Wait for critical scripts to load
+    await new Promise((resolve) => {
+      const checkScripts = () => {
+        if (window.BloxManiaConstants && window.DawnUtilities) {
+          resolve();
+        } else {
+          setTimeout(checkScripts, 10);
+        }
+      };
+      checkScripts();
+    });
+
     // All scripts are loaded via theme.liquid, just initialize
     // Mark initialization complete
     if (window.PerformanceMonitor) {
@@ -58,6 +70,14 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initializeTheme);
 } else {
   initializeTheme();
+}
+
+// Handle hot reload reconnections
+if (window.Shopify?.designMode) {
+  document.addEventListener('shopify:section:load', () => {
+    // Re-initialize components when sections are reloaded
+    setTimeout(initializeTheme, 100);
+  });
 }
 
 // Export for debugging

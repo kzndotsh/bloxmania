@@ -5,10 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="#1d1e26">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <link rel="canonical" href="{{ canonical_url }}">
 
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- else -%}
+      <link rel="icon" type="image/x-icon" href="{{ 'favicon.ico' | asset_url }}">
     {%- endif -%}
 
     <title>
@@ -28,6 +31,7 @@
     {{ content_for_header }}
 
     <script src="{{ 'core-constants.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'system-dawn.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'system-web-components.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'system-performance.js' | asset_url }}" defer="defer"></script>
@@ -130,12 +134,8 @@
 
     <script src="{{ 'ui-header.js' | asset_url }}" defer="defer"></script>
 
-    {%- comment -%} Load Web Components {%- endcomment -%}
-    <script src="{{ 'ui-modal.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'ui-search-modal.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'ui-cart-notification.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'feature-product.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'ui-quantity.js' | asset_url }}" defer="defer"></script>
+    {%- comment -%} Load feature-specific scripts {%- endcomment -%}
+    <script src="{{ 'feature-cart.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'feature-gallery.js' | asset_url }}" defer="defer"></script>
 
     {%- comment -%} Load enhanced predictive search if enabled {%- endcomment -%}
@@ -158,6 +158,19 @@
             });
         });
       }
+
+      // Handle web pixel worker errors gracefully
+      window.addEventListener('error', function (event) {
+        if (
+          event.target &&
+          event.target.src &&
+          event.target.src.includes('web-pixel') &&
+          event.target.src.includes('worker.modern.js')
+        ) {
+          console.warn('Web pixel worker failed to load, this is normal in development mode');
+          event.preventDefault();
+        }
+      });
     </script>
   </body>
 </html>

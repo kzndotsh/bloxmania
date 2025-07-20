@@ -6,7 +6,7 @@
 class QuantityInput extends HTMLElement {
   constructor() {
     super();
-    
+
     this.input = null;
     this.decreaseButton = null;
     this.increaseButton = null;
@@ -28,13 +28,25 @@ class QuantityInput extends HTMLElement {
 
   setupDOM() {
     this.input = this.querySelector('input[type="number"]');
-    this.decreaseButton = this.querySelector('.quantity-decrease, [data-action="decrease"]');
-    this.increaseButton = this.querySelector('.quantity-increase, [data-action="increase"]');
+
+    // Look for buttons with various possible selectors
+    this.decreaseButton = this.querySelector(
+      '.quantity-decrease, [data-action="decrease"], [name="minus"], .quantity__button[name="minus"]'
+    );
+    this.increaseButton = this.querySelector(
+      '.quantity-increase, [data-action="increase"], [name="plus"], .quantity__button[name="plus"]'
+    );
 
     // Get attributes from input or element
-    this.min = parseInt(this.input?.getAttribute('min') || this.getAttribute('min') || '1');
-    this.max = parseInt(this.input?.getAttribute('max') || this.getAttribute('max')) || null;
-    this.step = parseInt(this.input?.getAttribute('step') || this.getAttribute('step') || '1');
+    this.min = parseInt(
+      this.input?.getAttribute('min') || this.getAttribute('min') || '1'
+    );
+    this.max =
+      parseInt(this.input?.getAttribute('max') || this.getAttribute('max')) ||
+      null;
+    this.step = parseInt(
+      this.input?.getAttribute('step') || this.getAttribute('step') || '1'
+    );
 
     // Ensure input has proper attributes
     if (this.input) {
@@ -55,17 +67,20 @@ class QuantityInput extends HTMLElement {
       this.input.addEventListener('keydown', this.handleKeydown.bind(this));
     }
 
-    // Button events
+    // Button events - single click only
     if (this.decreaseButton) {
-      this.decreaseButton.addEventListener('click', this.handleDecrease.bind(this));
+      this.decreaseButton.addEventListener(
+        'click',
+        this.handleDecrease.bind(this)
+      );
     }
 
     if (this.increaseButton) {
-      this.increaseButton.addEventListener('click', this.handleIncrease.bind(this));
+      this.increaseButton.addEventListener(
+        'click',
+        this.handleIncrease.bind(this)
+      );
     }
-
-    // Mouse hold events for continuous increment/decrement
-    this.setupMouseHold();
   }
 
   setupAccessibility() {
@@ -91,54 +106,17 @@ class QuantityInput extends HTMLElement {
       liveRegion.setAttribute('aria-live', 'polite');
       liveRegion.setAttribute('aria-atomic', 'true');
       liveRegion.className = 'visually-hidden';
-      liveRegion.id = `quantity-live-${Math.random().toString(36).substr(2, 9)}`;
+      liveRegion.id = `quantity-live-${Math.random()
+        .toString(36)
+        .substr(2, 9)}`;
       this.appendChild(liveRegion);
-    }
-  }
-
-  setupMouseHold() {
-    let holdTimeout;
-    let holdInterval;
-
-    const startHold = (callback) => {
-      callback();
-      holdTimeout = setTimeout(() => {
-        holdInterval = setInterval(callback, 100);
-      }, 500);
-    };
-
-    const stopHold = () => {
-      clearTimeout(holdTimeout);
-      clearInterval(holdInterval);
-    };
-
-    // Decrease button hold
-    if (this.decreaseButton) {
-      this.decreaseButton.addEventListener('mousedown', (e) => {
-        e.preventDefault();
-        startHold(() => this.changeQuantity(-this.step));
-      });
-
-      this.decreaseButton.addEventListener('mouseup', stopHold);
-      this.decreaseButton.addEventListener('mouseleave', stopHold);
-    }
-
-    // Increase button hold
-    if (this.increaseButton) {
-      this.increaseButton.addEventListener('mousedown', (e) => {
-        e.preventDefault();
-        startHold(() => this.changeQuantity(this.step));
-      });
-
-      this.increaseButton.addEventListener('mouseup', stopHold);
-      this.increaseButton.addEventListener('mouseleave', stopHold);
     }
   }
 
   handleInput(event) {
     // Real-time validation during typing
     const value = parseInt(event.target.value);
-    
+
     if (isNaN(value) || value < this.min) {
       // Don't prevent typing, but show visual feedback
       this.input.classList.add('quantity-input--invalid');
@@ -187,26 +165,29 @@ class QuantityInput extends HTMLElement {
   changeQuantity(delta) {
     const currentValue = parseInt(this.input.value) || this.min;
     const newValue = currentValue + delta;
-    
+
     this.setValue(newValue);
   }
 
   setValue(value) {
     const validatedValue = this.validateValue(value);
-    
+
     if (this.input.value !== validatedValue.toString()) {
       this.input.value = validatedValue;
       this.input.dispatchEvent(new Event('change', { bubbles: true }));
-      
+
       // Dispatch custom event
-      this.dispatchEvent(new CustomEvent('quantity:changed', {
-        bubbles: true,
-        detail: { 
-          value: validatedValue, 
-          previousValue: parseInt(this.input.dataset.previousValue) || this.min,
-          input: this
-        }
-      }));
+      this.dispatchEvent(
+        new CustomEvent('quantity:changed', {
+          bubbles: true,
+          detail: {
+            value: validatedValue,
+            previousValue:
+              parseInt(this.input.dataset.previousValue) || this.min,
+            input: this,
+          },
+        })
+      );
 
       // Update previous value
       this.input.dataset.previousValue = validatedValue.toString();
@@ -220,7 +201,7 @@ class QuantityInput extends HTMLElement {
 
   validateValue(value) {
     const numValue = parseInt(value);
-    
+
     // Handle invalid input
     if (isNaN(numValue)) {
       return this.min;
@@ -248,13 +229,10 @@ class QuantityInput extends HTMLElement {
   validateAndUpdate() {
     const currentValue = parseInt(this.input.value);
     const validatedValue = this.validateValue(currentValue);
-    
+
     if (currentValue !== validatedValue) {
       this.setValue(validatedValue);
     }
-
-    this.input.classList.remove('quantity-input--invalid');
-    this.updateButtonStates();
   }
 
   updateButtonStates() {
@@ -264,14 +242,14 @@ class QuantityInput extends HTMLElement {
     if (this.decreaseButton) {
       const canDecrease = currentValue > this.min;
       this.decreaseButton.disabled = !canDecrease;
-      this.decreaseButton.setAttribute('aria-disabled', (!canDecrease).toString());
+      this.decreaseButton.setAttribute('aria-disabled', !canDecrease);
     }
 
     // Update increase button
     if (this.increaseButton) {
       const canIncrease = !this.max || currentValue < this.max;
       this.increaseButton.disabled = !canIncrease;
-      this.increaseButton.setAttribute('aria-disabled', (!canIncrease).toString());
+      this.increaseButton.setAttribute('aria-disabled', !canIncrease);
     }
   }
 
@@ -279,20 +257,14 @@ class QuantityInput extends HTMLElement {
     const liveRegion = this.querySelector('[aria-live]');
     if (liveRegion) {
       liveRegion.textContent = `Quantity changed to ${value}`;
-      
-      // Clear after announcement
-      setTimeout(() => {
-        liveRegion.textContent = '';
-      }, 1000);
     }
   }
 
   cleanup() {
-    // Clean up any intervals or timeouts
-    // (handled by event listener removal)
+    // Remove event listeners if needed
   }
 
-  // Public API
+  // Getters and setters
   get value() {
     return parseInt(this.input?.value) || this.min;
   }
@@ -306,7 +278,7 @@ class QuantityInput extends HTMLElement {
   }
 
   set minimum(newMin) {
-    this.min = newMin;
+    this.min = parseInt(newMin);
     if (this.input) {
       this.input.setAttribute('min', this.min.toString());
     }
@@ -318,10 +290,10 @@ class QuantityInput extends HTMLElement {
   }
 
   set maximum(newMax) {
-    this.max = newMax;
+    this.max = parseInt(newMax);
     if (this.input) {
-      if (newMax) {
-        this.input.setAttribute('max', newMax.toString());
+      if (this.max) {
+        this.input.setAttribute('max', this.max.toString());
       } else {
         this.input.removeAttribute('max');
       }
@@ -329,6 +301,7 @@ class QuantityInput extends HTMLElement {
     this.validateAndUpdate();
   }
 
+  // Public methods
   increase() {
     this.changeQuantity(this.step);
   }
@@ -343,9 +316,4 @@ class QuantityInput extends HTMLElement {
 }
 
 // Register the custom element
-if (!customElements.get('quantity-input')) {
-  customElements.define('quantity-input', QuantityInput);
-}
-
-// Export for use in global scope
-window.QuantityInput = QuantityInput;
+customElements.define('quantity-input', QuantityInput);

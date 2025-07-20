@@ -3,9 +3,7 @@
   Uses modern component-based architecture with Tailwind CSS
 {% endcomment %}
 
-{{ 'component-product-media-gallery.css' | asset_url | stylesheet_tag }}
-{{ 'component-product-form.css' | asset_url | stylesheet_tag }}
-{{ 'component-product-info.css' | asset_url | stylesheet_tag }}
+{{ 'style-base.css' | asset_url | stylesheet_tag }}
 
 <script src="{{ 'feature-product.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'feature-gallery.js' | asset_url }}" defer="defer"></script>

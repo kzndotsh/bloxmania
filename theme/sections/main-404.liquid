@@ -1,4 +1,27 @@
 <style type="text/css">
+  /* Keyframe animations for 404 page */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   .template-404 .title + * {
     margin-top: 1.5rem;
   }
@@ -26,6 +49,7 @@
     color: var(--primary-color);
     line-height: 1;
     margin-bottom: 1.5rem;
+    animation: fadeInDown 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 
   @media screen and (max-width: 749px) {
@@ -40,6 +64,8 @@
     font-weight: bold;
     margin-bottom: 1rem;
     color: white;
+    animation: fadeInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards;
+    opacity: 0;
   }
 
   @media screen and (max-width: 749px) {
@@ -54,12 +80,16 @@
     margin-bottom: 2.5rem;
     max-width: 500px;
     line-height: 1.5;
+    animation: fadeInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+    opacity: 0;
   }
 
   .template-404 .search-form {
     max-width: 450px;
     width: 100%;
     margin: 2rem 0;
+    animation: fadeInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+    opacity: 0;
   }
 
   .template-404 .search-container {
@@ -81,7 +111,7 @@
     color: white;
     font-size: 1rem;
     backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: block;
   }
 
@@ -108,7 +138,7 @@
     padding: 1rem;
     color: black;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -132,6 +162,8 @@
   .template-404 .helpful-links {
     margin-top: 2.5rem;
     margin-bottom: 2.5rem;
+    animation: fadeInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+    opacity: 0;
   }
 
   .template-404 .helpful-links h2 {
@@ -157,7 +189,7 @@
     padding: 0.75rem 1.25rem;
     border: 2px solid var(--primary-color);
     border-radius: 8px;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-weight: 500;
     font-size: 0.95rem;
   }
@@ -174,6 +206,8 @@
     padding: 0.875rem 1.75rem;
     font-size: 1.0625rem;
     font-weight: 600;
+    animation: fadeInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
+    opacity: 0;
   }
 </style>
 

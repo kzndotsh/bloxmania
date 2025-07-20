@@ -1,6 +1,6 @@
 <header-drawer>
   <header
-    class="fixed w-full top-0 z-50 transition-colors duration-300 bg-black/20 backdrop-blur-sm"
+    class="fixed w-full top-0 z-50 transition-colors duration-300 bg-black/40 backdrop-blur-md"
     id="header"
     role="banner"
   >
@@ -9,7 +9,7 @@
       <div class="flex items-center flex-shrink-0">
         <!-- Mobile Menu Button (Desktop Hidden) -->
         <button
-          class="block md:hidden bg-black/30 backdrop-blur-sm border-0 text-white cursor-pointer p-3 rounded-lg transition-all duration-300 hover:text-primary hover:bg-black/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background mobile-menu-toggle"
+          class="block md:hidden bg-primary/20 backdrop-blur-md border border-primary/30 text-white cursor-pointer p-3 rounded-lg transition-all duration-300 hover:text-primary hover:bg-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background mobile-menu-toggle"
           id="mobile-menu-toggle"
           aria-label="Open mobile menu"
           aria-expanded="false"
@@ -154,7 +154,7 @@
       <div class="flex items-center justify-end gap-3 flex-shrink-0">
         <a
           href="{{ routes.cart_url }}"
-          class="text-white no-underline transition-all duration-300 relative flex items-center p-2 rounded-lg bg-black/30 backdrop-blur-sm hover:text-primary hover:bg-black/50"
+          class="text-white no-underline transition-all duration-300 relative flex items-center p-2 rounded-lg bg-primary/20 backdrop-blur-md border border-primary/30 hover:text-primary hover:bg-primary/30"
           aria-label="Shopping cart"
         >
           <svg class="w-6 h-6 lg:w-7 lg:h-7" fill="currentColor" viewBox="0 0 24 24">
@@ -169,7 +169,7 @@
 
         <a
           href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
-          class="text-white no-underline transition-all duration-300 relative flex items-center p-2 rounded-lg bg-black/30 backdrop-blur-sm hover:text-primary hover:bg-black/50"
+          class="text-white no-underline transition-all duration-300 relative flex items-center p-2 rounded-lg bg-primary/20 backdrop-blur-md border border-primary/30 hover:text-primary hover:bg-primary/30"
           aria-label="{% if customer %}User account{% else %}Sign in{% endif %}"
         >
           <svg class="w-6 h-6 lg:w-7 lg:h-7" fill="currentColor" viewBox="0 0 24 24">

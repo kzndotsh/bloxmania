@@ -48,6 +48,9 @@
     "main-cart-footer": {
       "name": "Cart Footer"
     },
+    "main-cart": {
+      "name": "Cart"
+    },
     "main-cart-items": {
       "name": "Cart Items"
     },

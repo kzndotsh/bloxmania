@@ -1,12 +1,12 @@
 {% comment %}
   Renders product variant picker with proper accessibility and functionality
-  
+
   Accepts:
   - product: {Object} Product Liquid object (required)
   - block: {Object} Block settings (optional)
   - product_form_id: {String} Form ID for the product form (required)
   - update_url: {Boolean} Update URL when variant changes (optional)
-  
+
   Usage:
   {% render 'product-variant-picker', product: product, product_form_id: 'product-form-123' %}
 {% endcomment %}
@@ -22,7 +22,9 @@
     class="no-js-hidden"
     data-section="{{ section.id }}"
     data-url="{{ product.url }}"
-    {% if update_url %}data-update-url{% endif %}
+    {% if update_url %}
+      data-update-url
+    {% endif %}
   >
     {%- for option in product.options_with_values -%}
       <fieldset class="js product-form__input variant-input-wrapper mb-6">
@@ -32,7 +34,7 @@
             {{ option.selected_value }}
           </span>
         </legend>
-        
+
         {%- if picker_type == 'button' -%}
           <div class="variant-input-flex flex flex-wrap gap-2">
             {%- for value in option.values -%}
@@ -42,7 +44,9 @@
                 name="{{ option.name }}"
                 value="{{ value | escape }}"
                 form="{{ product_form_id }}"
-                {% if option.selected_value == value %}checked{% endif %}
+                {% if option.selected_value == value %}
+                  checked
+                {% endif %}
                 class="sr-only variant-input-radio"
               >
               <label
@@ -64,7 +68,9 @@
               {%- for value in option.values -%}
                 <option
                   value="{{ value | escape }}"
-                  {% if option.selected_value == value %}selected="selected"{% endif %}
+                  {% if option.selected_value == value %}
+                    selected="selected"
+                  {% endif %}
                 >
                   {{ value }}
                 </option>
@@ -102,8 +108,12 @@
         >
           {%- for variant in product.variants -%}
             <option
-              {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %}
-              {% if variant.available == false %}disabled{% endif %}
+              {% if variant == product.selected_or_first_available_variant %}
+                selected="selected"
+              {% endif %}
+              {% if variant.available == false %}
+                disabled
+              {% endif %}
               value="{{ variant.id }}"
             >
               {{ variant.title }}
@@ -130,13 +140,13 @@
       color: #000;
       border-color: #ffd800;
     }
-    
+
     .variant-input-radio:disabled + .variant-input-label {
       opacity: 0.5;
       cursor: not-allowed;
       position: relative;
     }
-    
+
     .variant-input-radio:disabled + .variant-input-label::after {
       content: '';
       position: absolute;
@@ -182,9 +192,11 @@
 
       updateMasterId() {
         this.currentVariant = this.getVariantData().find((variant) => {
-          return !variant.options.map((option, index) => {
-            return this.options[index] === option;
-          }).includes(false);
+          return !variant.options
+            .map((option, index) => {
+              return this.options[index] === option;
+            })
+            .includes(false);
         });
       }
 
@@ -214,7 +226,9 @@
       }
 
       updateVariantInput() {
-        const productForms = document.querySelectorAll(`#product-form-${this.dataset.section}, #product-form-installment-${this.dataset.section}`);
+        const productForms = document.querySelectorAll(
+          `#product-form-${this.dataset.section}, #product-form-installment-${this.dataset.section}`
+        );
         productForms.forEach((productForm) => {
           const input = productForm.querySelector('input[name="id"]');
           input.value = this.currentVariant.id;
@@ -223,23 +237,28 @@
       }
 
       updateVariantStatuses() {
-        const selectedOptionOneVariants = this.variantData.filter(variant => variant.options[0] === this.options[0]);
+        const selectedOptionOneVariants = this.variantData.filter((variant) => variant.options[0] === this.options[0]);
         const inputWrappers = [...this.querySelectorAll('.product-form__input')];
         inputWrappers.forEach((option, index) => {
           if (index === 0) return;
           const optionInputs = [...option.querySelectorAll('input[type="radio"], option')];
           const previousOptionSelected = inputWrappers[index - 1].querySelector(':checked').value;
-          const availableOptionInputsValue = selectedOptionOneVariants.filter(variant => variant.available && variant.options[index - 1] === previousOptionSelected).map(variantOption => variantOption.options[index]);
+          const availableOptionInputsValue = selectedOptionOneVariants
+            .filter((variant) => variant.available && variant.options[index - 1] === previousOptionSelected)
+            .map((variantOption) => variantOption.options[index]);
           this.setInputAvailability(optionInputs, availableOptionInputsValue);
         });
       }
 
       setInputAvailability(listOfOptions, listOfAvailableOptions) {
-        listOfOptions.forEach(input => {
+        listOfOptions.forEach((input) => {
           if (listOfAvailableOptions.includes(input.getAttribute('value'))) {
             input.innerText = input.getAttribute('value');
           } else {
-            input.innerText = window.variantStrings.unavailable_with_option.replace('[value]', input.getAttribute('value'));
+            input.innerText = window.variantStrings.unavailable_with_option.replace(
+              '[value]',
+              input.getAttribute('value')
+            );
           }
         });
       }
@@ -268,7 +287,11 @@
         const requestedVariantId = this.currentVariant.id;
         const sectionId = this.dataset.originalSection || this.dataset.section;
 
-        fetch(`${this.dataset.url}?variant=${requestedVariantId}&section_id=${this.dataset.originalSection || this.dataset.section}`)
+        fetch(
+          `${this.dataset.url}?variant=${requestedVariantId}&section_id=${
+            this.dataset.originalSection || this.dataset.section
+          }`
+        )
           .then((response) => response.text())
           .then((responseText) => {
             // Only update if the variant hasn't changed while we were fetching
@@ -280,7 +303,9 @@
 
             const skuSource = html.getElementById(`Sku-${this.dataset.originalSection || this.dataset.section}`);
             const skuDestination = document.getElementById(`Sku-${this.dataset.section}`);
-            const inventorySource = html.getElementById(`Inventory-${this.dataset.originalSection || this.dataset.section}`);
+            const inventorySource = html.getElementById(
+              `Inventory-${this.dataset.originalSection || this.dataset.section}`
+            );
             const inventoryDestination = document.getElementById(`Inventory-${this.dataset.section}`);
 
             if (source && destination) destination.innerHTML = source.innerHTML;
@@ -293,7 +318,11 @@
             const price = document.getElementById(`price-${this.dataset.section}`);
             if (price) price.classList.remove('visibility-hidden');
 
-            if (inventoryDestination) inventoryDestination.classList.toggle('visibility-hidden', inventorySource.classList.contains('visibility-hidden'));
+            if (inventoryDestination)
+              inventoryDestination.classList.toggle(
+                'visibility-hidden',
+                inventorySource.classList.contains('visibility-hidden')
+              );
 
             this.toggleAddButton(!this.currentVariant.available, window.variantStrings.soldOut);
           });
@@ -320,6 +349,8 @@
 
       setUnavailable() {
         const button = document.getElementById(`product-form-${this.dataset.section}`);
+        if (!button) return;
+
         const addButton = button.querySelector('[name="add"]');
         const addButtonText = button.querySelector('[name="add"] > span');
         const price = document.getElementById(`price-${this.dataset.section}`);

@@ -5,7 +5,7 @@
 
 <div id="cart-notification" class="cart-notification cart-notification--hidden" aria-hidden="true">
   <div class="cart-notification__header">
-    <h2 class="cart-notification__heading">Item added to cart</h2>
+    <h3 class="cart-notification__heading">Item added to cart</h3>
     <button type="button" class="cart-notification__close" aria-label="Close cart notification">
       <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M13 1L1 14M1 1L13 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -25,8 +25,8 @@
   </div>
 
   <div class="cart-notification__footer">
-    <a href="{{ routes.cart_url }}" class="btn btn--primary">View Cart</a>
-    <button type="button" class="btn btn--secondary cart-notification__close">Continue Shopping</button>
+    <a href="{{ routes.cart_url }}" class="btn-primary">View Cart</a>
+    <button type="button" class="btn-secondary cart-notification__close">Continue Shopping</button>
   </div>
 </div>
 
@@ -116,28 +116,7 @@
     gap: 10px;
   }
 
-  .btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 500;
-  }
-
-  .btn--primary {
-    background: var(--primary-color);
-    color: var(--background-color);
-  }
-
-  .btn--secondary {
-    background: transparent;
-    color: var(--text-color);
-    border: 1px solid var(--text-muted);
-  }
+  /* Button styles now use the unified system from main styles.css */
 </style>
 
 <script>

@@ -3,205 +3,138 @@
  * Handles header scroll effects and mobile menu with proper focus management
  */
 
-class HeaderDrawer extends HTMLElement {
-  constructor() {
-    super();
-    
-    this.header = null;
-    this.mobileMenuToggle = null;
-    this.mobileMenu = null;
-    this.mobileMenuClose = null;
-    this.focusTrap = null;
-    this.isOpen = false;
-  }
-
-  connectedCallback() {
-    this.header = this.querySelector('.header-wrapper') || document.querySelector('.header-wrapper');
-    this.mobileMenuToggle = this.querySelector('#mobile-menu-toggle') || document.getElementById('mobile-menu-toggle');
-    this.mobileMenu = this.querySelector('#mobile-menu') || document.getElementById('mobile-menu');
-    this.mobileMenuClose = this.querySelector('#mobile-menu-close') || document.getElementById('mobile-menu-close');
-    
-    this.setupScrollEffect();
-    this.setupMobileMenu();
-    this.setupAccessibility();
-  }
-
-  disconnectedCallback() {
-    this.cleanup();
-  }
-
-  setupScrollEffect() {
-    if (!this.header) return;
-
-    this.scrollHandler = window.DOMUtils ? 
-      window.DOMUtils.throttle(this.updateHeaderState.bind(this), 16) :
-      this.updateHeaderState.bind(this);
-
-    window.addEventListener('scroll', this.scrollHandler, { passive: true });
-    
-    // Initial state
-    this.updateHeaderState();
-  }
-
-  updateHeaderState() {
-    if (!this.header) return;
-    
-    const scrolled = window.scrollY > 10;
-    this.header.classList.toggle('scrolled', scrolled);
-    this.header.classList.toggle('header-transparent', !scrolled);
-  }
-
-  setupMobileMenu() {
-    if (!this.mobileMenuToggle || !this.mobileMenu || !this.mobileMenuClose) return;
-
-    // Use proper event delegation
-    this.addEventListener('click', this.handleClick.bind(this));
-    
-    // Handle escape key
-    this.escapeHandler = (e) => {
-      if (e.key === 'Escape' && this.isOpen) {
-        this.close();
-      }
-    };
-    
-    document.addEventListener('keydown', this.escapeHandler);
-  }
-
-  setupAccessibility() {
-    // Set up ARIA attributes
-    if (this.mobileMenuToggle) {
-      this.mobileMenuToggle.setAttribute('aria-expanded', 'false');
-      this.mobileMenuToggle.setAttribute('aria-controls', 'mobile-menu');
+// Only declare if not already declared
+if (typeof HeaderDrawer === 'undefined') {
+  class HeaderDrawer extends HTMLElement {
+    constructor() {
+      super();
+      this.header = null;
+      this.drawer = null;
+      this.menuButton = null;
+      this.closeButton = null;
+      this.isOpen = false;
     }
-    
-    if (this.mobileMenu) {
-      this.mobileMenu.setAttribute('role', 'dialog');
-      this.mobileMenu.setAttribute('aria-modal', 'true');
-      this.mobileMenu.setAttribute('aria-labelledby', 'mobile-menu-title');
-    }
-  }
 
-  handleClick(event) {
-    const target = event.target;
-    
-    if (target === this.mobileMenuToggle || target.closest('#mobile-menu-toggle')) {
-      event.preventDefault();
-      this.open();
-    } else if (target === this.mobileMenuClose || target.closest('#mobile-menu-close')) {
-      event.preventDefault();
-      this.close();
-    } else if (target === this.mobileMenu && !target.closest('.mobile-menu > *')) {
-      // Clicked on backdrop
-      this.close();
-    }
-  }
+    connectedCallback() {
+      this.header = this.querySelector('.header');
+      this.drawer = this.querySelector('.header__inline-menu');
+      this.menuButton = this.querySelector('.header__icon--menu');
+      this.closeButton = this.querySelector('.header__icon--close');
 
-  open() {
-    if (this.isOpen) return;
-    
-    this.isOpen = true;
-    this.mobileMenu.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    
-    // Update ARIA attributes
-    if (this.mobileMenuToggle) {
-      this.mobileMenuToggle.setAttribute('aria-expanded', 'true');
+      this.bindEvents();
+      this.setupScrollEffects();
     }
-    
-    // Set up focus trap
-    this.setupFocusTrap();
-    
-    // Dispatch custom event
-    this.dispatchEvent(new CustomEvent('drawer:opened', {
-      bubbles: true,
-      detail: { drawer: this }
-    }));
-  }
 
-  close() {
-    if (!this.isOpen) return;
-    
-    this.isOpen = false;
-    this.mobileMenu.classList.remove('active');
-    document.body.style.overflow = '';
-    
-    // Update ARIA attributes
-    if (this.mobileMenuToggle) {
-      this.mobileMenuToggle.setAttribute('aria-expanded', 'false');
-    }
-    
-    // Remove focus trap and return focus
-    this.removeFocusTrap();
-    
-    // Return focus to toggle button
-    if (this.mobileMenuToggle) {
-      this.mobileMenuToggle.focus();
-    }
-    
-    // Dispatch custom event
-    this.dispatchEvent(new CustomEvent('drawer:closed', {
-      bubbles: true,
-      detail: { drawer: this }
-    }));
-  }
+    bindEvents() {
+      this.menuButton?.addEventListener('click', () => this.openDrawer());
+      this.closeButton?.addEventListener('click', () => this.closeDrawer());
 
-  setupFocusTrap() {
-    if (window.DOMUtils && this.mobileMenu) {
-      this.focusTrap = window.DOMUtils.trapFocus(this.mobileMenu);
-    } else {
-      // Fallback focus management
-      const firstFocusable = this.mobileMenu.querySelector('a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])');
-      if (firstFocusable) {
-        firstFocusable.focus();
-      }
+      // Close on escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && this.isOpen) {
+          this.closeDrawer();
+        }
+      });
+
+      // Close on backdrop click
+      this.addEventListener('click', (e) => {
+        if (e.target === this && this.isOpen) {
+          this.closeDrawer();
+        }
+      });
+    }
+
+    setupScrollEffects() {
+      let lastScrollTop = 0;
+      const scrollThreshold = 100;
+
+      window.addEventListener('scroll', () => {
+        const scrollTop =
+          window.pageYOffset || document.documentElement.scrollTop;
+
+        if (scrollTop > scrollThreshold) {
+          this.header?.classList.add('header--scrolled');
+        } else {
+          this.header?.classList.remove('header--scrolled');
+        }
+
+        // Hide/show header on scroll
+        if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+          this.header?.classList.add('header--hidden');
+        } else {
+          this.header?.classList.remove('header--hidden');
+        }
+
+        lastScrollTop = scrollTop;
+      });
+    }
+
+    openDrawer() {
+      this.isOpen = true;
+      this.setAttribute('open', '');
+      document.body.classList.add('header-drawer-open');
+      this.closeButton?.focus();
+
+      // Trap focus
+      this.trapFocus();
+    }
+
+    closeDrawer() {
+      this.isOpen = false;
+      this.removeAttribute('open');
+      document.body.classList.remove('header-drawer-open');
+      this.menuButton?.focus();
+
+      // Remove focus trap
+      this.removeTrapFocus();
+    }
+
+    trapFocus() {
+      const focusableElements = this.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+
+      if (focusableElements.length === 0) return;
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      this.addEventListener('keydown', (e) => {
+        if (e.key !== 'Tab') return;
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
+      });
+    }
+
+    removeTrapFocus() {
+      this.removeEventListener('keydown', this.trapFocus);
     }
   }
 
-  removeFocusTrap() {
-    if (this.focusTrap && typeof this.focusTrap === 'function') {
-      this.focusTrap();
-      this.focusTrap = null;
-    }
-  }
+  // Register custom element
+  customElements.define('header-drawer', HeaderDrawer);
 
-  cleanup() {
-    // Remove event listeners
-    if (this.scrollHandler) {
-      window.removeEventListener('scroll', this.scrollHandler);
-    }
-    
-    if (this.escapeHandler) {
-      document.removeEventListener('keydown', this.escapeHandler);
-    }
-    
-    // Remove focus trap
-    this.removeFocusTrap();
-    
-    // Reset body overflow
-    if (this.isOpen) {
-      document.body.style.overflow = '';
-    }
-  }
-
-  // Public API methods
-  toggle() {
-    if (this.isOpen) {
-      this.close();
-    } else {
-      this.open();
-    }
-  }
-
-  get opened() {
-    return this.isOpen;
-  }
+  // Export for global scope
+  window.HeaderDrawer = HeaderDrawer;
 }
 
 // Backward compatibility class
 class HeaderUtils {
   constructor() {
-    console.warn('HeaderUtils is deprecated. Use HeaderDrawer Web Component instead.');
-    
+    console.warn(
+      'HeaderUtils is deprecated. Use HeaderDrawer Web Component instead.'
+    );
+
     // Try to find or create HeaderDrawer element
     let headerDrawer = document.querySelector('header-drawer');
     if (!headerDrawer) {
@@ -211,16 +144,7 @@ class HeaderUtils {
         header.appendChild(headerDrawer);
       }
     }
-    
+
     return headerDrawer;
   }
 }
-
-// Register the custom element
-if (!customElements.get('header-drawer')) {
-  customElements.define('header-drawer', HeaderDrawer);
-}
-
-// Export for use in global scope
-window.HeaderDrawer = HeaderDrawer;
-window.HeaderUtils = HeaderUtils;

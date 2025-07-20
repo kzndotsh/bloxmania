@@ -46,7 +46,7 @@
         <button
           type="submit"
           name="add"
-          class="btn product-form__cart-submit w-full bg-primary hover:bg-primary-dark text-black font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-primary/50"
+          class="btn-primary product-form__cart-submit w-full"
           {% if current_variant.available == false %}
             disabled
           {% endif %}
@@ -117,9 +117,13 @@
           this.submitButton.classList.add('loading');
           this.querySelector('.loading-overlay__spinner').classList.remove('hidden');
 
-          const config = fetchConfig('javascript');
-          config.headers['X-Requested-With'] = 'XMLHttpRequest';
-          delete config.headers['Content-Type'];
+          const config = {
+            method: 'POST',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              Accept: 'application/json',
+            },
+          };
 
           const formData = new FormData(this.form);
           if (this.cart) {
@@ -136,9 +140,21 @@
               if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
               }
-              return response.json();
+              const contentType = response.headers.get('content-type');
+              if (contentType && contentType.includes('application/json')) {
+                return response.json();
+              } else {
+                // Handle HTML response (redirect)
+                window.location = window.routes.cart_url;
+                return null;
+              }
             })
             .then((response) => {
+              // If response is null, we're redirecting
+              if (response === null) {
+                return;
+              }
+
               if (response.status) {
                 publish(PUB_SUB_EVENTS.cartError, {
                   source: 'product-form',
