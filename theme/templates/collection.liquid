@@ -228,7 +228,7 @@
             class="products-grid {% if current_view == 'list' %}list-view flex flex-col gap-4{% else %}grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6{% endif %}"
           >
             {%- for product in collection.products -%}
-              <div class="product-item">
+              <div class="product-item h-full">
                 {% render 'card-product',
                   card_product: product,
                   show_vendor: true,
