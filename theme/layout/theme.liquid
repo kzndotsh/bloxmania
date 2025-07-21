@@ -71,6 +71,28 @@
 
     {%- comment -%} Load init script immediately to prevent FOUC {%- endcomment -%}
     <script src="{{ 'core-init.js' | asset_url }}" defer="defer"></script>
+
+    {%- comment -%} Define global routes for JavaScript {%- endcomment -%}
+    <script>
+      window.routes = {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}',
+        cart_url: '{{ routes.cart_url }}',
+        predictive_search_url: '{{ routes.predictive_search_url }}',
+        search_url: '{{ routes.search_url }}',
+        root_url: '{{ routes.root_url }}',
+        account_url: '{{ routes.account_url }}',
+        account_login_url: '{{ routes.account_login_url }}',
+        account_register_url: '{{ routes.account_register_url }}',
+        account_logout_url: '{{ routes.account_logout_url }}',
+        account_addresses_url: '{{ routes.account_addresses_url }}',
+        account_recover_url: '{{ routes.account_recover_url }}',
+        all_products_collection_url: '{{ routes.all_products_collection_url }}',
+        collections_url: '{{ routes.collections_url }}',
+        product_recommendations_url: '{{ routes.product_recommendations_url }}',
+      };
+    </script>
   </head>
 
   <body>
@@ -93,6 +115,9 @@
 
     {%- comment -%} Feature bundles - load on demand {%- endcomment -%}
     <script>
+      // Prevent duplicate script loading
+      window.loadedScripts = new Set();
+
       // Load feature bundles based on page type
       document.addEventListener('DOMContentLoaded', function() {
         const pageType = '{{ request.page_type }}';
@@ -117,6 +142,7 @@
 
         if (pageType === 'collection') {
           loadScript('{{ 'feature-collection.js' | asset_url }}');
+          loadScript('{{ 'quick-add.js' | asset_url }}');
         }
 
         if (pageType === 'search') {
@@ -125,9 +151,18 @@
       });
 
       function loadScript(src) {
+        // Prevent duplicate loading
+        if (window.loadedScripts.has(src)) {
+          return;
+        }
+
         const script = document.createElement('script');
         script.src = src;
         script.defer = true;
+
+        // Mark as loaded before appending to prevent race conditions
+        window.loadedScripts.add(src);
+
         document.head.appendChild(script);
       }
     </script>
