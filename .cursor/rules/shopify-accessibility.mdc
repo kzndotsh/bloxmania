@@ -1,0 +1,119 @@
+---
+description: Shopify theme accessibility guidelines and WCAG compliance
+globs: 
+alwaysApply: true
+---
+
+# Shopify Theme Accessibility Guidelines
+
+## WCAG Compliance
+Follow WCAG 2.1 AA standards for accessibility compliance.
+
+## Semantic HTML
+```html
+<!-- Good: Use semantic elements -->
+<main>
+  <section>
+    <h1>Page Title</h1>
+    <article>
+      <h2>Article Title</h2>
+      <p>Content here</p>
+    </article>
+  </section>
+</main>
+
+<!-- Avoid: Generic divs -->
+<div class="main">
+  <div class="section">
+    <div class="title">Page Title</div>
+  </div>
+</div>
+```
+
+## ARIA Attributes
+```html
+<!-- Navigation -->
+<nav aria-label="Main navigation">
+  <ul role="menubar">
+    <li role="none">
+      <a role="menuitem" href="/products">Products</a>
+    </li>
+  </ul>
+</nav>
+
+<!-- Form elements -->
+<input type="text" aria-label="Search products" aria-describedby="search-help">
+<div id="search-help">Enter product name or keywords</div>
+```
+
+## Color and Contrast
+- Maintain minimum 4.5:1 contrast ratio for normal text
+- Use 3:1 contrast ratio for large text
+- Don't rely solely on color to convey information
+- Test with color blindness simulators
+
+## Keyboard Navigation
+```css
+/* Ensure focus is visible */
+:focus {
+  outline: 2px solid #007cba;
+  outline-offset: 2px;
+}
+
+/* Skip links for keyboard users */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+```
+
+## Screen Reader Support
+```html
+<!-- Hide content visually but keep for screen readers -->
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+<!-- Use aria-live for dynamic content -->
+<div aria-live="polite" id="cart-update">
+  Cart updated
+</div>
+```
+
+## Form Accessibility
+- Always use `<label>` elements
+- Group related form controls with `<fieldset>`
+- Provide clear error messages
+- Use appropriate input types
+
+## Image Accessibility
+```html
+<!-- Always include alt text -->
+<img src="product.jpg" alt="Red cotton t-shirt with logo">
+
+<!-- Decorative images -->
+<img src="decoration.jpg" alt="" role="presentation">
+```
+
+## Testing
+- Use screen readers (NVDA, JAWS, VoiceOver)
+- Test keyboard-only navigation
+- Validate with accessibility tools
+- Test with high contrast mode

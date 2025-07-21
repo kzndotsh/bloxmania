@@ -1,0 +1,72 @@
+---
+description: Shopify sections development guidelines and best practices
+globs: sections/*.liquid
+alwaysApply: false
+---
+
+# Shopify Sections Development
+
+## Section Structure
+Sections are modular, reusable content areas that can be customized in the theme editor.
+
+## Basic Section Template
+```liquid
+{% comment %}
+  Section: Section Name
+  Description: Brief description of the section
+{% endcomment %}
+
+<div class="section-{{ section.id }}">
+  {% if section.settings.title != blank %}
+    <h2>{{ section.settings.title }}</h2>
+  {% endif %}
+  
+  <!-- Section content here -->
+</div>
+
+{% schema %}
+{
+  "name": "Section Name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Section Title"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Section Name"
+    }
+  ]
+}
+{% endschema %}
+
+## Setting Types
+- `text`: Single line text input
+- `textarea`: Multi-line text input
+- `image_picker`: Image selection
+- `color`: Color picker
+- `select`: Dropdown selection
+- `checkbox`: Boolean toggle
+- `range`: Numeric slider
+- `url`: URL input
+
+## Blocks
+Use blocks for repeatable content:
+```liquid
+{% for block in section.blocks %}
+  <div {{ block.shopify_attributes }}>
+    <!-- Block content -->
+  </div>
+{% endfor %}
+```
+
+## Best Practices
+- Always include a schema
+- Use semantic HTML
+- Make sections responsive
+- Include proper accessibility attributes
+- Use meaningful setting IDs
+- Add presets for easy setup
