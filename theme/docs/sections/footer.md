@@ -23,9 +23,9 @@
 
 
 
-### Twitter URL
+### TikTok URL
 - **Type**: text
-- **ID**: twitter_url
+- **ID**: tiktok_url
 
 
 

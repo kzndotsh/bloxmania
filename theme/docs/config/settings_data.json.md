@@ -145,7 +145,7 @@ Current theme settings data with default values.
           "company_description": "The fastest, cheapest, and safest shop for digital goods, with instant delivery and automated systems ensuring secure and swift transactions.",
           "discord_url": "https://discord.gg/bloxmania",
           "youtube_url": "https://youtube.com/@bloxmania",
-          "twitter_url": "https://twitter.com/bloxmania",
+          "tiktok_url": "https://tiktok.com/@bloxmania",
           "contact_email": "support@bloxmania.store",
           "contact_phone": "+1 (555) 123-4567",
           "show_powered_by": true
