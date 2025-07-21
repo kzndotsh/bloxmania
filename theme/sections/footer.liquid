@@ -5,6 +5,12 @@
   <div
     class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.03] z-0 footer-background"
   ></div>
+
+  <style>
+    .footer-background {
+      background-image: url('{{ "image-slam.png" | asset_url }}');
+    }
+  </style>
   <div class="relative z-10 max-w-6xl mx-auto">
     <!-- Main Footer Content -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
@@ -152,12 +158,6 @@
     </div>
   </div>
 </footer>
-
-<style>
-  .footer-background {
-    background-image: url('{{ "image-slam.png" | asset_url }}');
-  }
-</style>
 
 {% schema %}
 {

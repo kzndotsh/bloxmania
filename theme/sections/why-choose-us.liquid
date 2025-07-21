@@ -2,6 +2,12 @@
   class="why-choose-us-section py-20 relative overflow-hidden bg-cover bg-center bg-no-repeat"
 >
   <div class="absolute inset-0 bg-gradient-to-tr from-purple-900/20 via-transparent to-blue-900/20"></div>
+
+  <style>
+    .why-choose-us-section {
+      background-image: url('{{ "image-okok2.png" | asset_url }}');
+    }
+  </style>
   <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/25 to-black/50"></div>
   <div class="w-full px-8 md:px-16 lg:px-24 xl:px-32 relative z-10">
     <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Why Choose BloxMania?</h2>
@@ -58,12 +64,6 @@
     </div>
   </div>
 </section>
-
-<style>
-  .why-choose-us-section {
-    background-image: url('{{ 'image-okok2.png' | asset_url }}');
-  }
-</style>
 
 {% schema %}
 {

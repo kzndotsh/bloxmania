@@ -2,6 +2,16 @@
   class="featured-products-section py-20 relative overflow-hidden bg-cover bg-center bg-no-repeat"
 >
   <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-indigo-900/25"></div>
+
+  <style>
+    .featured-products-section {
+      background-image: url('{{ "image-okok2.png" | asset_url }}');
+    }
+
+    .product-card-widget {
+      background-image: url('{{ "image-widget-backing.png" | asset_url }}');
+    }
+  </style>
   <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/15 via-transparent to-violet-900/15"></div>
   <div class="container mx-auto px-4 relative z-10">
     <div class="flex flex-col md:flex-row justify-between items-center mb-12 text-center md:text-left gap-4">
@@ -15,7 +25,7 @@
       </a>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 items-start">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
       {% comment %} Use Featured collection by default, or section setting collection {% endcomment %}
       {% liquid
         assign featured_collection = collections.featured
@@ -28,10 +38,10 @@
         {% for product in collection_to_use.products limit: products_to_show %}
           <a
             href="{{ product.url }}"
-            class="block product-card-widget flex flex-col group"
+            class="product-card-widget flex flex-col group h-full"
           >
-            <div class="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col">
-              <div class="relative group-hover:brightness-110 flex-1 flex flex-col justify-center">
+            <div class="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col h-full">
+              <div class="relative group-hover:brightness-110 flex-shrink-0">
                 {% if product.featured_image != blank %}
                   <img
                     src="{{ product.featured_image | image_url: width: 300 }}"
@@ -79,10 +89,10 @@
 
           <a
             href="#"
-            class="block product-card-widget flex flex-col group"
+            class="product-card-widget flex flex-col group h-full"
           >
-            <div class="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col">
-              <div class="relative group-hover:brightness-110 flex-1 flex flex-col justify-center">
+            <div class="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col h-full">
+              <div class="relative group-hover:brightness-110 flex-shrink-0">
                 <img
                   src="{{ img_asset | asset_url }}"
                   alt="{{ prod_name }}"
@@ -105,16 +115,6 @@
     </div>
   </div>
 </section>
-
-<style>
-  .featured-products-section {
-    background-image: url('{{ "image-okok2.png" | asset_url }}');
-  }
-
-  .product-card-widget {
-    background-image: url('{{ "image-widget-backing.png" | asset_url }}');
-  }
-</style>
 
 {% schema %}
 {
