@@ -1,0 +1,11 @@
+{
+  "timestamp": "2025-07-21T06:03:18.389Z",
+  "originalSize": 141464,
+  "criticalSize": 126334,
+  "nonCriticalSize": 141464,
+  "savings": 15130,
+  "savingsPercentage": "10.70",
+  "recommendations": [
+    "Critical CSS is large, consider further optimization"
+  ]
+}
