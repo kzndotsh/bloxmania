@@ -1,0 +1,5 @@
+---
+globs: *
+alwaysApply: false
+---
+Always use styles.css with BEM naming convention.
