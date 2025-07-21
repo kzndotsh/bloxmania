@@ -146,7 +146,8 @@
     "continue_shopping": "Continue shopping",
     "search": {
       "search": "Search",
-      "reset": "Reset"
+      "reset": "Reset",
+      "placeholder": "Search for products, collections, or pages..."
     },
     "password_page": {
       "login_form_heading": "Enter store using password",
