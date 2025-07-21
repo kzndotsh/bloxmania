@@ -11,6 +11,7 @@ class JSBundler {
     this.bundles = {
       core: [
         'core-constants.js',
+        'pubsub.js',
         'core-dom.js',
         'core-api.js',
         'core-global.js',
