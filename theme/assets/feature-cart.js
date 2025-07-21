@@ -632,7 +632,13 @@ class CartNote extends HTMLElement {
 
 // Form submission handler removed since we now have automatic updates
 
-// Register custom elements
-customElements.define('cart-items', CartItems);
-customElements.define('cart-remove-button', CartRemoveButton);
-customElements.define('cart-note', CartNote);
+// Register components
+if (!customElements.get('cart-items')) {
+  customElements.define('cart-items', CartItems);
+}
+if (!customElements.get('cart-remove-button')) {
+  customElements.define('cart-remove-button', CartRemoveButton);
+}
+if (!customElements.get('cart-note')) {
+  customElements.define('cart-note', CartNote);
+}

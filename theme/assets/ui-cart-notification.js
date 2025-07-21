@@ -341,7 +341,7 @@ class CartNotification extends HTMLElement {
   }
 }
 
-// Register the custom element
+// Register the component
 if (!customElements.get('cart-notification')) {
   customElements.define('cart-notification', CartNotification);
 }

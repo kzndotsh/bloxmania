@@ -3,18 +3,6 @@
  * Loads all theme utilities and components in the correct order
  */
 
-// Load order: Constants -> Utilities -> Components -> Performance -> Global
-const loadScript = (src, type = 'module') => {
-  return new Promise((resolve, reject) => {
-    const script = document.createElement('script');
-    script.src = src;
-    script.type = type;
-    script.onload = resolve;
-    script.onerror = reject;
-    document.head.appendChild(script);
-  });
-};
-
 // Initialize theme with proper loading sequence
 async function initializeTheme() {
   try {
@@ -83,5 +71,4 @@ if (window.Shopify?.designMode) {
 // Export for debugging
 window.BloxManiaInit = {
   initializeTheme,
-  loadScript,
 };

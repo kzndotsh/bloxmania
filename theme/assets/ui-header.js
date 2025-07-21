@@ -121,8 +121,10 @@ if (typeof HeaderDrawer === 'undefined') {
     }
   }
 
-  // Register custom element
-  customElements.define('header-drawer', HeaderDrawer);
+  // Register the component
+  if (!customElements.get('header-drawer')) {
+    customElements.define('header-drawer', HeaderDrawer);
+  }
 
   // Export for global scope
   window.HeaderDrawer = HeaderDrawer;

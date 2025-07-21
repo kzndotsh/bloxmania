@@ -6,7 +6,7 @@
 class DetailsModal extends HTMLElement {
   constructor() {
     super();
-    
+
     this.detailsContainer = null;
     this.summaryToggle = null;
     this.closeButton = null;
@@ -25,10 +25,11 @@ class DetailsModal extends HTMLElement {
   }
 
   setupDOM() {
-    this.detailsContainer = this.querySelector('details') || this.closest('details');
+    this.detailsContainer =
+      this.querySelector('details') || this.closest('details');
     this.summaryToggle = this.querySelector('summary');
     this.closeButton = this.querySelector('.modal-close-button');
-    
+
     // If no details container, create one
     if (!this.detailsContainer) {
       this.detailsContainer = document.createElement('details');
@@ -40,7 +41,10 @@ class DetailsModal extends HTMLElement {
   setupEventListeners() {
     // Summary toggle
     if (this.summaryToggle) {
-      this.summaryToggle.addEventListener('click', this.handleSummaryClick.bind(this));
+      this.summaryToggle.addEventListener(
+        'click',
+        this.handleSummaryClick.bind(this)
+      );
     }
 
     // Close button
@@ -50,7 +54,10 @@ class DetailsModal extends HTMLElement {
 
     // Details toggle event
     if (this.detailsContainer) {
-      this.detailsContainer.addEventListener('toggle', this.handleToggle.bind(this));
+      this.detailsContainer.addEventListener(
+        'toggle',
+        this.handleToggle.bind(this)
+      );
     }
 
     // Keyboard events
@@ -60,15 +67,21 @@ class DetailsModal extends HTMLElement {
     this.addEventListener('click', this.handleBackdropClick.bind(this));
 
     // Prevent body scroll when modal is open
-    document.addEventListener('modal:opened', this.handleModalOpened.bind(this));
-    document.addEventListener('modal:closed', this.handleModalClosed.bind(this));
+    document.addEventListener(
+      'modal:opened',
+      this.handleModalOpened.bind(this)
+    );
+    document.addEventListener(
+      'modal:closed',
+      this.handleModalClosed.bind(this)
+    );
   }
 
   setupAccessibility() {
     // Set up ARIA attributes
     this.setAttribute('role', 'dialog');
     this.setAttribute('aria-modal', 'true');
-    
+
     if (this.summaryToggle) {
       this.summaryToggle.setAttribute('aria-expanded', 'false');
       this.summaryToggle.setAttribute('aria-haspopup', 'dialog');
@@ -88,7 +101,7 @@ class DetailsModal extends HTMLElement {
 
   handleSummaryClick(event) {
     event.preventDefault();
-    
+
     if (this.detailsContainer.hasAttribute('open')) {
       this.close();
     } else {
@@ -147,7 +160,7 @@ class DetailsModal extends HTMLElement {
   handleOpen() {
     this.isOpen = true;
     this.classList.add('modal--open');
-    
+
     // Update ARIA attributes
     if (this.summaryToggle) {
       this.summaryToggle.setAttribute('aria-expanded', 'true');
@@ -160,14 +173,18 @@ class DetailsModal extends HTMLElement {
     document.body.classList.add('modal-open');
 
     // Dispatch event
-    document.dispatchEvent(new CustomEvent('modal:opened', {
-      detail: { modal: this }
-    }));
+    document.dispatchEvent(
+      new CustomEvent('modal:opened', {
+        detail: { modal: this },
+      })
+    );
 
-    this.dispatchEvent(new CustomEvent('details-modal:opened', {
-      bubbles: true,
-      detail: { modal: this }
-    }));
+    this.dispatchEvent(
+      new CustomEvent('details-modal:opened', {
+        bubbles: true,
+        detail: { modal: this },
+      })
+    );
   }
 
   close() {
@@ -198,24 +215,33 @@ class DetailsModal extends HTMLElement {
     }
 
     // Dispatch event
-    document.dispatchEvent(new CustomEvent('modal:closed', {
-      detail: { modal: this }
-    }));
+    document.dispatchEvent(
+      new CustomEvent('modal:closed', {
+        detail: { modal: this },
+      })
+    );
 
-    this.dispatchEvent(new CustomEvent('details-modal:closed', {
-      bubbles: true,
-      detail: { modal: this }
-    }));
+    this.dispatchEvent(
+      new CustomEvent('details-modal:closed', {
+        bubbles: true,
+        detail: { modal: this },
+      })
+    );
   }
 
   setupFocusTrap() {
     if (window.DOMUtils) {
       // Find the first focusable element or use close button
-      const firstFocusable = this.querySelector('input, button, select, textarea, a[href], [tabindex]:not([tabindex="-1"])') || this.closeButton;
+      const firstFocusable =
+        this.querySelector(
+          'input, button, select, textarea, a[href], [tabindex]:not([tabindex="-1"])'
+        ) || this.closeButton;
       this.focusTrap = window.DOMUtils.trapFocus(this, firstFocusable);
     } else {
       // Fallback focus management
-      const firstFocusable = this.querySelector('input, button, select, textarea, a[href], [tabindex]:not([tabindex="-1"])');
+      const firstFocusable = this.querySelector(
+        'input, button, select, textarea, a[href], [tabindex]:not([tabindex="-1"])'
+      );
       if (firstFocusable) {
         firstFocusable.focus();
       }
@@ -240,8 +266,14 @@ class DetailsModal extends HTMLElement {
     }
 
     // Remove event listeners
-    document.removeEventListener('modal:opened', this.handleModalOpened.bind(this));
-    document.removeEventListener('modal:closed', this.handleModalClosed.bind(this));
+    document.removeEventListener(
+      'modal:opened',
+      this.handleModalOpened.bind(this)
+    );
+    document.removeEventListener(
+      'modal:closed',
+      this.handleModalClosed.bind(this)
+    );
   }
 
   // Public API
@@ -266,7 +298,7 @@ class DetailsModal extends HTMLElement {
   }
 }
 
-// Register the custom element
+// Register the component
 if (!customElements.get('details-modal')) {
   customElements.define('details-modal', DetailsModal);
 }

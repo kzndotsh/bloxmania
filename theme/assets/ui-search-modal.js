@@ -6,7 +6,7 @@
 class SearchModal extends HTMLElement {
   constructor() {
     super();
-    
+
     this.input = null;
     this.results = null;
     this.closeButton = null;
@@ -20,11 +20,11 @@ class SearchModal extends HTMLElement {
     this.input = this.querySelector('input[type="search"]');
     this.results = this.querySelector('.search-results');
     this.closeButton = this.querySelector('.search-modal__close');
-    
+
     this.setupSearch();
     this.setupAccessibility();
     this.setupEventListeners();
-    
+
     // Initialize search utils if available
     if (window.SearchUtils) {
       this.searchUtils = new window.SearchUtils();
@@ -39,9 +39,9 @@ class SearchModal extends HTMLElement {
     if (!this.input) return;
 
     // Debounced search handler
-    this.searchHandler = window.DOMUtils ? 
-      window.DOMUtils.debounce(this.performSearch.bind(this), 300) :
-      this.debounceSearch(this.performSearch.bind(this), 300);
+    this.searchHandler = window.DOMUtils
+      ? window.DOMUtils.debounce(this.performSearch.bind(this), 300)
+      : this.debounceSearch(this.performSearch.bind(this), 300);
 
     this.input.addEventListener('input', this.searchHandler);
     this.input.addEventListener('focus', this.handleInputFocus.bind(this));
@@ -127,7 +127,7 @@ class SearchModal extends HTMLElement {
 
   async performSearch() {
     const query = this.input?.value?.trim();
-    
+
     if (!query || query.length < 2) {
       this.hideResults();
       return;
@@ -137,11 +137,11 @@ class SearchModal extends HTMLElement {
 
     try {
       let results;
-      
+
       if (this.searchUtils) {
         results = await this.searchUtils.performSearch(query, {
           limit: 8,
-          resources: ['product', 'collection', 'page']
+          resources: ['product', 'collection', 'page'],
         });
       } else {
         // Fallback to basic search
@@ -160,8 +160,12 @@ class SearchModal extends HTMLElement {
 
   async basicSearch(query) {
     try {
-      const response = await fetch(`/search/suggest?q=${encodeURIComponent(query)}&resources[type]=product&resources[limit]=8`);
-      
+      const response = await fetch(
+        `/search/suggest?q=${encodeURIComponent(
+          query
+        )}&resources[type]=product&resources[limit]=8`
+      );
+
       if (!response.ok) {
         throw new Error(`Search failed: ${response.status}`);
       }
@@ -176,20 +180,24 @@ class SearchModal extends HTMLElement {
   parseBasicResults(html, query) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
-    
-    const products = Array.from(doc.querySelectorAll('.predictive-search__item')).map(item => ({
+
+    const products = Array.from(
+      doc.querySelectorAll('.predictive-search__item')
+    ).map((item) => ({
       type: 'product',
-      title: item.querySelector('.predictive-search__item-heading')?.textContent?.trim(),
+      title: item
+        .querySelector('.predictive-search__item-heading')
+        ?.textContent?.trim(),
       url: item.querySelector('a')?.href,
       image: item.querySelector('img')?.src,
-      price: item.querySelector('.price')?.textContent?.trim()
+      price: item.querySelector('.price')?.textContent?.trim(),
     }));
 
     return {
       query,
       products,
       collections: [],
-      pages: []
+      pages: [],
     };
   }
 
@@ -203,21 +211,34 @@ class SearchModal extends HTMLElement {
       html += '<div class="search-results__section">';
       html += '<h3 class="search-results__heading">Products</h3>';
       html += '<ul class="search-results__list" role="listbox">';
-      
+
       results.products.forEach((product, index) => {
         html += `
-          <li class="search-results__item" role="option" data-search-result data-url="${product.url}" tabindex="-1">
+          <li class="search-results__item" role="option" data-search-result data-url="${
+            product.url
+          }" tabindex="-1">
             <a href="${product.url}" class="search-results__link">
-              ${product.image ? `<img src="${product.image}" alt="${product.title}" class="search-results__image" loading="lazy">` : ''}
+              ${
+                product.image
+                  ? `<img src="${product.image}" alt="${product.title}" class="search-results__image" loading="lazy">`
+                  : ''
+              }
               <div class="search-results__content">
-                <h4 class="search-results__title">${this.highlightQuery(product.title, results.query)}</h4>
-                ${product.price ? `<span class="search-results__price">${product.price}</span>` : ''}
+                <h4 class="search-results__title">${this.highlightQuery(
+                  product.title,
+                  results.query
+                )}</h4>
+                ${
+                  product.price
+                    ? `<span class="search-results__price">${product.price}</span>`
+                    : ''
+                }
               </div>
             </a>
           </li>
         `;
       });
-      
+
       html += '</ul></div>';
     }
 
@@ -226,20 +247,29 @@ class SearchModal extends HTMLElement {
       html += '<div class="search-results__section">';
       html += '<h3 class="search-results__heading">Collections</h3>';
       html += '<ul class="search-results__list" role="listbox">';
-      
-      results.collections.forEach(collection => {
+
+      results.collections.forEach((collection) => {
         html += `
-          <li class="search-results__item" role="option" data-search-result data-url="${collection.url}" tabindex="-1">
+          <li class="search-results__item" role="option" data-search-result data-url="${
+            collection.url
+          }" tabindex="-1">
             <a href="${collection.url}" class="search-results__link">
-              ${collection.image ? `<img src="${collection.image}" alt="${collection.title}" class="search-results__image" loading="lazy">` : ''}
+              ${
+                collection.image
+                  ? `<img src="${collection.image}" alt="${collection.title}" class="search-results__image" loading="lazy">`
+                  : ''
+              }
               <div class="search-results__content">
-                <h4 class="search-results__title">${this.highlightQuery(collection.title, results.query)}</h4>
+                <h4 class="search-results__title">${this.highlightQuery(
+                  collection.title,
+                  results.query
+                )}</h4>
               </div>
             </a>
           </li>
         `;
       });
-      
+
       html += '</ul></div>';
     }
 
@@ -253,25 +283,30 @@ class SearchModal extends HTMLElement {
 
   highlightQuery(text, query) {
     if (!text || !query) return text;
-    
+
     if (window.SearchUtils && window.SearchUtils.highlightSearchTerms) {
       return window.SearchUtils.highlightSearchTerms(text, query);
     }
-    
+
     // Fallback highlighting
-    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    const regex = new RegExp(
+      `(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`,
+      'gi'
+    );
     return text.replace(regex, '<mark>$1</mark>');
   }
 
   showLoadingState() {
     if (this.results) {
-      this.results.innerHTML = '<div class="search-results__loading">Searching...</div>';
+      this.results.innerHTML =
+        '<div class="search-results__loading">Searching...</div>';
     }
   }
 
   showErrorState() {
     if (this.results) {
-      this.results.innerHTML = '<div class="search-results__error">Search failed. Please try again.</div>';
+      this.results.innerHTML =
+        '<div class="search-results__error">Search failed. Please try again.</div>';
     }
   }
 
@@ -299,7 +334,9 @@ class SearchModal extends HTMLElement {
     const items = this.results?.querySelectorAll('.search-results__item');
     if (!items || items.length === 0) return;
 
-    const currentIndex = Array.from(items).findIndex(item => item.classList.contains('search-results__item--focused'));
+    const currentIndex = Array.from(items).findIndex((item) =>
+      item.classList.contains('search-results__item--focused')
+    );
     let newIndex;
 
     if (direction === 'down') {
@@ -309,15 +346,19 @@ class SearchModal extends HTMLElement {
     }
 
     // Remove previous focus
-    items.forEach(item => item.classList.remove('search-results__item--focused'));
-    
+    items.forEach((item) =>
+      item.classList.remove('search-results__item--focused')
+    );
+
     // Add new focus
     items[newIndex].classList.add('search-results__item--focused');
     items[newIndex].focus();
   }
 
   selectCurrentResult() {
-    const focusedItem = this.results?.querySelector('.search-results__item--focused');
+    const focusedItem = this.results?.querySelector(
+      '.search-results__item--focused'
+    );
     if (focusedItem) {
       const link = focusedItem.querySelector('a');
       if (link) {
@@ -337,10 +378,12 @@ class SearchModal extends HTMLElement {
     this.setupFocusTrap();
 
     // Dispatch event
-    this.dispatchEvent(new CustomEvent('search-modal:opened', {
-      bubbles: true,
-      detail: { modal: this }
-    }));
+    this.dispatchEvent(
+      new CustomEvent('search-modal:opened', {
+        bubbles: true,
+        detail: { modal: this },
+      })
+    );
   }
 
   close() {
@@ -365,10 +408,12 @@ class SearchModal extends HTMLElement {
     }
 
     // Dispatch event
-    this.dispatchEvent(new CustomEvent('search-modal:closed', {
-      bubbles: true,
-      detail: { modal: this }
-    }));
+    this.dispatchEvent(
+      new CustomEvent('search-modal:closed', {
+        bubbles: true,
+        detail: { modal: this },
+      })
+    );
   }
 
   setupFocusTrap() {
@@ -422,7 +467,7 @@ class SearchModal extends HTMLElement {
   }
 }
 
-// Register the custom element
+// Register the component
 if (!customElements.get('search-modal')) {
   customElements.define('search-modal', SearchModal);
 }

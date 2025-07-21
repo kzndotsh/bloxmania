@@ -3,6 +3,20 @@
  * Modern Web Components for enhanced functionality and maintainability
  */
 
+/**
+ * Safe Custom Element Registration
+ * Prevents duplicate registration errors
+ */
+function safeDefineCustomElement(name, constructor) {
+  if (!customElements.get(name)) {
+    customElements.define(name, constructor);
+  } else {
+    console.warn(
+      `Custom element '${name}' is already defined, skipping registration.`
+    );
+  }
+}
+
 // Base component class for common functionality
 class BloxManiaComponent extends HTMLElement {
   constructor() {
@@ -422,10 +436,10 @@ class ProductForm extends BloxManiaComponent {
 }
 
 // Register all components
-customElements.define('modal-dialog', ModalDialog);
-customElements.define('search-modal', SearchModal);
-customElements.define('cart-notification', CartNotification);
-customElements.define('product-form', ProductForm);
+safeDefineCustomElement('modal-dialog', ModalDialog);
+safeDefineCustomElement('search-modal', SearchModal);
+safeDefineCustomElement('cart-notification', CartNotification);
+safeDefineCustomElement('product-form', ProductForm);
 
 // Export for use in other modules
 window.BloxManiaComponents = {

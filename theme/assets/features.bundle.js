@@ -1,6 +1,6 @@
 /*
  * BloxMania Theme - FEATURES Bundle
- * Generated: 2025-07-21T06:12:34.942Z
+ * Generated: 2025-07-21T09:08:18.923Z
  * Mode: development
  */
 
@@ -656,10 +656,16 @@ class CartNote extends HTMLElement {
 
 // Form submission handler removed since we now have automatic updates
 
-// Register custom elements
-customElements.define('cart-items', CartItems);
-customElements.define('cart-remove-button', CartRemoveButton);
-customElements.define('cart-note', CartNote);
+// Register components
+if (!customElements.get('cart-items')) {
+  customElements.define('cart-items', CartItems);
+}
+if (!customElements.get('cart-remove-button')) {
+  customElements.define('cart-remove-button', CartRemoveButton);
+}
+if (!customElements.get('cart-note')) {
+  customElements.define('cart-note', CartNote);
+}
 
 
 
@@ -1030,8 +1036,10 @@ class VariantSelector extends HTMLElement {
   }
 }
 
-// Register custom elements
-customElements.define('variant-selector', VariantSelector);
+// Register the component
+if (!customElements.get('variant-selector')) {
+  customElements.define('variant-selector', VariantSelector);
+}
 
 // Export utilities
 window.ProductUtils = ProductUtils;
@@ -1253,8 +1261,10 @@ if (typeof PredictiveSearch === 'undefined') {
     }
   }
 
-  // Register custom element
-  customElements.define('predictive-search', PredictiveSearch);
+  // Register the component
+  if (!customElements.get('predictive-search')) {
+    customElements.define('predictive-search', PredictiveSearch);
+  }
 
   // Export for global scope
   window.PredictiveSearch = PredictiveSearch;
@@ -1927,8 +1937,10 @@ if (typeof MediaGallery === 'undefined') {
     }
   }
 
-  // Register custom element
-  customElements.define('media-gallery', MediaGallery);
+  // Register the component
+  if (!customElements.get('media-gallery')) {
+    customElements.define('media-gallery', MediaGallery);
+  }
 
   // Export for global scope
   window.MediaGallery = MediaGallery;

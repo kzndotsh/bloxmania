@@ -1,6 +1,6 @@
 /*
  * BloxMania Theme - CORE Bundle
- * Generated: 2025-07-21T06:12:34.940Z
+ * Generated: 2025-07-21T09:08:19.734Z
  * Mode: development
  */
 
@@ -147,6 +147,60 @@ window.BloxManiaConstants = {
   debounce,
   throttle,
 };
+
+
+
+// pubsub.js
+/**
+ * PubSub (Publish/Subscribe) Event System
+ * Provides a simple event system for component communication
+ */
+
+let subscribers = {};
+
+function subscribe(eventName, callback) {
+  if (subscribers[eventName] === undefined) {
+    subscribers[eventName] = [];
+  }
+
+  subscribers[eventName] = [...subscribers[eventName], callback];
+
+  return function unsubscribe() {
+    subscribers[eventName] = subscribers[eventName].filter((cb) => {
+      return cb !== callback;
+    });
+  };
+}
+
+function publish(eventName, data) {
+  if (subscribers[eventName]) {
+    const promises = subscribers[eventName]
+      .map((callback) => {
+        try {
+          return callback(data);
+        } catch (error) {
+          console.error(`Error in event subscriber for ${eventName}:`, error);
+          return Promise.resolve();
+        }
+      })
+      .filter((result) => result instanceof Promise);
+
+    return Promise.all(promises);
+  }
+  return Promise.resolve();
+}
+
+// Export for use in other modules
+window.subscribe = subscribe;
+window.publish = publish;
+
+// Also export as module if supported
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    subscribe,
+    publish,
+  };
+}
 
 
 
@@ -970,18 +1024,6 @@ if (typeof module !== 'undefined' && module.exports) {
  * Loads all theme utilities and components in the correct order
  */
 
-// Load order: Constants -> Utilities -> Components -> Performance -> Global
-const loadScript = (src, type = 'module') => {
-  return new Promise((resolve, reject) => {
-    const script = document.createElement('script');
-    script.src = src;
-    script.type = type;
-    script.onload = resolve;
-    script.onerror = reject;
-    document.head.appendChild(script);
-  });
-};
-
 // Initialize theme with proper loading sequence
 async function initializeTheme() {
   try {
@@ -1050,7 +1092,6 @@ if (window.Shopify?.designMode) {
 // Export for debugging
 window.BloxManiaInit = {
   initializeTheme,
-  loadScript,
 };
 
 

@@ -141,8 +141,10 @@ if (typeof MediaGallery === 'undefined') {
     }
   }
 
-  // Register custom element
-  customElements.define('media-gallery', MediaGallery);
+  // Register the component
+  if (!customElements.get('media-gallery')) {
+    customElements.define('media-gallery', MediaGallery);
+  }
 
   // Export for global scope
   window.MediaGallery = MediaGallery;

@@ -364,8 +364,10 @@ class VariantSelector extends HTMLElement {
   }
 }
 
-// Register custom elements
-customElements.define('variant-selector', VariantSelector);
+// Register the component
+if (!customElements.get('variant-selector')) {
+  customElements.define('variant-selector', VariantSelector);
+}
 
 // Export utilities
 window.ProductUtils = ProductUtils;

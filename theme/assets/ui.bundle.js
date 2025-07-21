@@ -1,6 +1,6 @@
 /*
  * BloxMania Theme - UI Bundle
- * Generated: 2025-07-21T06:12:34.943Z
+ * Generated: 2025-07-21T09:08:30.722Z
  * Mode: development
  */
 
@@ -365,7 +365,7 @@ class CartNotification extends HTMLElement {
   }
 }
 
-// Register the custom element
+// Register the component
 if (!customElements.get('cart-notification')) {
   customElements.define('cart-notification', CartNotification);
 }
@@ -693,8 +693,10 @@ class QuantityInput extends HTMLElement {
   }
 }
 
-// Register the custom element
-customElements.define('quantity-input', QuantityInput);
+// Register the component
+if (!customElements.get('quantity-input')) {
+  customElements.define('quantity-input', QuantityInput);
+}
 
 
 
@@ -822,8 +824,10 @@ if (typeof HeaderDrawer === 'undefined') {
     }
   }
 
-  // Register custom element
-  customElements.define('header-drawer', HeaderDrawer);
+  // Register the component
+  if (!customElements.get('header-drawer')) {
+    customElements.define('header-drawer', HeaderDrawer);
+  }
 
   // Export for global scope
   window.HeaderDrawer = HeaderDrawer;
@@ -861,7 +865,7 @@ class HeaderUtils {
 class DetailsModal extends HTMLElement {
   constructor() {
     super();
-    
+
     this.detailsContainer = null;
     this.summaryToggle = null;
     this.closeButton = null;
@@ -880,10 +884,11 @@ class DetailsModal extends HTMLElement {
   }
 
   setupDOM() {
-    this.detailsContainer = this.querySelector('details') || this.closest('details');
+    this.detailsContainer =
+      this.querySelector('details') || this.closest('details');
     this.summaryToggle = this.querySelector('summary');
     this.closeButton = this.querySelector('.modal-close-button');
-    
+
     // If no details container, create one
     if (!this.detailsContainer) {
       this.detailsContainer = document.createElement('details');
@@ -895,7 +900,10 @@ class DetailsModal extends HTMLElement {
   setupEventListeners() {
     // Summary toggle
     if (this.summaryToggle) {
-      this.summaryToggle.addEventListener('click', this.handleSummaryClick.bind(this));
+      this.summaryToggle.addEventListener(
+        'click',
+        this.handleSummaryClick.bind(this)
+      );
     }
 
     // Close button
@@ -905,7 +913,10 @@ class DetailsModal extends HTMLElement {
 
     // Details toggle event
     if (this.detailsContainer) {
-      this.detailsContainer.addEventListener('toggle', this.handleToggle.bind(this));
+      this.detailsContainer.addEventListener(
+        'toggle',
+        this.handleToggle.bind(this)
+      );
     }
 
     // Keyboard events
@@ -915,15 +926,21 @@ class DetailsModal extends HTMLElement {
     this.addEventListener('click', this.handleBackdropClick.bind(this));
 
     // Prevent body scroll when modal is open
-    document.addEventListener('modal:opened', this.handleModalOpened.bind(this));
-    document.addEventListener('modal:closed', this.handleModalClosed.bind(this));
+    document.addEventListener(
+      'modal:opened',
+      this.handleModalOpened.bind(this)
+    );
+    document.addEventListener(
+      'modal:closed',
+      this.handleModalClosed.bind(this)
+    );
   }
 
   setupAccessibility() {
     // Set up ARIA attributes
     this.setAttribute('role', 'dialog');
     this.setAttribute('aria-modal', 'true');
-    
+
     if (this.summaryToggle) {
       this.summaryToggle.setAttribute('aria-expanded', 'false');
       this.summaryToggle.setAttribute('aria-haspopup', 'dialog');
@@ -943,7 +960,7 @@ class DetailsModal extends HTMLElement {
 
   handleSummaryClick(event) {
     event.preventDefault();
-    
+
     if (this.detailsContainer.hasAttribute('open')) {
       this.close();
     } else {
@@ -1002,7 +1019,7 @@ class DetailsModal extends HTMLElement {
   handleOpen() {
     this.isOpen = true;
     this.classList.add('modal--open');
-    
+
     // Update ARIA attributes
     if (this.summaryToggle) {
       this.summaryToggle.setAttribute('aria-expanded', 'true');
@@ -1015,14 +1032,18 @@ class DetailsModal extends HTMLElement {
     document.body.classList.add('modal-open');
 
     // Dispatch event
-    document.dispatchEvent(new CustomEvent('modal:opened', {
-      detail: { modal: this }
-    }));
+    document.dispatchEvent(
+      new CustomEvent('modal:opened', {
+        detail: { modal: this },
+      })
+    );
 
-    this.dispatchEvent(new CustomEvent('details-modal:opened', {
-      bubbles: true,
-      detail: { modal: this }
-    }));
+    this.dispatchEvent(
+      new CustomEvent('details-modal:opened', {
+        bubbles: true,
+        detail: { modal: this },
+      })
+    );
   }
 
   close() {
@@ -1053,24 +1074,33 @@ class DetailsModal extends HTMLElement {
     }
 
     // Dispatch event
-    document.dispatchEvent(new CustomEvent('modal:closed', {
-      detail: { modal: this }
-    }));
+    document.dispatchEvent(
+      new CustomEvent('modal:closed', {
+        detail: { modal: this },
+      })
+    );
 
-    this.dispatchEvent(new CustomEvent('details-modal:closed', {
-      bubbles: true,
-      detail: { modal: this }
-    }));
+    this.dispatchEvent(
+      new CustomEvent('details-modal:closed', {
+        bubbles: true,
+        detail: { modal: this },
+      })
+    );
   }
 
   setupFocusTrap() {
     if (window.DOMUtils) {
       // Find the first focusable element or use close button
-      const firstFocusable = this.querySelector('input, button, select, textarea, a[href], [tabindex]:not([tabindex="-1"])') || this.closeButton;
+      const firstFocusable =
+        this.querySelector(
+          'input, button, select, textarea, a[href], [tabindex]:not([tabindex="-1"])'
+        ) || this.closeButton;
       this.focusTrap = window.DOMUtils.trapFocus(this, firstFocusable);
     } else {
       // Fallback focus management
-      const firstFocusable = this.querySelector('input, button, select, textarea, a[href], [tabindex]:not([tabindex="-1"])');
+      const firstFocusable = this.querySelector(
+        'input, button, select, textarea, a[href], [tabindex]:not([tabindex="-1"])'
+      );
       if (firstFocusable) {
         firstFocusable.focus();
       }
@@ -1095,8 +1125,14 @@ class DetailsModal extends HTMLElement {
     }
 
     // Remove event listeners
-    document.removeEventListener('modal:opened', this.handleModalOpened.bind(this));
-    document.removeEventListener('modal:closed', this.handleModalClosed.bind(this));
+    document.removeEventListener(
+      'modal:opened',
+      this.handleModalOpened.bind(this)
+    );
+    document.removeEventListener(
+      'modal:closed',
+      this.handleModalClosed.bind(this)
+    );
   }
 
   // Public API
@@ -1121,13 +1157,14 @@ class DetailsModal extends HTMLElement {
   }
 }
 
-// Register the custom element
+// Register the component
 if (!customElements.get('details-modal')) {
   customElements.define('details-modal', DetailsModal);
 }
 
 // Export for use in global scope
 window.DetailsModal = DetailsModal;
+
 
 
 // ui-search-modal.js
@@ -1139,7 +1176,7 @@ window.DetailsModal = DetailsModal;
 class SearchModal extends HTMLElement {
   constructor() {
     super();
-    
+
     this.input = null;
     this.results = null;
     this.closeButton = null;
@@ -1153,11 +1190,11 @@ class SearchModal extends HTMLElement {
     this.input = this.querySelector('input[type="search"]');
     this.results = this.querySelector('.search-results');
     this.closeButton = this.querySelector('.search-modal__close');
-    
+
     this.setupSearch();
     this.setupAccessibility();
     this.setupEventListeners();
-    
+
     // Initialize search utils if available
     if (window.SearchUtils) {
       this.searchUtils = new window.SearchUtils();
@@ -1172,9 +1209,9 @@ class SearchModal extends HTMLElement {
     if (!this.input) return;
 
     // Debounced search handler
-    this.searchHandler = window.DOMUtils ? 
-      window.DOMUtils.debounce(this.performSearch.bind(this), 300) :
-      this.debounceSearch(this.performSearch.bind(this), 300);
+    this.searchHandler = window.DOMUtils
+      ? window.DOMUtils.debounce(this.performSearch.bind(this), 300)
+      : this.debounceSearch(this.performSearch.bind(this), 300);
 
     this.input.addEventListener('input', this.searchHandler);
     this.input.addEventListener('focus', this.handleInputFocus.bind(this));
@@ -1260,7 +1297,7 @@ class SearchModal extends HTMLElement {
 
   async performSearch() {
     const query = this.input?.value?.trim();
-    
+
     if (!query || query.length < 2) {
       this.hideResults();
       return;
@@ -1270,11 +1307,11 @@ class SearchModal extends HTMLElement {
 
     try {
       let results;
-      
+
       if (this.searchUtils) {
         results = await this.searchUtils.performSearch(query, {
           limit: 8,
-          resources: ['product', 'collection', 'page']
+          resources: ['product', 'collection', 'page'],
         });
       } else {
         // Fallback to basic search
@@ -1293,8 +1330,12 @@ class SearchModal extends HTMLElement {
 
   async basicSearch(query) {
     try {
-      const response = await fetch(`/search/suggest?q=${encodeURIComponent(query)}&resources[type]=product&resources[limit]=8`);
-      
+      const response = await fetch(
+        `/search/suggest?q=${encodeURIComponent(
+          query
+        )}&resources[type]=product&resources[limit]=8`
+      );
+
       if (!response.ok) {
         throw new Error(`Search failed: ${response.status}`);
       }
@@ -1309,20 +1350,24 @@ class SearchModal extends HTMLElement {
   parseBasicResults(html, query) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
-    
-    const products = Array.from(doc.querySelectorAll('.predictive-search__item')).map(item => ({
+
+    const products = Array.from(
+      doc.querySelectorAll('.predictive-search__item')
+    ).map((item) => ({
       type: 'product',
-      title: item.querySelector('.predictive-search__item-heading')?.textContent?.trim(),
+      title: item
+        .querySelector('.predictive-search__item-heading')
+        ?.textContent?.trim(),
       url: item.querySelector('a')?.href,
       image: item.querySelector('img')?.src,
-      price: item.querySelector('.price')?.textContent?.trim()
+      price: item.querySelector('.price')?.textContent?.trim(),
     }));
 
     return {
       query,
       products,
       collections: [],
-      pages: []
+      pages: [],
     };
   }
 
@@ -1336,21 +1381,34 @@ class SearchModal extends HTMLElement {
       html += '<div class="search-results__section">';
       html += '<h3 class="search-results__heading">Products</h3>';
       html += '<ul class="search-results__list" role="listbox">';
-      
+
       results.products.forEach((product, index) => {
         html += `
-          <li class="search-results__item" role="option" data-search-result data-url="${product.url}" tabindex="-1">
+          <li class="search-results__item" role="option" data-search-result data-url="${
+            product.url
+          }" tabindex="-1">
             <a href="${product.url}" class="search-results__link">
-              ${product.image ? `<img src="${product.image}" alt="${product.title}" class="search-results__image" loading="lazy">` : ''}
+              ${
+                product.image
+                  ? `<img src="${product.image}" alt="${product.title}" class="search-results__image" loading="lazy">`
+                  : ''
+              }
               <div class="search-results__content">
-                <h4 class="search-results__title">${this.highlightQuery(product.title, results.query)}</h4>
-                ${product.price ? `<span class="search-results__price">${product.price}</span>` : ''}
+                <h4 class="search-results__title">${this.highlightQuery(
+                  product.title,
+                  results.query
+                )}</h4>
+                ${
+                  product.price
+                    ? `<span class="search-results__price">${product.price}</span>`
+                    : ''
+                }
               </div>
             </a>
           </li>
         `;
       });
-      
+
       html += '</ul></div>';
     }
 
@@ -1359,20 +1417,29 @@ class SearchModal extends HTMLElement {
       html += '<div class="search-results__section">';
       html += '<h3 class="search-results__heading">Collections</h3>';
       html += '<ul class="search-results__list" role="listbox">';
-      
-      results.collections.forEach(collection => {
+
+      results.collections.forEach((collection) => {
         html += `
-          <li class="search-results__item" role="option" data-search-result data-url="${collection.url}" tabindex="-1">
+          <li class="search-results__item" role="option" data-search-result data-url="${
+            collection.url
+          }" tabindex="-1">
             <a href="${collection.url}" class="search-results__link">
-              ${collection.image ? `<img src="${collection.image}" alt="${collection.title}" class="search-results__image" loading="lazy">` : ''}
+              ${
+                collection.image
+                  ? `<img src="${collection.image}" alt="${collection.title}" class="search-results__image" loading="lazy">`
+                  : ''
+              }
               <div class="search-results__content">
-                <h4 class="search-results__title">${this.highlightQuery(collection.title, results.query)}</h4>
+                <h4 class="search-results__title">${this.highlightQuery(
+                  collection.title,
+                  results.query
+                )}</h4>
               </div>
             </a>
           </li>
         `;
       });
-      
+
       html += '</ul></div>';
     }
 
@@ -1386,25 +1453,30 @@ class SearchModal extends HTMLElement {
 
   highlightQuery(text, query) {
     if (!text || !query) return text;
-    
+
     if (window.SearchUtils && window.SearchUtils.highlightSearchTerms) {
       return window.SearchUtils.highlightSearchTerms(text, query);
     }
-    
+
     // Fallback highlighting
-    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    const regex = new RegExp(
+      `(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`,
+      'gi'
+    );
     return text.replace(regex, '<mark>$1</mark>');
   }
 
   showLoadingState() {
     if (this.results) {
-      this.results.innerHTML = '<div class="search-results__loading">Searching...</div>';
+      this.results.innerHTML =
+        '<div class="search-results__loading">Searching...</div>';
     }
   }
 
   showErrorState() {
     if (this.results) {
-      this.results.innerHTML = '<div class="search-results__error">Search failed. Please try again.</div>';
+      this.results.innerHTML =
+        '<div class="search-results__error">Search failed. Please try again.</div>';
     }
   }
 
@@ -1432,7 +1504,9 @@ class SearchModal extends HTMLElement {
     const items = this.results?.querySelectorAll('.search-results__item');
     if (!items || items.length === 0) return;
 
-    const currentIndex = Array.from(items).findIndex(item => item.classList.contains('search-results__item--focused'));
+    const currentIndex = Array.from(items).findIndex((item) =>
+      item.classList.contains('search-results__item--focused')
+    );
     let newIndex;
 
     if (direction === 'down') {
@@ -1442,15 +1516,19 @@ class SearchModal extends HTMLElement {
     }
 
     // Remove previous focus
-    items.forEach(item => item.classList.remove('search-results__item--focused'));
-    
+    items.forEach((item) =>
+      item.classList.remove('search-results__item--focused')
+    );
+
     // Add new focus
     items[newIndex].classList.add('search-results__item--focused');
     items[newIndex].focus();
   }
 
   selectCurrentResult() {
-    const focusedItem = this.results?.querySelector('.search-results__item--focused');
+    const focusedItem = this.results?.querySelector(
+      '.search-results__item--focused'
+    );
     if (focusedItem) {
       const link = focusedItem.querySelector('a');
       if (link) {
@@ -1470,10 +1548,12 @@ class SearchModal extends HTMLElement {
     this.setupFocusTrap();
 
     // Dispatch event
-    this.dispatchEvent(new CustomEvent('search-modal:opened', {
-      bubbles: true,
-      detail: { modal: this }
-    }));
+    this.dispatchEvent(
+      new CustomEvent('search-modal:opened', {
+        bubbles: true,
+        detail: { modal: this },
+      })
+    );
   }
 
   close() {
@@ -1498,10 +1578,12 @@ class SearchModal extends HTMLElement {
     }
 
     // Dispatch event
-    this.dispatchEvent(new CustomEvent('search-modal:closed', {
-      bubbles: true,
-      detail: { modal: this }
-    }));
+    this.dispatchEvent(
+      new CustomEvent('search-modal:closed', {
+        bubbles: true,
+        detail: { modal: this },
+      })
+    );
   }
 
   setupFocusTrap() {
@@ -1555,13 +1637,14 @@ class SearchModal extends HTMLElement {
   }
 }
 
-// Register the custom element
+// Register the component
 if (!customElements.get('search-modal')) {
   customElements.define('search-modal', SearchModal);
 }
 
 // Export for use in global scope
 window.SearchModal = SearchModal;
+
 
 
   // Bundle completion

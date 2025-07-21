@@ -212,8 +212,10 @@ if (typeof PredictiveSearch === 'undefined') {
     }
   }
 
-  // Register custom element
-  customElements.define('predictive-search', PredictiveSearch);
+  // Register the component
+  if (!customElements.get('predictive-search')) {
+    customElements.define('predictive-search', PredictiveSearch);
+  }
 
   // Export for global scope
   window.PredictiveSearch = PredictiveSearch;
