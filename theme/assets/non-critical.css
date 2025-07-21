@@ -1359,10 +1359,6 @@ nav a:focus,
   margin-top: 0.5rem;
 }
 
-.mt-3 {
-  margin-top: 0.75rem;
-}
-
 .mt-4 {
   margin-top: 1rem;
 }
@@ -2941,11 +2937,6 @@ nav a:focus,
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
-.grayscale {
-  --tw-grayscale: grayscale(100%);
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
@@ -4448,15 +4439,11 @@ nav a:hover::after,
   --header-blur: 12px;
   /* Logo */
   --logo-width: 100px;
-  /* Background Images - Use CSS custom properties for Shopify asset optimization */
-  --widget-bg-image: none;
-  /* Will be set via Liquid in sections */
-  --hero-bg-image: none;
-  /* Will be set via Liquid in sections */
-  --featured-bg-image: none;
-  /* Will be set via Liquid in sections */
-  --why-choose-bg-image: none;
-  /* Will be set via Liquid in sections */
+  /* Background Images */
+  --widget-bg-image: url('image-widget-backing.png');
+  --hero-bg-image: url('image-hero.png');
+  --featured-bg-image: url('image-okok2.png');
+  --why-choose-bg-image: url('image-okok1.png');
   /* Animation and dynamic variables */
   --animation-order: 0;
   --rating: 0;

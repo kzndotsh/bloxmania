@@ -272,6 +272,34 @@ class CartItems extends HTMLElement {
         cartHeader.style.display = 'block';
       }
     }
+
+    // Update quantity displays on product pages
+    this.updateProductPageQuantityDisplays(cart);
+  }
+
+  updateProductPageQuantityDisplays(cart) {
+    // Find all quantity display elements on product pages
+    const quantityDisplays = document.querySelectorAll('.quantity__rules-cart');
+
+    quantityDisplays.forEach((display) => {
+      const variantId = display
+        .closest('.quantity-input-wrapper')
+        ?.querySelector('input')?.dataset.cartQuantity;
+      if (variantId) {
+        // Find the item in cart for this variant
+        const cartItem = cart.items.find(
+          (item) => item.variant_id.toString() === variantId
+        );
+        const quantity = cartItem ? cartItem.quantity : 0;
+
+        if (quantity > 0) {
+          display.textContent = `(${quantity} in cart)`;
+          display.style.display = 'inline';
+        } else {
+          display.style.display = 'none';
+        }
+      }
+    });
   }
 
   initializeErrorElements() {
