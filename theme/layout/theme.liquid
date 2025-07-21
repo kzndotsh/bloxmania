@@ -30,12 +30,14 @@
     {%- comment -%} Required Shopify content_for_header tag {%- endcomment -%}
     {{ content_for_header }}
 
-    <script src="{{ 'core-constants.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'system-dawn.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'system-web-components.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'system-performance.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'core-global.js' | asset_url }}" defer="defer"></script>
+    {%- comment -%} Resource hints for performance optimization {%- endcomment -%}
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.shopify.com">
+    <link rel="dns-prefetch" href="https://fonts.shopifycdn.com">
+
+    {%- comment -%} Preload critical JavaScript bundles {%- endcomment -%}
+    {{ 'core.bundle.js' | asset_url | preload_tag: as: 'script' }}
 
     {%- liquid
       assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
@@ -43,10 +45,7 @@
       assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
     %}
 
-    {%- comment -%} Font loading handled by Tailwind CSS {%- endcomment -%}
-
-    {{ 'style-base.css' | asset_url | stylesheet_tag }}
-
+    {%- comment -%} Font preloading for performance {%- endcomment -%}
     {%- unless settings.type_body_font.system? -%}
       {%- assign body_font_url = settings.type_body_font | font_url -%}
       {%- if body_font_url != blank -%}
@@ -60,6 +59,9 @@
       {%- endif -%}
     {%- endunless -%}
 
+    {%- comment -%} Load main CSS normally {%- endcomment -%}
+    {{ 'style-base.css' | asset_url | stylesheet_tag }}
+
     <script>
       document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
       if (Shopify.designMode) {
@@ -71,106 +73,138 @@
     <script src="{{ 'core-init.js' | asset_url }}" defer="defer"></script>
   </head>
 
-  <body class="bloxmania-theme">
-    {%- if settings.cart_type == 'notification' -%}
-      {%- render 'cart-notification' -%}
-    {%- endif -%}
+  <body>
+    <a class="skip-to-content-link" href="#MainContent">
+      {{ 'accessibility.skip_to_text' | t }}
+    </a>
 
     {% section 'header' %}
 
-    <main id="MainContent" class="content-for-layout focus-none main-content" role="main" tabindex="-1">
+    <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
       {{ content_for_layout }}
     </main>
 
     {% section 'footer' %}
 
-    {%- render 'chat-widget' -%}
+    {%- comment -%} Load JavaScript bundles efficiently {%- endcomment -%}
 
-    <ul hidden>
-      <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
-      <li id="a11y-new-window-message">{{ 'accessibility.link_messages.new_window' | t }}</li>
-    </ul>
+    {%- comment -%} Core functionality - load first {%- endcomment -%}
+    <script src="{{ 'core.bundle.js' | asset_url }}" defer="defer"></script>
 
+    {%- comment -%} Feature bundles - load on demand {%- endcomment -%}
     <script>
-      window.shopUrl = '{{ request.origin }}';
-      window.routes = {
-        cart_add_url: '{{ routes.cart_add_url }}',
-        cart_change_url: '{{ routes.cart_change_url }}',
-        cart_update_url: '{{ routes.cart_update_url }}',
-        cart_url: '{{ routes.cart_url }}',
-        predictive_search_url: '{{ routes.predictive_search_url }}',
-      };
+      // Load feature bundles based on page type
+      document.addEventListener('DOMContentLoaded', function() {
+        const pageType = '{{ request.page_type }}';
 
-      window.cartStrings = {
-        error: `{{ 'sections.cart.cart_error' | t }}`,
-        quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`,
-      };
+        // Load features bundle for all pages
+        loadScript('{{ 'features.bundle.js' | asset_url }}');
 
-      window.variantStrings = {
-        addToCart: `{{ 'products.product.add_to_cart' | t }}`,
-        soldOut: `{{ 'products.product.sold_out' | t }}`,
-        unavailable: `{{ 'products.product.unavailable' | t }}`,
-        unavailable_with_option: `{{ 'products.product.value_unavailable' | t: option_value: '[value]' }}`,
-      };
+        // Load UI bundle for all pages
+        loadScript('{{ 'ui.bundle.js' | asset_url }}');
 
-      window.accessibilityStrings = {
-        imageAvailable: `{{ 'products.product.media.image_available' | t: index: '[index]' }}`,
-        shareSuccess: `{{ 'general.share.success_message' | t }}`,
-        pauseSlideshow: `{{ 'sections.slideshow.pause_slideshow' | t }}`,
-        playSlideshow: `{{ 'sections.slideshow.play_slideshow' | t }}`,
-      };
+        // Load helpers bundle for all pages
+        loadScript('{{ 'helpers.bundle.js' | asset_url }}');
+
+        // Load system bundle for all pages
+        loadScript('{{ 'system.bundle.js' | asset_url }}');
+
+        // Page-specific bundles
+        if (pageType === 'product') {
+          loadScript('{{ 'feature-product.js' | asset_url }}');
+          loadScript('{{ 'feature-gallery.js' | asset_url }}');
+        }
+
+        if (pageType === 'collection') {
+          loadScript('{{ 'feature-collection.js' | asset_url }}');
+        }
+
+        if (pageType === 'search') {
+          loadScript('{{ 'feature-search.js' | asset_url }}');
+        }
+      });
+
+      function loadScript(src) {
+        const script = document.createElement('script');
+        script.src = src;
+        script.defer = true;
+        document.head.appendChild(script);
+      }
     </script>
 
-    {%- comment -%} Load utility scripts in correct order {%- endcomment -%}
-    <script src="{{ 'core-dom.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'helper-html-update.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'helper-section-id.js' | asset_url }}" defer="defer"></script>
+    {%- comment -%} Performance monitoring {%- endcomment -%}
+    <script>
+      // Core Web Vitals monitoring
+      if ('PerformanceObserver' in window) {
+        // LCP (Largest Contentful Paint)
+        new PerformanceObserver((list) => {
+          const entries = list.getEntries();
+          const lastEntry = entries[entries.length - 1];
+          console.log('LCP:', lastEntry.startTime);
 
-    {%- comment -%} Load essential utilities {%- endcomment -%}
-    <script src="{{ 'core-api.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'helper-accessibility.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'helper-keyboard.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'helper-screen-reader.js' | asset_url }}" defer="defer"></script>
+          // Report to analytics if needed
+          if (window.gtag) {
+            gtag('event', 'LCP', {
+              value: Math.round(lastEntry.startTime),
+              event_category: 'Web Vitals',
+            });
+          }
+        }).observe({ entryTypes: ['largest-contentful-paint'] });
 
-    <script src="{{ 'ui-header.js' | asset_url }}" defer="defer"></script>
+        // FID (First Input Delay)
+        new PerformanceObserver((list) => {
+          const entries = list.getEntries();
+          entries.forEach((entry) => {
+            console.log('FID:', entry.processingStart - entry.startTime);
 
-    {%- comment -%} Load feature-specific scripts {%- endcomment -%}
-    <script src="{{ 'feature-cart.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'feature-gallery.js' | asset_url }}" defer="defer"></script>
+            if (window.gtag) {
+              gtag('event', 'FID', {
+                value: Math.round(entry.processingStart - entry.startTime),
+                event_category: 'Web Vitals',
+              });
+            }
+          });
+        }).observe({ entryTypes: ['first-input'] });
 
-    {%- comment -%} Load enhanced predictive search if enabled {%- endcomment -%}
-    {%- if settings.predictive_search_enabled -%}
-      <script src="{{ 'feature-search.js' | asset_url }}" defer="defer"></script>
-    {%- endif -%}
+        // CLS (Cumulative Layout Shift)
+        let clsValue = 0;
+        new PerformanceObserver((list) => {
+          const entries = list.getEntries();
+          entries.forEach((entry) => {
+            if (!entry.hadRecentInput) {
+              clsValue += entry.value;
+              console.log('CLS:', clsValue);
+
+              if (window.gtag) {
+                gtag('event', 'CLS', {
+                  value: Math.round(clsValue * 1000) / 1000,
+                  event_category: 'Web Vitals',
+                });
+              }
+            }
+          });
+        }).observe({ entryTypes: ['layout-shift'] });
+      }
+    </script>
 
     {%- comment -%} Service Worker Registration {%- endcomment -%}
     <script>
-      // Register service worker for performance optimization
-      if ('serviceWorker' in navigator && !window.Shopify?.designMode) {
-        window.addEventListener('load', function () {
-          navigator.serviceWorker
-            .register('{{ "system-service-worker.js" | asset_url }}')
-            .then(function (registration) {
-              console.log('ServiceWorker registration successful');
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('{{ 'system-service-worker.js' | asset_url }}')
+            .then(function(registration) {
+              console.log('Service Worker registered successfully:', registration.scope);
             })
-            .catch(function (error) {
-              console.log('ServiceWorker registration failed:', error);
+            .catch(function(error) {
+              console.log('Service Worker registration failed:', error);
             });
         });
       }
-
-      // Handle web pixel worker errors gracefully
-      window.addEventListener('error', function (event) {
-        if (
-          event.target &&
-          event.target.src &&
-          event.target.src.includes('web-pixel') &&
-          event.target.src.includes('worker.modern.js')
-        ) {
-          console.warn('Web pixel worker failed to load, this is normal in development mode');
-          event.preventDefault();
-        }
-      });
     </script>
+
+    {%- comment -%} Theme editor support {%- endcomment -%}
+    {%- if request.design_mode -%}
+      <script src="{{ 'system-theme-editor.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
   </body>
 </html>
