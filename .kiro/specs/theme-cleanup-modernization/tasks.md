@@ -243,7 +243,7 @@
     - Add announcement bar section for promotions and notices
     - _Requirements: Content marketing, customer engagement_
 
-  - [x] 10.4 Enhance search and navigation functionality
+  - [ ] 10.4 Enhance search and navigation functionality
     - Implement main-search.liquid section for search results page
     - Create predictive search functionality with proper AJAX handling
     - Add breadcrumb navigation throughout the site
