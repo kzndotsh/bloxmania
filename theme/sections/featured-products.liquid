@@ -26,16 +26,17 @@
         {% assign products_to_show = section.settings.products_to_show | default: 8 %}
 
         {% for product in collection_to_use.products limit: products_to_show %}
-          <div
-            class="product-card-widget flex flex-col"
+          <a
+            href="{{ product.url }}"
+            class="block product-card-widget flex flex-col group"
           >
             <div class="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col">
-              <div class="relative group flex-1 flex flex-col justify-center">
+              <div class="relative group-hover:brightness-110 flex-1 flex flex-col justify-center">
                 {% if product.featured_image != blank %}
                   <img
                     src="{{ product.featured_image | image_url: width: 300 }}"
                     alt="{{ product.title }}"
-                    class="w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto rounded-xl mb-4 sm:mb-6 transition-all duration-300 group-hover:brightness-110 object-cover"
+                    class="w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto rounded-xl mb-4 sm:mb-6 transition-all duration-300 object-cover"
                     width="160"
                     height="160"
                     loading="lazy"
@@ -47,14 +48,8 @@
                 {% endif %}
               </div>
               <div class="text-center mt-auto">
-                <h3 class="font-semibold mb-2 text-sm sm:text-base lg:text-lg line-clamp-2 text-white">
-                  <a
-                    href="{{ product.url }}"
-                    class="no-underline text-white hover:text-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-gray-900 rounded"
-                    aria-label="View {{ product.title }}"
-                  >
-                    {{- product.title -}}
-                  </a>
+                <h3 class="font-semibold mb-2 text-sm sm:text-base lg:text-lg line-clamp-2 text-white group-hover:text-primary transition-colors duration-200">
+                  {{- product.title -}}
                 </h3>
                 <div class="font-bold text-base sm:text-lg lg:text-xl text-primary">
                   {% if product.compare_at_price > product.price %}
@@ -66,7 +61,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </a>
         {% endfor %}
       {% else %}
         <!-- Demo Products -->
@@ -82,34 +77,29 @@
           {% assign prod_name = demo_names[index] | default: 'Featured Gaming Item' %}
           {% assign prod_price = demo_prices[index] | default: '$9.99' %}
 
-          <div
-            class="product-card-widget flex flex-col"
+          <a
+            href="#"
+            class="block product-card-widget flex flex-col group"
           >
             <div class="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col">
-              <div class="relative group flex-1 flex flex-col justify-center">
+              <div class="relative group-hover:brightness-110 flex-1 flex flex-col justify-center">
                 <img
                   src="{{ img_asset | asset_url }}"
                   alt="{{ prod_name }}"
-                  class="w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto rounded-xl mb-4 sm:mb-6 transition-all duration-300 group-hover:brightness-110 object-cover"
+                  class="w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto rounded-xl mb-4 sm:mb-6 transition-all duration-300 object-cover"
                   width="160"
                   height="160"
                   loading="lazy"
                 >
               </div>
               <div class="text-center mt-auto">
-                <h3 class="font-semibold text-white mb-2 text-sm sm:text-base lg:text-lg line-clamp-2">
-                  <a
-                    href="#"
-                    class="text-inherit no-underline hover:text-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-gray-900 rounded"
-                    aria-label="View {{ prod_name }}"
-                  >
-                    {{- prod_name -}}
-                  </a>
+                <h3 class="font-semibold text-white mb-2 text-sm sm:text-base lg:text-lg line-clamp-2 group-hover:text-primary transition-colors duration-200">
+                  {{- prod_name -}}
                 </h3>
                 <div class="text-primary font-bold text-base sm:text-lg lg:text-xl">{{ prod_price }}</div>
               </div>
             </div>
-          </div>
+          </a>
         {% endfor %}
       {% endif %}
     </div>
@@ -118,11 +108,11 @@
 
 <style>
   .featured-products-section {
-    background-image: url('{{ 'image-okok1.png' | asset_url }}');
+    background-image: url('{{ "image-okok2.png" | asset_url }}');
   }
 
   .product-card-widget {
-    background-image: url('{{ 'image-widget-backing.png' | asset_url }}');
+    background-image: url('{{ "image-widget-backing.png" | asset_url }}');
   }
 </style>
 

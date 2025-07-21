@@ -57,9 +57,9 @@
       }
     </script>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mt-8">
-      <!-- Product Media Gallery -->
-      <div class="product-media-gallery">
+    <div class="grid grid-cols-1 xl:grid-cols-5 gap-8 lg:gap-12 mt-8">
+      <!-- Product Media Gallery - Takes 3 columns on large screens -->
+      <div class="xl:col-span-3 product-media-gallery">
         {% render 'product-media-gallery',
           product: product,
           variant_images: product.images,
@@ -68,8 +68,8 @@
         %}
       </div>
 
-      <!-- Product Information -->
-      <div class="product-info space-y-6">
+      <!-- Product Information - Takes 2 columns -->
+      <div class="xl:col-span-2 product-info space-y-6">
         {%- for block in section.blocks -%}
           {%- case block.type -%}
             {%- when 'vendor' -%}
