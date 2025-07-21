@@ -81,11 +81,15 @@
   /* Logo */
   --logo-width: 100px;
 
-  /* Background Images */
-  --widget-bg-image: url('image-widget-backing.png');
-  --hero-bg-image: url('image-hero.png');
-  --featured-bg-image: url('image-okok2.png');
-  --why-choose-bg-image: url('image-okok1.png');
+  /* Background Images - Use CSS custom properties for Shopify asset optimization */
+  --widget-bg-image: none;
+  /* Will be set via Liquid in sections */
+  --hero-bg-image: none;
+  /* Will be set via Liquid in sections */
+  --featured-bg-image: none;
+  /* Will be set via Liquid in sections */
+  --why-choose-bg-image: none;
+  /* Will be set via Liquid in sections */
 
   /* Animation and dynamic variables */
   --animation-order: 0;
@@ -602,8 +606,8 @@
     border-radius: 1rem;
     overflow: hidden;
     transition: all var(--duration-default) var(--easing-spring);
-    min-height: 280px;
-    max-height: 320px;
+    min-height: 300px;
+    max-height: none;
     display: flex;
     flex-direction: column;
     transform: translateZ(0);
@@ -620,6 +624,39 @@
     object-fit: cover;
     max-width: 160px;
     max-height: 160px;
+  }
+
+  /* Product card content layout improvements */
+  .product-card-widget .p-4,
+  .product-card-widget .sm\:p-6,
+  .product-card-widget .lg\:p-8 {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .product-card-widget .text-center {
+    margin-top: auto;
+    padding-top: 1rem;
+  }
+
+  /* Ensure text content is fully visible */
+  .product-card-widget h3 {
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .product-card-widget .text-xs {
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+
+  .product-card-widget .font-bold {
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
   }
 
   /* Password page specific styles */
@@ -737,6 +774,30 @@
   }
 
   .faq-question:hover {
+    transform: translateX(4px);
+  }
+
+  /* Product Accordion Styles - Separate from FAQ */
+  .product-accordion-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--duration-default) var(--easing-smooth);
+  }
+
+  .product-accordion-answer.active {
+    max-height: 500px;
+  }
+
+  .product-accordion-question[aria-expanded="true"] .faq-icon {
+    transform: rotate(45deg);
+  }
+
+  /* Product accordion item hover effects */
+  .product-accordion-question {
+    transition: all var(--duration-default) var(--easing-smooth);
+  }
+
+  .product-accordion-question:hover {
     transform: translateX(4px);
   }
 
@@ -1820,14 +1881,31 @@
 }
 
 .product-form__cart-submit {
-  @apply w-full bg-primary text-black font-medium py-4 px-6 rounded-lg;
-  transition: all var(--duration-default) var(--easing-spring);
+  @apply text-black font-medium py-3 px-8 rounded-lg;
+  background: #ffd800;
+  transition: background-color 0.2s ease, transform 0.2s ease;
   transform: translateZ(0);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 300px;
+  box-shadow: none;
+  border: none;
+  outline: none;
 }
 
 .product-form__cart-submit:hover {
-  @apply bg-primary-600 shadow-lg;
-  transform: translateY(-3px) scale(1.02);
+  background: #e6c200;
+  transform: translateY(-1px);
+}
+
+.product-form__cart-submit:focus {
+  outline: none;
+}
+
+.product-form__cart-submit:active {
+  transform: translateY(0);
 }
 
 .product-form__cart-submit--loading {
@@ -1866,6 +1944,62 @@
   @apply mt-4;
 }
 
+/* Component: Product Layout */
+.product-image {
+  @apply w-full h-full min-h-0 overflow-hidden rounded-lg;
+}
+
+.product-image img,
+.product-image video {
+  @apply w-full h-auto object-cover rounded-lg;
+}
+
+/* Product Media Gallery Specific Styles */
+.product-media-gallery {
+  @apply w-full;
+}
+
+.product-media-gallery .main-media-container {
+  @apply w-full;
+}
+
+.product-media-gallery .thumbnail-gallery {
+  @apply w-full;
+}
+
+.product-media-gallery .thumbnail-gallery .flex {
+  @apply w-full;
+}
+
+/* Fix thumbnail gallery overflow */
+.product-media-gallery .thumbnail-gallery {
+  @apply w-full overflow-x-auto;
+}
+
+.product-media-gallery .thumbnail-gallery .flex {
+  @apply w-full flex-nowrap gap-2;
+}
+
+.product-media-gallery .thumbnail-btn {
+  @apply flex-shrink-0 overflow-hidden;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.product-media-gallery .thumbnail-btn:hover {
+  @apply ring-1 ring-primary;
+}
+
+.product-media-gallery .thumbnail-btn img {
+  @apply w-full h-full object-cover;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.product-media-gallery .thumbnail-btn:hover img {
+  transform: scale(1.05);
+}
+
 /* Component: Product Info */
 .product-info {
   @apply space-y-6;
@@ -1884,7 +2018,7 @@
 }
 
 .product-price {
-  @apply space-y-2;
+  @apply space-y-1;
 }
 
 .price__container {
@@ -2146,6 +2280,15 @@
   .media-nav-btn--next {
     @apply right-2;
   }
+
+  /* Mobile product layout adjustments */
+  .product-image {
+    @apply order-1;
+  }
+
+  .product-info {
+    @apply order-2;
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -2161,4 +2304,412 @@
   .thumbnail-gallery {
     @apply grid-cols-2 gap-2;
   }
+}
+
+/* Product Description Text Color Fixes - High Specificity */
+.product-description,
+.product-description * {
+  color: white !important;
+}
+
+.product-description a {
+  color: #ffd800 !important;
+}
+
+.product-description a:hover {
+  color: #d97706 !important;
+}
+
+.product-description blockquote {
+  color: white !important;
+  border-left-color: #ffd800 !important;
+}
+
+.product-description code,
+.product-description pre {
+  color: white !important;
+  background-color: #1f2937 !important;
+}
+
+/* Reduce spacing in product description */
+.product-description {
+  margin-top: 0.5rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.product-description p {
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.product-description p:first-child {
+  margin-top: 0 !important;
+}
+
+/* Override prose margins */
+.prose,
+.prose * {
+  color: white !important;
+}
+
+.prose a {
+  color: #ffd800 !important;
+}
+
+.prose a:hover {
+  color: #d97706 !important;
+}
+
+.prose blockquote {
+  color: white !important;
+  border-left-color: #ffd800 !important;
+}
+
+.prose code,
+.prose pre {
+  color: white !important;
+  background-color: #1f2937 !important;
+}
+
+/* Reduce prose spacing */
+.prose {
+  margin-top: 0.5rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.prose p {
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.prose p:first-child {
+  margin-top: 0 !important;
+}
+
+/* Product Page Layout Enhancements */
+.product-key-info {
+  position: relative;
+}
+
+.product-key-info .product-price {
+  flex-shrink: 0;
+}
+
+.product-key-info .product-rating {
+  flex-shrink: 0;
+}
+
+/* Improved responsive behavior for the new 5-column layout */
+@media screen and (max-width: 1279px) {
+  .product-media-gallery {
+    order: 1;
+  }
+
+  .product-key-info {
+    order: 2;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .product-media-gallery {
+    order: 1;
+  }
+
+  .product-key-info {
+    order: 2;
+  }
+}
+
+/* Product media gallery size constraints */
+.product-media-gallery {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.product-media-gallery img,
+.product-media-gallery video {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Ensure product info has adequate space */
+.product-key-info {
+  min-width: 0;
+  /* Allow flex shrinking */
+}
+
+.product-key-info .product-title h1 {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Bottom row layout improvements for 5-column layout */
+.product-accordion .grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+@media screen and (min-width: 768px) {
+  .product-accordion .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Features card improvements */
+.product-features .bg-gray-900\/50 {
+  position: sticky;
+  top: 2rem;
+}
+
+/* Collapsible content improvements */
+.collapsible-content {
+  transition: all 0.3s ease;
+}
+
+.collapsible-content:hover {
+  border-color: rgb(var(--color-primary));
+  box-shadow: 0 4px 12px rgba(var(--color-primary), 0.1);
+}
+
+.collapsible-summary {
+  transition: all 0.2s ease;
+}
+
+.collapsible-summary:hover {
+  background-color: rgba(var(--color-primary), 0.05);
+}
+
+/* Price and rating row improvements */
+.product-key-info .flex.flex-col.sm\:flex-row {
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+@media screen and (min-width: 640px) {
+  .product-key-info .flex.flex-col.sm\:flex-row {
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+/* Quantity and buy buttons improvements */
+.product-key-info .space-y-4 > div {
+  margin-bottom: 1rem;
+}
+
+.product-key-info .space-y-4 > div:last-child {
+  margin-bottom: 0;
+}
+
+/* Share button positioning */
+.product-share.md\:col-span-2 {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgb(var(--color-border));
+}
+
+/* Responsive improvements for mobile */
+@media screen and (max-width: 767px) {
+  .product-key-info .space-y-6 > div {
+    margin-bottom: 1.5rem;
+  }
+
+  .product-key-info .space-y-6 > div:last-child {
+    margin-bottom: 0;
+  }
+
+  .product-accordion .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-features .bg-gray-900\/50 {
+    position: static;
+  }
+}
+
+/* Animation improvements */
+.product-key-info > div {
+  animation: fadeInUp 0.6s ease-out;
+  animation-fill-mode: both;
+}
+
+.product-key-info > div:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.product-key-info > div:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.product-key-info > div:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.product-key-info > div:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.product-key-info > div:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.product-key-info > div:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+.product-key-info > div:nth-child(7) {
+  animation-delay: 0.7s;
+}
+
+/* Enhanced focus states for accessibility */
+.product-key-info button:focus,
+.product-key-info input:focus,
+.product-key-info select:focus {
+  outline: 2px solid rgb(var(--color-primary));
+  outline-offset: 2px;
+  border-radius: 0.375rem;
+}
+
+/* Improved spacing for the new layout */
+.product-key-info .space-y-6 > div {
+  margin-bottom: 1.5rem;
+}
+
+.product-key-info .space-y-6 > div:last-child {
+  margin-bottom: 0;
+}
+
+/* Bottom row spacing improvements */
+.grid.grid-cols-1.lg\:grid-cols-3 {
+  gap: 2rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .grid.grid-cols-1.lg\:grid-cols-3 {
+    gap: 3rem;
+  }
+}
+
+/* Features list improvements */
+.product-features ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.product-features li {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+  transition: all 0.2s ease;
+}
+
+.product-features li:hover {
+  transform: translateX(4px);
+  color: rgb(var(--color-primary));
+}
+
+/* Collapsible content grid improvements */
+.product-accordion .grid.grid-cols-1.md\:grid-cols-2 {
+  gap: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .product-accordion .grid.grid-cols-1.md\:grid-cols-2 {
+    gap: 1.5rem;
+  }
+}
+
+/* Additional responsive adjustments for the 5-column layout */
+@media screen and (min-width: 1280px) {
+  .xl\:grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .xl\:col-span-3 {
+    grid-column: span 3 / span 3;
+  }
+
+  .xl\:col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+}
+
+/* Ensure proper image sizing in the media gallery */
+.product-media-gallery .main-media-container {
+  max-width: 100%;
+  overflow: hidden;
+  background-color: rgb(17, 24, 39);
+  border-radius: 1rem;
+}
+
+.product-media-gallery .main-media {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.product-media-gallery .main-media img {
+  max-width: 100%;
+  max-height: 600px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Thumbnail gallery adjustments */
+.product-media-gallery .thumbnail-gallery {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.product-media-gallery .thumbnail-btn {
+  flex-shrink: 0;
+  max-width: 80px;
+  max-height: 80px;
+}
+
+/* Collection grid layout improvements */
+.products-grid {
+  align-items: start;
+}
+
+.product-item {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.product-item .product-card-widget {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure proper spacing in collection grid */
+.products-grid.grid {
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .products-grid.grid {
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .products-grid.grid {
+    gap: 2.5rem;
+  }
+}
+
+/* Additional spacing for product card content */
+.product-card-widget .text-center > * {
+  margin-bottom: 0.75rem;
+}
+
+.product-card-widget .text-center > *:last-child {
+  margin-bottom: 0;
 }
