@@ -3,7 +3,11 @@
     <ul class="pagination list-unstyled" role="list">
       {%- if paginate.previous -%}
         <li class="pagination__item pagination__item--prev">
-          <a href="{{ paginate.previous.url }}" class="pagination__item-link link motion-reduce" aria-label="{{ 'general.pagination.previous' | t }}">
+          <a
+            href="{{ paginate.previous.url }}"
+            class="pagination__item-link link motion-reduce"
+            aria-label="{{ 'general.pagination.previous' | t }}"
+          >
             <svg aria-hidden="true" focusable="false" class="icon icon-caret" viewBox="0 0 10 6">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
             </svg>
@@ -15,14 +19,22 @@
       {%- for part in paginate.parts -%}
         {%- if part.is_link -%}
           <li class="pagination__item">
-            <a href="{{ part.url }}" class="pagination__item-link link" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">
+            <a
+              href="{{ part.url }}"
+              class="pagination__item-link link"
+              aria-label="{{ 'general.pagination.page' | t: number: part.title }}"
+            >
               {{- part.title -}}
             </a>
           </li>
         {%- else -%}
           {%- if part.title == paginate.current_page -%}
             <li class="pagination__item pagination__item--current">
-              <span class="pagination__item-link" aria-current="page" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">
+              <span
+                class="pagination__item-link"
+                aria-current="page"
+                aria-label="{{ 'general.pagination.page' | t: number: part.title }}"
+              >
                 {{- part.title -}}
               </span>
             </li>
@@ -36,7 +48,11 @@
 
       {%- if paginate.next -%}
         <li class="pagination__item pagination__item--next">
-          <a href="{{ paginate.next.url }}" class="pagination__item-link link motion-reduce" aria-label="{{ 'general.pagination.next' | t }}">
+          <a
+            href="{{ paginate.next.url }}"
+            class="pagination__item-link link motion-reduce"
+            aria-label="{{ 'general.pagination.next' | t }}"
+          >
             {{ 'general.pagination.next' | t }}
             <svg aria-hidden="true" focusable="false" class="icon icon-caret" viewBox="0 0 10 6">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
@@ -47,82 +63,3 @@
     </ul>
   </nav>
 {%- endif -%}
-
-<style>
-  .pagination-wrapper {
-    margin-top: 5rem;
-    margin-bottom: 5rem;
-  }
-
-  .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .pagination__item {
-    margin: 0 0.2rem;
-  }
-
-  .pagination__item-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 4.4rem;
-    height: 4.4rem;
-    padding: 1rem;
-    border: 0.1rem solid rgba(var(--color-foreground), 0.08);
-    border-radius: var(--buttons-radius);
-    color: rgb(var(--color-foreground));
-    text-decoration: none;
-    font-size: 1.4rem;
-    transition: all var(--duration-short) ease;
-  }
-
-  .pagination__item-link:hover,
-  .pagination__item-link:focus {
-    border-color: rgb(var(--color-base-accent-1));
-    color: rgb(var(--color-base-accent-1));
-  }
-
-  .pagination__item--current .pagination__item-link {
-    background-color: rgb(var(--color-base-accent-1));
-    border-color: rgb(var(--color-base-accent-1));
-    color: rgb(var(--color-base-solid-button-labels));
-  }
-
-  .pagination__item--prev .pagination__item-link,
-  .pagination__item--next .pagination__item-link {
-    padding: 1rem 1.5rem;
-    gap: 0.5rem;
-  }
-
-  .pagination__item--prev .icon {
-    transform: rotate(90deg);
-  }
-
-  .pagination__item--next .icon {
-    transform: rotate(-90deg);
-  }
-
-  .pagination__item .icon {
-    width: 1rem;
-    height: 1rem;
-  }
-
-  @media screen and (max-width: 749px) {
-    .pagination__item-link {
-      min-width: 3.6rem;
-      height: 3.6rem;
-      font-size: 1.2rem;
-    }
-
-    .pagination__item--prev .pagination__item-link,
-    .pagination__item--next .pagination__item-link {
-      padding: 0.8rem 1.2rem;
-    }
-  }
-</style>

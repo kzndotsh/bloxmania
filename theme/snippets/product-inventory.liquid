@@ -1,11 +1,11 @@
 {% comment %}
   Renders product inventory information with proper accessibility
-  
+
   Accepts:
   - variant: {Object} Product variant object (required)
   - block: {Object} Block settings (optional)
   - section_id: {String} Section ID (required)
-  
+
   Usage:
   {% render 'product-inventory', variant: current_variant, block: block, section_id: section.id %}
 {% endcomment %}
@@ -69,33 +69,3 @@
     {%- endif -%}
   </div>
 {%- endif -%}
-
-<style>
-  .inventory-status {
-    font-size: 0.875rem;
-    font-weight: 500;
-  }
-  
-  .inventory-status svg {
-    flex-shrink: 0;
-  }
-  
-  .inventory-status--low {
-    animation: pulse 2s infinite;
-  }
-  
-  @keyframes pulse {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.7;
-    }
-  }
-  
-  @media (prefers-reduced-motion: reduce) {
-    .inventory-status--low {
-      animation: none;
-    }
-  }
-</style>

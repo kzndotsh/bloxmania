@@ -1,10 +1,10 @@
 {% comment %}
   Renders collapsible content sections for product information
-  
+
   Accepts:
   - block: {Object} Block settings with heading, content, and icon (required)
   - section_id: {String} Section ID for unique identifiers (required)
-  
+
   Usage:
   {% render 'collapsible-content', block: block, section_id: section.id %}
 {% endcomment %}
@@ -46,17 +46,17 @@
           {%- endcase -%}
         </div>
       {%- endif -%}
-      
+
       <h3 class="text-white font-medium">{{ heading }}</h3>
     </div>
-    
+
     <div class="collapsible-chevron text-gray-400 transition-transform duration-200">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
       </svg>
     </div>
   </summary>
-  
+
   <div class="collapsible-content-body p-4 pt-0 text-gray-300 prose prose-invert max-w-none">
     {%- if content != blank -%}
       {{ content }}
@@ -67,17 +67,3 @@
     {%- endif -%}
   </div>
 </details>
-
-<style>
-  .collapsible-content[open] .collapsible-chevron {
-    transform: rotate(180deg);
-  }
-  
-  .collapsible-content summary::-webkit-details-marker {
-    display: none;
-  }
-  
-  .collapsible-content summary::marker {
-    display: none;
-  }
-</style>

@@ -1,9 +1,9 @@
 {% comment %}
   Renders product rating display with proper accessibility and schema markup
-  
+
   Accepts:
   - product: {Object} Product Liquid object (required)
-  
+
   Usage:
   {% render 'product-rating', product: product %}
 {% endcomment %}
@@ -12,12 +12,12 @@
   assign reviews_count = product.metafields.reviews.count | default: 0
   assign average_rating = product.metafields.reviews.rating | default: 0
   assign rating_app_enabled = false
-  
+
   comment
     Check if a rating app is installed by looking for common rating app metafields
     This is a simplified check - in a real implementation, you'd check for specific apps
   endcomment
-  
+
   if product.metafields.reviews.rating or product.metafields.judgeme.rating or product.metafields.yotpo.rating
     assign rating_app_enabled = true
   endif
@@ -25,7 +25,10 @@
 
 {%- if rating_app_enabled and average_rating > 0 -%}
   <div class="product-rating flex items-center gap-2">
-    <div class="rating-stars flex items-center" aria-label="{{ 'products.product.rating.stars' | t: rating: average_rating, max: 5 }}">
+    <div
+      class="rating-stars flex items-center"
+      aria-label="{{ 'products.product.rating.stars' | t: rating: average_rating, max: 5 }}"
+    >
       {%- for i in (1..5) -%}
         {%- liquid
           assign star_class = 'text-gray-600'
@@ -40,12 +43,15 @@
         </svg>
       {%- endfor -%}
     </div>
-    
+
     <div class="rating-text text-sm text-gray-300">
       <span class="rating-value">{{ average_rating | round: 1 }}</span>
       {%- if reviews_count > 0 -%}
         <span class="rating-count">
-          (<a href="#reviews" class="hover:text-primary transition-colors duration-200">{{ reviews_count }} {{ 'products.product.rating.reviews' | t: count: reviews_count }}</a>)
+          (<a href="#reviews" class="hover:text-primary transition-colors duration-200">
+            {{- reviews_count }}
+            {{ 'products.product.rating.reviews' | t: count: reviews_count -}}</a
+          >)
         </span>
       {%- endif -%}
     </div>
@@ -53,14 +59,14 @@
 
   {%- comment -%} Schema markup for rating {%- endcomment -%}
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org/",
-    "@type": "AggregateRating",
-    "ratingValue": {{ average_rating | json }},
-    "reviewCount": {{ reviews_count | json }},
-    "bestRating": "5",
-    "worstRating": "1"
-  }
+    {
+      "@context": "https://schema.org/",
+      "@type": "AggregateRating",
+      "ratingValue": {{ average_rating | json }},
+      "reviewCount": {{ reviews_count | json }},
+      "bestRating": "5",
+      "worstRating": "1"
+    }
   </script>
 
 {%- elsif rating_app_enabled == false -%}
@@ -76,7 +82,7 @@
         </svg>
       {%- endfor -%}
     </div>
-    
+
     <div class="rating-text text-sm text-gray-400">
       <a href="#reviews" class="hover:text-primary transition-colors duration-200">
         {{ 'products.product.rating.write_first_review' | t }}
@@ -84,33 +90,3 @@
     </div>
   </div>
 {%- endif -%}
-
-<style>
-  .half-star {
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .half-star::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    right: 0;
-    bottom: 0;
-    background-color: #4B5563; /* gray-600 */
-    z-index: 1;
-  }
-  
-  .rating-stars svg {
-    transition: color 0.2s ease;
-  }
-  
-  .product-rating:hover .rating-stars svg {
-    color: #FBBF24; /* yellow-400 */
-  }
-  
-  .product-rating:hover .rating-stars svg.text-gray-600 {
-    color: #9CA3AF; /* gray-400 */
-  }
-</style>

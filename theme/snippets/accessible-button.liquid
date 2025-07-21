@@ -23,7 +23,7 @@
   - wrapper_class: {String} CSS classes for the wrapper (optional)
 
   Usage:
-  {% render 'accessible-button', 
+  {% render 'accessible-button',
     button_text: 'Add to Cart',
     button_type: 'submit',
     button_class: 'btn-primary',
@@ -40,24 +40,48 @@
 -%}
 
 {% if wrapper_class %}
-<div class="{{ wrapper_class }}">
+  <div class="{{ wrapper_class }}">
 {% endif %}
 
 <button
   type="{{ button_type }}"
-  {% if button_id %}id="{{ button_id }}"{% endif %}
+  {% if button_id %}
+    id="{{ button_id }}"
+  {% endif %}
   class="accessible-button {% if button_class %}{{ button_class }}{% endif %}{% if button_loading %} loading{% endif %}{% if button_disabled %} disabled{% endif %}"
-  {% if button_disabled or button_loading %}disabled{% endif %}
-  {% if button_pressed != nil %}aria-pressed="{{ button_pressed }}"{% endif %}
-  {% if button_expanded != nil %}aria-expanded="{{ button_expanded }}"{% endif %}
-  {% if button_controls %}aria-controls="{{ button_controls }}"{% endif %}
-  {% if button_describedby %}aria-describedby="{{ button_describedby }}"{% endif %}
-  {% if button_label %}aria-label="{{ button_label }}"{% endif %}
-  {% if button_loading %}aria-busy="true"{% endif %}
-  {% if button_onclick %}onclick="{{ button_onclick }}"{% endif %}
-  {% if button_form %}form="{{ button_form }}"{% endif %}
-  {% if button_formaction %}formaction="{{ button_formaction }}"{% endif %}
-  {% if button_formmethod %}formmethod="{{ button_formmethod }}"{% endif %}
+  {% if button_disabled or button_loading %}
+    disabled
+  {% endif %}
+  {% if button_pressed != null %}
+    aria-pressed="{{ button_pressed }}"
+  {% endif %}
+  {% if button_expanded != null %}
+    aria-expanded="{{ button_expanded }}"
+  {% endif %}
+  {% if button_controls %}
+    aria-controls="{{ button_controls }}"
+  {% endif %}
+  {% if button_describedby %}
+    aria-describedby="{{ button_describedby }}"
+  {% endif %}
+  {% if button_label %}
+    aria-label="{{ button_label }}"
+  {% endif %}
+  {% if button_loading %}
+    aria-busy="true"
+  {% endif %}
+  {% if button_onclick %}
+    onclick="{{ button_onclick }}"
+  {% endif %}
+  {% if button_form %}
+    form="{{ button_form }}"
+  {% endif %}
+  {% if button_formaction %}
+    formaction="{{ button_formaction }}"
+  {% endif %}
+  {% if button_formmethod %}
+    formmethod="{{ button_formmethod }}"
+  {% endif %}
 >
   <!-- Button Content -->
   <span class="button-content">
@@ -66,9 +90,9 @@
         {{ button_icon }}
       </span>
     {% endif %}
-    
+
     <span class="button-text">{{ button_text }}</span>
-    
+
     {% if button_icon and button_icon_position == 'right' %}
       <span class="button-icon button-icon-right" aria-hidden="true">
         {{ button_icon }}
@@ -91,183 +115,5 @@
 </button>
 
 {% if wrapper_class %}
-</div>
+  </div>
 {% endif %}
-
-<style>
-  .accessible-button {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.75rem 1.5rem;
-    border: 1px solid transparent;
-    border-radius: var(--radius);
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    background-color: var(--primary);
-    color: var(--primary-foreground);
-    min-height: 44px; /* Minimum touch target size */
-    min-width: 44px;
-  }
-
-  .accessible-button:hover:not(:disabled) {
-    opacity: 0.9;
-    transform: translateY(-1px);
-  }
-
-  .accessible-button:focus {
-    outline: 2px solid var(--ring);
-    outline-offset: 2px;
-  }
-
-  .accessible-button:active:not(:disabled) {
-    transform: translateY(0);
-  }
-
-  .accessible-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
-  }
-
-  .accessible-button.loading {
-    pointer-events: none;
-  }
-
-  .button-content {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: opacity 0.2s ease;
-  }
-
-  .accessible-button.loading .button-content {
-    opacity: 0;
-  }
-
-  .button-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .button-icon svg {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
-
-  .loading-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .loading-spinner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  .animate-spin {
-    animation: spin 1s linear infinite;
-  }
-
-  /* Button variants */
-  .accessible-button.btn-secondary {
-    background-color: var(--secondary);
-    color: var(--secondary-foreground);
-  }
-
-  .accessible-button.btn-outline {
-    background-color: transparent;
-    border-color: var(--border);
-    color: var(--foreground);
-  }
-
-  .accessible-button.btn-outline:hover:not(:disabled) {
-    background-color: var(--accent);
-    color: var(--accent-foreground);
-  }
-
-  .accessible-button.btn-ghost {
-    background-color: transparent;
-    border-color: transparent;
-    color: var(--foreground);
-  }
-
-  .accessible-button.btn-ghost:hover:not(:disabled) {
-    background-color: var(--accent);
-    color: var(--accent-foreground);
-  }
-
-  .accessible-button.btn-destructive {
-    background-color: var(--destructive);
-    color: var(--destructive-foreground);
-  }
-
-  /* Size variants */
-  .accessible-button.btn-sm {
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-    min-height: 36px;
-  }
-
-  .accessible-button.btn-lg {
-    padding: 1rem 2rem;
-    font-size: 1.125rem;
-    min-height: 52px;
-  }
-
-  /* High contrast mode support */
-  @media (prefers-contrast: high) {
-    .accessible-button {
-      border-width: 2px;
-      border-color: currentColor;
-    }
-    
-    .accessible-button:focus {
-      outline-width: 3px;
-      outline-color: #000;
-    }
-  }
-
-  /* Reduced motion support */
-  @media (prefers-reduced-motion: reduce) {
-    .accessible-button {
-      transition: none;
-    }
-    
-    .accessible-button:hover:not(:disabled) {
-      transform: none;
-    }
-    
-    .animate-spin {
-      animation: none;
-    }
-  }
-
-  /* Touch device optimizations */
-  @media (pointer: coarse) {
-    .accessible-button {
-      min-height: 48px; /* Larger touch targets on mobile */
-      min-width: 48px;
-    }
-  }
-</style>

@@ -25,7 +25,7 @@
   - wrapper_class: {String} CSS classes for the wrapper (optional)
 
   Usage:
-  {% render 'accessible-input', 
+  {% render 'accessible-input',
     input_id: 'email',
     input_type: 'email',
     label_text: 'Email Address',
@@ -40,7 +40,7 @@
   assign input_required = input_required | default: false
   assign input_disabled = input_disabled | default: false
   assign input_readonly = input_readonly | default: false
-  
+
   # Generate unique IDs for associated elements
   assign help_id = input_id | append: '-help'
   assign error_id = input_id | append: '-error'
@@ -49,8 +49,8 @@
 
 <div class="input-wrapper {% if wrapper_class %}{{ wrapper_class }}{% endif %}">
   <!-- Label -->
-  <label 
-    for="{{ input_id }}" 
+  <label
+    for="{{ input_id }}"
     id="{{ label_id }}"
     class="input-label {% if label_class %}{{ label_class }}{% endif %}{% if input_required %} required{% endif %}"
   >
@@ -66,20 +66,48 @@
     id="{{ input_id }}"
     name="{{ input_name }}"
     class="input-field {% if input_class %}{{ input_class }}{% endif %}"
-    {% if input_value %}value="{{ input_value | escape }}"{% endif %}
-    {% if input_placeholder %}placeholder="{{ input_placeholder | escape }}"{% endif %}
-    {% if input_required %}required aria-required="true"{% endif %}
-    {% if input_disabled %}disabled{% endif %}
-    {% if input_readonly %}readonly{% endif %}
-    {% if input_autocomplete %}autocomplete="{{ input_autocomplete }}"{% endif %}
-    {% if input_pattern %}pattern="{{ input_pattern }}"{% endif %}
-    {% if input_min %}min="{{ input_min }}"{% endif %}
-    {% if input_max %}max="{{ input_max }}"{% endif %}
-    {% if input_step %}step="{{ input_step }}"{% endif %}
-    {% if input_maxlength %}maxlength="{{ input_maxlength }}"{% endif %}
-    {% if input_minlength %}minlength="{{ input_minlength }}"{% endif %}
+    {% if input_value %}
+      value="{{ input_value | escape }}"
+    {% endif %}
+    {% if input_placeholder %}
+      placeholder="{{ input_placeholder | escape }}"
+    {% endif %}
+    {% if input_required %}
+      required aria-required="true"
+    {% endif %}
+    {% if input_disabled %}
+      disabled
+    {% endif %}
+    {% if input_readonly %}
+      readonly
+    {% endif %}
+    {% if input_autocomplete %}
+      autocomplete="{{ input_autocomplete }}"
+    {% endif %}
+    {% if input_pattern %}
+      pattern="{{ input_pattern }}"
+    {% endif %}
+    {% if input_min %}
+      min="{{ input_min }}"
+    {% endif %}
+    {% if input_max %}
+      max="{{ input_max }}"
+    {% endif %}
+    {% if input_step %}
+      step="{{ input_step }}"
+    {% endif %}
+    {% if input_maxlength %}
+      maxlength="{{ input_maxlength }}"
+    {% endif %}
+    {% if input_minlength %}
+      minlength="{{ input_minlength }}"
+    {% endif %}
     aria-labelledby="{{ label_id }}"
-    {% if help_text %}aria-describedby="{{ help_id }}{% if error_text %} {{ error_id }}{% endif %}"{% elsif error_text %}aria-describedby="{{ error_id }}"{% endif %}
+    {% if help_text %}
+      aria-describedby="{{ help_id }}{% if error_text %} {{ error_id }}{% endif %}"
+    {% elsif error_text %}
+      aria-describedby="{{ error_id }}"
+    {% endif %}
   >
 
   <!-- Help Text -->
@@ -99,85 +127,3 @@
     </div>
   {% endif %}
 </div>
-
-<style>
-  .input-wrapper {
-    margin-bottom: 1rem;
-  }
-
-  .input-label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: var(--foreground);
-  }
-
-  .input-label.required .required-indicator {
-    color: #ef4444;
-    margin-left: 0.25rem;
-  }
-
-  .input-field {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background-color: var(--input);
-    color: var(--foreground);
-    font-size: 1rem;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .input-field:focus {
-    outline: none;
-    border-color: var(--ring);
-    box-shadow: 0 0 0 2px rgba(89, 186, 185, 0.2);
-  }
-
-  .input-field:invalid {
-    border-color: #ef4444;
-  }
-
-  .input-field:invalid:focus {
-    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
-  }
-
-  .input-field:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    background-color: var(--muted);
-  }
-
-  .help-text {
-    font-size: 0.875rem;
-    color: var(--muted-foreground);
-    margin-top: 0.25rem;
-  }
-
-  .error-message {
-    font-size: 0.875rem;
-    color: #ef4444;
-    margin-top: 0.25rem;
-    display: flex;
-    align-items: center;
-  }
-
-  /* High contrast mode support */
-  @media (prefers-contrast: high) {
-    .input-field {
-      border-width: 2px;
-    }
-    
-    .input-field:focus {
-      border-color: #000;
-      box-shadow: 0 0 0 3px #000;
-    }
-  }
-
-  /* Reduced motion support */
-  @media (prefers-reduced-motion: reduce) {
-    .input-field {
-      transition: none;
-    }
-  }
-</style>
