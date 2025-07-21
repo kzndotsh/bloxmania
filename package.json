@@ -9,7 +9,7 @@
     "dev:concurrent": "concurrently \"npm run build:css:watch\" \"npm run build:js:watch\" \"dotenv -e .env -- shopify theme dev --path=theme\"",
     "dev:watch": "npm run build:css:watch",
     "---------------------------------------------Build & Deploy": "---------------------------------------------",
-    "build": "npm run build:css:prod && npm run build:js:prod && dotenv -e .env -- shopify theme push --path=theme",
+    "build": "npm run build:css:prod && npm run build:js:prod",
     "build:css:dev": "tailwindcss -i ./theme/src/styles.css -o ./theme/assets/style-base.css --config ./tailwind.config.js",
     "build:css:watch": "tailwindcss -i ./theme/src/styles.css -o ./theme/assets/style-base.css --config ./tailwind.config.js --watch",
     "build:css:prod": "NODE_ENV=production tailwindcss -i ./theme/src/styles.css -o ./theme/assets/style-base.css --config ./tailwind.config.js --minify",
