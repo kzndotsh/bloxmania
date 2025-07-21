@@ -22,29 +22,30 @@
 
   {%- if layout == 'list' -%}
     <!-- List Layout -->
-    <div class="product-card-list flex items-center bg-gray-800/50 border border-gray-700 hover:border-primary rounded-xl p-4 transition-all duration-300 hover:bg-gray-800/70 hover:shadow-lg">
+    <a
+      href="{{ card_product.url }}"
+      class="block product-card-list flex items-center bg-gray-800/50 border border-gray-700 hover:border-primary rounded-xl p-4 transition-all duration-300 hover:bg-gray-800/70 hover:shadow-lg group"
+    >
       <!-- Product Image -->
       <div class="flex-shrink-0 mr-6">
-        <a href="{{ card_product.url }}" class="block">
-          {%- if card_product.featured_image != blank -%}
-            <img
-              src="{{ card_product.featured_image | image_url: width: 160 }}"
-              alt="{{ card_product.title | escape }}"
-              class="w-24 h-24 rounded-xl object-cover shadow-md"
-              width="96"
-              height="96"
-              {% if lazy_load %}
-                loading="lazy"
-              {% endif %}
-            >
-          {%- else -%}
-            <div class="w-24 h-24 rounded-xl bg-gray-700 flex items-center justify-center shadow-md">
-              <svg class="w-8 h-8 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
-              </svg>
-            </div>
-          {%- endif -%}
-        </a>
+        {%- if card_product.featured_image != blank -%}
+          <img
+            src="{{ card_product.featured_image | image_url: width: 160 }}"
+            alt="{{ card_product.title | escape }}"
+            class="w-24 h-24 rounded-xl object-cover shadow-md"
+            width="96"
+            height="96"
+            {% if lazy_load %}
+              loading="lazy"
+            {% endif %}
+          >
+        {%- else -%}
+          <div class="w-24 h-24 rounded-xl bg-gray-700 flex items-center justify-center shadow-md">
+            <svg class="w-8 h-8 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+        {%- endif -%}
       </div>
 
       <!-- Product Info -->
@@ -52,10 +53,8 @@
         <div class="flex items-start justify-between">
           <div class="flex-1 min-w-0 mr-4">
             <!-- Product Title -->
-            <h3 class="text-lg font-semibold text-white mb-1">
-              <a href="{{ card_product.url }}" class="hover:text-primary transition-colors duration-200 line-clamp-1">
-                {{ card_product.title | escape }}
-              </a>
+            <h3 class="text-lg font-semibold text-white mb-1 group-hover:text-primary transition-colors duration-200 line-clamp-1">
+              {{ card_product.title | escape }}
             </h3>
 
             <!-- Product Vendor -->
@@ -102,31 +101,31 @@
             </div>
 
             <!-- Action Button -->
-            <a
-              href="{{ card_product.url }}"
+            <div
               class="inline-flex items-center justify-center px-4 py-2 bg-primary hover:bg-primary-dark text-black font-medium rounded-lg transition-all duration-200 text-sm"
             >
               View Details
               <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
               </svg>
-            </a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </a>
   {%- else -%}
     <!-- Grid Layout (Default) -->
-    <div
-      class="product-card-widget border border-gray-700 hover:border-primary transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 hover:shadow-xl h-full flex flex-col rounded-2xl overflow-hidden bg-cover bg-center bg-no-repeat"
+    <a
+      href="{{ card_product.url }}"
+      class="block product-card-widget border border-gray-700 hover:border-primary transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 hover:shadow-xl h-full flex flex-col rounded-2xl overflow-hidden bg-cover bg-center bg-no-repeat group"
     >
       <div class="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col">
-        <div class="relative group flex-1 flex flex-col justify-center">
+        <div class="relative group-hover:brightness-110 flex-1 flex flex-col justify-center">
           {% if card_product.featured_image != blank %}
             <img
               src="{{ card_product.featured_image | image_url: width: 300 }}"
               alt="{{ card_product.title }}"
-              class="w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto rounded-xl mb-4 sm:mb-6 transition-all duration-300 group-hover:brightness-110 object-cover"
+              class="w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto rounded-xl mb-4 sm:mb-6 transition-all duration-300 object-cover"
               width="160"
               height="160"
               {% if lazy_load %}
@@ -140,13 +139,8 @@
           {% endif %}
         </div>
         <div class="text-center mt-auto">
-          <h3 class="font-semibold mb-2 text-sm sm:text-base lg:text-lg line-clamp-2 text-white">
-            <a
-              href="{{ card_product.url }}"
-              class="no-underline text-white hover:text-primary transition-colors duration-200"
-            >
-              {{- card_product.title -}}
-            </a>
+          <h3 class="font-semibold mb-2 text-sm sm:text-base lg:text-lg line-clamp-2 text-white group-hover:text-primary transition-colors duration-200">
+            {{- card_product.title -}}
           </h3>
 
           {%- if show_vendor -%}
@@ -164,17 +158,16 @@
 
           {%- if show_quick_add -%}
             <div class="mt-4">
-              <a
-                href="{{ card_product.url }}"
-                class="inline-flex items-center justify-center px-4 py-2 bg-transparent text-primary border border-primary no-underline font-medium rounded-md transition-all duration-300 text-sm hover:bg-primary hover:text-black w-full"
+              <div
+                class="inline-flex items-center justify-center px-4 py-2 bg-transparent text-primary border border-primary font-medium rounded-md transition-all duration-300 text-sm w-full"
               >
                 View Product
-              </a>
+              </div>
             </div>
           {%- endif -%}
         </div>
       </div>
-    </div>
+    </a>
   {%- endif -%}
 {%- endif -%}
 

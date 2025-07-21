@@ -1,23 +1,25 @@
 {%- comment -%}
-  Responsive Image Helper
-  Uses Shopify's built-in image optimization with responsive srcset
+  Optimized Responsive Image Helper
+  Follows Shopify performance best practices for image loading
 
   Parameters:
-  - image: Image filename (e.g., 'image-hero.png')
+  - image: Image object or filename
   - alt: Alt text for accessibility
   - class: CSS classes to apply
   - sizes: Sizes attribute for responsive images
   - loading: Loading strategy ('lazy', 'eager', or 'auto')
   - width: Explicit width attribute
   - height: Explicit height attribute
+  - priority: Whether this is a priority image (above-the-fold)
 
   Usage:
   {% render 'responsive-image',
-    image: 'image-hero.png',
-    alt: 'Hero image',
+    image: product.featured_image,
+    alt: product.title,
     class: 'w-full h-auto',
-    sizes: '100vw',
-    loading: 'lazy' %}
+    sizes: '(max-width: 768px) 100vw, 50vw',
+    loading: 'lazy',
+    priority: false %}
 {%- endcomment -%}
 
 {%- liquid
@@ -30,6 +32,18 @@
     assign loading = 'lazy'
   endunless
 
+  unless priority
+    assign priority = false
+  endunless
+
+  # Determine if this is above-the-fold content
+  assign is_above_fold = priority | default: false
+
+  # Set loading strategy based on priority
+  if is_above_fold
+    assign loading = 'eager'
+  endif
+
   # Check if this is a product image or asset
   assign is_product_image = false
   if image.url
@@ -40,6 +54,12 @@
 {%- if is_product_image -%}
   {%- comment -%} Product image with responsive srcset {%- endcomment -%}
   {%- assign breakpoints = '480,768,1024,1440,1920' | split: ',' -%}
+
+  {%- if is_above_fold -%}
+    {%- comment -%} Preload above-the-fold images {%- endcomment -%}
+    {{ image | image_url: width: 800 | preload_tag: as: 'image' }}
+  {%- endif -%}
+
   <img
     src="{{ image | image_url: width: 800 }}"
     srcset="
@@ -57,9 +77,17 @@
     {% if class %}
       class="{{ class }}"
     {% endif %}
+    {% if is_above_fold %}
+      fetchpriority="high"
+    {% endif %}
   >
 {%- else -%}
   {%- comment -%} Asset image (no responsive srcset) {%- endcomment -%}
+  {%- if is_above_fold -%}
+    {%- comment -%} Preload above-the-fold assets {%- endcomment -%}
+    {{ image | asset_url | preload_tag: as: 'image' }}
+  {%- endif -%}
+
   <img
     src="{{ image | asset_url }}"
     alt="{{ alt | escape }}"
@@ -69,6 +97,9 @@
     height="{{ height | default: 600 }}"
     {% if class %}
       class="{{ class }}"
+    {% endif %}
+    {% if is_above_fold %}
+      fetchpriority="high"
     {% endif %}
   >
 {%- endif -%}

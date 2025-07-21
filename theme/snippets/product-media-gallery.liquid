@@ -1,12 +1,12 @@
 {% comment %}
   Renders product media gallery with zoom functionality and proper accessibility
-  
+
   Accepts:
   - product: {Object} Product Liquid object (required)
   - variant_images: {Array} Array of variant images (optional)
   - enable_zoom: {Boolean} Enable image zoom functionality (optional)
   - enable_video_looping: {Boolean} Enable video looping (optional)
-  
+
   Usage:
   {% render 'product-media-gallery', product: product, enable_zoom: true %}
 {% endcomment %}
@@ -19,7 +19,6 @@
 -%}
 
 <div class="product-media-gallery" data-media-count="{{ media_count }}">
-  
   <!-- Main Media Display -->
   <div class="main-media-container relative bg-gray-900 rounded-2xl overflow-hidden mb-4">
     {%- if featured_media -%}
@@ -29,26 +28,30 @@
             <img
               src="{{ featured_media | image_url: width: 800 }}"
               alt="{{ featured_media.alt | escape }}"
-              class="w-full h-auto object-cover transition-transform duration-300 {% if enable_zoom %}cursor-zoom-in{% endif %}"
+              class="w-full h-auto object-contain transition-transform duration-300 {% if enable_zoom %}cursor-zoom-in{% endif %}"
               width="{{ featured_media.width }}"
               height="{{ featured_media.height }}"
               loading="eager"
               id="main-product-image"
               data-zoom-src="{{ featured_media | image_url: width: 1600 }}"
             >
-            
+
             {%- if enable_zoom -%}
               <!-- Zoom overlay -->
               <div class="zoom-overlay absolute inset-0 opacity-0 pointer-events-none transition-opacity duration-300">
                 <div class="zoom-lens absolute border-2 border-primary pointer-events-none"></div>
-                <div class="zoom-result absolute top-0 left-full ml-4 w-96 h-96 bg-gray-900 border border-gray-700 rounded-lg overflow-hidden z-10"></div>
+                <div
+                  class="zoom-result absolute top-0 left-full ml-4 w-96 h-96 bg-gray-900 border border-gray-700 rounded-lg overflow-hidden z-10"
+                ></div>
               </div>
             {%- endif -%}
 
           {%- when 'video' -%}
             <video
               class="w-full h-auto object-cover"
-              {% if enable_video_looping %}loop{% endif %}
+              {% if enable_video_looping %}
+                loop
+              {% endif %}
               muted
               playsinline
               controls
@@ -113,7 +116,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
         </svg>
       </button>
-      
+
       <button
         type="button"
         class="media-nav-btn media-nav-next absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 text-white rounded-full flex items-center justify-center transition-all duration-200 opacity-0 group-hover:opacity-100"
@@ -129,11 +132,11 @@
   <!-- Thumbnail Gallery -->
   {%- if media_count > 1 -%}
     <div class="thumbnail-gallery">
-      <div class="flex gap-2 overflow-x-auto pb-2">
+      <div class="flex gap-2 pb-2">
         {%- for media in product.media -%}
           <button
             type="button"
-            class="thumbnail-btn flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all duration-200 {% if forloop.first %}border-primary{% else %}border-gray-600 hover:border-gray-400{% endif %}"
+            class="thumbnail-btn flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden transition-all duration-200 {% if forloop.first %}ring-1 ring-primary{% endif %}"
             data-media-id="{{ media.id }}"
             data-media-type="{{ media.media_type }}"
             aria-label="{{ 'general.accessibility.load_image' | t: index: forloop.index }}"
@@ -202,7 +205,6 @@
       </div>
     </div>
   {%- endif -%}
-
 </div>
 
 <!-- Hidden media elements for gallery functionality -->

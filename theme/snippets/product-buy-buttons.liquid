@@ -42,40 +42,35 @@
     -%}
       <input type="hidden" name="id" value="{{ current_variant.id }}" class="product-variant-id">
 
-      <div class="product-form__buttons">
+      <div class="product-form__buttons space-y-3">
         <button
           type="submit"
           name="add"
-          class="btn-primary product-form__cart-submit w-full"
+          class="add-to-cart-btn product-form__cart-submit relative"
           {% if current_variant.available == false %}
             disabled
           {% endif %}
         >
-          <span>
-            {%- if current_variant.available -%}
-              {{ 'products.product.add_to_cart' | t }}
-            {%- else -%}
-              {{ 'products.product.sold_out' | t }}
-            {%- endif -%}
-          </span>
-          <div class="loading-overlay__spinner hidden">
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              class="spinner"
-              viewBox="0 0 66 66"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                class="path"
-                fill="none"
-                stroke-width="6"
-                stroke-linecap="round"
-                cx="33"
-                cy="33"
-                r="30"
-              ></circle>
+          <!-- Button Content -->
+          <div class="flex items-center justify-center gap-3 px-6 py-3">
+            <!-- Cart Icon -->
+            <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"/>
             </svg>
+
+            <!-- Button Text -->
+            <span class="font-semibold text-black text-base">
+              {%- if current_variant.available -%}
+                {{ 'products.product.add_to_cart' | t }}
+              {%- else -%}
+                {{ 'products.product.sold_out' | t }}
+              {%- endif -%}
+            </span>
+          </div>
+
+          <!-- Loading Spinner -->
+          <div class="loading-overlay__spinner hidden absolute inset-0 flex items-center justify-center">
+            <div class="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
           </div>
         </button>
 
@@ -222,68 +217,57 @@
 </script>
 
 <style>
-  .btn.loading {
+  .add-to-cart-btn {
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: fit-content;
+  }
+
+  .add-to-cart-btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .add-to-cart-btn:active {
+    transform: translateY(0);
+  }
+
+  .add-to-cart-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .add-to-cart-btn.loading {
     color: transparent;
   }
 
-  .btn .loading-overlay__spinner {
+  .add-to-cart-btn.loading .loading-overlay__spinner {
+    display: flex !important;
+  }
+
+  .add-to-cart-btn .loading-overlay__spinner {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 1.8rem;
-    height: 1.8rem;
   }
 
-  .spinner {
-    animation: rotator 1.4s linear infinite;
-  }
-
-  @keyframes rotator {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(270deg);
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .add-to-cart-btn {
+      padding: 0.5rem 0.75rem;
     }
   }
 
-  .spinner .path {
-    stroke-dasharray: 187;
-    stroke-dashoffset: 0;
-    transform-origin: center;
-    animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
-  }
-
-  @keyframes colors {
-    0% {
-      stroke: #4285f4;
-    }
-    25% {
-      stroke: #de3e35;
-    }
-    50% {
-      stroke: #f7c223;
-    }
-    75% {
-      stroke: #1b9a59;
-    }
-    100% {
-      stroke: #4285f4;
-    }
-  }
-
-  @keyframes dash {
-    0% {
-      stroke-dashoffset: 187;
-    }
-    50% {
-      stroke-dashoffset: 46.75;
-      transform: rotate(135deg);
-    }
-    100% {
-      stroke-dashoffset: 187;
-      transform: rotate(450deg);
+  @media (max-width: 480px) {
+    .add-to-cart-btn {
+      padding: 0.375rem 0.625rem;
+      font-size: 0.8rem;
     }
   }
 </style>
