@@ -161,7 +161,7 @@ class SearchModal extends HTMLElement {
   async basicSearch(query) {
     try {
       const response = await fetch(
-        `/search/suggest?q=${encodeURIComponent(
+        `/search/suggest.json?q=${encodeURIComponent(
           query
         )}&resources[type]=product&resources[limit]=8`
       );
@@ -170,35 +170,87 @@ class SearchModal extends HTMLElement {
         throw new Error(`Search failed: ${response.status}`);
       }
 
-      const html = await response.text();
-      return this.parseBasicResults(html, query);
+      const data = await response.json();
+      console.log('Search API response:', data);
+
+      return this.parseJsonResults(data, query);
     } catch (error) {
+      console.error('Search API error:', error);
       throw error;
     }
   }
 
-  parseBasicResults(html, query) {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
+  parseJsonResults(data, query) {
+    console.log('Full response data:', data);
 
-    const products = Array.from(
-      doc.querySelectorAll('.predictive-search__item')
-    ).map((item) => ({
-      type: 'product',
-      title: item
-        .querySelector('.predictive-search__item-heading')
-        ?.textContent?.trim(),
-      url: item.querySelector('a')?.href,
-      image: item.querySelector('img')?.src,
-      price: item.querySelector('.price')?.textContent?.trim(),
-    }));
+    const products = [];
 
-    return {
-      query,
-      products,
-      collections: [],
-      pages: [],
-    };
+    // Handle the suggest.json response structure
+    if (data.resources && data.resources.results) {
+      // Check if results is an array or object
+      if (Array.isArray(data.resources.results)) {
+        products.push(...data.resources.results);
+      } else if (typeof data.resources.results === 'object') {
+        // If results is an object, extract products from it
+        const resultsObj = data.resources.results;
+        Object.keys(resultsObj).forEach((key) => {
+          if (Array.isArray(resultsObj[key])) {
+            products.push(...resultsObj[key]);
+          }
+        });
+      }
+    }
+
+    // Also check for direct products array
+    if (
+      data.resources &&
+      data.resources.products &&
+      Array.isArray(data.resources.products)
+    ) {
+      products.push(...data.resources.products);
+    }
+
+    // Check for direct results array
+    if (data.results && Array.isArray(data.results)) {
+      products.push(...data.results);
+    }
+
+    console.log('Parsed products:', products);
+
+    return products
+      .map((product) => {
+        // Ensure we have a valid product object
+        if (!product || !product.title) {
+          console.log('Skipping invalid product:', product);
+          return null;
+        }
+
+        // Fix URL generation
+        let productUrl = '';
+        if (typeof product.url === 'string') {
+          productUrl = product.url;
+        } else if (product.handle) {
+          productUrl = `/products/${product.handle}`;
+        } else if (product.id) {
+          productUrl = `/products/${product.id}`;
+        } else {
+          console.log('No valid URL for product:', product);
+          return null;
+        }
+
+        return {
+          title: product.title || product.name || '',
+          url: productUrl,
+          handle: product.handle || '',
+          id: product.id || '',
+          image: product.image || product.featured_image || '',
+          price: product.price || product.price_min || '',
+          compare_at_price: product.compare_at_price || product.price_max || '',
+          available: product.available !== false,
+          type: 'product',
+        };
+      })
+      .filter(Boolean); // Remove null entries
   }
 
   displayResults(results) {
