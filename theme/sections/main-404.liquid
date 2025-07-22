@@ -1,50 +1,189 @@
-<div class="template-404 page-width page-margin">
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div
+  class="
+    template-404 page-width page-margin section-{{ section.id }}-padding
+    {% if section.settings.layout == 'centered' %}text-center{% endif %}
+    {% if section.settings.layout == 'minimal' %}template-404--minimal{% endif %}
+  "
+>
   <div class="error-code">404</div>
 
   <h1 class="title">
-    {{ 'templates.404.title' | t }}
+    {{ section.settings.title | default: 'templates.404.title' | t }}
   </h1>
 
   <p>
-    {{ 'templates.404.subtext' | t }}
+    {{ section.settings.subtext | default: 'templates.404.subtext' | t }}
   </p>
 
   <!-- Search form for better user experience -->
-  {% render 'search-form', class: 'template-404__search-form', id: 'Search-404' %}
+  {% if section.settings.show_search %}
+    {% render 'search-form', class: 'template-404__search-form', id: 'Search-404' %}
+  {% endif %}
 
   <!-- Helpful navigation links -->
-  <div class="helpful-links">
-    <h2>{{ 'templates.404.helpful_links' | t | default: 'Helpful Links' }}</h2>
-    <ul>
-      <li>
-        <a href="{{ routes.root_url }}">{{ 'general.404.link_home' | t | default: 'Home' }}</a>
-      </li>
-      <li>
-        <a href="{{ routes.all_products_collection_url }}">
-          {{- 'general.404.link_products' | t | default: 'All Products' -}}
-        </a>
-      </li>
-      {%- if blog.handles.size > 0 -%}
+  {% if section.settings.show_helpful_links %}
+    <div class="helpful-links">
+      <h2>
+        {{
+          section.settings.helpful_links_title
+          | default: 'templates.404.helpful_links'
+          | t
+          | default: 'Helpful Links'
+        }}
+      </h2>
+      <ul>
         <li>
-          <a href="/blogs/{{ blog.handles.first }}">{{ 'general.404.link_blog' | t | default: 'Blog' }}</a>
+          <a href="{{ routes.root_url }}">{{ 'general.404.link_home' | t | default: 'Home' }}</a>
         </li>
-      {%- endif -%}
-      <li>
-        <a href="{{ routes.search_url }}">{{ 'general.404.link_search' | t | default: 'Search' }}</a>
-      </li>
-    </ul>
-  </div>
+        <li>
+          <a href="{{ routes.all_products_collection_url }}">
+            {{- 'general.404.link_products' | t | default: 'All Products' -}}
+          </a>
+        </li>
+        {%- if section.settings.show_blog_link and blog.handles.size > 0 -%}
+          <li>
+            <a href="/blogs/{{ blog.handles.first }}">{{ 'general.404.link_blog' | t | default: 'Blog' }}</a>
+          </li>
+        {%- endif -%}
+        <li>
+          <a href="{{ routes.search_url }}">{{ 'general.404.link_search' | t | default: 'Search' }}</a>
+        </li>
+      </ul>
+    </div>
+  {% endif %}
 
   <!-- Primary CTA button -->
-  <a href="{{ routes.all_products_collection_url }}" class="button cta-button">
-    {{ 'general.continue_shopping' | t }}
+  <a
+    href="{{ section.settings.cta_button_link | default: routes.all_products_collection_url }}"
+    class="button cta-button"
+  >
+    {{ section.settings.cta_button_text | default: 'general.continue_shopping' | t }}
   </a>
 </div>
 
 {% schema %}
 {
-  "name": "t:sections.main-404.name",
+  "name": "404 Page",
   "tag": "section",
-  "class": "section"
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Page Title",
+      "default": "Page not found"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Page Subtext",
+      "default": "Sorry, we can't find the page you're looking for. Try searching for something else or check out our helpful links below."
+    },
+    {
+      "type": "text",
+      "id": "helpful_links_title",
+      "label": "Helpful Links Title",
+      "default": "Helpful Links"
+    },
+    {
+      "type": "text",
+      "id": "cta_button_text",
+      "label": "CTA Button Text",
+      "default": "Continue Shopping"
+    },
+    {
+      "type": "url",
+      "id": "cta_button_link",
+      "label": "CTA Button Link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search form",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_helpful_links",
+      "label": "Show helpful links",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_blog_link",
+      "label": "Show blog link",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout Style",
+      "options": [
+        {
+          "value": "centered",
+          "label": "Centered"
+        },
+        {
+          "value": "left-aligned",
+          "label": "Left Aligned"
+        },
+        {
+          "value": "minimal",
+          "label": "Minimal"
+        }
+      ],
+      "default": "centered"
+    },
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "404 Page"
+    }
+  ]
 }
 {% endschema %}

@@ -2387,6 +2387,12 @@ nav a:focus,
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
+.from-blue-600 {
+  --tw-gradient-from: #2563eb var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(37 99 235 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
 .from-cyan-900\/15 {
   --tw-gradient-from: rgb(22 78 99 / 0.15) var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(22 78 99 / 0) var(--tw-gradient-to-position);
@@ -2402,6 +2408,18 @@ nav a:focus,
 .from-primary {
   --tw-gradient-from: #ffd800 var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(255 216 0 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.from-primary\/10 {
+  --tw-gradient-from: rgb(255 216 0 / 0.1) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(255 216 0 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.from-purple-600 {
+  --tw-gradient-from: #9333ea var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(147 51 234 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
@@ -2475,8 +2493,16 @@ nav a:focus,
   --tw-gradient-to: #db2777 var(--tw-gradient-to-position);
 }
 
+.to-purple-600 {
+  --tw-gradient-to: #9333ea var(--tw-gradient-to-position);
+}
+
 .to-secondary {
   --tw-gradient-to: #4791f0 var(--tw-gradient-to-position);
+}
+
+.to-secondary\/10 {
+  --tw-gradient-to: rgb(71 145 240 / 0.1) var(--tw-gradient-to-position);
 }
 
 .to-teal-600 {
@@ -12903,10 +12929,6 @@ nav a:hover::after,
 
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .md\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .md\:grid-cols-4 {

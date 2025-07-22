@@ -1,20 +1,73 @@
 {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
 
 {%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
   @media screen and (max-width: 749px) {
     .collection-hero--with-image .collection-hero__inner {
       padding-bottom: calc({{ settings.media_shadow_vertical_offset | at_least: 0 }}px + 2rem);
     }
   }
+
+  .collection-hero__image-container::after {
+    opacity: {{ section.settings.image_overlay_opacity | divided_by: 100.0 }};
+  }
 {%- endstyle -%}
 
-<div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
-  <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+<div
+  class="
+    collection-hero section-{{ section.id }}-padding
+    {% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %}
+    collection-hero--{{ section.settings.banner_height }}
+    color-{{ section.settings.color_scheme }} gradient
+  "
+>
+  <div
+    class="
+      collection-hero__inner page-width
+      {% if section.settings.text_alignment == 'center' %}text-center{% endif %}
+      {% if section.settings.text_alignment == 'right' %}text-right{% endif %}
+      {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}
+    "
+  >
     <div class="collection-hero__text-wrapper">
+      {% if section.settings.show_breadcrumbs %}
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol class="breadcrumb__list">
+            <li class="breadcrumb__item">
+              <a href="{{ routes.root_url }}" class="breadcrumb__link">Home</a>
+            </li>
+            <li class="breadcrumb__item">
+              <a href="{{ routes.collections_url }}" class="breadcrumb__link">Collections</a>
+            </li>
+            <li class="breadcrumb__item breadcrumb__item--current">
+              <span class="breadcrumb__text">{{ collection.title }}</span>
+            </li>
+          </ol>
+        </nav>
+      {% endif %}
+
       <h1 class="collection-hero__title">
         <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
         {{- collection.title | escape -}}
       </h1>
+
+      {% if section.settings.show_product_count %}
+        <p class="collection-hero__product-count">
+          {{ collection.products_count }}
+          {{ 'collections.general.items' | t | default: 'items' }}
+        </p>
+      {% endif %}
 
       {%- if section.settings.show_collection_description -%}
         <div class="collection-hero__description rte">{{ collection.description }}</div>
@@ -46,30 +99,125 @@
 
 {% schema %}
 {
-  "name": "t:sections.main-collection-banner.name",
+  "name": "Collection Banner",
   "class": "section",
   "settings": [
     {
       "type": "paragraph",
-      "content": "t:sections.main-collection-banner.settings.paragraph.content"
+      "content": "Customize the appearance of your collection banner"
     },
     {
       "type": "checkbox",
       "id": "show_collection_description",
       "default": true,
-      "label": "t:sections.main-collection-banner.settings.show_collection_description.label"
+      "label": "Show collection description"
     },
     {
       "type": "checkbox",
       "id": "show_collection_image",
       "default": false,
-      "label": "t:sections.main-collection-banner.settings.show_collection_image.label"
+      "label": "Show collection image"
+    },
+    {
+      "type": "select",
+      "id": "banner_height",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "adapt",
+          "label": "Adapt to image"
+        }
+      ],
+      "default": "medium",
+      "label": "Banner height"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "label": "Text alignment"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumbs",
+      "default": true,
+      "label": "Show breadcrumbs"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_count",
+      "default": true,
+      "label": "Show product count"
+    },
+    {
+      "type": "header",
+      "content": "Styling"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
+      "label": "Color scheme",
       "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "image_overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "label": "Image overlay opacity",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Banner"
     }
   ]
 }
