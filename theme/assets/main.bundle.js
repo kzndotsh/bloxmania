@@ -1,6 +1,6 @@
 /*
  * BloxMania Theme - MAIN Bundle
- * Generated: 2025-07-22T09:34:53.004Z
+ * Generated: 2025-07-22T09:54:11.898Z
  * Mode: development
  */
 
@@ -24,9 +24,9 @@
 // This file loads all other bundles
 
 // Load bundles sequentially for better performance
-var loadBundle = function(src) {
+const loadBundle = function(src) {
   return new Promise(function(resolve, reject) {
-    var script = document.createElement("script");
+    const script = document.createElement("script");
     script.src = src;
     script.onload = resolve;
     script.onerror = reject;

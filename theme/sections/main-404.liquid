@@ -10,6 +10,17 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  /* Simple top spacing for 404 page */
+  .template-404 {
+    margin-top: 4rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    .template-404 {
+      margin-top: 2rem;
+    }
+  }
 {%- endstyle -%}
 
 <div
@@ -22,11 +33,19 @@
   <div class="error-code">404</div>
 
   <h1 class="title">
-    {{ section.settings.title | default: 'templates.404.title' | t }}
+    {%- if section.settings.title != blank -%}
+      {{ section.settings.title }}
+    {%- else -%}
+      {{ 'templates.404.title' | t }}
+    {%- endif -%}
   </h1>
 
   <p>
-    {{ section.settings.subtext | default: 'templates.404.subtext' | t }}
+    {%- if section.settings.subtext != blank -%}
+      {{ section.settings.subtext }}
+    {%- else -%}
+      {{ 'templates.404.subtext' | t }}
+    {%- endif -%}
   </p>
 
   <!-- Search form for better user experience -->
@@ -38,29 +57,28 @@
   {% if section.settings.show_helpful_links %}
     <div class="helpful-links">
       <h2>
-        {{
-          section.settings.helpful_links_title
-          | default: 'templates.404.helpful_links'
-          | t
-          | default: 'Helpful Links'
-        }}
+        {%- if section.settings.helpful_links_title != blank -%}
+          {{ section.settings.helpful_links_title }}
+        {%- else -%}
+          {{ 'templates.404.helpful_links' | t }}
+        {%- endif -%}
       </h2>
       <ul>
         <li>
-          <a href="{{ routes.root_url }}">{{ 'general.404.link_home' | t | default: 'Home' }}</a>
+          <a href="{{ routes.root_url }}">{{ 'general.404.link_home' | t }}</a>
         </li>
         <li>
           <a href="{{ routes.all_products_collection_url }}">
-            {{- 'general.404.link_products' | t | default: 'All Products' -}}
+            {{- 'general.404.link_products' | t -}}
           </a>
         </li>
         {%- if section.settings.show_blog_link and blog.handles.size > 0 -%}
           <li>
-            <a href="/blogs/{{ blog.handles.first }}">{{ 'general.404.link_blog' | t | default: 'Blog' }}</a>
+            <a href="/blogs/{{ blog.handles.first }}">{{ 'general.404.link_blog' | t }}</a>
           </li>
         {%- endif -%}
         <li>
-          <a href="{{ routes.search_url }}">{{ 'general.404.link_search' | t | default: 'Search' }}</a>
+          <a href="{{ routes.search_url }}">{{ 'general.404.link_search' | t }}</a>
         </li>
       </ul>
     </div>
@@ -71,7 +89,11 @@
     href="{{ section.settings.cta_button_link | default: routes.all_products_collection_url }}"
     class="button cta-button"
   >
-    {{ section.settings.cta_button_text | default: 'general.continue_shopping' | t }}
+    {%- if section.settings.cta_button_text != blank -%}
+      {{ section.settings.cta_button_text }}
+    {%- else -%}
+      {{ 'general.continue_shopping' | t }}
+    {%- endif -%}
   </a>
 </div>
 
