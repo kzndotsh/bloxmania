@@ -4,6 +4,19 @@
 
 <script src="{{ 'ui-search-modal.js' | asset_url }}" defer="defer"></script>
 
+{%- style -%}
+  /* Proper spacing for search page content */
+  .search-page {
+    padding-top: 8rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    .search-page {
+      padding-top: 4rem;
+    }
+  }
+{%- endstyle -%}
+
 {%- liquid
   assign sort_by = search.sort_by | default: search.default_sort_by
   assign terms = search.terms | escape
