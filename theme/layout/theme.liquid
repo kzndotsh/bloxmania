@@ -226,6 +226,9 @@
         if (pageType === 'search') {
           loadScript('{{ 'feature-search.js' | asset_url }}');
         }
+
+        // Load header blur effect
+        loadScript('{{ 'header-blur.js' | asset_url }}');
       });
 
       function loadScript(src) {
