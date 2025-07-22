@@ -218,11 +218,13 @@
 
       <!-- Promotional Text -->
       <div class="guarantee-promo-content">
-        <h3 class="guarantee-promo-heading">
-          {{ section.settings.promo_heading | default: 'Why Wait? Join the Thousands of Happy' }}
+        <h2 class="guarantee-promo-heading">
+          {{ section.settings.promo_heading | default: 'Why Wait?' -}}
+          <br>
+          Join the Thousands of Happy
           <span class="text-[#ffd800]">{{ section.settings.promo_accent | default: 'BloxMania' }}</span>
           {{ 'Customers Today!' | default: 'Customers Today!' }}
-        </h3>
+        </h2>
         <p class="guarantee-promo-description">
           {{
             section.settings.promo_description
@@ -374,13 +376,13 @@
     {
       "type": "text",
       "id": "promo_heading",
-      "label": "Promo Heading",
-      "default": "Why Wait? Join the Thousands of Happy BloxMania Customers Today!"
+      "label": "Promo Heading (First Line)",
+      "default": "Why Wait?"
     },
     {
       "type": "text",
       "id": "promo_accent",
-      "label": "Promo Accent Text",
+      "label": "Promo Accent Text (Yellow)",
       "default": "BloxMania"
     },
     {

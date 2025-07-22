@@ -7,16 +7,16 @@ const CACHE_NAME = 'bloxmania-theme-cache-v1';
 const RUNTIME_CACHE = 'bloxmania-runtime-cache-v1';
 const IMAGE_CACHE = 'bloxmania-images-cache-v1';
 
-// Assets to cache on install
+// Assets to cache on install - use proper Shopify CDN paths
 const PRECACHE_ASSETS = [
   '/',
-  '/assets/style-base.css',
-  '/assets/core-global.js',
-  '/assets/system-theme-editor.js',
-  '/assets/core-dom.js',
-  '/assets/helper-html-update.js',
-  '/assets/helper-section-id.js',
-  '/assets/system-performance.js',
+  '/cdn/shop/t/17/assets/style-base.css',
+  '/cdn/shop/t/17/assets/core.bundle.js',
+  '/cdn/shop/t/17/assets/core-init.js',
+  '/cdn/shop/t/17/assets/helpers.bundle.js',
+  '/cdn/shop/t/17/assets/ui.bundle.js',
+  '/cdn/shop/t/17/assets/features.bundle.js',
+  '/cdn/shop/t/17/assets/system.bundle.js',
 ];
 
 // Cache strategies
@@ -337,8 +337,8 @@ self.addEventListener('push', (event) => {
 
     const options = {
       body: data.body,
-      icon: '/assets/icon-192x192.png',
-      badge: '/assets/badge-72x72.png',
+      icon: '/cdn/shop/t/17/assets/icon-192x192.png',
+      badge: '/cdn/shop/t/17/assets/badge-72x72.png',
       tag: data.tag || 'default',
       requireInteraction: data.requireInteraction || false,
       actions: data.actions || [],

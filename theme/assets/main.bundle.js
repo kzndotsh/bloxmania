@@ -1,1 +1,57 @@
-!function(){"use strict";const n="main";window.BloxMania&&window.BloxMania.bundles&&(window.BloxMania.bundles[n]={version:"1.0.0",loaded:!0,timestamp:Date.now()});const e=function(n){return new Promise(function(e,o){const l=document.createElement("script");l.src=n,l.onload=e,l.onerror=o,document.head.appendChild(l)})};Promise.all([e("core.bundle.js"),e("features.bundle.js"),e("ui.bundle.js"),e("helpers.bundle.js"),e("system.bundle.js")]).then(function(){console.log("🚀 BloxMania theme loaded successfully!")}).catch(function(n){console.error("Failed to load theme bundles:",n)}),window.BloxMania&&window.BloxMania.bundles&&window.BloxMania.bundles[n]&&(window.BloxMania.bundles[n].initialized=!0),console.log(`✅ ${n} bundle loaded`)}();
+/*
+ * BloxMania Theme - MAIN Bundle
+ * Generated: 2025-07-22T11:14:05.433Z
+ * Mode: development
+ */
+
+(function() {
+  'use strict';
+
+  // Bundle: main
+  const BUNDLE_NAME = 'main';
+  const BUNDLE_VERSION = '1.0.0';
+
+  // Bundle initialization
+  if (window.BloxMania && window.BloxMania.bundles) {
+    window.BloxMania.bundles[BUNDLE_NAME] = {
+      version: BUNDLE_VERSION,
+      loaded: true,
+      timestamp: Date.now()
+    };
+  }
+
+// Main application bundle
+// This file loads all other bundles
+
+// Load bundles sequentially for better performance
+const loadBundle = function(src) {
+  return new Promise(function(resolve, reject) {
+    const script = document.createElement("script");
+    script.src = src;
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+};
+
+// Load all bundles
+Promise.all([
+  loadBundle("core.bundle.js"),
+  loadBundle("features.bundle.js"),
+  loadBundle("ui.bundle.js"),
+  loadBundle("helpers.bundle.js"),
+  loadBundle("system.bundle.js")
+]).then(function() {
+  console.log("🚀 BloxMania theme loaded successfully!");
+}).catch(function(error) {
+  console.error("Failed to load theme bundles:", error);
+});
+
+
+  // Bundle completion
+  if (window.BloxMania && window.BloxMania.bundles && window.BloxMania.bundles[BUNDLE_NAME]) {
+    window.BloxMania.bundles[BUNDLE_NAME].initialized = true;
+  }
+
+  console.log(`✅ ${BUNDLE_NAME} bundle loaded`);
+})();

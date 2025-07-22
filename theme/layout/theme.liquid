@@ -152,6 +152,7 @@
             (href.includes('/assets/style-base.css') ||
               href.includes('/assets/core-global.js') ||
               href.includes('/assets/core-init.js') ||
+              href.includes('/assets/core.bundle.js') ||
               (href.includes('/assets/') && !href.includes('cdn.shopify.com')))
           ) {
             preload.remove();
@@ -233,27 +234,36 @@
     <link rel="dns-prefetch" href="https://fonts.shopifycdn.com">
 
     {%- comment -%} Preload critical JavaScript bundles {%- endcomment -%}
-    {{ 'core.bundle.js' | asset_url | preload_tag: as: 'script' }}
+    {%- comment -%} Removed problematic preload to prevent warnings {%- endcomment -%}
 
     {%- liquid
-      assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
-      assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
-      assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
+      assign inter_font = settings.type_body_font
+      assign inter_bold = inter_font | font_modify: 'weight', 'bold'
+      assign inter_italic = inter_font | font_modify: 'style', 'italic'
+      assign inter_bold_italic = inter_bold | font_modify: 'style', 'italic'
     %}
 
-    {%- comment -%} Font preloading for performance {%- endcomment -%}
-    {%- unless settings.type_body_font.system? -%}
-      {%- assign body_font_url = settings.type_body_font | font_url -%}
-      {%- if body_font_url != blank -%}
-        {{ body_font_url | preload_tag: as: 'font', type: 'font/woff2' }}
-      {%- endif -%}
-    {%- endunless -%}
-    {%- unless settings.type_heading_font.system? -%}
-      {%- assign heading_font_url = settings.type_heading_font | font_url -%}
-      {%- if heading_font_url != blank -%}
-        {{ heading_font_url | preload_tag: as: 'font', type: 'font/woff2' }}
-      {%- endif -%}
-    {%- endunless -%}
+    {%- comment -%} Load Inter font variants only {%- endcomment -%}
+    <style>
+      {{ inter_font | font_face }}
+      {{ inter_bold | font_face }}
+      {{ inter_italic | font_face }}
+      {{ inter_bold_italic | font_face }}
+    </style>
+
+    {%- comment -%} Set font CSS custom properties - Inter only {%- endcomment -%}
+    <style>
+      :root {
+        --font-family: {{ inter_font.family }}, {{ inter_font.fallback_families }};
+        --font-weight-normal: {{ inter_font.weight }};
+        --font-weight-bold: {{ inter_bold.weight }};
+        --font-style-normal: {{ inter_font.style }};
+        --font-style-italic: {{ inter_italic.style }};
+
+        --font-body-scale: {{ settings.body_scale | divided_by: 100.0 }};
+        --font-heading-scale: {{ settings.heading_scale | divided_by: 100.0 }};
+      }
+    </style>
 
     {%- comment -%} Load main CSS normally {%- endcomment -%}
     {{ 'style-base.css' | asset_url | stylesheet_tag }}

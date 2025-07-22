@@ -940,12 +940,18 @@ nav a:focus,
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
   backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
   -webkit-backdrop-filter: blur(4px);
-          backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+@media (max-width: 768px) {
+  .hero-section__trusted .relative.overflow-hidden.\!card {
+    padding: 0.125rem 0.0625rem;
+  }
 }
 
 @media (max-width: 480px) {
   .hero-section__trusted .relative.overflow-hidden.\!card {
-    padding: 0.0625rem 0.03125rem;
+    padding: 0.0625rem;
   }
 }
 
@@ -971,12 +977,18 @@ nav a:focus,
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
   backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
   -webkit-backdrop-filter: blur(4px);
-          backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+@media (max-width: 768px) {
+  .hero-section__trusted .relative.overflow-hidden.card {
+    padding: 0.125rem 0.0625rem;
+  }
 }
 
 @media (max-width: 480px) {
   .hero-section__trusted .relative.overflow-hidden.card {
-    padding: 0.0625rem 0.03125rem;
+    padding: 0.0625rem;
   }
 }
 
@@ -1165,9 +1177,15 @@ nav a:focus,
   padding: 0px;
 }
 
+@media (max-width: 768px) {
+  .hero-section__trusted .relative.visually-hidden.rounded-2xl {
+    padding: 0.125rem 0.0625rem;
+  }
+}
+
 @media (max-width: 480px) {
   .hero-section__trusted .relative.visually-hidden.rounded-2xl {
-    padding: 0.0625rem 0.03125rem;
+    padding: 0.0625rem;
   }
 }
 
@@ -2703,6 +2721,10 @@ nav a:focus,
   padding-top: 5rem;
 }
 
+.pt-32 {
+  padding-top: 8rem;
+}
+
 .pt-4 {
   padding-top: 1rem;
 }
@@ -3127,27 +3149,27 @@ nav a:focus,
 
 .backdrop-blur-xs {
   -webkit-backdrop-filter: blur(2px);
-          backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
 }
 
 .backdrop-blur-sm {
   -webkit-backdrop-filter: blur(4px);
-          backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
 }
 
 .backdrop-blur-md {
   -webkit-backdrop-filter: blur(8px);
-          backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
 
 .backdrop-blur-lg {
   -webkit-backdrop-filter: blur(12px);
-          backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
 .backdrop-blur-xl {
   -webkit-backdrop-filter: blur(16px);
-          backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
 }
 
 /* Animation utilities */
@@ -3238,7 +3260,7 @@ nav a:focus,
   background-image: var(--widget-bg-image);
   background-color: rgba(31, 41, 55, 0.5);
   -webkit-backdrop-filter: blur(4px);
-          backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   border: 1px solid rgba(75, 85, 99, 1);
   border-radius: 1rem;
   overflow: hidden;
@@ -3261,7 +3283,7 @@ nav a:focus,
 
 .product-card-widget img {
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   max-width: 160px;
   max-height: 160px;
   transition: all var(--duration-card) var(--easing-smooth);
@@ -3506,7 +3528,7 @@ nav a:focus,
 .header--transparent {
   background: transparent;
   -webkit-backdrop-filter: none;
-          backdrop-filter: none;
+  backdrop-filter: none;
   border-bottom: none;
   box-shadow: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -3515,7 +3537,7 @@ nav a:focus,
 .header--blurred {
   background: rgba(0, 0, 0, calc(0.1 + 0.4 * var(--header-blur-progress, 0)));
   -webkit-backdrop-filter: blur(calc(8px + 8px * var(--header-blur-progress, 0))) saturate(calc(150% + 30% * var(--header-blur-progress, 0)));
-          backdrop-filter: blur(calc(8px + 8px * var(--header-blur-progress, 0))) saturate(calc(150% + 30% * var(--header-blur-progress, 0)));
+  backdrop-filter: blur(calc(8px + 8px * var(--header-blur-progress, 0))) saturate(calc(150% + 30% * var(--header-blur-progress, 0)));
   border-bottom: none;
   box-shadow: 0 4px 20px rgba(0, 0, 0, calc(0.1 * var(--header-blur-progress, 0)));
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -3599,6 +3621,231 @@ nav a:focus,
 .header__icon-button:active {
   transform: translateY(-2px) scale(1.02);
   transition: all 0.1s ease;
+}
+
+/* ==========================================================================
+   CSS FIXES FOR CONSOLE ERRORS
+   ========================================================================== */
+
+/* ==========================================================================
+   OPTIMAL FONT RENDERING TWEAKS
+   ========================================================================== */
+
+/* Text rendering & antialiasing for crisp typography */
+
+html {
+  text-rendering: optimizeLegibility;
+  /* enables kerning & ligatures */
+  -webkit-font-smoothing: antialiased;
+  /* Chrome, Safari */
+  -moz-osx-font-smoothing: grayscale;
+  /* Firefox on macOS */
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* preserves sizing on mobile */
+}
+
+/* Font features & spacing for optimal readability */
+
+body {
+  font-feature-settings: "kern" 1, "liga" 1;
+  /* kerning and ligatures */
+  font-variant-ligatures: common-ligatures discretionary-ligatures;
+  line-height: 1.5;
+  /* optimal line height for readability */
+  letter-spacing: 0.01em;
+  /* subtle tracking for better spacing */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fix for invalid media feature values - use valid values */
+
+@media (max-width: 768px) {
+  .header--dynamic {
+    -webkit-backdrop-filter: blur(10px) saturate(160%);
+    backdrop-filter: blur(10px) saturate(160%);
+  }
+
+  .header--transparent {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .header--scrolled {
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    backdrop-filter: blur(16px) saturate(180%);
+  }
+
+  .header__icon-button {
+    width: 40px;
+    height: 40px;
+    -webkit-backdrop-filter: blur(10px) saturate(160%);
+    backdrop-filter: blur(10px) saturate(160%);
+  }
+
+  .header__icon-button:hover {
+    -webkit-backdrop-filter: blur(14px) saturate(180%);
+    backdrop-filter: blur(14px) saturate(180%);
+  }
+
+  .header__icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .header__cart-badge {
+    top: -10px;
+    right: -10px;
+    min-width: 24px;
+    height: 24px;
+    font-size: 13px;
+    line-height: 24px;
+    padding: 0 8px;
+  }
+}
+
+/* Fix for bad selector - ensure proper CSS selector syntax */
+
+.product-card-widget .bg-gray-800-60 {
+  background-color: rgba(31, 41, 55, 0.6);
+}
+
+.product-card-widget:hover .bg-gray-800-60 {
+  background-color: rgba(31, 41, 55, 0.8);
+}
+
+/* Fix for invalid media feature values in other media queries */
+
+@media (max-width: 480px) {
+  .header__icon-button {
+    width: 36px;
+    height: 36px;
+  }
+
+  .header__icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .header__cart-badge {
+    top: -9px;
+    right: -9px;
+    min-width: 22px;
+    height: 22px;
+    font-size: 12px;
+    line-height: 22px;
+    padding: 0 7px;
+  }
+}
+
+/* ==========================================================================
+   SHOPIFY FONT INTEGRATION
+   ========================================================================== */
+
+/* Font variables will be set via CSS custom properties in theme.liquid */
+
+/* Apply Inter font to all elements with optimal fallbacks */
+
+body {
+  font-family: var(--font-family), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: var(--font-weight-normal);
+  font-style: var(--font-style-normal);
+  font-size: calc(16px * var(--font-body-scale));
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: var(--font-weight-bold);
+  font-style: var(--font-style-normal);
+  font-size: calc(1.2em * var(--font-heading-scale));
+  /* Ensure headings maintain crisp rendering */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fonts are now loaded via Shopify's font system */
+
+/* ==========================================================================
+   ADDITIONAL FONT RENDERING OPTIMIZATIONS
+   ========================================================================== */
+
+/* Optimize text rendering for different contexts */
+
+p,
+span,
+div,
+a,
+button,
+input,
+textarea,
+label {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure buttons and interactive elements maintain crisp text */
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optimize navigation text rendering */
+
+nav a,
+.nav-link,
+.header__nav-link,
+.mobile-menu__nav-link {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+/* Ensure product titles and prices are crisp */
+
+.product-title,
+.product-price,
+.price__regular,
+.price__sale {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+/* ==========================================================================
+   ACCESSIBILITY FIXES
+   ========================================================================== */
+
+/* Fix heading hierarchy - ensure proper heading levels */
+
+.mobile-menu h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* Ensure proper heading structure in mobile menu */
+
+.mobile-menu__nav-link {
+  font-size: 1.125rem;
+  font-weight: 500;
+  /* Remove any heading styling that might cause hierarchy issues */
 }
 
 /* ==========================================================================
@@ -3705,16 +3952,16 @@ nav a:focus,
   }
 
   .hero-section__title {
-    margin-bottom: 2.25rem !important;
+    margin-bottom: 2rem !important;
   }
 
   .hero-section__button {
-    padding: 0.875rem 2rem;
+    padding: 1rem 2rem;
     font-size: 1.125rem;
   }
 
   .hero-section__trusted-title {
-    font-size: 0.5rem;
+    font-size: 2rem;
   }
 
   .hero-section__trusted-subtitle {
@@ -3728,15 +3975,15 @@ nav a:focus,
   }
 
   .hero-section__title-accent {
-    font-size: 3.5rem;
+    font-size: 4rem;
   }
 
   .hero-section__title {
-    margin-bottom: 2.75rem !important;
+    margin-bottom: 2.5rem !important;
   }
 
   .hero-section__button {
-    padding: 1rem 2.5rem;
+    padding: 1.25rem 2.5rem;
     font-size: 1.25rem;
   }
 
@@ -3749,30 +3996,92 @@ nav a:focus,
   }
 }
 
-/* Ensure hero section background covers properly on all devices */
-
 @media (max-width: 768px) {
   .hero-section {
-    background-attachment: scroll;
-    min-height: 100vh;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
+    background-image:
+      radial-gradient(circle at 20% 80%, rgba(255, 216, 0, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 216, 0, 0.05) 0%, transparent 50%),
+      linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.6)),
+      url('image-hero-extracted.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .hero-section__title-primary {
+    font-size: 2.25rem;
+  }
+
+  .hero-section__title-accent {
+    font-size: 1.75rem;
+  }
+
+  .hero-section__trusted-title {
+    font-size: 1.5rem;
+  }
+
+  .hero-section__trusted-subtitle {
+    font-size: 0.875rem;
+  }
+
+  .hero-section__title {
+    margin-bottom: 0.125rem;
+  }
+
+  .hero-section__button {
+    margin-bottom: 0.125rem;
+  }
+
+  .hero-cta.mb-16 {
+    margin-bottom: 1rem !important;
+  }
+
+  .hero-section__trusted {
+    margin-top: 0.0625rem;
+    margin-bottom: 0.0625rem;
+  }
+
+  .hero-section__trusted .relative.overflow-hidden.rounded-2xl {
+    padding: 0.125rem 0.0625rem;
+  }
+
+  .creators-carousel .space-x-16 > * + * {
+    margin-left: 0.75rem;
+  }
+
+  .creators-carousel .md\:space-x-20 > * + * {
+    margin-left: 1rem;
+  }
+
+  .creators-carousel .w-20.h-20 {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .creators-carousel .md\:w-24.md\:h-24 {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .creators-carousel .text-base {
+    font-size: 0.875rem;
+  }
+
+  .creators-carousel .md\:text-lg {
+    font-size: 1rem;
+  }
+
+  .creators-carousel .text-xs {
+    font-size: 0.75rem;
   }
 }
 
 @media (max-width: 480px) {
   .hero-section {
-    background-position: center center;
-    background-size: cover;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
+    min-height: calc(100vh - 4rem);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
-
-  /* Extra small mobile hero font sizes */
 
   .hero-section__title-primary {
     font-size: 2rem;
@@ -3787,29 +4096,20 @@ nav a:focus,
   }
 
   .hero-section__trusted-subtitle {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
-
-  /* Extra small mobile carousel adjustments */
 
   .hero-section__trusted {
-    margin-top: 0;
-    margin-bottom: 0;
+    padding-top: 0.25rem;
   }
-
-  /* Further reduce gap between CTA button and Trusted by Top Creators section on extra small mobile */
 
   .hero-cta.mb-16 {
-    margin-bottom: 0.5rem !important;
+    margin-bottom: 0.75rem !important;
   }
-
-  /* Further reduce carousel container padding */
 
   .hero-section__trusted .relative.overflow-hidden.rounded-2xl {
-    padding: 0.0625rem 0.03125rem;
+    padding: 0.0625rem;
   }
-
-  /* Even smaller gaps between carousel items */
 
   .creators-carousel .space-x-16 > * + * {
     margin-left: 0.5rem;
@@ -3818,8 +4118,6 @@ nav a:focus,
   .creators-carousel .md\:space-x-20 > * + * {
     margin-left: 0.75rem;
   }
-
-  /* Make carousel items even smaller */
 
   .creators-carousel .w-20.h-20 {
     width: 2.5rem;
@@ -3831,27 +4129,24 @@ nav a:focus,
     height: 3rem;
   }
 
-  /* Smaller text sizes */
-
   .creators-carousel .text-base {
-    font-size: 0.625rem;
-  }
-
-  .creators-carousel .md\:text-lg {
     font-size: 0.75rem;
   }
 
+  .creators-carousel .md\:text-lg {
+    font-size: 0.875rem;
+  }
+
   .creators-carousel .text-xs {
-    font-size: 0.5rem;
+    font-size: 0.625rem;
   }
 }
 
 @media (min-width: 1024px) {
   .hero-section {
+    min-height: calc(100vh - 8rem);
     padding-top: 3rem;
     padding-bottom: 3rem;
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
   }
 }
 
@@ -4023,14 +4318,14 @@ nav a:focus,
   position: relative;
 }
 
-.product-card-list-modern .bg-gray-800\/60 {
+.product-card-list-modern .bg-gray-800-60 {
   background: linear-gradient(135deg, rgba(31, 41, 55, 0.6) 0%, rgba(17, 24, 39, 0.6) 100%);
   -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(75, 85, 99, 0.3);
 }
 
-.product-card-list-modern:hover .bg-gray-800\/60 {
+.product-card-list-modern:hover .bg-gray-800-60 {
   background: linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.8) 100%);
   border-color: rgba(255, 216, 0, 0.4);
   box-shadow:
@@ -4211,13 +4506,17 @@ nav a:focus,
    QUANTITY INPUT SNIPPET STYLES (Extracted from inline styles)
    ========================================================================== */
 
-.quantity__button.disabled {
+.quantity__button.disabled,
+.quantity__button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  pointer-events: none;
 }
 
-.quantity__button.disabled:hover {
+.quantity__button.disabled:hover,
+.quantity__button:disabled:hover {
   background-color: transparent;
+  transform: none;
 }
 
 .quantity__input::-webkit-outer-spin-button,
@@ -4698,7 +4997,7 @@ nav a:focus,
 .cart-notification__image {
   border-radius: 4px;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .cart-notification__details {
@@ -5163,7 +5462,7 @@ nav a:focus,
       rgba(255, 216, 0, 0.08) 50%,
       rgba(255, 216, 0, 0.15) 100%);
   -webkit-backdrop-filter: blur(12px) saturate(180%);
-          backdrop-filter: blur(12px) saturate(180%);
+  backdrop-filter: blur(12px) saturate(180%);
   border: 1px solid rgba(255, 216, 0, 0.2);
   transition: all var(--duration-default) var(--easing-smooth);
   position: relative;
@@ -5190,7 +5489,7 @@ nav a:focus,
       rgba(255, 216, 0, 0.15) 50%,
       rgba(255, 216, 0, 0.25) 100%);
   -webkit-backdrop-filter: blur(16px) saturate(200%);
-          backdrop-filter: blur(16px) saturate(200%);
+  backdrop-filter: blur(16px) saturate(200%);
   border-color: rgba(255, 216, 0, 0.4);
   transform: translateY(-1px);
   box-shadow:
@@ -5217,7 +5516,7 @@ nav a:focus,
       rgba(15, 23, 42, 0.95) 50%,
       rgba(15, 23, 42, 0.98) 100%);
   -webkit-backdrop-filter: blur(24px) saturate(200%);
-          backdrop-filter: blur(24px) saturate(200%);
+  backdrop-filter: blur(24px) saturate(200%);
   border-right: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:
     8px 0 32px rgba(0, 0, 0, 0.4),
@@ -5229,7 +5528,7 @@ nav a:focus,
       rgba(15, 23, 42, 0.9) 0%,
       rgba(15, 23, 42, 0.8) 100%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-          backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -5240,7 +5539,7 @@ nav a:focus,
       rgba(0, 0, 0, 0.15) 0%,
       rgba(0, 0, 0, 0.1) 100%);
   -webkit-backdrop-filter: blur(4px) saturate(120%);
-          backdrop-filter: blur(4px) saturate(120%);
+  backdrop-filter: blur(4px) saturate(120%);
 }
 
 .search-modal__container {
@@ -5249,7 +5548,7 @@ nav a:focus,
       rgba(31, 41, 55, 0.5) 50%,
       rgba(31, 41, 55, 0.6) 100%);
   -webkit-backdrop-filter: blur(8px) saturate(120%);
-          backdrop-filter: blur(8px) saturate(120%);
+  backdrop-filter: blur(8px) saturate(120%);
   border: 1px solid rgba(255, 216, 0, 0.4);
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.2),
@@ -5264,7 +5563,7 @@ nav a:focus,
       rgba(31, 41, 55, 0.8) 0%,
       rgba(31, 41, 55, 0.6) 100%);
   -webkit-backdrop-filter: blur(12px) saturate(180%);
-          backdrop-filter: blur(12px) saturate(180%);
+  backdrop-filter: blur(12px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all var(--duration-default) var(--easing-smooth);
 }
@@ -5274,7 +5573,7 @@ nav a:focus,
       rgba(31, 41, 55, 0.9) 0%,
       rgba(31, 41, 55, 0.7) 100%);
   -webkit-backdrop-filter: blur(16px) saturate(200%);
-          backdrop-filter: blur(16px) saturate(200%);
+  backdrop-filter: blur(16px) saturate(200%);
   border-color: rgba(255, 216, 0, 0.4);
   box-shadow:
     0 0 0 2px rgba(255, 216, 0, 0.2),
@@ -5288,7 +5587,7 @@ nav a:focus,
       rgba(255, 216, 0, 0.9) 0%,
       rgba(255, 216, 0, 0.8) 100%);
   -webkit-backdrop-filter: blur(8px) saturate(180%);
-          backdrop-filter: blur(8px) saturate(180%);
+  backdrop-filter: blur(8px) saturate(180%);
   border: 1px solid rgba(255, 216, 0, 0.3);
   transition: all var(--duration-default) var(--easing-smooth);
 }
@@ -5307,30 +5606,30 @@ nav a:focus,
 
 @media (max-width: 768px) {
   .header--dynamic {
-    -webkit-backdrop-filter: blur(calc(0px + 10px * var(--scroll-progress))) saturate(calc(160% + 20% * var(--scroll-progress)));
-            backdrop-filter: blur(calc(0px + 10px * var(--scroll-progress))) saturate(calc(160% + 20% * var(--scroll-progress)));
+    -webkit-backdrop-filter: blur(10px) saturate(160%);
+    backdrop-filter: blur(10px) saturate(160%);
   }
 
   .header--transparent {
     -webkit-backdrop-filter: none;
-            backdrop-filter: none;
+    backdrop-filter: none;
   }
 
   .header--scrolled {
     -webkit-backdrop-filter: blur(16px) saturate(180%);
-            backdrop-filter: blur(16px) saturate(180%);
+    backdrop-filter: blur(16px) saturate(180%);
   }
 
   .header__icon-button {
     width: 40px;
     height: 40px;
     -webkit-backdrop-filter: blur(10px) saturate(160%);
-            backdrop-filter: blur(10px) saturate(160%);
+    backdrop-filter: blur(10px) saturate(160%);
   }
 
   .header__icon-button:hover {
     -webkit-backdrop-filter: blur(14px) saturate(180%);
-            backdrop-filter: blur(14px) saturate(180%);
+    backdrop-filter: blur(14px) saturate(180%);
   }
 
   .header__icon {
@@ -5480,14 +5779,14 @@ nav a:focus,
   background-color: rgba(0, 0, 0, 0.1) !important;
   border-color: transparent !important;
   -webkit-backdrop-filter: blur(6px) saturate(150%);
-          backdrop-filter: blur(6px) saturate(150%);
+  backdrop-filter: blur(6px) saturate(150%);
   box-shadow: none;
 }
 
 .header-scrolled {
   background-color: rgba(0, 0, 0, 0.5) !important;
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-          backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%);
   border-bottom: none;
   box-shadow: none;
 }
@@ -5702,7 +6001,7 @@ header.transition-colors {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   border-radius: 0.6rem;
 }
 
@@ -5767,7 +6066,11 @@ header.transition-colors {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0.6rem;
   overflow: hidden;
-  transition: all var(--duration-default) var(--easing-smooth);
+  /* Prevent layout shifts */
+  width: -moz-fit-content;
+  width: fit-content;
+  min-width: 140px;
+  position: relative;
 }
 
 .quantity:hover {
@@ -5807,13 +6110,11 @@ header.transition-colors {
 .cart-item .quantity__button:hover {
   background: rgba(255, 255, 255, 0.1) !important;
   color: white !important;
-  transform: scale(1.1) !important;
 }
 
 .quantity .quantity__button:active,
 .cart-item .quantity__button:active {
   background: rgba(255, 255, 255, 0.15) !important;
-  transform: scale(0.98) !important;
 }
 
 .quantity .quantity__button:focus,
@@ -5827,6 +6128,40 @@ header.transition-colors {
   outline: none !important;
   box-shadow: none !important;
 }
+
+/* Quantity display (replaces input field) */
+
+.quantity__display {
+  background: transparent;
+  border: none;
+  color: white;
+  text-align: center;
+  padding: 0.8rem;
+  width: 5rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  /* Prevent layout shifts */
+  flex-shrink: 0;
+  min-width: 5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.quantity__value {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: white;
+  line-height: 1;
+}
+
+/* Legacy input styles (kept for backward compatibility) */
 
 .quantity__input {
   background: transparent;
@@ -6336,7 +6671,7 @@ nav a:hover::after,
   border-radius: 1rem;
   border: 1px solid rgba(239, 68, 68, 0.3);
   -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);
   position: relative;
   overflow: hidden;
@@ -6359,7 +6694,7 @@ nav a:hover::after,
   border-radius: 1rem;
   border: 1px solid rgba(239, 68, 68, 0.3);
   -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);
   position: relative;
   overflow: hidden;
@@ -6780,9 +7115,15 @@ nav a:hover::after,
   position: relative;
 }
 
+@media (max-width: 768px) {
+  .hero-section__trusted .product-form__variant-input.overflow-hidden.rounded-2xl {
+    padding: 0.125rem 0.0625rem;
+  }
+}
+
 @media (max-width: 480px) {
   .hero-section__trusted .product-form__variant-input.overflow-hidden.rounded-2xl {
-    padding: 0.0625rem 0.03125rem;
+    padding: 0.0625rem;
   }
 }
 
@@ -6900,9 +7241,15 @@ nav a:hover::after,
   border-color: rgb(255 255 255 / 0.2);
 }
 
+@media (max-width: 768px) {
+  .hero-section__trusted .relative.product-form__quantity-wrapper.rounded-2xl {
+    padding: 0.125rem 0.0625rem;
+  }
+}
+
 @media (max-width: 480px) {
   .hero-section__trusted .relative.product-form__quantity-wrapper.rounded-2xl {
-    padding: 0.0625rem 0.03125rem;
+    padding: 0.0625rem;
   }
 }
 
@@ -7166,9 +7513,15 @@ nav a:hover::after,
   border-radius: 0.5rem;
 }
 
+@media (max-width: 768px) {
+  .hero-section__trusted .relative.product-image.rounded-2xl {
+    padding: 0.125rem 0.0625rem;
+  }
+}
+
 @media (max-width: 480px) {
   .hero-section__trusted .relative.product-image.rounded-2xl {
-    padding: 0.0625rem 0.03125rem;
+    padding: 0.0625rem;
   }
 }
 
@@ -7223,9 +7576,15 @@ nav a:hover::after,
   overflow: hidden;
 }
 
+@media (max-width: 768px) {
+  .hero-section__trusted .relative.product-media-gallery .thumbnail-btn.rounded-2xl {
+    padding: 0.125rem 0.0625rem;
+  }
+}
+
 @media (max-width: 480px) {
   .hero-section__trusted .relative.product-media-gallery .thumbnail-btn.rounded-2xl {
-    padding: 0.0625rem 0.03125rem;
+    padding: 0.0625rem;
   }
 }
 
@@ -7586,9 +7945,15 @@ nav a:hover::after,
   line-height: 1.2;
 }
 
+@media (max-width: 768px) {
+  .creators-carousel .badge {
+    font-size: 0.75rem;
+  }
+}
+
 @media (max-width: 480px) {
   .creators-carousel .badge {
-    font-size: 0.5rem;
+    font-size: 0.625rem;
   }
 }
 
@@ -7607,7 +7972,7 @@ nav a:hover::after,
 
 @media (max-width: 768px) {
   .creators-carousel .badge {
-    font-size: 0.625rem;
+    font-size: 0.75rem;
   }
 }
 
@@ -8019,9 +8384,15 @@ nav a:hover::after,
   position: relative;
 }
 
+@media (max-width: 768px) {
+  .hero-section__trusted .product-media-gallery.overflow-hidden.rounded-2xl {
+    padding: 0.125rem 0.0625rem;
+  }
+}
+
 @media (max-width: 480px) {
   .hero-section__trusted .product-media-gallery.overflow-hidden.rounded-2xl {
-    padding: 0.0625rem 0.03125rem;
+    padding: 0.0625rem;
   }
 }
 
@@ -8043,17 +8414,31 @@ nav a:hover::after,
   border-radius: 1rem;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .hero-section__trusted .main-media-container.overflow-hidden.rounded-2xl {
-    padding: 0.0625rem 0.03125rem;
+    padding: 0.125rem 0.0625rem;
   }
 
   .hero-section__trusted .relative.main-media-container.rounded-2xl {
-    padding: 0.0625rem 0.03125rem;
+    padding: 0.125rem 0.0625rem;
   }
 
   .hero-section__trusted .relative.overflow-hidden.main-media-container {
-    padding: 0.0625rem 0.03125rem;
+    padding: 0.125rem 0.0625rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section__trusted .main-media-container.overflow-hidden.rounded-2xl {
+    padding: 0.0625rem;
+  }
+
+  .hero-section__trusted .relative.main-media-container.rounded-2xl {
+    padding: 0.0625rem;
+  }
+
+  .hero-section__trusted .relative.overflow-hidden.main-media-container {
+    padding: 0.0625rem;
   }
 }
 
@@ -8082,9 +8467,15 @@ nav a:hover::after,
   aspect-ratio: 1 / 1;
 }
 
+@media (max-width: 768px) {
+  .hero-section__trusted .main-media.overflow-hidden.rounded-2xl {
+    padding: 0.125rem 0.0625rem;
+  }
+}
+
 @media (max-width: 480px) {
   .hero-section__trusted .main-media.overflow-hidden.rounded-2xl {
-    padding: 0.0625rem 0.03125rem;
+    padding: 0.0625rem;
   }
 }
 
@@ -8245,13 +8636,23 @@ nav a:hover::after,
   border-radius: 0.5rem;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .hero-section__trusted .thumbnail-btn.overflow-hidden.rounded-2xl {
-    padding: 0.0625rem 0.03125rem;
+    padding: 0.125rem 0.0625rem;
   }
 
   .hero-section__trusted .relative.thumbnail-btn.rounded-2xl {
-    padding: 0.0625rem 0.03125rem;
+    padding: 0.125rem 0.0625rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section__trusted .thumbnail-btn.overflow-hidden.rounded-2xl {
+    padding: 0.0625rem;
+  }
+
+  .hero-section__trusted .relative.thumbnail-btn.rounded-2xl {
+    padding: 0.0625rem;
   }
 }
 
@@ -8306,9 +8707,15 @@ nav a:hover::after,
   aspect-ratio: 16 / 9;
 }
 
+@media (max-width: 768px) {
+  .hero-section__trusted .external-video-container.overflow-hidden.rounded-2xl {
+    padding: 0.125rem 0.0625rem;
+  }
+}
+
 @media (max-width: 480px) {
   .hero-section__trusted .external-video-container.overflow-hidden.rounded-2xl {
-    padding: 0.0625rem 0.03125rem;
+    padding: 0.0625rem;
   }
 }
 
@@ -8334,9 +8741,15 @@ nav a:hover::after,
   background-color: rgb(31 41 55 / var(--tw-bg-opacity, 1));
 }
 
+@media (max-width: 768px) {
+  .hero-section__trusted .relative.overflow-hidden.no-media-placeholder {
+    padding: 0.125rem 0.0625rem;
+  }
+}
+
 @media (max-width: 480px) {
   .hero-section__trusted .relative.overflow-hidden.no-media-placeholder {
-    padding: 0.0625rem 0.03125rem;
+    padding: 0.0625rem;
   }
 }
 
@@ -8454,9 +8867,15 @@ nav a:hover::after,
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
+@media (max-width: 768px) {
+  .hero-section__trusted .relative.zoom-result.rounded-2xl {
+    padding: 0.125rem 0.0625rem;
+  }
+}
+
 @media (max-width: 480px) {
   .hero-section__trusted .relative.zoom-result.rounded-2xl {
-    padding: 0.0625rem 0.03125rem;
+    padding: 0.0625rem;
   }
 }
 
@@ -8695,7 +9114,7 @@ nav a:hover::after,
   max-width: 100%;
   height: auto;
   -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
 }
 
 /* Ensure product info has adequate space */
@@ -8938,7 +9357,7 @@ nav a:hover::after,
   width: 100%;
   height: auto;
   -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
 }
 
 /* Thumbnail gallery adjustments */
@@ -9435,7 +9854,7 @@ nav a:hover::after,
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   transition: transform 0.2s ease;
 }
 
@@ -9856,7 +10275,7 @@ nav a:hover::after,
   width: 100%;
   background: rgba(17, 24, 39, 0.95);
   -webkit-backdrop-filter: blur(1rem);
-          backdrop-filter: blur(1rem);
+  backdrop-filter: blur(1rem);
   border: 1px solid rgba(255, 216, 0, 0.2);
   border-radius: 1rem;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
@@ -10379,7 +10798,7 @@ nav a:hover::after,
   border-radius: 0.75rem;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   width: 100%;
   box-sizing: border-box;
   max-width: 100%;
@@ -10766,7 +11185,7 @@ nav a:hover::after,
   border-radius: 20px;
   padding: 4rem 3rem;
   -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   box-shadow:
     0 20px 40px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -11162,7 +11581,7 @@ nav a:hover::after,
   right: 0;
   background: rgba(15, 23, 42, 0.95);
   -webkit-backdrop-filter: blur(20px);
-          backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding: 12px 16px;
   padding-bottom: calc(12px + env(safe-area-inset-bottom));
@@ -11272,22 +11691,22 @@ nav a:hover::after,
   }
 
   .creators-carousel .md\:w-24.md\:h-24 {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 4rem;
+    height: 4rem;
   }
 
   /* Reduce text sizes in carousel */
 
   .creators-carousel .text-base {
-    font-size: 0.75rem;
-  }
-
-  .creators-carousel .md\:text-lg {
     font-size: 0.875rem;
   }
 
+  .creators-carousel .md\:text-lg {
+    font-size: 1rem;
+  }
+
   .creators-carousel .text-xs {
-    font-size: 0.625rem;
+    font-size: 0.75rem;
   }
 
   /* Add bottom padding to main content to prevent overlap */
@@ -11877,7 +12296,7 @@ nav a:hover::after,
   bottom: 0;
   background: rgba(0, 0, 0, 0.95);
   -webkit-backdrop-filter: blur(20px);
-          backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   z-index: 100;
   display: flex;
   flex-direction: column;
@@ -12013,7 +12432,7 @@ nav a:hover::after,
   right: 0;
   background: rgba(0, 0, 0, 0.95);
   -webkit-backdrop-filter: blur(20px);
-          backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   z-index: 40;
   display: none;
@@ -12107,7 +12526,7 @@ nav a:hover::after,
   height: 100vh;
   background: rgba(0, 0, 0, 0.6);
   -webkit-backdrop-filter: blur(2px);
-          backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
   z-index: 200;
   display: flex;
   align-items: center;
@@ -12372,7 +12791,7 @@ nav a:hover::after,
   width: 48px;
   height: 48px;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   border-radius: 0.5rem;
 }
 
