@@ -17,9 +17,9 @@ if (typeof HeaderDrawer === 'undefined') {
 
     connectedCallback() {
       this.header = this.querySelector('.header');
-      this.drawer = this.querySelector('.header__inline-menu');
-      this.menuButton = this.querySelector('.header__icon--menu');
-      this.closeButton = this.querySelector('.header__icon--close');
+      this.drawer = this.querySelector('.mobile-menu');
+      this.menuButton = this.querySelector('.mobile-menu-toggle');
+      this.closeButton = this.querySelector('#mobile-menu-close');
 
       this.bindEvents();
       this.setupScrollEffects();
@@ -82,10 +82,16 @@ if (typeof HeaderDrawer === 'undefined') {
         lastScrollTop = scrollTop;
       });
 
-      // Initialize header state on page load
-      updateHeaderStyles(
-        window.pageYOffset || document.documentElement.scrollTop
-      );
+      // Initialize header state on page load - always start transparent
+      this.header.classList.add('header--transparent');
+      this.header.classList.remove('header--dynamic');
+      this.header.classList.remove('header--hidden');
+
+      // Force the header to be transparent on page load
+      this.header.style.setProperty('--scroll-progress', '0');
+
+      // Don't update header styles on page load - let the scroll event handle it
+      // This ensures the header stays transparent until the user actually scrolls
     }
 
     openDrawer() {
