@@ -35,15 +35,13 @@
             </a>
           {% else %}
             <a href="{{ routes.root_url }}">
-              {% render 'responsive-image',
-                image: 'image-BM.png',
-                alt: 'BloxMania',
-                class: 'h-14 lg:h-16 w-auto transition-transform duration-300 cursor-pointer hover:scale-105',
-                width: 233,
-                height: 70,
-                loading: 'eager',
-                sizes: '233px'
-              %}
+              <img
+                src="{{ 'image-BM.png' | asset_url }}"
+                alt="BloxMania"
+                class="h-14 lg:h-16 w-auto transition-transform duration-300 cursor-pointer hover:scale-105"
+                width="233"
+                height="70"
+              >
             </a>
           {% endif %}
         </div>
@@ -302,48 +300,48 @@
   </header>
 
   <!-- Search Modal -->
-  <div id="search-modal" class="search-modal hidden fixed inset-0 z-50 overflow-hidden">
-    <div class="search-modal__overlay absolute inset-0"></div>
-    <div class="search-modal__content relative z-10 flex items-start justify-center min-h-screen p-4">
-      <div class="search-modal__container w-full max-w-2xl rounded-2xl shadow-2xl mt-20">
+  <div id="search-modal" class="search-modal hidden">
+    <div class="search-modal__overlay"></div>
+    <div class="search-modal__content">
+      <div class="search-modal__container">
         <!-- Search Modal Header -->
-        <div class="search-modal__header flex items-center justify-between p-6 border-b border-white/10">
-          <h2 class="text-xl font-semibold text-white">Search</h2>
+        <div class="search-modal__header">
+          <h2 class="search-modal__heading">Search</h2>
           <button
-            class="search-modal__close text-white hover:text-primary transition-colors duration-200 p-2 rounded-lg hover:bg-white/10"
+            class="search-modal__close"
             aria-label="Close search"
             data-search-close
           >
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="search-modal__close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18 18 6M6 6l12 12"/>
             </svg>
           </button>
         </div>
 
         <!-- Search Form -->
-        <div class="search-modal__body p-6">
+        <div class="search-modal__body">
           <form class="search-modal__form" action="{{ routes.search_url }}" method="get" role="search">
-            <div class="search-modal__input-wrapper relative">
+            <div class="search-modal__input-wrapper">
               <input
                 type="search"
                 name="q"
-                class="search-modal__input w-full pr-12 py-3 pl-12 bg-gray-800/60 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all duration-200"
+                class="search-modal__input"
                 placeholder="{{ 'general.search.placeholder' | t: default: 'Search for products, collections, or pages...' }}"
                 aria-label="{{ 'general.search.search' | t: default: 'Search' }}"
                 autocomplete="off"
                 spellcheck="false"
               >
-              <div class="search-modal__icon absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <div class="search-modal__icon">
+                <svg class="search-modal__icon-svg" fill="currentColor" viewBox="0 0 24 24">
                   <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clip-rule="evenodd"/>
                 </svg>
               </div>
               <button
                 type="submit"
-                class="search-modal__submit absolute right-2 top-1/2 transform -translate-y-1/2 p-2 bg-primary text-black rounded-md hover:bg-yellow-400 transition-colors duration-200"
+                class="search-modal__submit"
                 aria-label="Submit search"
               >
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <svg class="search-modal__submit-icon" fill="currentColor" viewBox="0 0 24 24">
                   <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clip-rule="evenodd"/>
                 </svg>
               </button>
@@ -351,14 +349,14 @@
           </form>
 
           <!-- Search Results -->
-          <div class="search-modal__results mt-6 max-h-96 overflow-y-auto">
-            <div class="search-modal__loading hidden text-center py-8">
-              <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-              <p class="text-gray-400 mt-2">Searching...</p>
+          <div class="search-modal__results">
+            <div class="search-modal__loading hidden">
+              <div class="search-modal__spinner"></div>
+              <p>Searching...</p>
             </div>
-            <div class="search-modal__content-results"></div>
-            <div class="search-modal__no-results hidden text-center py-8">
-              <p class="text-gray-400">No results found</p>
+            <div class="search-modal__content-results hidden"></div>
+            <div class="search-modal__no-results hidden">
+              <p>No results found</p>
             </div>
           </div>
         </div>
@@ -368,32 +366,9 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const header = document.getElementById('header');
       const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
       const mobileMenu = document.getElementById('mobile-menu');
       const mobileMenuClose = document.getElementById('mobile-menu-close');
-
-      // Enhanced header scroll effect with gradual transition
-      function handleScroll() {
-        const scrollY = window.scrollY;
-        const maxScroll = 150; // Full transition at 150px
-
-        // Calculate scroll progress (0 to 1)
-        const scrollProgress = Math.min(scrollY / maxScroll, 1);
-
-        // Apply CSS custom properties for smooth interpolation
-        header.style.setProperty('--scroll-progress', scrollProgress);
-
-        // Add base class for styling
-        header.classList.add('header--dynamic');
-
-        // Remove old classes to prevent conflicts
-        header.classList.remove('header--transparent', 'header--scrolled');
-      }
-
-      // Initialize header state
-      handleScroll();
-      window.addEventListener('scroll', handleScroll);
 
       // Mobile menu toggle
       if (mobileMenuToggle && mobileMenu && mobileMenuClose) {
@@ -437,6 +412,8 @@
           searchModal.classList.remove('hidden');
           document.body.classList.add('overflow-hidden');
           searchInput.focus();
+          // Ensure clean state when opening
+          clearSearchResults();
         });
       }
 
@@ -527,6 +504,16 @@
         if (searchLoading) searchLoading.classList.add('hidden');
         if (searchNoResults) searchNoResults.classList.add('hidden');
       }
+
+      // Initialize search modal state
+      function initializeSearchModal() {
+        if (searchLoading) searchLoading.classList.add('hidden');
+        if (searchResults) searchResults.classList.add('hidden');
+        if (searchNoResults) searchNoResults.classList.add('hidden');
+      }
+
+      // Initialize on page load
+      initializeSearchModal();
 
       async function performPredictiveSearch(query) {
         try {
