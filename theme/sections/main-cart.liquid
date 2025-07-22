@@ -48,14 +48,14 @@
     font-weight: 500;
   }
 
-  /* Fix title positioning and spacing */
-  .section-{{ section.id }}-padding {
+  /* Fix title positioning and spacing - only for non-empty cart */
+  .cart-page:not(.is-empty) .section-{{ section.id }}-padding {
     padding-top: 6rem !important;
     padding-bottom: 2rem !important;
     margin-top: 2rem !important;
   }
 
-  .cart__header {
+  .cart-page:not(.is-empty) .cart__header {
     margin-bottom: 2rem !important;
     text-align: center !important;
     position: relative !important;
@@ -79,6 +79,34 @@
   .cart__count {
     color: #9ca3af !important;
     font-size: 1rem !important;
+  }
+
+  /* Empty cart specific styles - remove excessive padding */
+  .cart-page.is-empty .section-{{ section.id }}-padding {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  .cart-page.is-empty .page-width {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Ensure empty cart page has no top spacing at all */
+  .cart-page.is-empty {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  .cart-page.is-empty body {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  .cart-page.is-empty main {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
   }
 
   /* Hide error icons by default */
