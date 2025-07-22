@@ -573,11 +573,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Add top padding to account for fixed header */
+/* Remove top padding - content should start from top */
 
 body {
-  padding-top: 5rem;
-  /* 80px - accounts for header height */
+  padding-top: 0;
 }
 
 /* Ensure main content starts below fixed header */
@@ -3805,7 +3804,7 @@ header.transition-colors {
 .button--tertiary {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #94a3b8;
+  color: #ef4444;
   padding: 0.8rem;
   border-radius: 0.5rem;
   transition: all var(--duration-default) var(--easing-smooth);
@@ -3816,9 +3815,9 @@ header.transition-colors {
 }
 
 .button--tertiary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
-  color: #cbd5e1;
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
   transform: scale(1.05);
 }
 

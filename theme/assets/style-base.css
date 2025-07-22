@@ -570,20 +570,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Add top padding to account for fixed header */
+/* Remove top padding - content should start from top */
 
 body {
-  padding-top: 5rem;
-  /* 80px - accounts for header height */
+  padding-top: 0;
 }
 
-/* Ensure main content starts below fixed header */
+/* Ensure main content starts from top */
 
 main {
   margin-top: 0;
 }
 
-/* Smooth scrolling */
+/* Smooth scrolling with header offset */
 
 html {
   scroll-behavior: smooth;
@@ -1367,6 +1366,10 @@ nav a:focus,
   margin-left: 0.25rem;
 }
 
+.ml-16 {
+  margin-left: 4rem;
+}
+
 .ml-2 {
   margin-left: 0.5rem;
 }
@@ -1377,6 +1380,10 @@ nav a:focus,
 
 .mr-1 {
   margin-right: 0.25rem;
+}
+
+.mr-16 {
+  margin-right: 4rem;
 }
 
 .mr-2 {
@@ -1517,10 +1524,6 @@ nav a:focus,
   height: 4rem;
 }
 
-.h-2\.5 {
-  height: 0.625rem;
-}
-
 .h-20 {
   height: 5rem;
 }
@@ -1603,10 +1606,6 @@ nav a:focus,
 
 .w-16 {
   width: 4rem;
-}
-
-.w-2\.5 {
-  width: 0.625rem;
 }
 
 .w-20 {
@@ -1696,6 +1695,10 @@ nav a:focus,
 
 .max-w-7xl {
   max-width: 80rem;
+}
+
+.max-w-full {
+  max-width: 100%;
 }
 
 .max-w-md {
@@ -1920,10 +1923,6 @@ nav a:focus,
   gap: 0.25rem;
 }
 
-.gap-10 {
-  gap: 2.5rem;
-}
-
 .gap-12 {
   gap: 3rem;
 }
@@ -1964,6 +1963,12 @@ nav a:focus,
   --tw-space-x-reverse: 0;
   margin-right: calc(0.5rem * var(--tw-space-x-reverse));
   margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.space-x-20 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(5rem * var(--tw-space-x-reverse));
+  margin-left: calc(5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .space-x-3 > :not([hidden]) ~ :not([hidden]) {
@@ -3469,7 +3474,7 @@ nav a:focus,
   --scroll-progress: 0;
   --bg-opacity-start: 0.05;
   --bg-opacity-end: 0.6;
-  --blur-start: 6px;
+  --blur-start: 0px;
   --blur-end: 16px;
   --border-opacity-start: 0.03;
   --border-opacity-end: 0.08;
@@ -3478,46 +3483,29 @@ nav a:focus,
 /* Dynamic header with gradual transitions */
 
 .header--dynamic {
-  background: linear-gradient(135deg,
-        rgba(0, 0, 0, calc(var(--bg-opacity-start) + (var(--bg-opacity-end) - var(--bg-opacity-start)) * var(--scroll-progress))) 0%,
-        rgba(0, 0, 0, calc(var(--bg-opacity-start) * 0.4 + (var(--bg-opacity-end) * 0.83 - var(--bg-opacity-start) * 0.4) * var(--scroll-progress))) 50%,
-        rgba(0, 0, 0, calc(var(--bg-opacity-start) + (var(--bg-opacity-end) - var(--bg-opacity-start)) * var(--scroll-progress))) 100%);
+  background: rgba(0, 0, 0, calc(0.1 + 0.4 * var(--scroll-progress)));
   -webkit-backdrop-filter: blur(calc(var(--blur-start) + (var(--blur-end) - var(--blur-start)) * var(--scroll-progress))) saturate(calc(150% + 30% * var(--scroll-progress)));
           backdrop-filter: blur(calc(var(--blur-start) + (var(--blur-end) - var(--blur-start)) * var(--scroll-progress))) saturate(calc(150% + 30% * var(--scroll-progress)));
-  border-bottom: 1px solid rgba(255, 255, 255, calc(var(--border-opacity-start) + (var(--border-opacity-end) - var(--border-opacity-start)) * var(--scroll-progress)));
-  box-shadow:
-      0 calc(1px + 5px * var(--scroll-progress)) calc(3px + 21px * var(--scroll-progress)) rgba(0, 0, 0, calc(0.05 + 0.15 * var(--scroll-progress))),
-      0 calc(1px + 2px * var(--scroll-progress)) calc(2px + 10px * var(--scroll-progress)) rgba(0, 0, 0, calc(0.03 + 0.12 * var(--scroll-progress))),
-      inset 0 1px 0 rgba(255, 255, 255, calc(0.08 * var(--scroll-progress)));
+  border-bottom: none;
+  box-shadow: none;
 }
 
 /* Fallback for older browsers */
 
 .header--transparent {
-  background: linear-gradient(135deg,
-        rgba(0, 0, 0, 0.05) 0%,
-        rgba(0, 0, 0, 0.02) 50%,
-        rgba(0, 0, 0, 0.05) 100%);
-  -webkit-backdrop-filter: blur(6px) saturate(150%);
-          backdrop-filter: blur(6px) saturate(150%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-  box-shadow:
-      0 1px 3px rgba(0, 0, 0, 0.05),
-      0 1px 2px rgba(0, 0, 0, 0.03);
+  background: transparent;
+  -webkit-backdrop-filter: none;
+          backdrop-filter: none;
+  border-bottom: none;
+  box-shadow: none;
 }
 
 .header--scrolled {
-  background: linear-gradient(135deg,
-        rgba(0, 0, 0, 0.6) 0%,
-        rgba(0, 0, 0, 0.5) 50%,
-        rgba(0, 0, 0, 0.6) 100%);
+  background: rgba(0, 0, 0, 0.5);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
           backdrop-filter: blur(16px) saturate(180%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow:
-      0 6px 24px rgba(0, 0, 0, 0.2),
-      0 3px 12px rgba(0, 0, 0, 0.15),
-      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  border-bottom: none;
+  box-shadow: none;
 }
 
 /* Floating Orb Header Icons */
@@ -3604,12 +3592,22 @@ nav a:focus,
    HERO SECTION STYLES (Extracted from inline styles)
    ========================================================================== */
 
-/* Note: Background images with Liquid asset URLs are handled in the Liquid files */
+/* Hero section with proper background image */
 
 .hero-section {
+  background-image:
+    radial-gradient(circle at 20% 80%, rgba(255, 216, 0, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 216, 0, 0.05) 0%, transparent 50%),
+    linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.6)),
+    url('image-hero.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .hero-section__title {
@@ -3660,8 +3658,7 @@ nav a:focus,
 }
 
 .hero-section__trusted {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 2rem;
+  padding-top: 1rem;
 }
 
 .hero-section__trusted-title {
@@ -3723,6 +3720,33 @@ nav a:focus,
 
   .hero-section__trusted-subtitle {
     font-size: 1.25rem;
+  }
+}
+
+/* Ensure hero section background covers properly on all devices */
+
+@media (max-width: 768px) {
+  .hero-section {
+    background-attachment: scroll;
+    min-height: 100vh;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    background-position: center center;
+    background-size: cover;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
 }
 
@@ -5178,13 +5202,13 @@ nav a:focus,
 
 @media (max-width: 768px) {
   .header--dynamic {
-    -webkit-backdrop-filter: blur(calc(6px + 10px * var(--scroll-progress))) saturate(calc(160% + 20% * var(--scroll-progress)));
-            backdrop-filter: blur(calc(6px + 10px * var(--scroll-progress))) saturate(calc(160% + 20% * var(--scroll-progress)));
+    -webkit-backdrop-filter: blur(calc(0px + 10px * var(--scroll-progress))) saturate(calc(160% + 20% * var(--scroll-progress)));
+            backdrop-filter: blur(calc(0px + 10px * var(--scroll-progress))) saturate(calc(160% + 20% * var(--scroll-progress)));
   }
 
   .header--transparent {
-    -webkit-backdrop-filter: blur(6px) saturate(160%);
-            backdrop-filter: blur(6px) saturate(160%);
+    -webkit-backdrop-filter: none;
+            backdrop-filter: none;
   }
 
   .header--scrolled {
@@ -5348,19 +5372,19 @@ nav a:focus,
 /* Legacy header classes for backward compatibility */
 
 .header-transparent {
-  background-color: transparent !important;
+  background-color: rgba(0, 0, 0, 0.1) !important;
   border-color: transparent !important;
-  -webkit-backdrop-filter: none;
-          backdrop-filter: none;
+  -webkit-backdrop-filter: blur(6px) saturate(150%);
+          backdrop-filter: blur(6px) saturate(150%);
   box-shadow: none;
 }
 
 .header-scrolled {
-  background-color: rgba(0, 0, 0, 0.6) !important;
-  -webkit-backdrop-filter: blur(12px);
-          backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(51, 52, 65, 0.3);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+          backdrop-filter: blur(16px) saturate(180%);
+  border-bottom: none;
+  box-shadow: none;
 }
 
 /* Prevent header layout shifts */
@@ -5777,7 +5801,7 @@ header.transition-colors {
 .button--tertiary {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #94a3b8;
+  color: #ef4444;
   padding: 0.8rem;
   border-radius: 0.5rem;
   transition: all var(--duration-default) var(--easing-smooth);
@@ -5788,9 +5812,9 @@ header.transition-colors {
 }
 
 .button--tertiary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
-  color: #cbd5e1;
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
   transform: scale(1.05);
 }
 
@@ -10444,6 +10468,445 @@ nav a:hover::after,
   }
 }
 
+/* ==========================================================================
+   EMPTY CART REDESIGN - BloxMania Brand Aesthetic
+   ========================================================================== */
+
+/* Empty cart container with gaming-inspired background */
+
+.cart-page.is-empty {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.cart-page.is-empty::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(255, 216, 0, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(71, 145, 240, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(89, 186, 185, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Empty cart content container */
+
+.cart-page.is-empty .page-width {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem 1.5rem;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+/* Empty cart warnings redesign */
+
+.cart-page.is-empty .cart__warnings {
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+  background: #2d2d3a;
+  border: none;
+  border-radius: 20px;
+  padding: 4rem 3rem;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: visible;
+}
+
+/* LED bar effect around the card */
+
+.cart-page.is-empty .cart__warnings-ring {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: conic-gradient(from 0deg,
+      #ff0000,
+      #ff8000,
+      #ffff00,
+      #80ff00,
+      #00ff00,
+      #00ff80,
+      #00ffff,
+      #0080ff,
+      #0000ff,
+      #8000ff,
+      #ff00ff,
+      #ff0080,
+      #ff0000);
+  border-radius: 22px;
+  z-index: -1;
+  animation: rotate 3s linear infinite;
+  filter: blur(0.5px);
+  box-shadow:
+    0 0 10px rgba(255, 0, 0, 0.5),
+    0 0 20px rgba(0, 255, 255, 0.3),
+    0 0 30px rgba(255, 255, 0, 0.2);
+}
+
+.cart-page.is-empty .cart__warnings-ring::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  background: #1f1f23;
+  border-radius: 20px;
+  z-index: -1;
+}
+
+/* Empty cart icon */
+
+.cart-page.is-empty .cart__warnings::after {
+  content: '🛒';
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 4rem;
+  background: linear-gradient(135deg, #ffd800, #ffed4e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px rgba(255, 216, 0, 0.5));
+  animation: float 3s ease-in-out infinite;
+  z-index: 10;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0px);
+  }
+
+  50% {
+    transform: translateX(-50%) translateY(-8px);
+  }
+}
+
+/* Empty cart title redesign */
+
+.cart-page.is-empty .cart__empty-text {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #ffd800 0%, #ffed4e 50%, #ffd800 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(255, 216, 0, 0.3);
+  letter-spacing: -0.02em;
+  position: relative;
+}
+
+.cart-page.is-empty .cart__empty-text::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #ffd800, #4791f0);
+  border-radius: 2px;
+}
+
+/* Empty cart description */
+
+.cart-page.is-empty .cart__empty-description {
+  font-size: 1.2rem;
+  color: #94a3b8;
+  margin-bottom: 2.5rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Continue shopping button redesign */
+
+.cart-page.is-empty .cart__warnings .button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #ffd800 0%, #ffed4e 100%);
+  color: #0f172a;
+  border: 2px solid transparent;
+  box-shadow:
+    0 10px 30px rgba(255, 216, 0, 0.3),
+    0 0 0 1px rgba(255, 216, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cart-page.is-empty .cart__warnings .button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.cart-page.is-empty .cart__warnings .button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow:
+    0 20px 40px rgba(255, 216, 0, 0.4),
+    0 0 0 1px rgba(255, 216, 0, 0.3);
+  background: linear-gradient(135deg, #ffed4e 0%, #ffd800 100%);
+}
+
+.cart-page.is-empty .cart__warnings .button:hover::before {
+  left: 100%;
+}
+
+.cart-page.is-empty .cart__warnings .button:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
+/* Shopping bag icon for button */
+
+.cart-page.is-empty .cart__warnings .button::after {
+  content: '🛍️';
+  font-size: 1.2rem;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-5px);
+  }
+
+  60% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Login section redesign */
+
+.cart-page.is-empty .cart__login-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 3rem 0 1rem 0;
+  color: #59bab9;
+  text-shadow: 0 0 20px rgba(89, 186, 185, 0.3);
+}
+
+.cart-page.is-empty .cart__login-paragraph {
+  margin-bottom: 2rem;
+  color: #94a3b8;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.cart-page.is-empty .cart__login-paragraph a {
+  color: #4791f0;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.cart-page.is-empty .cart__login-paragraph a:hover {
+  color: #ffd800;
+  border-bottom-color: #ffd800;
+  text-shadow: 0 0 10px rgba(255, 216, 0, 0.3);
+}
+
+/* Gaming-inspired decorative elements */
+
+.cart-page.is-empty .cart__warnings .decorative-dot-1 {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #4791f0, #59bab9);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.cart-page.is-empty .cart__warnings .decorative-dot-2 {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(135deg, #ffd800, #ffed4e);
+  border-radius: 50%;
+  opacity: 0.2;
+  animation: pulse 2s ease-in-out infinite 1s;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.2;
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 0.4;
+  }
+}
+
+/* Responsive design */
+
+@media (max-width: 768px) {
+  .cart-page.is-empty .cart__warnings {
+    padding: 3rem 2rem;
+    margin: 1rem;
+  }
+
+  .cart-page.is-empty .cart__empty-text {
+    font-size: 2.5rem;
+  }
+
+  .cart-page.is-empty .cart__warnings .button {
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-page.is-empty .cart__warnings {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .cart-page.is-empty .cart__empty-text {
+    font-size: 2rem;
+  }
+
+  .cart-page.is-empty .cart__warnings .button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Enhanced focus states for accessibility */
+
+.cart-page.is-empty .cart__warnings .button:focus {
+  outline: 2px solid #ffd800;
+  outline-offset: 4px;
+  box-shadow:
+    0 10px 30px rgba(255, 216, 0, 0.3),
+    0 0 0 1px rgba(255, 216, 0, 0.2),
+    0 0 0 4px rgba(255, 216, 0, 0.1);
+}
+
+/* Reduced motion support */
+
+@media (prefers-reduced-motion: reduce) {
+  .cart-page.is-empty .cart__warnings .decorative-dot-1,
+  .cart-page.is-empty .cart__warnings .decorative-dot-2,
+  .cart-page.is-empty .cart__warnings .button::after,
+  .cart-page.is-empty .cart__warnings-ring {
+    animation: none;
+  }
+
+  .cart-page.is-empty .cart__warnings .button:hover {
+    transform: none;
+  }
+}
+
+/* CSS Custom Property for conic gradient animation */
+
+@property --angle {
+  syntax: "<angle>";
+
+  initial-value: 0deg;
+
+  inherits: false;
+}
+
+/* Conic gradient ring effect */
+
+.cart-page.is-empty .cart__warnings::before,
+.cart-page.is-empty .cart__warnings::after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding: 1px;
+  border-radius: 20px;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+  background-image: conic-gradient(from var(--angle), #ff0000, #00ff00, #0000ff, #ff00ff, #ffff00, #00ffff, #ff0000);
+  animation: rotate 4s linear infinite;
+}
+
+.cart-page.is-empty .cart__warnings::before {
+  filter: blur(8px);
+  opacity: 0.3;
+}
+
+@keyframes rotate {
+  from {
+    --angle: 0deg;
+  }
+
+  to {
+    --angle: 360deg;
+  }
+}
+
+/* ==========================================================================
+   CAROUSEL GAP REDUCTION - Reduce spacing between carousel items
+   ========================================================================== */
+
+/* Reduce gap between creators carousel items */
+
+.creators-carousel .space-x-16 > * + * {
+  margin-left: 2rem;
+  /* Reduce from 4rem to 2rem */
+}
+
+.creators-carousel .md\:space-x-20 > * + * {
+  margin-left: 2.5rem;
+  /* Reduce from 5rem to 2.5rem */
+}
+
 .after\:absolute::after {
   content: var(--tw-content);
   position: absolute;
@@ -10889,6 +11352,11 @@ nav a:hover::after,
     padding: 2rem;
   }
 
+  .md\:px-12 {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
   .md\:px-16 {
     padding-left: 4rem;
     padding-right: 4rem;
@@ -10951,6 +11419,14 @@ nav a:hover::after,
     grid-column: span 3 / span 3;
   }
 
+  .lg\:ml-24 {
+    margin-left: 6rem;
+  }
+
+  .lg\:mr-24 {
+    margin-right: 6rem;
+  }
+
   .lg\:hidden {
     display: none;
   }
@@ -10961,10 +11437,6 @@ nav a:hover::after,
 
   .lg\:h-24 {
     height: 6rem;
-  }
-
-  .lg\:h-4 {
-    height: 1rem;
   }
 
   .lg\:h-40 {
@@ -10985,10 +11457,6 @@ nav a:hover::after,
 
   .lg\:w-24 {
     width: 6rem;
-  }
-
-  .lg\:w-4 {
-    width: 1rem;
   }
 
   .lg\:w-40 {
@@ -11027,6 +11495,10 @@ nav a:hover::after,
     justify-content: space-between;
   }
 
+  .lg\:gap-10 {
+    gap: 2.5rem;
+  }
+
   .lg\:gap-12 {
     gap: 3rem;
   }
@@ -11041,6 +11513,11 @@ nav a:hover::after,
 
   .lg\:p-8 {
     padding: 2rem;
+  }
+
+  .lg\:px-20 {
+    padding-left: 5rem;
+    padding-right: 5rem;
   }
 
   .lg\:px-24 {
@@ -11098,6 +11575,14 @@ nav a:hover::after,
     grid-column: span 3 / span 3;
   }
 
+  .xl\:ml-32 {
+    margin-left: 8rem;
+  }
+
+  .xl\:mr-32 {
+    margin-right: 8rem;
+  }
+
   .xl\:h-\[32rem\] {
     height: 32rem;
   }
@@ -11114,8 +11599,8 @@ nav a:hover::after,
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
-  .xl\:gap-14 {
-    gap: 3.5rem;
+  .xl\:gap-12 {
+    gap: 3rem;
   }
 
   .xl\:px-32 {

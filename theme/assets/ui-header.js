@@ -47,26 +47,45 @@ if (typeof HeaderDrawer === 'undefined') {
     setupScrollEffects() {
       let lastScrollTop = 0;
       const scrollThreshold = 100;
+      const maxScrollForEffect = 300; // Maximum scroll distance for full effect
+
+      const updateHeaderStyles = (scrollTop) => {
+        if (!this.header) return;
+
+        // Calculate scroll progress (0 to 1)
+        const scrollProgress = Math.min(scrollTop / maxScrollForEffect, 1);
+
+        // Set CSS custom properties for smooth transitions
+        this.header.style.setProperty('--scroll-progress', scrollProgress);
+
+        // Apply appropriate classes based on scroll position
+        if (scrollTop > scrollThreshold) {
+          this.header.classList.add('header--dynamic');
+          this.header.classList.remove('header--transparent');
+        } else {
+          this.header.classList.remove('header--dynamic');
+          this.header.classList.add('header--transparent');
+        }
+
+        // Hide/show header on scroll (optional - can be removed if not needed)
+        if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+          this.header.classList.add('header--hidden');
+        } else {
+          this.header.classList.remove('header--hidden');
+        }
+      };
 
       window.addEventListener('scroll', () => {
         const scrollTop =
           window.pageYOffset || document.documentElement.scrollTop;
-
-        if (scrollTop > scrollThreshold) {
-          this.header?.classList.add('header--scrolled');
-        } else {
-          this.header?.classList.remove('header--scrolled');
-        }
-
-        // Hide/show header on scroll
-        if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
-          this.header?.classList.add('header--hidden');
-        } else {
-          this.header?.classList.remove('header--hidden');
-        }
-
+        updateHeaderStyles(scrollTop);
         lastScrollTop = scrollTop;
       });
+
+      // Initialize header state on page load
+      updateHeaderStyles(
+        window.pageYOffset || document.documentElement.scrollTop
+      );
     }
 
     openDrawer() {

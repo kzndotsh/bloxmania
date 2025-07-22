@@ -102,6 +102,7 @@ class CartItems extends HTMLElement {
     const formData = new FormData();
     let hasChanges = false;
     const changedItems = [];
+    const itemsToRemove = [];
 
     this.querySelectorAll('[name="updates[]"]').forEach((input) => {
       const cartItemKey = input.dataset.cartItemKey;
@@ -109,7 +110,13 @@ class CartItems extends HTMLElement {
       const originalQuantity = this.originalQuantities.get(cartItemKey) || 0;
 
       if (currentQuantity !== originalQuantity) {
-        formData.append(`updates[${cartItemKey}]`, currentQuantity);
+        if (currentQuantity === 0) {
+          // Items with quantity 0 should be removed
+          itemsToRemove.push({ key: cartItemKey, quantity: currentQuantity });
+        } else {
+          // Items with quantity > 0 should be updated
+          formData.append(`updates[${cartItemKey}]`, currentQuantity);
+        }
         hasChanges = true;
         changedItems.push({ key: cartItemKey, quantity: currentQuantity });
       }
@@ -132,20 +139,61 @@ class CartItems extends HTMLElement {
     });
 
     try {
-      const response = await fetch('/cart/update.js', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Accept: 'application/json',
-        },
-        body: new URLSearchParams(formData),
-      });
+      let cart;
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      // Handle items to remove (quantity 0) using /cart/change.js
+      if (itemsToRemove.length > 0) {
+        for (const item of itemsToRemove) {
+          const removeBody = JSON.stringify({
+            id: item.key,
+            quantity: 0,
+            sections: ['main-cart', 'cart-icon-bubble'],
+          });
+
+          const removeResponse = await fetch('/cart/change.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
+            body: removeBody,
+          });
+
+          if (!removeResponse.ok) {
+            throw new Error(`HTTP error! status: ${removeResponse.status}`);
+          }
+
+          cart = await removeResponse.json();
+
+          // Remove the cart item from DOM when quantity is 0
+          const cartItem = this.querySelector(
+            `[data-cart-item-key="${item.key}"]`
+          ).closest('.cart-item');
+          if (cartItem) {
+            cartItem.remove();
+            console.log('Removed cart item from DOM:', item.key);
+          }
+        }
       }
 
-      const cart = await response.json();
+      // Handle items to update (quantity > 0) using /cart/update.js
+      if (formData.entries().next().done === false) {
+        const updateResponse = await fetch('/cart/update.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Accept: 'application/json',
+          },
+          body: new URLSearchParams(formData),
+        });
+
+        if (!updateResponse.ok) {
+          throw new Error(`HTTP error! status: ${updateResponse.status}`);
+        }
+
+        cart = await updateResponse.json();
+      }
+
       this.updateCartUI(cart);
 
       // Update original quantities
@@ -194,6 +242,17 @@ class CartItems extends HTMLElement {
     cartCountElements.forEach((element) => {
       element.textContent = cart.item_count;
     });
+
+    // Update cart badge in header
+    const cartBadge = document.querySelector('.header__cart-badge');
+    if (cartBadge) {
+      if (cart.item_count > 0) {
+        cartBadge.textContent = cart.item_count;
+        cartBadge.style.display = 'block';
+      } else {
+        cartBadge.style.display = 'none';
+      }
+    }
 
     // Update cart total
     const cartTotalElements = document.querySelectorAll('[data-cart-total]');
@@ -247,7 +306,7 @@ class CartItems extends HTMLElement {
       checkoutButton.disabled = cart.item_count === 0;
     }
 
-    // Check if cart is empty
+    // Check if cart is empty and handle empty cart state
     if (cart.item_count === 0) {
       this.showEmptyCart();
     } else {
@@ -257,7 +316,7 @@ class CartItems extends HTMLElement {
         cartPage.classList.remove('is-empty');
       }
 
-      // Hide empty cart message if cart has items
+      // Show cart form and header when cart has items
       const cartForm = document.querySelector('.cart__form');
       const cartWarnings = document.querySelector('.cart__warnings');
       const cartHeader = document.querySelector('.cart__header');
@@ -420,24 +479,57 @@ class CartItems extends HTMLElement {
     const cartPage = document.querySelector('.cart-page');
     if (cartPage) {
       cartPage.classList.add('is-empty');
+      console.log('Added is-empty class to cart page');
+    } else {
+      console.log('Cart page element not found');
     }
 
     // Hide the cart form and all its contents
     const cartForm = document.querySelector('.cart__form');
     if (cartForm) {
       cartForm.style.display = 'none';
+      console.log('Hidden cart form');
+    } else {
+      console.log('Cart form element not found');
     }
 
     // Show the empty cart warnings
-    const cartWarnings = document.querySelector('.cart__warnings');
+    let cartWarnings = document.querySelector('.cart__warnings');
     if (cartWarnings) {
       cartWarnings.style.display = 'block';
+      console.log('Showed existing cart warnings');
+    } else {
+      // Create the empty cart message dynamically if it doesn't exist
+      console.log('Creating empty cart message dynamically');
+      cartWarnings = document.createElement('div');
+      cartWarnings.className = 'cart__warnings';
+      cartWarnings.innerHTML = `
+        <h1 class="cart__empty-text">Your cart is empty</h1>
+        <a href="/collections/all" class="button">
+          Continue shopping
+        </a>
+      `;
+
+      // Insert it after the cart form
+      if (cartForm) {
+        cartForm.parentNode.insertBefore(cartWarnings, cartForm.nextSibling);
+      } else {
+        // If no cart form, insert it into the page-width div
+        const pageWidth = document.querySelector('.page-width');
+        if (pageWidth) {
+          pageWidth.appendChild(cartWarnings);
+        }
+      }
+      console.log('Created and inserted cart warnings');
     }
 
     // Also hide the cart header since it shows item count
     const cartHeader = document.querySelector('.cart__header');
     if (cartHeader) {
       cartHeader.style.display = 'none';
+      console.log('Hidden cart header');
+    } else {
+      console.log('Cart header element not found');
     }
   }
 
@@ -508,6 +600,17 @@ class CartRemoveButton extends HTMLElement {
         element.textContent = cart.item_count;
       });
 
+      // Update cart badge in header
+      const cartBadge = document.querySelector('.header__cart-badge');
+      if (cartBadge) {
+        if (cart.item_count > 0) {
+          cartBadge.textContent = cart.item_count;
+          cartBadge.style.display = 'block';
+        } else {
+          cartBadge.style.display = 'none';
+        }
+      }
+
       // Update cart count in cart page header
       const cartCountText = document.querySelector('.cart__count');
       if (cartCountText) {
@@ -539,12 +642,25 @@ class CartRemoveButton extends HTMLElement {
   showEmptyCart() {
     console.log('Showing empty cart state from remove button');
 
+    // Use the existing showEmptyCart method from CartItems class
+    const cartItems = document.querySelector('cart-items');
+    if (cartItems && cartItems.showEmptyCart) {
+      cartItems.showEmptyCart();
+    } else {
+      console.log(
+        'CartItems component not found, falling back to direct implementation'
+      );
+      // Fallback implementation if CartItems is not available
+      this.showEmptyCartFallback();
+    }
+  }
+
+  showEmptyCartFallback() {
     // Add is-empty class to the cart page
     const cartPage = document.querySelector('.cart-page');
     if (cartPage) {
       cartPage.classList.add('is-empty');
       console.log('Added is-empty class to cart page');
-      console.log('Cart page classes:', cartPage.className);
     } else {
       console.log('Cart page element not found');
     }
