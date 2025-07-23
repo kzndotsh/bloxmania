@@ -13,10 +13,8 @@
       const href = preload.getAttribute("href");
       if (
         href &&
-        (href.includes("/assets/style-base.css") ||
-          href.includes("/assets/global.js") ||
-          href.includes("/assets/init.js") ||
-          href.includes("/assets/core.bundle.js") ||
+        (href.includes("/assets/main.css") ||
+          href.includes("/assets/main.js") ||
           (href.includes("/assets/") && !href.includes("cdn.shopify.com")))
       ) {
         preload.remove();

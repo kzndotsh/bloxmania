@@ -108,11 +108,7 @@ class PerformanceMonitor {
 
   setupResourceTiming() {
     // Monitor critical resources - use proper Shopify CDN paths
-    const criticalResources = [
-      "/cdn/shop/t/17/assets/style-base.css",
-      "/cdn/shop/t/17/assets/core.bundle.js",
-      "/cdn/shop/t/17/assets/init.js",
-    ];
+    const criticalResources = ["/cdn/shop/t/17/assets/main.js", "/cdn/shop/t/17/assets/main.css"];
 
     criticalResources.forEach((resource) => {
       this.measureResourceLoad(resource);
