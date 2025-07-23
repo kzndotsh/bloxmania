@@ -1,0 +1,42 @@
+{
+  "watch": [
+    "dev/css",
+    "dev/js",
+    "dev/images",
+    "dev/sections",
+    "dev/snippets",
+    "dev/templates"
+  ],
+  "ext": "js,css,liquid",
+  "ignore": [
+    "dev/css/build/",
+    "dev/js/build/",
+    "node_modules/",
+    ".git/",
+    "build/",
+    "theme/",
+    "*.log",
+    "*.tmp",
+    ".DS_Store",
+    "Thumbs.db"
+  ],
+  "delay": 3000,
+  "exec": "npm run build:dev",
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "verbose": false,
+  "colours": true,
+  "restartable": "rs",
+  "legacyWatch": false,
+  "polling": false,
+  "ignoreRoot": [
+    "node_modules/",
+    ".git/",
+    "build/",
+    "theme/"
+  ],
+  "events": {
+    "restart": "echo '🔄 Build triggered by file change'"
+  }
+}

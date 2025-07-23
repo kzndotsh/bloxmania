@@ -5,11 +5,14 @@
   "main": "index.js",
   "scripts": {
     "dev": "npm run build:dev && shopify theme dev --path=theme",
+    "dev:fast": "concurrently \"npm run build:watch\" \"shopify theme dev --path=theme\" --names \"build,shopify\" --prefix-colors \"blue,green\"",
+    "dev:conservative": "npm run build:dev && shopify theme dev --path=theme --live-reload=hot-reload",
+    "dev:minimal": "npm run build:dev && shopify theme dev --path=theme --live-reload=off",
     "dev:concurrent": "concurrently \"npm run build:watch\" \"shopify theme dev --path=theme\"",
     "dev:watch": "npm run build:watch",
     "build": "node build.js --mode=production",
     "build:dev": "node build.js --mode=development",
-    "build:watch": "nodemon --watch dev/css --watch dev/js --watch dev/images --watch dev/sections --watch dev/snippets --watch dev/templates --ext js,css,liquid --exec \"npm run build:dev\"",
+    "build:watch": "nodemon",
     "build:css:dev": "tailwindcss -i ./dev/css/styles.css -o ./build/css/main.css --config ./tailwind.config.js",
     "build:css:watch": "tailwindcss -i ./dev/css/styles.css -o ./build/css/main.css --config ./tailwind.config.js --watch",
     "build:css:prod": "NODE_ENV=production tailwindcss -i ./dev/css/styles.css -o ./build/css/main.css --config ./tailwind.config.js --minify",
@@ -20,6 +23,8 @@
     "pull": "shopify theme pull --path=theme",
     "package": "npm run build && shopify theme package --path=theme",
     "init": "shopify theme init --path=theme",
+    "init:force": "rm -rf theme && shopify theme init --path=theme && npm run build:dev",
+    "theme:setup": "npm run init:force",
     "list": "shopify theme list --path=theme",
     "info": "shopify theme info --path=theme",
     "publish": "shopify theme publish --path=theme",
@@ -57,7 +62,11 @@
     "docs:generate": "node ./dev/utils/liquid-doc-generator.js",
     "docs:serve": "cd docs && python -m http.server 8080 || python3 -m http.server 8080",
     "logs": "tail -f ~/.shopify/logs/theme.log",
-    "status": "echo '📊 Build Status:' && echo '  Source: dev/' && echo '  Build: build/' && echo '  Theme: theme/' && echo '  Mode: ' && node -e \"console.log(process.env.NODE_ENV || 'development')\""
+    "status": "echo '📊 Build Status:' && echo '  Source: dev/' && echo '  Build: build/' && echo '  Theme: theme/' && echo '  Mode: ' && node -e \"console.log(process.env.NODE_ENV || 'development')\"",
+    "build:status": "echo '🔍 Build Status:' && echo '  Last build: ' && ls -la build/ 2>/dev/null || echo '  No build directory found' && echo '  Theme files: ' && ls -la theme/ 2>/dev/null | wc -l && echo '  files'",
+    "build:clean": "rm -rf build theme && echo '🧹 Cleaned build and theme directories'",
+    "build:manual": "npm run build:dev && echo '✅ Manual build completed - restart Shopify dev server if needed'",
+    "fix:theme": "echo '🔧 Fixing theme structure...' && npm run build:clean && npm run theme:setup && echo '✅ Theme structure fixed!'"
   },
   "keywords": [
     "shopify",
@@ -130,5 +139,8 @@
     "not ie 9",
     "not ie 8",
     "not op_mini all"
-  ]
+  ],
+  "dependencies": {
+    "css-tree": "^3.1.0"
+  }
 }

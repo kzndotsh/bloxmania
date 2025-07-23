@@ -12,9 +12,47 @@ class ThemeBuilder {
     this.mode = process.argv.includes('--mode=production')
       ? 'production'
       : 'development';
+    this.isBuilding = false;
+    this.buildTimeout = null;
+    this.lastBuildTime = 0;
+    this.minBuildInterval = 5000; // Minimum 5 seconds between builds
   }
 
   async build() {
+    const now = Date.now();
+    
+    // Prevent builds if one is already in progress
+    if (this.isBuilding) {
+      console.log('⏳ Build already in progress, skipping...');
+      return;
+    }
+
+    // Enforce minimum interval between builds
+    if (now - this.lastBuildTime < this.minBuildInterval) {
+      console.log('⏳ Build throttled - waiting for minimum interval...');
+      return;
+    }
+
+    // Clear any pending build timeout
+    if (this.buildTimeout) {
+      clearTimeout(this.buildTimeout);
+    }
+
+    // Set a longer delay to batch rapid changes and prevent aggressive rebuilds
+    if (this.mode === 'development') {
+      this.buildTimeout = setTimeout(() => {
+        this.performBuild();
+      }, 2000); // Increased to 2 seconds
+      return;
+    }
+
+    // Production builds run immediately
+    await this.performBuild();
+  }
+
+  async performBuild() {
+    this.isBuilding = true;
+    this.lastBuildTime = Date.now();
     console.log(`🚀 Building theme from dev/ to theme/ (${this.mode} mode)...`);
 
     try {
@@ -33,13 +71,62 @@ class ThemeBuilder {
       console.log('✅ Theme build completed successfully!');
     } catch (error) {
       console.error('❌ Theme build failed:', error);
-      process.exit(1);
+      // Don't exit process in development mode to keep server running
+      if (this.mode === 'production') {
+        process.exit(1);
+      }
+    } finally {
+      this.isBuilding = false;
     }
   }
 
   async cleanThemeDir() {
     console.log('🧹 Cleaning theme directory...');
+    
+    // Don't delete the theme directory if it doesn't exist
+    if (!(await fs.pathExists(this.themeDir))) {
+      console.log('  📁 Theme directory does not exist, creating...');
+      await fs.ensureDir(this.themeDir);
+      return;
+    }
+    
+    // Get list of files to preserve
+    const preserveFiles = [
+      'layout/theme.liquid',
+      'config/settings_schema.json',
+      'config/settings_data.json'
+    ];
+    
+    // Create backup of essential files
+    const backupDir = path.join(__dirname, '.theme-backup');
+    await fs.ensureDir(backupDir);
+    
+    for (const file of preserveFiles) {
+      const filePath = path.join(this.themeDir, file);
+      const backupPath = path.join(backupDir, file);
+      
+      if (await fs.pathExists(filePath)) {
+        await fs.copy(filePath, backupPath);
+        console.log(`  💾 Backed up ${file}`);
+      }
+    }
+    
+    // Clean the theme directory
     await fs.emptyDir(this.themeDir);
+    
+    // Restore essential files
+    for (const file of preserveFiles) {
+      const backupPath = path.join(backupDir, file);
+      const filePath = path.join(this.themeDir, file);
+      
+      if (await fs.pathExists(backupPath)) {
+        await fs.copy(backupPath, filePath);
+        console.log(`  🔄 Restored ${file}`);
+      }
+    }
+    
+    // Clean up backup
+    await fs.remove(backupDir);
   }
 
   async buildAssets() {
