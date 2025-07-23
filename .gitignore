@@ -15,6 +15,7 @@
 
 # production
 /build
+/theme
 
 # misc
 .DS_Store
@@ -35,3 +36,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.dawn-reference
+.old-site
