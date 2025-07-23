@@ -39,12 +39,12 @@ class SimpleBundler {
 
     // Core files (load first)
     const coreFiles = [
-      "core/core-constants.js",
+      "core/constants.js",
       "core/pubsub.js",
-      "core/core-dom.js",
-      "core/core-api.js",
-      "core/core-global.js",
-      "core/core-init.js",
+      "core/dom.js",
+      "core/api.js",
+      "core/global.js",
+      "core/init.js",
     ];
 
     // Helper files

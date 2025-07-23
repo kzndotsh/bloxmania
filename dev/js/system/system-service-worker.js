@@ -12,7 +12,7 @@ const PRECACHE_ASSETS = [
   "/",
   "/cdn/shop/t/17/assets/style-base.css",
   "/cdn/shop/t/17/assets/core.bundle.js",
-  "/cdn/shop/t/17/assets/core-init.js",
+  "/cdn/shop/t/17/assets/init.js",
   "/cdn/shop/t/17/assets/helpers.bundle.js",
   "/cdn/shop/t/17/assets/ui.bundle.js",
   "/cdn/shop/t/17/assets/features.bundle.js",

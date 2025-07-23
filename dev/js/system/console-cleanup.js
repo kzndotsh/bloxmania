@@ -14,8 +14,8 @@
       if (
         href &&
         (href.includes("/assets/style-base.css") ||
-          href.includes("/assets/core-global.js") ||
-          href.includes("/assets/core-init.js") ||
+          href.includes("/assets/global.js") ||
+          href.includes("/assets/init.js") ||
           href.includes("/assets/core.bundle.js") ||
           (href.includes("/assets/") && !href.includes("cdn.shopify.com")))
       ) {

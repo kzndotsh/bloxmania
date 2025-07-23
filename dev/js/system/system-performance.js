@@ -111,7 +111,7 @@ class PerformanceMonitor {
     const criticalResources = [
       "/cdn/shop/t/17/assets/style-base.css",
       "/cdn/shop/t/17/assets/core.bundle.js",
-      "/cdn/shop/t/17/assets/core-init.js",
+      "/cdn/shop/t/17/assets/init.js",
     ];
 
     criticalResources.forEach((resource) => {

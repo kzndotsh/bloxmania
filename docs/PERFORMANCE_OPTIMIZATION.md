@@ -155,7 +155,7 @@ const CACHE_STRATEGIES = {
 const PRECACHE_ASSETS = [
   '/',
   '/assets/style-base.css',
-  '/assets/core-global.js',
+  '/assets/global.js',
   '/assets/system-theme-editor.js'
 ];
 ```
