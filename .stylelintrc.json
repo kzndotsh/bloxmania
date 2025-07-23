@@ -1,0 +1,67 @@
+{
+  "extends": [
+    "stylelint-config-standard"
+  ],
+  "rules": {
+    "selector-class-pattern": null,
+    "color-function-notation": null,
+    "alpha-value-notation": null,
+    "shorthand-property-no-redundant-values": null,
+    "no-descending-specificity": null,
+    "property-no-vendor-prefix": null,
+    "length-zero-no-unit": null,
+    "custom-property-empty-line-before": null,
+    "declaration-empty-line-before": null,
+    "media-feature-range-notation": null,
+    "no-duplicate-selectors": null,
+    "color-function-alias-notation": null,
+    "color-hex-length": null,
+    "keyframes-name-pattern": null,
+    "selector-no-vendor-prefix": null,
+    "media-feature-name-value-no-unknown": null,
+    "comment-empty-line-before": null,
+    "declaration-block-no-redundant-longhand-properties": null,
+    "declaration-block-no-duplicate-properties": null,
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "tailwind",
+          "apply",
+          "variants",
+          "responsive",
+          "screen"
+        ]
+      }
+    ],
+    "at-rule-no-vendor-prefix": null,
+    "value-no-vendor-prefix": null,
+    "value-keyword-case": null,
+    "number-max-precision": null,
+    "declaration-block-no-duplicate-custom-properties": null,
+    "rule-empty-line-before": null,
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": [
+          "global"
+        ]
+      }
+    ],
+    "selector-pseudo-element-no-unknown": [
+      true,
+      {
+        "ignorePseudoElements": [
+          "v-deep",
+          "v-global",
+          "v-slotted"
+        ]
+      }
+    ]
+  },
+  "ignoreFiles": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/build/**"
+  ]
+}

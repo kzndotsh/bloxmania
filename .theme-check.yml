@@ -1,0 +1,49 @@
+# Theme Check Configuration for BloxMania
+# This file configures theme-check to work with our dev/ → build/ → theme/ structure
+
+# Point to the dev directory where the actual theme files are located
+root: dev
+
+# Extend the recommended configuration
+extends:
+  - theme-check:recommended
+
+# Disable missing asset checks since assets are generated during build
+MissingAsset:
+  enabled: false
+
+# Disable template length warnings (we have some long templates)
+TemplateLength:
+  enabled: false
+
+# Disable matching translations warnings
+MatchingTranslations:
+  enabled: false
+
+# Ignore build artifacts and node_modules
+ignore:
+  - 'node_modules/**'
+  - 'build/**'
+  - 'theme/**'
+  - 'dawn-reference/**'
+  - 'old-site/**'
+  - 'docs/**'
+  - '*.md'
+  - '*.js'
+  - '*.json'
+  - '*.yml'
+  - '*.yaml'
+  - '*.lock'
+  - 'package.json'
+  - 'package-lock.json'
+  - 'postcss.config.js'
+  - 'tailwind.config.js'
+  - 'build.js'
+  - 'checklist.md'
+  - 'STRUCTURE.md'
+  - 'README.md'
+
+# Configure the root directory to check (optional)
+# By default, theme-check will check the current directory
+# You can run theme-check on the theme/ directory after build:
+# shopify theme check --path=theme 
