@@ -1,0 +1,129 @@
+{% comment %}
+  Renders an accessible input field with proper labeling and validation
+
+  Accepts:
+  - input_type: {String} Input type (default: "text")
+  - input_id: {String} Unique ID for the input (required)
+  - input_name: {String} Input name attribute (default: input_id)
+  - input_class: {String} CSS classes for the input (optional)
+  - input_value: {String} Input value (optional)
+  - input_placeholder: {String} Input placeholder (optional)
+  - input_required: {Boolean} Whether input is required (default: false)
+  - input_disabled: {Boolean} Whether input is disabled (default: false)
+  - input_readonly: {Boolean} Whether input is readonly (default: false)
+  - input_autocomplete: {String} Autocomplete attribute (optional)
+  - input_pattern: {String} Pattern attribute for validation (optional)
+  - input_min: {String} Min attribute for number/date inputs (optional)
+  - input_max: {String} Max attribute for number/date inputs (optional)
+  - input_step: {String} Step attribute for number inputs (optional)
+  - input_maxlength: {String} Maximum length for text inputs (optional)
+  - input_minlength: {String} Minimum length for text inputs (optional)
+  - label_text: {String} Label text (required)
+  - label_class: {String} CSS classes for the label (optional)
+  - help_text: {String} Help text for the input (optional)
+  - error_text: {String} Error message (optional)
+  - wrapper_class: {String} CSS classes for the wrapper (optional)
+
+  Usage:
+  {% render 'accessible-input',
+    input_id: 'email',
+    input_type: 'email',
+    label_text: 'Email Address',
+    input_required: true,
+    help_text: 'We will never share your email address'
+  %}
+{% endcomment %}
+
+{%- liquid
+  assign input_type = input_type | default: 'text'
+  assign input_name = input_name | default: input_id
+  assign input_required = input_required | default: false
+  assign input_disabled = input_disabled | default: false
+  assign input_readonly = input_readonly | default: false
+
+  # Generate unique IDs for associated elements
+  assign help_id = input_id | append: '-help'
+  assign error_id = input_id | append: '-error'
+  assign label_id = input_id | append: '-label'
+-%}
+
+<div class="input-wrapper {% if wrapper_class %}{{ wrapper_class }}{% endif %}">
+  <!-- Label -->
+  <label
+    for="{{ input_id }}"
+    id="{{ label_id }}"
+    class="input-label {% if label_class %}{{ label_class }}{% endif %}{% if input_required %} required{% endif %}"
+  >
+    {{ label_text }}
+    {% if input_required %}
+      <span class="required-indicator" aria-label="required">*</span>
+    {% endif %}
+  </label>
+
+  <!-- Input Field -->
+  <input
+    type="{{ input_type }}"
+    id="{{ input_id }}"
+    name="{{ input_name }}"
+    class="input-field {% if input_class %}{{ input_class }}{% endif %}"
+    {% if input_value %}
+      value="{{ input_value | escape }}"
+    {% endif %}
+    {% if input_placeholder %}
+      placeholder="{{ input_placeholder | escape }}"
+    {% endif %}
+    {% if input_required %}
+      required aria-required="true"
+    {% endif %}
+    {% if input_disabled %}
+      disabled
+    {% endif %}
+    {% if input_readonly %}
+      readonly
+    {% endif %}
+    {% if input_autocomplete %}
+      autocomplete="{{ input_autocomplete }}"
+    {% endif %}
+    {% if input_pattern %}
+      pattern="{{ input_pattern }}"
+    {% endif %}
+    {% if input_min %}
+      min="{{ input_min }}"
+    {% endif %}
+    {% if input_max %}
+      max="{{ input_max }}"
+    {% endif %}
+    {% if input_step %}
+      step="{{ input_step }}"
+    {% endif %}
+    {% if input_maxlength %}
+      maxlength="{{ input_maxlength }}"
+    {% endif %}
+    {% if input_minlength %}
+      minlength="{{ input_minlength }}"
+    {% endif %}
+    aria-labelledby="{{ label_id }}"
+    {% if help_text %}
+      aria-describedby="{{ help_id }}{% if error_text %} {{ error_id }}{% endif %}"
+    {% elsif error_text %}
+      aria-describedby="{{ error_id }}"
+    {% endif %}
+  >
+
+  <!-- Help Text -->
+  {% if help_text %}
+    <div id="{{ help_id }}" class="help-text">
+      {{ help_text }}
+    </div>
+  {% endif %}
+
+  <!-- Error Message -->
+  {% if error_text %}
+    <div id="{{ error_id }}" class="error-message" role="alert">
+      <svg class="w-4 h-4 inline mr-1" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+      </svg>
+      {{ error_text }}
+    </div>
+  {% endif %}
+</div>

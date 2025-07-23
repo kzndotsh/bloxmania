@@ -1,0 +1,62 @@
+{
+  "store": {
+    "name": "BloxMania",
+    "description": "Your ultimate destination for gaming items and digital goods",
+    "email": "support@bloxmania.store",
+    "phone": "+1 (555) 123-4567",
+    "address": "123 Gaming Street, Digital City, DC 12345"
+  },
+  "social": {
+    "discord": "https://discord.gg/bloxmania",
+    "youtube": "https://youtube.com/@bloxmania",
+    "tiktok": "https://tiktok.com/@bloxmania",
+    "instagram": "https://instagram.com/bloxmania"
+  },
+  "hero": {
+    "title": "Welcome to BloxMania",
+    "subtitle": "Your ultimate destination for gaming items and digital goods",
+    "cta_text": "Shop Now",
+    "cta_link": "/collections/all",
+    "background_image": "hero-bg.jpg"
+  },
+  "colors": {
+    "primary": "#ffd800",
+    "secondary": "#4791f0",
+    "background": "#181926",
+    "surface": "#23243a",
+    "text": "#ffffff",
+    "text_muted": "#9ca3af"
+  },
+  "content": {
+    "trust_indicators": {
+      "title": "Trusted by Gamers Worldwide",
+      "subtitle": "Join thousands of satisfied customers",
+      "guarantee": "100% Money Back Guarantee",
+      "support": "24/7 Customer Support",
+      "security": "Secure Payment Processing"
+    },
+    "newsletter": {
+      "title": "Stay Updated",
+      "subtitle": "Get the latest gaming news and exclusive offers",
+      "placeholder": "Enter your email address",
+      "button_text": "Subscribe"
+    },
+    "footer": {
+      "description": "BloxMania is your trusted source for premium gaming items and digital goods. We offer the best prices, fastest delivery, and exceptional customer service.",
+      "copyright": "© 2024 BloxMania. All rights reserved."
+    }
+  },
+  "features": {
+    "show_creator_endorsements": true,
+    "show_trust_indicators": true,
+    "show_newsletter_signup": true,
+    "show_social_links": true,
+    "enable_quick_view": true,
+    "enable_wishlist": false
+  },
+  "seo": {
+    "meta_title": "BloxMania - Premium Gaming Items & Digital Goods",
+    "meta_description": "Shop the best gaming items, Roblox accounts, Fortnite skins, and digital goods. Fast delivery, secure payments, 24/7 support.",
+    "keywords": "gaming items, roblox, fortnite, digital goods, gaming accounts"
+  }
+}

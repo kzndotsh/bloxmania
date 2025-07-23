@@ -1,0 +1,195 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="customer register section-{{ section.id }}-padding">
+  <div class="page-width">
+    <div class="customer__header">
+      <h1 class="customer__title">{{ 'customer.register.title' | t }}</h1>
+    </div>
+
+    <div class="customer__content">
+      <div class="customer__form-wrapper">
+        {% form 'create_customer', novalidate: 'novalidate', class: 'customer__form' %}
+          {%- if form.errors -%}
+            <div class="form__message form__message--error" tabindex="-1" autofocus>
+              <h2 class="form-status caption-large text-body" role="alert">
+                <svg aria-hidden="true" focusable="false" class="icon icon-error" viewBox="0 0 13 13">
+                  <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-opacity="0.25" fill="none"/>
+                  <circle cx="6.5" cy="6.5" r="5.5" stroke="#EB001B" stroke-width="0.7"/>
+                  <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="#EB001B"/>
+                </svg>
+                {{ 'templates.contact.form.error_heading' | t }}
+              </h2>
+              {{ form.errors | default_errors }}
+            </div>
+          {%- endif -%}
+
+          <div class="field">
+            <input
+              type="text"
+              name="customer[first_name]"
+              id="RegisterForm-FirstName"
+              autocomplete="given-name"
+              class="field__input"
+              {% if form.errors contains 'first_name' %}
+                aria-invalid="true"
+                aria-describedby="RegisterForm-FirstName-error"
+              {% endif %}
+              placeholder="{{ 'customer.register.first_name' | t }}"
+              required
+            >
+            <label for="RegisterForm-FirstName" class="field__label">
+              {{ 'customer.register.first_name' | t }}
+            </label>
+          </div>
+
+          <div class="field">
+            <input
+              type="text"
+              name="customer[last_name]"
+              id="RegisterForm-LastName"
+              autocomplete="family-name"
+              class="field__input"
+              {% if form.errors contains 'last_name' %}
+                aria-invalid="true"
+                aria-describedby="RegisterForm-LastName-error"
+              {% endif %}
+              placeholder="{{ 'customer.register.last_name' | t }}"
+              required
+            >
+            <label for="RegisterForm-LastName" class="field__label">
+              {{ 'customer.register.last_name' | t }}
+            </label>
+          </div>
+
+          <div class="field">
+            <input
+              type="email"
+              name="customer[email]"
+              id="RegisterForm-email"
+              autocomplete="email"
+              autocorrect="off"
+              autocapitalize="off"
+              class="field__input"
+              {% if form.errors contains 'email' %}
+                aria-invalid="true"
+                aria-describedby="RegisterForm-email-error"
+              {% endif %}
+              placeholder="{{ 'customer.register.email' | t }}"
+              required
+            >
+            <label for="RegisterForm-email" class="field__label">
+              {{ 'customer.register.email' | t }}
+            </label>
+          </div>
+
+          {%- if form.errors contains 'email' -%}
+            <div id="RegisterForm-email-error" role="alert">
+              <span class="visually-hidden">{{ 'accessibility.error' | t }}</span>
+              <small class="form__message">
+                <svg aria-hidden="true" focusable="false" class="icon icon-error" viewBox="0 0 13 13">
+                  <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-opacity="0.25" fill="none"/>
+                  <circle cx="6.5" cy="6.5" r="5.5" stroke="#EB001B" stroke-width="0.7"/>
+                  <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="#EB001B"/>
+                </svg>
+                {{ form.errors.translated_fields.email | capitalize }}
+                {{ form.errors.messages.email }}
+              </small>
+            </div>
+          {%- endif -%}
+
+          <div class="field">
+            <input
+              type="password"
+              name="customer[password]"
+              id="RegisterForm-password"
+              autocomplete="new-password"
+              class="field__input"
+              {% if form.errors contains 'password' %}
+                aria-invalid="true"
+                aria-describedby="RegisterForm-password-error"
+              {% endif %}
+              placeholder="{{ 'customer.register.password' | t }}"
+              required
+            >
+            <label for="RegisterForm-password" class="field__label">
+              {{ 'customer.register.password' | t }}
+            </label>
+          </div>
+
+          {%- if form.errors contains 'password' -%}
+            <div id="RegisterForm-password-error" role="alert">
+              <span class="visually-hidden">{{ 'accessibility.error' | t }}</span>
+              <small class="form__message">
+                <svg aria-hidden="true" focusable="false" class="icon icon-error" viewBox="0 0 13 13">
+                  <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-opacity="0.25" fill="none"/>
+                  <circle cx="6.5" cy="6.5" r="5.5" stroke="#EB001B" stroke-width="0.7"/>
+                  <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="#EB001B"/>
+                </svg>
+                {{ form.errors.translated_fields.password | capitalize }}
+                {{ form.errors.messages.password }}
+              </small>
+            </div>
+          {%- endif -%}
+
+          <div class="customer__form-actions">
+            <button type="submit" class="button">
+              {{ 'customer.register.submit' | t }}
+            </button>
+          </div>
+        {% endform %}
+      </div>
+
+      <div class="customer__login-link">
+        <h2 class="customer__login-title">{{ 'customer.register.returning_customer_title' | t }}</h2>
+        <p>{{ 'customer.register.returning_customer_description' | t }}</p>
+        <a href="{{ routes.account_login_url }}" class="button button--secondary">
+          {{ 'customer.register.sign_in' | t }}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-register.name",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}

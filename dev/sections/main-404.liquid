@@ -1,0 +1,211 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* Simple top spacing for 404 page */
+  .template-404 {
+    margin-top: 4rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    .template-404 {
+      margin-top: 2rem;
+    }
+  }
+{%- endstyle -%}
+
+<div
+  class="
+    template-404 page-width page-margin section-{{ section.id }}-padding
+    {% if section.settings.layout == 'centered' %}text-center{% endif %}
+    {% if section.settings.layout == 'minimal' %}template-404--minimal{% endif %}
+  "
+>
+  <div class="error-code">404</div>
+
+  <h1 class="title">
+    {%- if section.settings.title != blank -%}
+      {{ section.settings.title }}
+    {%- else -%}
+      {{ 'templates.404.title' | t }}
+    {%- endif -%}
+  </h1>
+
+  <p>
+    {%- if section.settings.subtext != blank -%}
+      {{ section.settings.subtext }}
+    {%- else -%}
+      {{ 'templates.404.subtext' | t }}
+    {%- endif -%}
+  </p>
+
+  <!-- Search form for better user experience -->
+  {% if section.settings.show_search %}
+    {% render 'search-form', class: 'template-404__search-form', id: 'Search-404' %}
+  {% endif %}
+
+  <!-- Helpful navigation links -->
+  {% if section.settings.show_helpful_links %}
+    <div class="helpful-links">
+      <h2>
+        {%- if section.settings.helpful_links_title != blank -%}
+          {{ section.settings.helpful_links_title }}
+        {%- else -%}
+          {{ 'templates.404.helpful_links' | t }}
+        {%- endif -%}
+      </h2>
+      <ul>
+        <li>
+          <a href="{{ routes.root_url }}">{{ 'general.404.link_home' | t }}</a>
+        </li>
+        <li>
+          <a href="{{ routes.all_products_collection_url }}">
+            {{- 'general.404.link_products' | t -}}
+          </a>
+        </li>
+        {%- if section.settings.show_blog_link and blog.handles.size > 0 -%}
+          <li>
+            <a href="/blogs/{{ blog.handles.first }}">{{ 'general.404.link_blog' | t }}</a>
+          </li>
+        {%- endif -%}
+        <li>
+          <a href="{{ routes.search_url }}">{{ 'general.404.link_search' | t }}</a>
+        </li>
+      </ul>
+    </div>
+  {% endif %}
+
+  <!-- Primary CTA button -->
+  <a
+    href="{{ section.settings.cta_button_link | default: routes.all_products_collection_url }}"
+    class="button cta-button"
+  >
+    {%- if section.settings.cta_button_text != blank -%}
+      {{ section.settings.cta_button_text }}
+    {%- else -%}
+      {{ 'general.continue_shopping' | t }}
+    {%- endif -%}
+  </a>
+</div>
+
+{% schema %}
+{
+  "name": "404 Page",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Page Title",
+      "default": "Page not found"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Page Subtext",
+      "default": "Sorry, we can't find the page you're looking for. Try searching for something else or check out our helpful links below."
+    },
+    {
+      "type": "text",
+      "id": "helpful_links_title",
+      "label": "Helpful Links Title",
+      "default": "Helpful Links"
+    },
+    {
+      "type": "text",
+      "id": "cta_button_text",
+      "label": "CTA Button Text",
+      "default": "Continue Shopping"
+    },
+    {
+      "type": "url",
+      "id": "cta_button_link",
+      "label": "CTA Button Link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search form",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_helpful_links",
+      "label": "Show helpful links",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_blog_link",
+      "label": "Show blog link",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout Style",
+      "options": [
+        {
+          "value": "centered",
+          "label": "Centered"
+        },
+        {
+          "value": "left-aligned",
+          "label": "Left Aligned"
+        },
+        {
+          "value": "minimal",
+          "label": "Minimal"
+        }
+      ],
+      "default": "centered"
+    },
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "404 Page"
+    }
+  ]
+}
+{% endschema %}

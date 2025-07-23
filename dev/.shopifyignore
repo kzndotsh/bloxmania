@@ -1,0 +1,48 @@
+# Development files
+node_modules/*
+.git/*
+.gitignore
+README.md
+*.log
+.env*
+shopify.env.example
+package.json
+package-lock.json
+
+# Source files (development only)
+src/*
+build/*
+
+# Build files
+dist/*
+
+# IDE files
+.vscode/*
+.idea/*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Documentation
+DEVELOPMENT_GUIDE.md
+TECHNICAL_DOCUMENTATION.md
+SHOPIFY_CLI_SETUP.md
+CONVERSION_SUMMARY.md
+BLOXMANIA_COMPLETE_DOCUMENTATION.md
+
+# Deployment files
+deploy.sh
+*.zip
+
+# Test files
+test/*
+tests/*
+__tests__/*
+*.test.js
+*.spec.js
+
+# Temporary files
+*.tmp
+*.temp
+.cache/*

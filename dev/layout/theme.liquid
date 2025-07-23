@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    {%- comment -%}
+      ========================================
+      DOCUMENT SETUP & META TAGS
+      ========================================
+    {%- endcomment -%}
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#1d1e26">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- comment -%} Favicon Setup {%- endcomment -%}
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- else -%}
+      <link rel="icon" type="image/x-icon" href="{{ 'favicon.ico' | asset_url }}">
+    {%- endif -%}
+
+    {%- comment -%} Page Title {%- endcomment -%}
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {%- comment -%} Meta Description {%- endcomment -%}
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {%- comment -%} Additional Meta Tags {%- endcomment -%}
+    {% render 'meta-tags' %}
+
+    {%- comment -%} Required Shopify content_for_header tag {%- endcomment -%}
+    {{ content_for_header }}
+
+    {%- comment -%}
+      ========================================
+      PERFORMANCE OPTIMIZATION
+      ========================================
+    {%- endcomment -%}
+
+    {%- comment -%} Resource hints for performance optimization {%- endcomment -%}
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.shopify.com">
+    <link rel="dns-prefetch" href="https://fonts.shopifycdn.com">
+
+    {%- comment -%}
+      ========================================
+      FONT LOADING & CSS SETUP
+      ========================================
+    {%- endcomment -%}
+
+    {%- comment -%} Font configuration {%- endcomment -%}
+    {%- liquid
+      assign inter_font = settings.type_body_font
+      assign inter_bold = inter_font | font_modify: 'weight', 'bold'
+      assign inter_italic = inter_font | font_modify: 'style', 'italic'
+      assign inter_bold_italic = inter_bold | font_modify: 'style', 'italic'
+    %}
+
+    {%- comment -%} Load Inter font variants {%- endcomment -%}
+    <style>
+      {{ inter_font | font_face }}
+      {{ inter_bold | font_face }}
+      {{ inter_italic | font_face }}
+      {{ inter_bold_italic | font_face }}
+    </style>
+
+    {%- comment -%} Set font CSS custom properties {%- endcomment -%}
+    <style>
+      :root {
+        --font-family: {{ inter_font.family }}, {{ inter_font.fallback_families }};
+        --font-weight-normal: {{ inter_font.weight }};
+        --font-weight-bold: {{ inter_bold.weight }};
+        --font-style-normal: {{ inter_font.style }};
+        --font-style-italic: {{ inter_italic.style }};
+
+        --font-body-scale: {{ settings.body_scale | divided_by: 100.0 }};
+        --font-heading-scale: {{ settings.heading_scale | divided_by: 100.0 }};
+      }
+    </style>
+
+    {%- comment -%} Load main CSS {%- endcomment -%}
+    {{ 'main.css' | asset_url | stylesheet_tag }}
+
+    {%- comment -%}
+      ========================================
+      JAVASCRIPT INITIALIZATION
+      ========================================
+    {%- endcomment -%}
+
+    {%- comment -%} Load system JavaScript files {%- endcomment -%}
+    <script src="{{ 'shopify-analytics-fix.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'console-cleanup.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'performance-monitoring.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'service-worker-registration.js' | asset_url }}" defer="defer"></script>
+
+    {%- comment -%} JavaScript class setup {%- endcomment -%}
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+      if (Shopify.designMode) {
+        document.documentElement.classList.add('shopify-design-mode');
+      }
+    </script>
+
+    {%- comment -%} Define global routes for JavaScript {%- endcomment -%}
+    <script>
+      window.routes = {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}',
+        cart_url: '{{ routes.cart_url }}',
+        predictive_search_url: '{{ routes.predictive_search_url }}',
+        search_url: '{{ routes.search_url }}',
+        root_url: '{{ routes.root_url }}',
+        account_url: '{{ routes.account_url }}',
+        account_login_url: '{{ routes.account_login_url }}',
+        account_register_url: '{{ routes.account_register_url }}',
+        account_logout_url: '{{ routes.account_logout_url }}',
+        account_addresses_url: '{{ routes.account_addresses_url }}',
+        account_recover_url: '{{ routes.account_recover_url }}',
+        all_products_collection_url: '{{ routes.all_products_collection_url }}',
+        collections_url: '{{ routes.collections_url }}',
+        product_recommendations_url: '{{ routes.product_recommendations_url }}',
+      };
+    </script>
+  </head>
+
+  <body>
+    {%- comment -%}
+      ========================================
+      ACCESSIBILITY & NAVIGATION
+      ========================================
+    {%- endcomment -%}
+
+    {%- comment -%} Skip to content link for keyboard users {%- endcomment -%}
+    <a class="skip-to-content-link" href="#MainContent">
+      {{ 'accessibility.skip_to_text' | t }}
+    </a>
+
+    {%- comment -%}
+      ========================================
+      PAGE STRUCTURE
+      ========================================
+    {%- endcomment -%}
+
+    {%- comment -%} Header Section {%- endcomment -%}
+    {% section 'header' %}
+
+    {%- comment -%} Main Content {%- endcomment -%}
+    <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {%- comment -%} Footer Section {%- endcomment -%}
+    {% section 'footer' %}
+
+    {%- comment -%}
+      ========================================
+      JAVASCRIPT LOADING
+      ========================================
+    {%- endcomment -%}
+
+    {%- comment -%} Load main JavaScript bundle {%- endcomment -%}
+    <script src="{{ 'main.js' | asset_url }}" defer="defer"></script>
+
+    {%- comment -%} Theme editor support {%- endcomment -%}
+    {%- if request.design_mode -%}
+      <script src="{{ 'system-theme-editor.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+  </body>
+</html>

@@ -1,0 +1,371 @@
+{% comment %}
+  Renders product variant picker with proper accessibility and functionality
+
+  Accepts:
+  - product: {Object} Product Liquid object (required)
+  - block: {Object} Block settings (optional)
+  - product_form_id: {String} Form ID for the product form (required)
+  - update_url: {Boolean} Update URL when variant changes (optional)
+
+  Usage:
+  {% render 'product-variant-picker', product: product, product_form_id: 'product-form-123' %}
+{% endcomment %}
+
+{%- unless product.has_only_default_variant -%}
+  {%- liquid
+    assign picker_type = block.settings.picker_type | default: 'button'
+    assign update_url = update_url | default: false
+  -%}
+
+  <variant-radios
+    id="variant-radios-{{ section.id }}"
+    class="no-js-hidden"
+    data-section="{{ section.id }}"
+    data-url="{{ product.url }}"
+    {% if update_url %}
+      data-update-url
+    {% endif %}
+  >
+    {%- for option in product.options_with_values -%}
+      <fieldset class="js product-form__input variant-input-wrapper mb-6">
+        <legend class="form__label text-white font-medium mb-3">
+          {{ option.name }}:
+          <span class="variant-input-selected-value font-normal text-gray-300">
+            {{ option.selected_value }}
+          </span>
+        </legend>
+
+        {%- if picker_type == 'button' -%}
+          <div class="variant-input-flex flex flex-wrap gap-2">
+            {%- for value in option.values -%}
+              <input
+                type="radio"
+                id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                name="{{ option.name }}"
+                value="{{ value | escape }}"
+                form="{{ product_form_id }}"
+                {% if option.selected_value == value %}
+                  checked
+                {% endif %}
+                class="sr-only variant-input-radio"
+              >
+              <label
+                for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                class="variant-input-label px-4 py-2 border-2 border-gray-600 rounded-lg cursor-pointer transition-all duration-200 hover:border-primary focus:border-primary text-white bg-transparent"
+              >
+                {{ value }}
+              </label>
+            {%- endfor -%}
+          </div>
+        {%- else -%}
+          <div class="select">
+            <select
+              id="Option-{{ option.position }}"
+              name="options[{{ option.name | escape }}]"
+              form="{{ product_form_id }}"
+              class="select__select bg-gray-800 border border-gray-600 text-white rounded-lg px-4 py-2 w-full focus:border-primary focus:outline-none"
+            >
+              {%- for value in option.values -%}
+                <option
+                  value="{{ value | escape }}"
+                  {% if option.selected_value == value %}
+                    selected="selected"
+                  {% endif %}
+                >
+                  {{ value }}
+                </option>
+              {%- endfor -%}
+            </select>
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              class="icon icon-caret absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none"
+              viewBox="0 0 10 6"
+            >
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+            </svg>
+          </div>
+        {%- endif -%}
+      </fieldset>
+    {%- endfor -%}
+
+    <script type="application/json">
+      {{ product.variants | json }}
+    </script>
+  </variant-radios>
+
+  <noscript class="product-form__noscript-wrapper-{{ section.id }}">
+    <div class="product-form__input{% if product.has_only_default_variant %} hidden{% endif %}">
+      <label class="form__label" for="Variants-{{ section.id }}">
+        {{ 'products.product.product_variants' | t }}
+      </label>
+      <div class="select">
+        <select
+          name="id"
+          id="Variants-{{ section.id }}"
+          class="select__select bg-gray-800 border border-gray-600 text-white rounded-lg px-4 py-2 w-full"
+          form="{{ product_form_id }}"
+        >
+          {%- for variant in product.variants -%}
+            <option
+              {% if variant == product.selected_or_first_available_variant %}
+                selected="selected"
+              {% endif %}
+              {% if variant.available == false %}
+                disabled
+              {% endif %}
+              value="{{ variant.id }}"
+            >
+              {{ variant.title }}
+              {%- if variant.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %}
+              - {{ variant.price | money | strip_html }}
+            </option>
+          {%- endfor -%}
+        </select>
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          class="icon icon-caret absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none"
+          viewBox="0 0 10 6"
+        >
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+        </svg>
+      </div>
+    </div>
+  </noscript>
+
+  <style>
+    .variant-input-radio:checked + .variant-input-label {
+      background-color: #ffd800;
+      color: #000;
+      border-color: #ffd800;
+    }
+
+    .variant-input-radio:disabled + .variant-input-label {
+      opacity: 0.5;
+      cursor: not-allowed;
+      position: relative;
+    }
+
+    .variant-input-radio:disabled + .variant-input-label::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: currentColor;
+      transform: translateY(-50%);
+    }
+  </style>
+
+  <script>
+    class VariantSelects extends HTMLElement {
+      constructor() {
+        super();
+        this.addEventListener('change', this.onVariantChange);
+      }
+
+      onVariantChange() {
+        this.updateOptions();
+        this.updateMasterId();
+        this.toggleAddButton(true, '', false);
+        this.updatePickupAvailability();
+        this.removeErrorMessage();
+        this.updateVariantStatuses();
+
+        if (!this.currentVariant) {
+          this.toggleAddButton(true, '', true);
+          this.setUnavailable();
+        } else {
+          this.updateMedia();
+          this.updateURL();
+          this.updateVariantInput();
+          this.renderProductInfo();
+          this.updateShareUrl();
+        }
+      }
+
+      updateOptions() {
+        this.options = Array.from(this.querySelectorAll('select'), (select) => select.value);
+      }
+
+      updateMasterId() {
+        this.currentVariant = this.getVariantData().find((variant) => {
+          return !variant.options
+            .map((option, index) => {
+              return this.options[index] === option;
+            })
+            .includes(false);
+        });
+      }
+
+      updateMedia() {
+        if (!this.currentVariant) return;
+        if (!this.currentVariant.featured_media) return;
+
+        const mediaGallery = document.querySelector('.product-media-gallery');
+        if (mediaGallery) {
+          const newMedia = this.currentVariant.featured_media;
+          const thumbnail = mediaGallery.querySelector(`[data-media-id="${newMedia.id}"]`);
+          if (thumbnail) {
+            thumbnail.click();
+          }
+        }
+      }
+
+      updateURL() {
+        if (!this.dataset.updateUrl || !this.currentVariant) return;
+        window.history.replaceState({}, '', `${this.dataset.url}?variant=${this.currentVariant.id}`);
+      }
+
+      updateShareUrl() {
+        const shareButton = document.getElementById(`Share-${this.dataset.section}`);
+        if (!shareButton || !shareButton.updateUrl) return;
+        shareButton.updateUrl(`${window.shopUrl}${this.dataset.url}?variant=${this.currentVariant.id}`);
+      }
+
+      updateVariantInput() {
+        const productForms = document.querySelectorAll(
+          `#product-form-${this.dataset.section}, #product-form-installment-${this.dataset.section}`,
+        );
+        productForms.forEach((productForm) => {
+          const input = productForm.querySelector('input[name="id"]');
+          input.value = this.currentVariant.id;
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+        });
+      }
+
+      updateVariantStatuses() {
+        const selectedOptionOneVariants = this.variantData.filter((variant) => variant.options[0] === this.options[0]);
+        const inputWrappers = [...this.querySelectorAll('.product-form__input')];
+        inputWrappers.forEach((option, index) => {
+          if (index === 0) return;
+          const optionInputs = [...option.querySelectorAll('input[type="radio"], option')];
+          const previousOptionSelected = inputWrappers[index - 1].querySelector(':checked').value;
+          const availableOptionInputsValue = selectedOptionOneVariants
+            .filter((variant) => variant.available && variant.options[index - 1] === previousOptionSelected)
+            .map((variantOption) => variantOption.options[index]);
+          this.setInputAvailability(optionInputs, availableOptionInputsValue);
+        });
+      }
+
+      setInputAvailability(listOfOptions, listOfAvailableOptions) {
+        listOfOptions.forEach((input) => {
+          if (listOfAvailableOptions.includes(input.getAttribute('value'))) {
+            input.innerText = input.getAttribute('value');
+          } else {
+            input.innerText = window.variantStrings.unavailable_with_option.replace(
+              '[value]',
+              input.getAttribute('value'),
+            );
+          }
+        });
+      }
+
+      updatePickupAvailability() {
+        const pickUpAvailability = document.querySelector('pickup-availability');
+        if (!pickUpAvailability) return;
+
+        if (this.currentVariant && this.currentVariant.available) {
+          pickUpAvailability.fetchAvailability(this.currentVariant.id);
+        } else {
+          pickUpAvailability.removeAttribute('available');
+          pickUpAvailability.innerHTML = '';
+        }
+      }
+
+      removeErrorMessage() {
+        const section = this.closest('section');
+        if (!section) return;
+
+        const productForm = section.querySelector('product-form');
+        if (productForm) productForm.handleErrorMessage();
+      }
+
+      renderProductInfo() {
+        const requestedVariantId = this.currentVariant.id;
+        const sectionId = this.dataset.originalSection || this.dataset.section;
+
+        fetch(
+          `${this.dataset.url}?variant=${requestedVariantId}&section_id=${
+            this.dataset.originalSection || this.dataset.section
+          }`,
+        )
+          .then((response) => response.text())
+          .then((responseText) => {
+            // Only update if the variant hasn't changed while we were fetching
+            if (this.currentVariant.id !== requestedVariantId) return;
+
+            const html = new DOMParser().parseFromString(responseText, 'text/html');
+            const destination = document.getElementById(`price-${this.dataset.section}`);
+            const source = html.getElementById(`price-${this.dataset.originalSection || this.dataset.section}`);
+
+            const skuSource = html.getElementById(`Sku-${this.dataset.originalSection || this.dataset.section}`);
+            const skuDestination = document.getElementById(`Sku-${this.dataset.section}`);
+            const inventorySource = html.getElementById(
+              `Inventory-${this.dataset.originalSection || this.dataset.section}`,
+            );
+            const inventoryDestination = document.getElementById(`Inventory-${this.dataset.section}`);
+
+            if (source && destination) destination.innerHTML = source.innerHTML;
+            if (inventorySource && inventoryDestination) inventoryDestination.innerHTML = inventorySource.innerHTML;
+            if (skuSource && skuDestination) {
+              skuDestination.innerHTML = skuSource.innerHTML;
+              skuDestination.classList.toggle('visibility-hidden', skuSource.classList.contains('visibility-hidden'));
+            }
+
+            const price = document.getElementById(`price-${this.dataset.section}`);
+            if (price) price.classList.remove('visibility-hidden');
+
+            if (inventoryDestination)
+              inventoryDestination.classList.toggle(
+                'visibility-hidden',
+                inventorySource.classList.contains('visibility-hidden'),
+              );
+
+            this.toggleAddButton(!this.currentVariant.available, window.variantStrings.soldOut);
+          });
+      }
+
+      toggleAddButton(disable = true, text, modifyClass = true) {
+        const productForm = document.getElementById(`product-form-${this.dataset.section}`);
+        if (!productForm) return;
+
+        const addButton = productForm.querySelector('[name="add"]');
+        const addButtonText = productForm.querySelector('[name="add"] > span');
+        if (!addButton) return;
+
+        if (disable) {
+          addButton.setAttribute('disabled', 'disabled');
+          if (text) addButtonText.textContent = text;
+        } else {
+          addButton.removeAttribute('disabled');
+          addButtonText.textContent = window.variantStrings.addToCart;
+        }
+
+        if (!modifyClass) return;
+      }
+
+      setUnavailable() {
+        const button = document.getElementById(`product-form-${this.dataset.section}`);
+        if (!button) return;
+
+        const addButton = button.querySelector('[name="add"]');
+        const addButtonText = button.querySelector('[name="add"] > span');
+        const price = document.getElementById(`price-${this.dataset.section}`);
+        if (!addButton) return;
+        addButtonText.textContent = window.variantStrings.unavailable;
+        if (price) price.classList.add('visibility-hidden');
+      }
+
+      getVariantData() {
+        this.variantData = this.variantData || JSON.parse(this.querySelector('[type="application/json"]').textContent);
+        return this.variantData;
+      }
+    }
+
+    customElements.define('variant-radios', VariantSelects);
+    customElements.define('variant-selects', VariantSelects);
+  </script>
+{%- endunless -%}

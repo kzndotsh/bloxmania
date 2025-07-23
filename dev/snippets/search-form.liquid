@@ -1,0 +1,116 @@
+{% comment %}
+  Reusable search form component with BloxMania theme styling
+
+  Accepts:
+  - placeholder: Custom placeholder text (optional)
+  - class: Additional CSS classes (optional)
+  - id: Input ID (optional)
+  - action: Form action URL (optional, defaults to search route)
+  - method: Form method (optional, defaults to 'get')
+
+  Usage:
+  {% render 'search-form', placeholder: 'Search products...', class: 'my-custom-class' %}
+{% endcomment %}
+
+{%- liquid
+  assign placeholder_text = placeholder | default: 'general.search.placeholder' | t
+  assign input_id = id | default: 'Search-Form'
+  assign form_action = action | default: routes.search_url
+  assign form_method = method | default: 'get'
+  assign additional_classes = class | default: ''
+-%}
+
+<div class="search-form {{ additional_classes }}">
+  <form action="{{ form_action }}" method="{{ form_method }}" role="search" class="search-form__container">
+    <div class="search-form__input-wrapper">
+      <!-- Search Icon -->
+      <div class="search-form__icon">
+        <svg class="search-form__icon-svg" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clip-rule="evenodd"/>
+        </svg>
+      </div>
+
+      <input
+        type="search"
+        name="q"
+        id="{{ input_id }}"
+        class="search-form__input"
+        placeholder="{{ placeholder_text }}"
+        aria-label="{{ 'general.search.search' | t }}"
+        autocomplete="off"
+        spellcheck="false"
+        {% if search.terms %}
+          value="{{ search.terms | escape }}"
+        {% endif %}
+      >
+
+      <!-- Clear Button (only show when there's input) -->
+      <button
+        type="reset"
+        class="search-form__clear{% unless search.terms %} hidden{% endunless %}"
+        aria-label="{{ 'general.search.reset' | t }}"
+      >
+        <svg class="search-form__clear-icon" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd"/>
+        </svg>
+      </button>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="search-form__submit"
+        aria-label="{{ 'general.search.search' | t }}"
+      >
+        <svg class="search-form__submit-icon" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clip-rule="evenodd"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Hidden inputs for search options -->
+    <input name="options[prefix]" type="hidden" value="last">
+  </form>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const searchForm = document.querySelector('.search-form');
+    if (!searchForm) return;
+
+    const input = searchForm.querySelector('.search-form__input');
+    const clearButton = searchForm.querySelector('.search-form__clear');
+    const form = searchForm.querySelector('.search-form__container');
+
+    // Show/hide clear button based on input value
+    function toggleClearButton() {
+      if (input.value.length > 0) {
+        clearButton.classList.remove('hidden');
+      } else {
+        clearButton.classList.add('hidden');
+      }
+    }
+
+    // Initialize clear button state
+    toggleClearButton();
+
+    // Listen for input changes
+    input.addEventListener('input', toggleClearButton);
+
+    // Handle clear button click
+    clearButton.addEventListener('click', function (e) {
+      e.preventDefault();
+      input.value = '';
+      input.focus();
+      toggleClearButton();
+    });
+
+    // Handle form submission
+    form.addEventListener('submit', function (e) {
+      const query = input.value.trim();
+      if (!query) {
+        e.preventDefault();
+        input.focus();
+      }
+    });
+  });
+</script>

@@ -1,0 +1,167 @@
+<section
+  class="featured-products-section py-20 relative overflow-hidden bg-cover bg-center bg-no-repeat"
+>
+  <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-indigo-900/25"></div>
+
+  <style>
+    .featured-products-section {
+      background-image: url('{{ "image-okok2.png" | asset_url }}');
+    }
+
+    .product-card-widget {
+      background-image: url('{{ "image-widget-backing.png" | asset_url }}');
+    }
+  </style>
+  <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/15 via-transparent to-violet-900/15"></div>
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="flex flex-col md:flex-row justify-between items-center mb-12 text-center md:text-left gap-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-white m-0">Featured Items</h2>
+      <a
+        href="{{ section.settings.view_all_link | default: '/collections/all' }}"
+        class="inline-flex items-center px-4 py-2 bg-transparent text-primary border border-primary no-underline font-medium rounded-md transition-all duration-300 text-sm hover:bg-primary hover:text-black cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-gray-900"
+        aria-label="View all featured gaming items"
+      >
+        View all →
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+      {% comment %} Use Featured collection by default, or section setting collection {% endcomment %}
+      {% liquid
+        assign featured_collection = collections.featured
+        assign collection_to_use = section.settings.collection | default: featured_collection
+      %}
+
+      {% if collection_to_use != blank and collection_to_use.products.size > 0 %}
+        {% assign products_to_show = section.settings.products_to_show | default: 8 %}
+
+        {% for product in collection_to_use.products limit: products_to_show %}
+          <a
+            href="{{ product.url }}"
+            class="product-card-widget flex flex-col group h-full"
+          >
+            <div class="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col h-full">
+              <div class="relative group-hover:brightness-110 flex-shrink-0">
+                {% if product.featured_image != blank %}
+                  <img
+                    src="{{ product.featured_image | image_url: width: 300 }}"
+                    alt="{{ product.title }}"
+                    class="w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto rounded-xl mb-4 sm:mb-6 transition-all duration-300 object-cover"
+                    width="160"
+                    height="160"
+                    loading="lazy"
+                  >
+                {% else %}
+                  <div class="w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto rounded-xl mb-4 sm:mb-6 bg-gray-700 flex items-center justify-center text-gray-400 text-xs">
+                    No Image
+                  </div>
+                {% endif %}
+              </div>
+              <div class="text-center mt-auto">
+                <h2 class="font-semibold mb-2 text-sm sm:text-base lg:text-lg line-clamp-2 text-white group-hover:text-primary transition-colors duration-200">
+                  {{- product.title -}}
+                </h2>
+                <div class="font-bold text-base sm:text-lg lg:text-xl text-primary">
+                  {% if product.compare_at_price > product.price %}
+                    <span class="line-through mr-2 text-sm font-medium text-gray-400">
+                      {{- product.compare_at_price | money -}}
+                    </span>
+                  {% endif %}
+                  {{ product.price | money }}
+                </div>
+              </div>
+            </div>
+          </a>
+        {% endfor %}
+      {% else %}
+        <!-- Demo Products -->
+        {% assign demo_products = 'image-10T.jpg,image-RACCOON.jpg,image-FENNEC.jpg,image-DISCO-BEE.jpg,image-DRAGONFLY.jpg'
+          | split: ','
+        %}
+        {% assign demo_names = '10 Trillion Sheckles,Raccoon,Fennec Fox,Disco Bee,Dragonfly' | split: ',' %}
+        {% assign demo_prices = '$15.99,$12.99,$24.99,$17.99,$12.99' | split: ',' %}
+
+        {% for i in (1..5) %}
+          {% assign index = forloop.index0 %}
+          {% assign img_asset = demo_products[index] | default: 'image-no-image.png' %}
+          {% assign prod_name = demo_names[index] | default: 'Featured Gaming Item' %}
+          {% assign prod_price = demo_prices[index] | default: '$9.99' %}
+
+          <a
+            href="#"
+            class="product-card-widget flex flex-col group h-full"
+          >
+            <div class="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col h-full">
+              <div class="relative group-hover:brightness-110 flex-shrink-0">
+                <img
+                  src="{{ img_asset | asset_url }}"
+                  alt="{{ prod_name }}"
+                  class="w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto rounded-xl mb-4 sm:mb-6 transition-all duration-300 object-cover"
+                  width="160"
+                  height="160"
+                  loading="lazy"
+                >
+              </div>
+              <div class="text-center mt-auto">
+                <h2 class="font-semibold text-white mb-2 text-sm sm:text-base lg:text-lg line-clamp-2 group-hover:text-primary transition-colors duration-200">
+                  {{- prod_name -}}
+                </h2>
+                <div class="text-primary font-bold text-base sm:text-lg lg:text-xl">{{ prod_price }}</div>
+              </div>
+            </div>
+          </a>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Leave blank to use the 'Featured' collection automatically"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 20,
+      "step": 1,
+      "default": 8,
+      "label": "Number of products to show"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_add",
+      "label": "Show quick add button",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show product vendor",
+      "default": false
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View All Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Products",
+      "settings": {
+        "products_to_show": 8,
+        "show_quick_add": false,
+        "show_vendor": false
+      }
+    }
+  ]
+}
+{% endschema %}
