@@ -192,7 +192,8 @@ class HeaderManager {
 
     // Close on backdrop click
     this.searchModal.addEventListener("click", (e) => {
-      if (e.target === this.searchModal) {
+      const content = this.searchModal.querySelector(".search-modal__content");
+      if (!content || !content.contains(e.target)) {
         this.closeSearchModal();
       }
     });
