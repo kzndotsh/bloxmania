@@ -15,7 +15,8 @@ class ThemeBuilder {
     this.isBuilding = false;
     this.buildTimeout = null;
     this.lastBuildTime = 0;
-    this.minBuildInterval = 5000; // Minimum 5 seconds between builds
+    this.minBuildInterval = this.mode === 'development' ? 200 : 5000; // Fast for dev
+    this.fileHashes = new Map(); // Track file changes
   }
 
   async build() {
@@ -27,7 +28,7 @@ class ThemeBuilder {
       return;
     }
 
-    // Enforce minimum interval between builds
+    // Enforce minimum interval between builds (much shorter for dev)
     if (now - this.lastBuildTime < this.minBuildInterval) {
       console.log('⏳ Build throttled - waiting for minimum interval...');
       return;
@@ -38,11 +39,11 @@ class ThemeBuilder {
       clearTimeout(this.buildTimeout);
     }
 
-    // Set a longer delay to batch rapid changes and prevent aggressive rebuilds
+    // Much shorter delay for development
     if (this.mode === 'development') {
       this.buildTimeout = setTimeout(() => {
         this.performBuild();
-      }, 2000); // Increased to 2 seconds
+      }, 100); // Fast development mode
       return;
     }
 
@@ -56,17 +57,13 @@ class ThemeBuilder {
     console.log(`🚀 Building theme from dev/ to theme/ (${this.mode} mode)...`);
 
     try {
-      // Clean theme directory
-      await this.cleanThemeDir();
-
-      // Build assets in dev directory
-      await this.buildAssets();
-
-      // Copy Shopify theme files
-      await this.copyThemeFiles();
-
-      // Copy built assets
-      await this.copyBuiltAssets();
+      if (this.mode === 'development') {
+        // Fast development build - direct copy with minimal processing
+        await this.fastDevBuild();
+      } else {
+        // Full production build with optimization
+        await this.fullProductionBuild();
+      }
 
       console.log('✅ Theme build completed successfully!');
     } catch (error) {
@@ -78,6 +75,68 @@ class ThemeBuilder {
     } finally {
       this.isBuilding = false;
     }
+  }
+
+
+
+  async fastDevBuild() {
+    console.log('⚡ Fast development build...');
+
+    // Ensure theme directory exists
+    await fs.ensureDir(this.themeDir);
+
+    // Copy Shopify theme files directly (no processing)
+    await this.copyThemeFiles();
+
+    // Build CSS directly to theme directory
+    console.log('  📝 Building CSS directly to theme...');
+    const cssCommand = 'npm run build:css:dev';
+    execSync(cssCommand, { cwd: this.devDir, stdio: 'inherit' });
+
+    // Copy built CSS directly to theme
+    const cssSrc = path.join(this.buildDir, 'css', 'main.css');
+    const cssDest = path.join(this.themeDir, 'assets', 'main.css');
+    if (await fs.pathExists(cssSrc)) {
+      await fs.copy(cssSrc, cssDest);
+      console.log('  ✅ CSS copied to theme');
+    }
+
+    // Build JS directly to theme directory
+    console.log('  📝 Building JavaScript directly to theme...');
+    execSync(`node ./utils/bundler.js --mode=development`, {
+      cwd: this.devDir,
+      stdio: 'inherit',
+    });
+
+    // Copy built JS directly to theme
+    const jsSrc = path.join(this.buildDir, 'js', 'main.js');
+    const jsDest = path.join(this.themeDir, 'assets', 'main.js');
+    if (await fs.pathExists(jsSrc)) {
+      await fs.copy(jsSrc, jsDest);
+      console.log('  ✅ JavaScript copied to theme');
+    }
+
+    // Copy system JS files
+    await this.copySystemFiles();
+
+    // Copy images and assets
+    await this.copyAssets();
+  }
+
+  async fullProductionBuild() {
+    console.log('🏭 Full production build...');
+
+    // Clean theme directory
+    await this.cleanThemeDir();
+
+    // Build assets in dev directory
+    await this.buildAssets();
+
+    // Copy Shopify theme files
+    await this.copyThemeFiles();
+
+    // Copy built assets
+    await this.copyBuiltAssets();
   }
 
   async cleanThemeDir() {
@@ -134,15 +193,12 @@ class ThemeBuilder {
 
     // Build CSS
     console.log('  📝 Building CSS...');
-    const cssCommand =
-      this.mode === 'production'
-        ? 'npm run build:css:prod'
-        : 'npm run build:css:dev';
+    const cssCommand = 'npm run build:css:prod';
     execSync(cssCommand, { cwd: this.devDir, stdio: 'inherit' });
 
     // Build JS
     console.log('  📝 Building JavaScript...');
-    execSync(`node ./utils/bundler.js --mode=${this.mode}`, {
+    execSync(`node ./utils/bundler.js --mode=production`, {
       cwd: this.devDir,
       stdio: 'inherit',
     });
@@ -195,6 +251,46 @@ class ThemeBuilder {
     }
   }
 
+  async copySystemFiles() {
+    console.log('  📝 Copying system JavaScript files...');
+    const systemJsSrc = path.join(this.devDir, 'js', 'system');
+    const systemJsDest = path.join(this.themeDir, 'assets');
+
+    if (await fs.pathExists(systemJsSrc)) {
+      const systemFiles = await fs.readdir(systemJsSrc);
+      for (const file of systemFiles) {
+        if (file.endsWith('.js')) {
+          const srcPath = path.join(systemJsSrc, file);
+          const destPath = path.join(systemJsDest, file);
+          await fs.copy(srcPath, destPath);
+          console.log(`    ✅ Copied ${file}`);
+        }
+      }
+    }
+  }
+
+  async copyAssets() {
+    console.log('  📦 Copying assets...');
+
+    // Copy images
+    const imagesSrc = path.join(this.devDir, 'images');
+    const imagesDest = path.join(this.themeDir, 'assets');
+
+    if (await fs.pathExists(imagesSrc)) {
+      await fs.copy(imagesSrc, imagesDest);
+      console.log('  ✅ Copied image files');
+    }
+
+    // Copy all other assets from dev/assets
+    const assetsSrc = path.join(this.devDir, 'assets');
+    const assetsDest = path.join(this.themeDir, 'assets');
+
+    if (await fs.pathExists(assetsSrc)) {
+      await fs.copy(assetsSrc, assetsDest);
+      console.log('  ✅ Copied all assets');
+    }
+  }
+
   async copyBuiltAssets() {
     console.log('📦 Copying built assets...');
 
@@ -217,21 +313,7 @@ class ThemeBuilder {
     }
 
     // Copy system JavaScript files
-    console.log('  📝 Copying system JavaScript files...');
-    const systemJsSrc = path.join(this.devDir, 'js', 'system');
-    const systemJsDest = path.join(this.themeDir, 'assets');
-
-    if (await fs.pathExists(systemJsSrc)) {
-      const systemFiles = await fs.readdir(systemJsSrc);
-      for (const file of systemFiles) {
-        if (file.endsWith('.js')) {
-          const srcPath = path.join(systemJsSrc, file);
-          const destPath = path.join(systemJsDest, file);
-          await fs.copy(srcPath, destPath);
-          console.log(`    ✅ Copied ${file}`);
-        }
-      }
-    }
+    await this.copySystemFiles();
 
     // Copy images
     const imagesSrc = path.join(this.buildDir, 'images');
@@ -243,13 +325,7 @@ class ThemeBuilder {
     }
 
     // Copy all other assets from dev/assets
-    const assetsSrc = path.join(this.devDir, 'assets');
-    const assetsDest = path.join(this.themeDir, 'assets');
-
-    if (await fs.pathExists(assetsSrc)) {
-      await fs.copy(assetsSrc, assetsDest);
-      console.log('  ✅ Copied all assets');
-    }
+    await this.copyAssets();
   }
 }
 
