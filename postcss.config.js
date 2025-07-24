@@ -2,6 +2,7 @@ module.exports = {
   plugins: {
     tailwindcss: {},
     autoprefixer: {},
+    'postcss-discard-duplicates': {}, // Explicitly remove duplicate rules
     ...(process.env.NODE_ENV === 'production' && {
       cssnano: {
         preset: ['default', {
