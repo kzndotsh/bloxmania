@@ -234,4 +234,13 @@
     background: rgba(255, 255, 255, 0.05);
     transform: translateY(-2px);
   }
+
+  .search-results__heading {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: rgb(var(--color-gray-300));
+    margin: 0 0 var(--spacing-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
 }
