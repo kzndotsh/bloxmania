@@ -1,6 +1,6 @@
 {
   "watch": [
-    "dev/css/styles.css",
+    "dev/css/**/*.css",
     "dev/js/**/*.js",
     "dev/sections/**/*.liquid",
     "dev/snippets/**/*.liquid",

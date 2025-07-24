@@ -2,10 +2,39 @@
 /* Breakpoint-specific utilities and responsive patterns */
 
 @layer utilities {
-  /* Responsive utilities will be implemented in later tasks */
+  /* Hide on mobile (<md) */
+  .hide-mobile {
+    display: none !important;
+  }
 
-  /* Mobile-first responsive patterns */
-  .responsive-placeholder {
-    /* Placeholder for responsive utilities */
+  @media (min-width: var(--breakpoint-md)) {
+    .hide-mobile {
+      display: inherit !important;
+    }
+  }
+
+  /* Hide on desktop (>=md) */
+  @media (min-width: var(--breakpoint-md)) {
+    .hide-desktop {
+      display: none !important;
+    }
+  }
+
+  /* Show only on desktop (>=md) */
+  .show-desktop {
+    display: none !important;
+  }
+
+  @media (min-width: var(--breakpoint-md)) {
+    .show-desktop {
+      display: inherit !important;
+    }
+  }
+
+  /* Show only on mobile (<md) */
+  @media (min-width: var(--breakpoint-md)) {
+    .show-mobile {
+      display: none !important;
+    }
   }
 }

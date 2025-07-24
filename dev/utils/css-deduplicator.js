@@ -9,16 +9,16 @@ class CSSDeduplicator {
   constructor() {
     this.devDir = path.join(__dirname, "../css");
     this.buildDir = path.join(__dirname, "../../build/css");
-    this.stylesPath = path.join(this.devDir, "styles.css");
+    this.stylesPath = path.join(this.devDir, "main.css");
   }
 
   async deduplicateCSS() {
-    console.log("🧹 Removing duplicate CSS rules from styles.css...");
+    console.log("🧹 Removing duplicate CSS rules from main.css...");
 
     try {
       // Check if styles.css exists
       if (!(await fs.pathExists(this.stylesPath))) {
-        throw new Error(`styles.css not found at ${this.stylesPath}`);
+        throw new Error(`main.css not found at ${this.stylesPath}`);
       }
 
       // Read the CSS file
