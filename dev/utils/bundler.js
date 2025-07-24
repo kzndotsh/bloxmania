@@ -49,10 +49,10 @@ class SimpleBundler {
 
     // Helper files
     const helperFiles = [
-      "helpers/helper-section-id.js",
-      "helpers/helper-html-update.js",
-      "helpers/helper-accessibility.js",
-      "helpers/helper-keyboard.js",
+      "helpers/section-id.js",
+      "helpers/html-update.js",
+      "helpers/accessibility.js",
+      "helpers/keyboard.js",
     ];
 
     // Feature files
