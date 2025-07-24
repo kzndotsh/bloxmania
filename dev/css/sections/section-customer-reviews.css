@@ -15,8 +15,8 @@
   }
 
   .customer-reviews-grid {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: var(--spacing-2xl);
     margin-top: var(--spacing-2xl);
     max-width: 1200px;
@@ -26,7 +26,7 @@
 
   @media (min-width: 768px) {
     .customer-reviews-grid {
-      grid-template-columns: repeat(2, 1fr) !important;
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 

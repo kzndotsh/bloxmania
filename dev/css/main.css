@@ -27,6 +27,8 @@
 @import "./sections/section-header.css";
 @import "./sections/section-footer.css";
 @import "./sections/section-hero.css";
+@import "./sections/section-guarantee.css";
+@import "./sections/section-customer-reviews.css";
 
 /* Utilities Layer - Responsive, states, overrides */
 @import "./utilities/responsive.css";
@@ -37,7 +39,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Section Overrides to come after Tailwind utilities */
-@import "./sections/section-guarantee.css";
-@import "./sections/section-customer-reviews.css";
