@@ -7,14 +7,14 @@
     display: none !important;
   }
 
-  @media (min-width: var(--breakpoint-md)) {
+  @media (min-width: 768px) {
     .hide-mobile {
       display: inherit !important;
     }
   }
 
   /* Hide on desktop (>=md) */
-  @media (min-width: var(--breakpoint-md)) {
+  @media (min-width: 768px) {
     .hide-desktop {
       display: none !important;
     }
@@ -25,14 +25,14 @@
     display: none !important;
   }
 
-  @media (min-width: var(--breakpoint-md)) {
+  @media (min-width: 768px) {
     .show-desktop {
       display: inherit !important;
     }
   }
 
   /* Show only on mobile (<md) */
-  @media (min-width: var(--breakpoint-md)) {
+  @media (min-width: 768px) {
     .show-mobile {
       display: none !important;
     }
