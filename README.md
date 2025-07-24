@@ -310,19 +310,20 @@ SHOPIFY_THEME_ID=your-theme-id
 ## 📚 Documentation
 
 ### Key Documentation Files
-- [`docs/BLOXMANIA_COMPLETE_DOCUMENTATION.md`](docs/BLOXMANIA_COMPLETE_DOCUMENTATION.md) - Complete theme documentation
-- [`docs/API_REFERENCE.md`](docs/API_REFERENCE.md) - API reference
+- [`docs/README.md`](docs/README.md) - Main documentation index
+- [`docs/GETTING_STARTED.md`](docs/GETTING_STARTED.md) - Setup and installation guide
+- [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md) - Development workflow
+- [`docs/DEVELOPMENT_SCRIPTS.md`](docs/DEVELOPMENT_SCRIPTS.md) - Development scripts guide
 - [`docs/BUILD_SYSTEM.md`](docs/BUILD_SYSTEM.md) - Build system documentation
-- [`STRUCTURE.md`](STRUCTURE.md) - Detailed project structure
+- [`docs/PROJECT_STRUCTURE.md`](docs/PROJECT_STRUCTURE.md) - Project structure guide
 
-### Section Documentation
-- [`docs/sections/`](docs/sections/) - Individual section documentation
-- [`docs/snippets/`](docs/snippets/) - Snippet documentation
-- [`docs/templates/`](docs/templates/) - Template documentation
+### Component Documentation
+- [`docs/sections/README.md`](docs/sections/README.md) - Sections overview
+- [`docs/snippets/README.md`](docs/snippets/README.md) - Snippets overview
+- [`docs/templates/README.md`](docs/templates/README.md) - Templates overview
 
 ### Style Guide
-- [`docs/style-guide/`](docs/style-guide/) - Design and coding standards
-- [`docs/PERFORMANCE_OPTIMIZATION.md`](docs/PERFORMANCE_OPTIMIZATION.md) - Performance guidelines
+- [`docs/style-guide/README.md`](docs/style-guide/README.md) - Design and coding standards
 
 ## 🛠️ Tech Stack
 
@@ -350,7 +351,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🆘 Support
 
 - **Issues**: [GitHub Issues](https://github.com/kzndotsh/bloxmania/issues)
-- **Documentation**: [Complete Documentation](docs/BLOXMANIA_COMPLETE_DOCUMENTATION.md)
+- **Documentation**: [Documentation Index](docs/README.md)
+- **Development Guide**: [Development Workflow](docs/DEVELOPMENT.md)
 - **Shopify Docs**: [Shopify Theme Development](https://shopify.dev/themes)
 
 ---
