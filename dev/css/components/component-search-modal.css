@@ -240,4 +240,9 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
+
+  .search-modal h3,
+  .search-modal h4 {
+    font-size: var(--font-size-sm);
+  }
 }
