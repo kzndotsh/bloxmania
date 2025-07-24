@@ -29,7 +29,8 @@
     "clean:theme": "rm -rf theme",
     "setup": "npm install",
     "env:setup": "cp dev/shopify.env.example .env && echo 'Created .env file from example. Please edit .env with your store settings.'",
-    "backfill": "echo '🔍 Backfilling merchant changes...' && echo '1. Check git diff for changes to compiled files' && echo '2. Apply changes to source files in dev/' && echo '3. Run npm run build to regenerate' && echo '4. Run npm run push to deploy'"
+    "backfill": "echo '🔍 Backfilling merchant changes...' && echo '1. Check git diff for changes to compiled files' && echo '2. Apply changes to source files in dev/' && echo '3. Run npm run build to regenerate' && echo '4. Run npm run push to deploy'",
+    "knip": "knip"
   },
   "keywords": [
     "shopify",
@@ -54,12 +55,14 @@
     "@shopify/cli": "^3.82.1",
     "@shopify/prettier-plugin-liquid": "^1.9.3",
     "@shopify/theme": "^3.58.2",
+    "@types/node": "^24.1.0",
     "autoprefixer": "^10.4.0",
     "chokidar": "^3.5.0",
     "concurrently": "^8.2.0",
     "cssnano": "^6.0.0",
     "fs-extra": "^11.0.0",
     "glob": "^11.0.3",
+    "knip": "^5.62.0",
     "nodemon": "^3.1.10",
     "postcss": "^8.4.0",
     "postcss-cli": "^11.0.0",
@@ -69,7 +72,8 @@
     "stylelint": "^16.22.0",
     "stylelint-config-standard": "^38.0.0",
     "tailwindcss": "^3.4.0",
-    "terser": "^5.28.1"
+    "terser": "^5.28.1",
+    "typescript": "^5.8.3"
   },
   "engines": {
     "node": ">=16.0.0",

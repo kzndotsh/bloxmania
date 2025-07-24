@@ -186,7 +186,7 @@
 
       <!-- Account Button -->
       <a
-        href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
+        href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.storefront_login_url }}{% endif %}"
         class="header__icon-button"
         aria-label="{% if customer %}User account{% else %}Sign in{% endif %}"
       >
@@ -319,7 +319,7 @@
             <span class="mobile-menu__quick-action-text">Cart</span>
           </a>
           <a
-            href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
+            href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.storefront_login_url }}{% endif %}"
             class="mobile-menu__quick-action"
           >
             <div class="mobile-menu__quick-action-icon">
@@ -708,7 +708,7 @@
     async function performPredictiveSearch(query) {
       try {
         const response = await fetch(
-          `/search/suggest.json?q=${encodeURIComponent(query)}&resources[type]=product&resources[limit]=6`,
+          `/search/suggest.json?q=${encodeURIComponent(query)}&resources[type]=product&resources[limit]=6`
         );
 
         if (!response.ok) {
