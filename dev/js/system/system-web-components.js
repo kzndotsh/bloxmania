@@ -123,7 +123,7 @@ class ModalDialog extends BloxManiaComponent {
 // The SearchModal class is now defined in header-components.js
 
 // Cart Notification Component - Removed to avoid duplicate declaration
-// The CartNotification class is now defined in ui-cart-notification.js
+// The CartNotification class is now defined in cart-notification.js
 
 // Product Form Component
 class ProductForm extends BloxManiaComponent {

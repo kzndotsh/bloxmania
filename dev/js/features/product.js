@@ -140,7 +140,7 @@ const ProductUtils = {
 };
 
 // Quantity input handler - REMOVED: Duplicate class definition
-// This functionality is now handled by the dedicated ui-quantity.js file
+// This functionality is now handled by the dedicated quantity.js file
 
 // Variant selector handler
 class VariantSelector extends HTMLElement {

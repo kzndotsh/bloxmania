@@ -37,7 +37,7 @@ No blocks available.
 ## Dependencies
 
 
-- **asset**: ui-quantity.js
+- **asset**: quantity.js
 
 
 ## Usage

@@ -125,7 +125,7 @@ No blocks available.
 
 - **asset**: collection.js
 
-- **asset**: ui-search-modal.js
+- **asset**: search-modal.js
 
 
 ## Usage
