@@ -2,59 +2,133 @@
 /* Styles specific to the guarantee/guarantee.liquid page */
 
 @layer components {
-  .guarantee-heading {
-    font-size: 2rem;
-    font-weight: var(--font-weight-bold);
-    text-align: center;
-    margin-bottom: var(--spacing-xl);
-  }
-
-  .guarantee-promo {
+  /* Hero Section */
+  .guarantee-hero {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--spacing-xl);
-  }
-
-  .guarantee-promo-content {
+    justify-content: center;
     text-align: center;
-    max-width: 600px;
+    padding: var(--spacing-4xl) var(--container-padding);
+    background: var(--gradient-primary);
+    color: rgb(var(--color-foreground-rgb));
+    overflow: hidden;
   }
 
-  .guarantee-promo-heading {
-    font-size: 1.75rem;
+  .guarantee-hero-content {
+    max-width: 800px;
+    z-index: 1;
+  }
+
+  .guarantee-heading {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-extrabold);
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.2;
+  }
+
+  .guarantee-description {
+    font-size: var(--font-size-lg);
+    color: var(--color-gray-200);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  /* Tags */
+  .guarantee-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    justify-content: center;
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .guarantee-tag {
+    font-size: var(--font-size-xs);
     font-weight: var(--font-weight-semibold);
-    margin-bottom: var(--spacing-md);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
-  .guarantee-icon-container {
-    display: none;
-    width: 240px;
-    flex-shrink: 0;
+  .guarantee-tag--blue { background: #2563eb1a; color: #60a5fa; }
+  .guarantee-tag--yellow { background: #ffd8001a; color: #ffd800; }
+
+  /* Guarantee Card */
+  .guarantee-card {
+    position: relative;
+    background: rgba(17, 24, 39, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-3xl);
+    max-width: 640px;
+    margin: 0 auto;
+    z-index: 1;
+    box-shadow: var(--shadow-card);
   }
 
-  @media (min-width: var(--breakpoint-lg)) {
-    .guarantee-heading {
-      font-size: 3.125rem; /* 50px */
-    }
-    .guarantee-promo {
-      flex-direction: row;
-      gap: 3rem;
-    }
-    .guarantee-promo-content {
-      text-align: left;
-    }
-    .guarantee-promo-heading {
-      font-size: 2.25rem;
-    }
-    .guarantee-icon-container {
-      display: block;
-    }
+  .guarantee-card-title {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-lg);
   }
 
-  @media (min-width: var(--breakpoint-xl)) {
-    .guarantee-promo-heading {
-      font-size: 2.5rem;
-    }
+  .guarantee-card-description {
+    font-size: var(--font-size-base);
+    color: var(--color-gray-200);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .guarantee-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    padding: 0;
+  }
+
+  .guarantee-list li::before {
+    content: '✓';
+    color: var(--color-success);
+    margin-right: 0.5rem;
+  }
+
+  /* Floating Icons */
+  .guarantee-icon-container { pointer-events: none; }
+
+  .guarantee-icon-float {
+    width: 120px;
+    height: 120px;
+    opacity: 0.25;
+    filter: blur(4px);
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .guarantee-icon-float--orange { background: #fb923c; }
+  .guarantee-icon-float--purple { background: #a855f7; }
+  .guarantee-icon-float--blue { background: #3b82f6; }
+  .guarantee-icon-float--yellow { background: #fde047; }
+  .guarantee-icon-float--green { background: #22c55e; }
+  .guarantee-icon-float--red { background: #ef4444; }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  /* Promo Section */
+  .guarantee-promo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2xl);
+    align-items: center;
+    margin-top: var(--spacing-4xl);
+  }
+
+  @media (min-width: 1024px) {
+    .guarantee-hero { padding: var(--spacing-5xl) var(--container-padding); }
+    .guarantee-heading { font-size: var(--font-size-5xl); }
+    .guarantee-promo { flex-direction: row; gap: 3rem; }
   }
 }
