@@ -46,4 +46,12 @@
   .skip-link:focus {
     transform: translateY(0);
   }
+
+  .visually-hidden {
+    @apply sr-only;
+  }
+
+  .skip-to-content-link {
+    @apply skip-link;
+  }
 }

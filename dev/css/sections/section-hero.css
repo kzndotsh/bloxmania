@@ -15,4 +15,29 @@
     align-items: center;
     gap: var(--spacing-lg);
   }
+
+  .hero-section {
+    @apply section-hero;
+  }
+
+  .hero-description {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-gray-300);
+    max-width: 60rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (min-width: var(--breakpoint-sm)) {
+    .hero-description {
+      font-size: var(--font-size-lg);
+    }
+  }
+
+  @media (min-width: var(--breakpoint-lg)) {
+    .hero-description {
+      font-size: var(--font-size-xl);
+    }
+  }
 }
