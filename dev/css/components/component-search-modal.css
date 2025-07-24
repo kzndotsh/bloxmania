@@ -200,16 +200,16 @@
   }
 
   /* Predictive search results (new utility classes) */
+  /* Adjusted per feedback */
   .search-results__image {
-    width: 48px;
-    height: 48px;
-    border-radius: var(--radius-md);
-    object-fit: cover;
-    flex-shrink: 0;
+    width: 72px;
+    height: 72px;
   }
 
-  .search-results__title {
-    font-size: var(--font-size-sm) !important;
+  .search-results__title,
+  .search-modal h3.search-results__title,
+  .search-modal h4.search-results__title {
+    font-size: var(--font-size-base);
   }
 
   .search-results__price {
@@ -233,12 +233,7 @@
   }
 
   .search-results__heading {
-    font-size: var(--font-size-sm) !important;
-    font-weight: var(--font-weight-semibold);
-    color: rgb(var(--color-gray-300));
-    margin: 0 0 var(--spacing-sm);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    display: none;
   }
 
   .search-modal h3,
