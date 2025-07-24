@@ -17,7 +17,22 @@
   }
 
   .hero-section {
-    @apply section-hero;
+    position: relative;
+    width: 100vw;
+    min-height: calc(100vh - 6rem);
+    margin-left: calc(-50vw + 50%);
+    padding-top: var(--section-padding-top);
+    padding-bottom: var(--section-padding-bottom);
+    background: var(--hero-bg-desktop);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  @media (max-width: var(--breakpoint-md)) {
+    .hero-section {
+      background: var(--hero-bg-mobile);
+    }
   }
 
   .hero-description {

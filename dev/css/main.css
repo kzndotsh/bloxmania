@@ -27,6 +27,7 @@
 @import "./sections/section-header.css";
 @import "./sections/section-footer.css";
 @import "./sections/section-hero.css";
+@import "./sections/section-guarantee.css";
 
 /* Utilities Layer - Responsive, states, overrides */
 @import "./utilities/responsive.css";
