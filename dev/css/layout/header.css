@@ -36,6 +36,13 @@
     box-shadow: var(--shadow-header);
   }
 
+  /* Fixed (sticky) state */
+  .header--fixed {
+    background: rgba(var(--color-background-rgb), var(--header-bg-opacity-end));
+    backdrop-filter: blur(var(--header-blur-end));
+    box-shadow: var(--shadow-header);
+  }
+
   /* Navigation wrapper */
   .header__navigation {
     display: flex;
