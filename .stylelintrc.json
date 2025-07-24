@@ -1,6 +1,8 @@
 {
   "extends": [
-    "stylelint-config-standard"
+    "@shopify/stylelint-plugin",
+    "stylelint-config-alphabetical-order",
+    "@stylistic/stylelint-config"
   ],
   "rules": {
     "selector-class-pattern": null,
@@ -40,11 +42,13 @@
     "number-max-precision": null,
     "declaration-block-no-duplicate-custom-properties": null,
     "rule-empty-line-before": null,
+    "@stylistic/max-line-length": null,
     "selector-pseudo-class-no-unknown": [
       true,
       {
         "ignorePseudoClasses": [
-          "global"
+          "global",
+          "input-placeholder"
         ]
       }
     ],
@@ -54,10 +58,21 @@
         "ignorePseudoElements": [
           "v-deep",
           "v-global",
-          "v-slotted"
+          "v-slotted",
+          "input-placeholder"
         ]
       }
-    ]
+    ],
+    "color-no-hex": null,
+    "declaration-no-important": null,
+    "order/properties-order": null,
+    "order/order": null,
+    "selector-max-combinators": null,
+    "selector-max-type": null,
+    "selector-max-class": null,
+    "selector-max-specificity": null,
+    "selector-max-compound-selectors": null,
+    "selector-no-qualifying-type": null
   },
   "ignoreFiles": [
     "**/node_modules/**",

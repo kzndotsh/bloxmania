@@ -6,6 +6,14 @@
   },
   "[css]": {
     "editor.formatOnSave": true,
+    "editor.defaultFormatter": "stylelint.vscode-stylelint",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.stylelint": "explicit"
+    }
+  },
+  "[scss]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "stylelint.vscode-stylelint",
     "editor.codeActionsOnSave": {
       "source.fixAll.stylelint": "explicit"
     }
@@ -13,5 +21,12 @@
   "[liquid]": {
     "editor.defaultFormatter": "Shopify.theme-check-vscode",
     "editor.formatOnSave": true
-  }
+  },
+  "stylelint.validate": ["css", "scss"],
+  "stylelint.configFile": ".stylelintrc.json",
+  "css.validate": false,
+  "scss.validate": false,
+  "stylelint.enable": true,
+  "stylelint.autoFixOnSave": true,
+  "editor.formatOnSaveMode": "file"
 }
