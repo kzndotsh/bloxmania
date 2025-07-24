@@ -19,6 +19,9 @@
     grid-template-columns: 1fr;
     gap: var(--spacing-2xl);
     margin-top: var(--spacing-2xl);
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   @media (min-width: var(--breakpoint-md)) {
