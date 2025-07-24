@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "shopify.theme-check-vscode", 
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "bradlc.vscode-tailwindcss",
+    "stylelint.vscode-stylelint",
+    "mgmcdermott.vscode-language-babel",
+    "usernamehw.errorlens",
+    "jock.svg",
+  ]
+}
