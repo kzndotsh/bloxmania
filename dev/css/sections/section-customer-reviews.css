@@ -24,7 +24,7 @@
     margin-right: auto;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 640px) {
     .customer-reviews-grid {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -92,7 +92,7 @@
     white-space: nowrap;
   }
 
-  @media (min-width: var(--breakpoint-sm)) {
+  @media (min-width: 640px) {
     .customer-review-text {
       font-size: var(--font-size-xl);
     }
@@ -101,7 +101,7 @@
     }
   }
 
-  @media (min-width: var(--breakpoint-lg)) {
+  @media (min-width: 1024px) {
     .customer-review-text {
       font-size: 1.375rem;
     }

@@ -26,7 +26,7 @@
     padding-top: var(--header-height);
   }
 
-  @media (max-width: calc(var(--breakpoint-md) - 1px)) {
+  @media (max-width: 767px) {
     body {
       padding-top: var(--header-height-mobile);
     }

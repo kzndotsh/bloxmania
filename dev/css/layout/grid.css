@@ -21,7 +21,7 @@
     padding-bottom: var(--section-padding-bottom);
   }
 
-  @media (min-width: var(--breakpoint-lg)) {
+  @media (min-width: 1024px) {
     .section {
       padding-top: var(--section-padding-top-desktop);
       padding-bottom: var(--section-padding-bottom-desktop);
@@ -47,7 +47,7 @@
   }
 
   /* Responsive variants */
-  @media (min-width: var(--breakpoint-md)) {
+  @media (min-width: 768px) {
     .md\:grid-2 {
       grid-template-columns: repeat(2, 1fr);
     }

@@ -18,7 +18,7 @@
   }
 
   /* Header heights for mobile */
-  @media (max-width: calc(var(--breakpoint-md) - 1px)) {
+  @media (max-width: 767px) {
     .header {
       height: var(--header-height-mobile);
     }

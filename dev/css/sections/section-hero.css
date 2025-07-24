@@ -29,7 +29,7 @@
     background-repeat: no-repeat;
   }
 
-  @media (max-width: var(--breakpoint-md)) {
+  @media (max-width: 768px) {
     .hero-section {
       background: var(--hero-bg-mobile);
     }
@@ -44,13 +44,13 @@
     margin-right: auto;
   }
 
-  @media (min-width: var(--breakpoint-sm)) {
+  @media (min-width: 640px) {
     .hero-description {
       font-size: var(--font-size-lg);
     }
   }
 
-  @media (min-width: var(--breakpoint-lg)) {
+  @media (min-width: 1024px) {
     .hero-description {
       font-size: var(--font-size-xl);
     }

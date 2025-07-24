@@ -18,7 +18,7 @@
     gap: var(--spacing-lg);
   }
 
-  @media (min-width: var(--breakpoint-lg)) {
+  @media (min-width: 1024px) {
     .footer__inner {
       flex-direction: row;
       justify-content: space-between;

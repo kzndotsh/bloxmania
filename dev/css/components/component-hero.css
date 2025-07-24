@@ -16,7 +16,7 @@
     color: rgb(var(--color-foreground-rgb));
   }
 
-  @media (min-width: var(--breakpoint-lg)) {
+  @media (min-width: 1024px) {
     .hero {
       background: var(--hero-bg-desktop);
       min-height: 90vh;
@@ -30,7 +30,6 @@
     background: var(--gradient-text);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: fade-in 1s var(--easing-smooth) both;
   }
 
   .hero__subtitle {
@@ -38,13 +37,11 @@
     font-size: var(--font-size-lg);
     text-align: center;
     color: var(--color-gray-300);
-    animation: slide-up 1s var(--easing-smooth) 0.2s both;
   }
 
   .hero__actions {
     margin-top: var(--spacing-xl);
     display: flex;
     gap: var(--spacing-lg);
-    animation: slide-up 1s var(--easing-smooth) 0.4s both;
   }
 }
