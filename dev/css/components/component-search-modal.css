@@ -202,8 +202,8 @@
   /* Predictive search results (new utility classes) */
   /* Adjusted per feedback */
   .search-results__image {
-    width: 72px;
-    height: 72px;
+    width: 96px;
+    height: 96px;
   }
 
   .search-results__title,
@@ -238,6 +238,6 @@
 
   .search-modal h3,
   .search-modal h4 {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
   }
 }
