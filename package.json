@@ -1,5 +1,5 @@
 {
-  "name": "bloxmania-shopify-theme",
+  "name": "bloxmania",
   "version": "1.0.0",
   "description": "BloxMania - Digital Goods Marketplace Shopify Theme",
   "main": "index.js",
@@ -45,12 +45,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/bloxmania-shopify-theme.git"
+    "url": "https://github.com/kzndotsh/bloxmania.git"
   },
   "bugs": {
-    "url": "https://github.com/your-username/bloxmania-shopify-theme/issues"
+    "url": "https://github.com/kzndotsh/bloxmania/issues"
   },
-  "homepage": "https://github.com/your-username/bloxmania-shopify-theme#readme",
+  "homepage": "https://github.com/kzndotsh/bloxmania",
   "devDependencies": {
     "@shopify/cli": "^3.82.1",
     "@shopify/prettier-plugin-liquid": "^1.9.3",
