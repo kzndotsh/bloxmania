@@ -1,817 +1,816 @@
-<header-drawer>
-  <header
-    class="header header--transparent"
-    id="header"
-    role="banner"
-  >
-    <div class="flex items-center px-4 md:px-12 lg:px-20 xl:px-32 py-6 max-w-full mx-auto">
-      <!-- Left: Mobile Menu Button / Desktop Logo -->
-      <div class="flex items-center flex-shrink-0 mr-16 lg:mr-24 xl:mr-32">
-        <!-- Mobile Menu Button (Desktop Hidden) -->
-        <button
-          class="block md:hidden header__icon-button mobile-menu-toggle"
-          id="mobile-menu-toggle"
-          aria-label="Open mobile menu"
-          aria-expanded="false"
-          aria-controls="mobile-menu"
-          type="button"
-        >
-          <svg class="header__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
-          </svg>
-        </button>
+<header
+  class="header header--transparent"
+  id="header"
+  role="banner"
+>
+  <div class="flex items-center px-4 md:px-12 lg:px-20 xl:px-32 py-6 max-w-full mx-auto">
+    <!-- Left: Mobile Menu Button / Desktop Logo -->
+    <div class="flex items-center flex-shrink-0 mr-16 lg:mr-24 xl:mr-32">
+      <!-- Mobile Menu Button (Desktop Hidden) -->
+      <button
+        class="block md:hidden header__icon-button mobile-menu-toggle"
+        id="mobile-menu-toggle"
+        aria-label="Open mobile menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        type="button"
+      >
+        <svg class="header__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+        </svg>
+      </button>
 
-        <!-- Desktop Logo -->
-        <div class="flex-shrink-0 hidden md:block">
-          {% if section.settings.logo != blank %}
-            <a href="{{ routes.root_url }}">
-              <img
-                src="{{ section.settings.logo | image_url: width: 233 }}"
-                alt="{{ shop.name }}"
-                class="h-14 lg:h-16 w-auto transition-transform duration-300 cursor-pointer hover:scale-105"
-                width="233"
-                height="70"
-              >
-            </a>
-          {% else %}
-            <a href="{{ routes.root_url }}">
-              <img
-                src="{{ 'image-BM.png' | asset_url }}"
-                alt="BloxMania"
-                class="h-14 lg:h-16 w-auto transition-transform duration-300 cursor-pointer hover:scale-105"
-                width="233"
-                height="70"
-              >
-            </a>
-          {% endif %}
-        </div>
-      </div>
-
-      <!-- Center: Mobile Logo / Desktop Navigation -->
-      <div class="flex justify-center flex-1 min-w-0">
-        <!-- Mobile Logo -->
-        <div class="block md:hidden">
-          {% if section.settings.logo != blank %}
-            <a href="{{ routes.root_url }}">
-              <img
-                src="{{ section.settings.logo | image_url: width: 150 }}"
-                alt="{{ shop.name }}"
-                class="h-12 w-auto cursor-pointer"
-                width="150"
-                height="48"
-              >
-            </a>
-          {% else %}
-            <a href="{{ routes.root_url }}">
-              <img
-                src="{{ 'image-BM.png' | asset_url }}"
-                alt="BloxMania"
-                class="h-12 w-auto cursor-pointer"
-                width="150"
-                height="48"
-              >
-            </a>
-          {% endif %}
-        </div>
-
-        <!-- Desktop Navigation -->
-        <nav
-          class="hidden md:flex items-center justify-center gap-8 lg:gap-10 xl:gap-12 min-w-0"
-          role="navigation"
-          aria-label="Main navigation"
-        >
-          <a
-            href="{{ routes.all_products_collection_url }}"
-            class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
-          >
-            <svg
-              class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+      <!-- Desktop Logo -->
+      <div class="flex-shrink-0 hidden md:block">
+        {% if section.settings.logo != blank %}
+          <a href="{{ routes.root_url }}">
+            <img
+              src="{{ section.settings.logo | image_url: width: 233 }}"
+              alt="{{ shop.name }}"
+              class="h-14 lg:h-16 w-auto transition-transform duration-300 cursor-pointer hover:scale-105"
+              width="233"
+              height="70"
             >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119.997ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/>
-            </svg>
-            Shop Now
           </a>
-
-          <a
-            href="{{ pages.guarantee.url | default: '/pages/guarantee' }}"
-            class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
-          >
-            <div class="relative">
-              <svg
-                class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/>
-              </svg>
-            </div>
-            Our Guarantee
+        {% else %}
+          <a href="{{ routes.root_url }}">
+            <img
+              src="{{ 'image-BM.png' | asset_url }}"
+              alt="BloxMania"
+              class="h-14 lg:h-16 w-auto transition-transform duration-300 cursor-pointer hover:scale-105"
+              width="233"
+              height="70"
+            >
           </a>
-
-          {% if section.settings.discord_url != blank %}
-            <a
-              href="{{ section.settings.discord_url }}"
-              class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
-              target="_blank"
-              rel="noopener"
-            >
-              <svg class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
-              </svg>
-              Daily Giveaways
-            </a>
-          {% else %}
-            <a
-              href="https://discord.gg/bloxmania"
-              class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
-              target="_blank"
-              rel="noopener"
-            >
-              <svg class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
-              </svg>
-              Daily Giveaways
-            </a>
-          {% endif %}
-
-          <a
-            href="{{ pages['purchasing-guide'].url | default: '/pages/purchasing-guide' }}"
-            class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
-          >
-            <svg
-              class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2Z"/>
-            </svg>
-            Purchasing Guide
-          </a>
-        </nav>
-      </div>
-
-      <!-- Right: User Actions -->
-      <div class="flex items-center justify-end gap-3 flex-shrink-0 ml-16 lg:ml-24 xl:ml-32">
-        <!-- Search Button -->
-        <button
-          class="header__icon-button search-toggle"
-          aria-label="Search"
-          type="button"
-          data-search-toggle
-        >
-          <svg class="header__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/>
-          </svg>
-        </button>
-
-        <!-- Cart Button -->
-        <a
-          href="{{ routes.cart_url }}"
-          class="header__icon-button header__cart-button"
-          aria-label="Shopping cart"
-        >
-          <svg class="header__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/>
-          </svg>
-          {% if cart.item_count > 0 %}
-            <span class="header__cart-badge">
-              {{- cart.item_count -}}
-            </span>
-          {% endif %}
-        </a>
-
-        <!-- Account Button -->
-        <a
-          href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
-          class="header__icon-button"
-          aria-label="{% if customer %}User account{% else %}Sign in{% endif %}"
-        >
-          <svg class="header__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-          </svg>
-        </a>
+        {% endif %}
       </div>
     </div>
 
-    <!-- Enhanced Mobile Menu -->
-    <div
-      class="mobile-menu fixed top-0 left-0 w-full h-screen z-60 flex-col overflow-hidden transition-all duration-300 ease-in-out"
-      id="mobile-menu"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="mobile-menu-title"
-      aria-hidden="true"
-    >
-      <!-- Mobile Menu Header -->
-      <div class="mobile-menu__header flex items-center justify-between p-6 flex-shrink-0">
+    <!-- Center: Mobile Logo / Desktop Navigation -->
+    <div class="flex justify-center flex-1 min-w-0">
+      <!-- Mobile Logo -->
+      <div class="block md:hidden">
         {% if section.settings.logo != blank %}
-          <a href="{{ routes.root_url }}" class="mobile-menu__logo-link">
+          <a href="{{ routes.root_url }}">
             <img
               src="{{ section.settings.logo | image_url: width: 150 }}"
               alt="{{ shop.name }}"
-              class="mobile-menu__logo h-12 w-auto"
+              class="h-12 w-auto cursor-pointer"
               width="150"
               height="48"
             >
           </a>
         {% else %}
-          <a href="{{ routes.root_url }}" class="mobile-menu__logo-link">
+          <a href="{{ routes.root_url }}">
             <img
               src="{{ 'image-BM.png' | asset_url }}"
               alt="BloxMania"
-              class="mobile-menu__logo h-12 w-auto"
+              class="h-12 w-auto cursor-pointer"
               width="150"
               height="48"
             >
           </a>
         {% endif %}
-        <button
-          class="mobile-menu__close header__icon-button"
-          id="mobile-menu-close"
-          aria-label="Close mobile menu"
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav
+        class="hidden md:flex items-center justify-center gap-8 lg:gap-10 xl:gap-12 min-w-0"
+        role="navigation"
+        aria-label="Main navigation"
+      >
+        <a
+          href="{{ routes.all_products_collection_url }}"
+          class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
         >
-          <svg class="mobile-menu__close-icon header__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg
+            class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119.997ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/>
+          </svg>
+          Shop Now
+        </a>
+
+        <a
+          href="{{ pages.guarantee.url | default: '/pages/guarantee' }}"
+          class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+        >
+          <div class="relative">
+            <svg
+              class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/>
+            </svg>
+          </div>
+          Our Guarantee
+        </a>
+
+        {% if section.settings.discord_url != blank %}
+          <a
+            href="{{ section.settings.discord_url }}"
+            class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+            </svg>
+            Daily Giveaways
+          </a>
+        {% else %}
+          <a
+            href="https://discord.gg/bloxmania"
+            class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+            </svg>
+            Daily Giveaways
+          </a>
+        {% endif %}
+
+        <a
+          href="{{ pages['purchasing-guide'].url | default: '/pages/purchasing-guide' }}"
+          class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+        >
+          <svg
+            class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2Z"/>
+          </svg>
+          Purchasing Guide
+        </a>
+      </nav>
+    </div>
+
+    <!-- Right: User Actions -->
+    <div class="flex items-center justify-end gap-3 flex-shrink-0 ml-16 lg:ml-24 xl:ml-32">
+      <!-- Search Button -->
+      <button
+        class="header__icon-button search-toggle"
+        aria-label="Search"
+        type="button"
+        data-search-toggle
+      >
+        <svg class="header__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/>
+        </svg>
+      </button>
+
+      <!-- Cart Button -->
+      <a
+        href="{{ routes.cart_url }}"
+        class="header__icon-button header__cart-button"
+        aria-label="Shopping cart"
+      >
+        <svg class="header__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/>
+        </svg>
+        {% if cart.item_count > 0 %}
+          <span class="header__cart-badge">
+            {{- cart.item_count -}}
+          </span>
+        {% endif %}
+      </a>
+
+      <!-- Account Button -->
+      <a
+        href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
+        class="header__icon-button"
+        aria-label="{% if customer %}User account{% else %}Sign in{% endif %}"
+      >
+        <svg class="header__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Enhanced Mobile Menu -->
+  <div
+    class="mobile-menu fixed top-0 left-0 w-full h-screen z-60 flex-col overflow-hidden transition-all duration-300 ease-in-out"
+    id="mobile-menu"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="mobile-menu-title"
+    aria-hidden="true"
+  >
+    <!-- Mobile Menu Header -->
+    <div class="mobile-menu__header flex items-center justify-between p-6 flex-shrink-0">
+      {% if section.settings.logo != blank %}
+        <a href="{{ routes.root_url }}" class="mobile-menu__logo-link">
+          <img
+            src="{{ section.settings.logo | image_url: width: 150 }}"
+            alt="{{ shop.name }}"
+            class="mobile-menu__logo h-12 w-auto"
+            width="150"
+            height="48"
+          >
+        </a>
+      {% else %}
+        <a href="{{ routes.root_url }}" class="mobile-menu__logo-link">
+          <img
+            src="{{ 'image-BM.png' | asset_url }}"
+            alt="BloxMania"
+            class="mobile-menu__logo h-12 w-auto"
+            width="150"
+            height="48"
+          >
+        </a>
+      {% endif %}
+      <button
+        class="mobile-menu__close header__icon-button"
+        id="mobile-menu-close"
+        aria-label="Close mobile menu"
+      >
+        <svg class="mobile-menu__close-icon header__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18 18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <h1 id="mobile-menu-title" class="sr-only">Mobile Navigation Menu</h1>
+
+    <!-- Mobile Menu Content -->
+    <div class="mobile-menu__content flex-1 overflow-y-auto flex flex-col">
+      <!-- User Account Section -->
+      {% if customer %}
+        <div class="mobile-menu__user-section p-6 border-b border-white/10">
+          <div class="mobile-menu__user-info flex items-center gap-4">
+            <div class="mobile-menu__user-avatar">
+              <svg class="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+              </svg>
+            </div>
+            <div class="mobile-menu__user-details">
+              <p class="mobile-menu__user-name text-white font-semibold">
+                {{ customer.first_name }}
+                {{ customer.last_name }}
+              </p>
+              <p class="mobile-menu__user-email text-gray-400 text-sm">{{ customer.email }}</p>
+            </div>
+          </div>
+          <div class="mobile-menu__user-actions flex gap-2 mt-4">
+            <a href="{{ routes.account_url }}" class="mobile-menu__user-action-btn">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+              Account
+            </a>
+            <a href="{{ routes.account_logout_url }}" class="mobile-menu__user-action-btn">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+              </svg>
+              Logout
+            </a>
+          </div>
+        </div>
+      {% endif %}
+
+      <!-- Search Section -->
+      <div class="mobile-menu__search p-6 border-b border-white/10">
+        <form class="mobile-menu__search-form" action="{{ routes.search_url }}" method="get" role="search">
+          <div class="mobile-menu__search-wrapper relative">
+            <input
+              type="search"
+              name="q"
+              class="mobile-menu__search-input"
+              placeholder="Search products..."
+              aria-label="Search products"
+              autocomplete="off"
+            >
+            <button
+              type="submit"
+              class="mobile-menu__search-submit"
+              aria-label="Submit search"
+            >
+              <svg class="mobile-menu__search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="mobile-menu__quick-actions p-6 border-b border-white/10">
+        <h3 class="mobile-menu__section-title text-white font-semibold mb-4">Quick Actions</h3>
+        <div class="mobile-menu__quick-actions-grid grid grid-cols-2 gap-3">
+          <a href="{{ routes.cart_url }}" class="mobile-menu__quick-action">
+            <div class="mobile-menu__quick-action-icon">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/>
+              </svg>
+              {% if cart.item_count > 0 %}
+                <span class="mobile-menu__cart-badge">{{ cart.item_count }}</span>
+              {% endif %}
+            </div>
+            <span class="mobile-menu__quick-action-text">Cart</span>
+          </a>
+          <a
+            href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
+            class="mobile-menu__quick-action"
+          >
+            <div class="mobile-menu__quick-action-icon">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+              </svg>
+            </div>
+            <span class="mobile-menu__quick-action-text">
+              {%- if customer %}Account{% else %}Sign In{% endif -%}
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Main Navigation -->
+      <nav class="mobile-menu__navigation flex-1" role="navigation" aria-label="Mobile navigation">
+        <div class="mobile-menu__nav-section p-6">
+          <h3 class="mobile-menu__section-title text-white font-semibold mb-4">Navigation</h3>
+          <div class="mobile-menu__nav-list space-y-2">
+            <a
+              href="{{ routes.all_products_collection_url }}"
+              class="mobile-menu__nav-link"
+            >
+              <svg class="mobile-menu__nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119.997ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/>
+              </svg>
+              <span class="mobile-menu__nav-text">Shop Now</span>
+            </a>
+
+            <a
+              href="{{ pages.guarantee.url | default: '/pages/guarantee' }}"
+              class="mobile-menu__nav-link"
+            >
+              <svg class="mobile-menu__nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/>
+              </svg>
+              <span class="mobile-menu__nav-text">Our Guarantee</span>
+            </a>
+
+            {% if section.settings.discord_url != blank %}
+              <a
+                href="{{ section.settings.discord_url }}"
+                class="mobile-menu__nav-link"
+                target="_blank"
+                rel="noopener"
+              >
+                <svg class="mobile-menu__nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+                </svg>
+                <span class="mobile-menu__nav-text">Daily Giveaways</span>
+              </a>
+            {% else %}
+              <a
+                href="https://discord.gg/bloxmania"
+                class="mobile-menu__nav-link"
+                target="_blank"
+                rel="noopener"
+              >
+                <svg class="mobile-menu__nav-icon" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+                </svg>
+                <span class="mobile-menu__nav-text">Daily Giveaways</span>
+              </a>
+            {% endif %}
+
+            <a
+              href="{{ pages['purchasing-guide'].url | default: '/pages/purchasing-guide' }}"
+              class="mobile-menu__nav-link"
+            >
+              <svg class="mobile-menu__nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2Z"/>
+              </svg>
+              <span class="mobile-menu__nav-text">Purchasing Guide</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Social Links -->
+      <div class="mobile-menu__social p-6 border-t border-white/10">
+        <div class="mobile-menu__social-links">
+          <a
+            href="https://discord.gg/bloxmania"
+            class="mobile-menu__social-link"
+            target="_blank"
+            rel="noopener"
+            aria-label="Join our Discord"
+          >
+            <svg class="mobile-menu__social-icon" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+            </svg>
+            <span class="mobile-menu__social-text">Discord</span>
+          </a>
+          <a
+            href="{{ section.settings.youtube_url | default: 'https://youtube.com/@bloxmania' }}"
+            class="mobile-menu__social-link"
+            target="_blank"
+            rel="noopener"
+            aria-label="Follow us on YouTube"
+          >
+            <svg class="mobile-menu__social-icon" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+            <span class="mobile-menu__social-text">YouTube</span>
+          </a>
+          <a
+            href="{{ section.settings.tiktok_url | default: 'https://tiktok.com/@bloxmania' }}"
+            class="mobile-menu__social-link"
+            target="_blank"
+            rel="noopener"
+            aria-label="Follow us on TikTok"
+          >
+            <svg class="mobile-menu__social-icon" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+            </svg>
+            <span class="mobile-menu__social-text">TikTok</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="mobile-menu__footer p-6 border-t border-white/10">
+        <div class="mobile-menu__footer-links">
+          <a href="{{ pages['contact'].url | default: '/pages/contact' }}" class="mobile-menu__footer-link"
+            >Contact Us</a
+          >
+          <a
+            href="{{ pages['privacy-policy'].url | default: '/pages/privacy-policy' }}"
+            class="mobile-menu__footer-link"
+            >Privacy Policy</a
+          >
+          <a
+            href="{{ pages['terms-of-service'].url | default: '/pages/terms-of-service' }}"
+            class="mobile-menu__footer-link"
+            >Terms of Service</a
+          >
+        </div>
+        <div class="mobile-menu__footer-copyright mt-4 text-gray-400 text-sm">
+          © {{ 'now' | date: '%Y' }}
+          {{ shop.name }}. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Search Modal -->
+<div id="search-modal" class="search-modal hidden">
+  <div class="search-modal__overlay"></div>
+  <div class="search-modal__content">
+    <div class="search-modal__container">
+      <!-- Search Modal Header -->
+      <div class="search-modal__header">
+        <h2 class="search-modal__heading">Search</h2>
+        <button
+          class="search-modal__close"
+          aria-label="Close search"
+          data-search-close
+        >
+          <svg class="search-modal__close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18 18 6M6 6l12 12"/>
           </svg>
         </button>
       </div>
 
-      <h1 id="mobile-menu-title" class="sr-only">Mobile Navigation Menu</h1>
-
-      <!-- Mobile Menu Content -->
-      <div class="mobile-menu__content flex-1 overflow-y-auto flex flex-col">
-        <!-- User Account Section -->
-        {% if customer %}
-          <div class="mobile-menu__user-section p-6 border-b border-white/10">
-            <div class="mobile-menu__user-info flex items-center gap-4">
-              <div class="mobile-menu__user-avatar">
-                <svg class="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                </svg>
-              </div>
-              <div class="mobile-menu__user-details">
-                <p class="mobile-menu__user-name text-white font-semibold">
-                  {{ customer.first_name }}
-                  {{ customer.last_name }}
-                </p>
-                <p class="mobile-menu__user-email text-gray-400 text-sm">{{ customer.email }}</p>
-              </div>
-            </div>
-            <div class="mobile-menu__user-actions flex gap-2 mt-4">
-              <a href="{{ routes.account_url }}" class="mobile-menu__user-action-btn">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                </svg>
-                Account
-              </a>
-              <a href="{{ routes.account_logout_url }}" class="mobile-menu__user-action-btn">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-                </svg>
-                Logout
-              </a>
-            </div>
-          </div>
-        {% endif %}
-
-        <!-- Search Section -->
-        <div class="mobile-menu__search p-6 border-b border-white/10">
-          <form class="mobile-menu__search-form" action="{{ routes.search_url }}" method="get" role="search">
-            <div class="mobile-menu__search-wrapper relative">
-              <input
-                type="search"
-                name="q"
-                class="mobile-menu__search-input"
-                placeholder="Search products..."
-                aria-label="Search products"
-                autocomplete="off"
-              >
-              <button
-                type="submit"
-                class="mobile-menu__search-submit"
-                aria-label="Submit search"
-              >
-                <svg class="mobile-menu__search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/>
-                </svg>
-              </button>
-            </div>
-          </form>
-        </div>
-
-        <!-- Quick Actions -->
-        <div class="mobile-menu__quick-actions p-6 border-b border-white/10">
-          <h3 class="mobile-menu__section-title text-white font-semibold mb-4">Quick Actions</h3>
-          <div class="mobile-menu__quick-actions-grid grid grid-cols-2 gap-3">
-            <a href="{{ routes.cart_url }}" class="mobile-menu__quick-action">
-              <div class="mobile-menu__quick-action-icon">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/>
-                </svg>
-                {% if cart.item_count > 0 %}
-                  <span class="mobile-menu__cart-badge">{{ cart.item_count }}</span>
-                {% endif %}
-              </div>
-              <span class="mobile-menu__quick-action-text">Cart</span>
-            </a>
-            <a
-              href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
-              class="mobile-menu__quick-action"
+      <!-- Search Form -->
+      <div class="search-modal__body">
+        <form class="search-modal__form" action="{{ routes.search_url }}" method="get" role="search">
+          <div class="search-modal__input-wrapper">
+            <input
+              type="search"
+              name="q"
+              class="search-modal__input"
+              placeholder="{{ 'general.search.placeholder' | t: default: 'Search for products, collections, or pages...' }}"
+              aria-label="{{ 'general.search.search' | t: default: 'Search' }}"
+              autocomplete="off"
+              spellcheck="false"
             >
-              <div class="mobile-menu__quick-action-icon">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                </svg>
-              </div>
-              <span class="mobile-menu__quick-action-text">
-                {%- if customer %}Account{% else %}Sign In{% endif -%}
-              </span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Main Navigation -->
-        <nav class="mobile-menu__navigation flex-1" role="navigation" aria-label="Mobile navigation">
-          <div class="mobile-menu__nav-section p-6">
-            <h3 class="mobile-menu__section-title text-white font-semibold mb-4">Navigation</h3>
-            <div class="mobile-menu__nav-list space-y-2">
-              <a
-                href="{{ routes.all_products_collection_url }}"
-                class="mobile-menu__nav-link"
-              >
-                <svg class="mobile-menu__nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119.997ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/>
-                </svg>
-                <span class="mobile-menu__nav-text">Shop Now</span>
-              </a>
-
-              <a
-                href="{{ pages.guarantee.url | default: '/pages/guarantee' }}"
-                class="mobile-menu__nav-link"
-              >
-                <svg class="mobile-menu__nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/>
-                </svg>
-                <span class="mobile-menu__nav-text">Our Guarantee</span>
-              </a>
-
-              {% if section.settings.discord_url != blank %}
-                <a
-                  href="{{ section.settings.discord_url }}"
-                  class="mobile-menu__nav-link"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  <svg class="mobile-menu__nav-icon" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
-                  </svg>
-                  <span class="mobile-menu__nav-text">Daily Giveaways</span>
-                </a>
-              {% else %}
-                <a
-                  href="https://discord.gg/bloxmania"
-                  class="mobile-menu__nav-link"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  <svg class="mobile-menu__nav-icon" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
-                  </svg>
-                  <span class="mobile-menu__nav-text">Daily Giveaways</span>
-                </a>
-              {% endif %}
-
-              <a
-                href="{{ pages['purchasing-guide'].url | default: '/pages/purchasing-guide' }}"
-                class="mobile-menu__nav-link"
-              >
-                <svg class="mobile-menu__nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2Z"/>
-                </svg>
-                <span class="mobile-menu__nav-text">Purchasing Guide</span>
-              </a>
-            </div>
-          </div>
-        </nav>
-
-        <!-- Social Links -->
-        <div class="mobile-menu__social p-6 border-t border-white/10">
-          <div class="mobile-menu__social-links">
-            <a
-              href="https://discord.gg/bloxmania"
-              class="mobile-menu__social-link"
-              target="_blank"
-              rel="noopener"
-              aria-label="Join our Discord"
-            >
-              <svg class="mobile-menu__social-icon" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+            <div class="search-modal__icon">
+              <svg class="search-modal__icon-svg" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clip-rule="evenodd"/>
               </svg>
-              <span class="mobile-menu__social-text">Discord</span>
-            </a>
-            <a
-              href="{{ section.settings.youtube_url | default: 'https://youtube.com/@bloxmania' }}"
-              class="mobile-menu__social-link"
-              target="_blank"
-              rel="noopener"
-              aria-label="Follow us on YouTube"
+            </div>
+            <button
+              type="submit"
+              class="search-modal__submit"
+              aria-label="Submit search"
             >
-              <svg class="mobile-menu__social-icon" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              <svg class="search-modal__submit-icon" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clip-rule="evenodd"/>
               </svg>
-              <span class="mobile-menu__social-text">YouTube</span>
-            </a>
-            <a
-              href="{{ section.settings.tiktok_url | default: 'https://tiktok.com/@bloxmania' }}"
-              class="mobile-menu__social-link"
-              target="_blank"
-              rel="noopener"
-              aria-label="Follow us on TikTok"
-            >
-              <svg class="mobile-menu__social-icon" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
-              </svg>
-              <span class="mobile-menu__social-text">TikTok</span>
-            </a>
+            </button>
           </div>
-        </div>
+        </form>
 
-        <!-- Footer -->
-        <div class="mobile-menu__footer p-6 border-t border-white/10">
-          <div class="mobile-menu__footer-links">
-            <a href="{{ pages['contact'].url | default: '/pages/contact' }}" class="mobile-menu__footer-link"
-              >Contact Us</a
-            >
-            <a
-              href="{{ pages['privacy-policy'].url | default: '/pages/privacy-policy' }}"
-              class="mobile-menu__footer-link"
-              >Privacy Policy</a
-            >
-            <a
-              href="{{ pages['terms-of-service'].url | default: '/pages/terms-of-service' }}"
-              class="mobile-menu__footer-link"
-              >Terms of Service</a
-            >
+        <!-- Search Results -->
+        <div class="search-modal__results">
+          <div class="search-modal__loading hidden">
+            <div class="search-modal__spinner"></div>
+            <p>Searching...</p>
           </div>
-          <div class="mobile-menu__footer-copyright mt-4 text-gray-400 text-sm">
-            © {{ 'now' | date: '%Y' }}
-            {{ shop.name }}. All rights reserved.
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- Search Modal -->
-  <div id="search-modal" class="search-modal hidden">
-    <div class="search-modal__overlay"></div>
-    <div class="search-modal__content">
-      <div class="search-modal__container">
-        <!-- Search Modal Header -->
-        <div class="search-modal__header">
-          <h2 class="search-modal__heading">Search</h2>
-          <button
-            class="search-modal__close"
-            aria-label="Close search"
-            data-search-close
-          >
-            <svg class="search-modal__close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18 18 6M6 6l12 12"/>
-            </svg>
-          </button>
-        </div>
-
-        <!-- Search Form -->
-        <div class="search-modal__body">
-          <form class="search-modal__form" action="{{ routes.search_url }}" method="get" role="search">
-            <div class="search-modal__input-wrapper">
-              <input
-                type="search"
-                name="q"
-                class="search-modal__input"
-                placeholder="{{ 'general.search.placeholder' | t: default: 'Search for products, collections, or pages...' }}"
-                aria-label="{{ 'general.search.search' | t: default: 'Search' }}"
-                autocomplete="off"
-                spellcheck="false"
-              >
-              <div class="search-modal__icon">
-                <svg class="search-modal__icon-svg" fill="currentColor" viewBox="0 0 24 24">
-                  <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clip-rule="evenodd"/>
-                </svg>
-              </div>
-              <button
-                type="submit"
-                class="search-modal__submit"
-                aria-label="Submit search"
-              >
-                <svg class="search-modal__submit-icon" fill="currentColor" viewBox="0 0 24 24">
-                  <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clip-rule="evenodd"/>
-                </svg>
-              </button>
-            </div>
-          </form>
-
-          <!-- Search Results -->
-          <div class="search-modal__results">
-            <div class="search-modal__loading hidden">
-              <div class="search-modal__spinner"></div>
-              <p>Searching...</p>
-            </div>
-            <div class="search-modal__content-results hidden"></div>
-            <div class="search-modal__no-results hidden">
-              <p>No results found</p>
-            </div>
+          <div class="search-modal__content-results hidden"></div>
+          <div class="search-modal__no-results hidden">
+            <p>No results found</p>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const mobileMenuClose = document.getElementById('mobile-menu-close');
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
 
-      // Mobile menu toggle
-      if (mobileMenuToggle && mobileMenu && mobileMenuClose) {
-        mobileMenuToggle.addEventListener('click', function () {
-          const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
-          mobileMenuToggle.setAttribute('aria-expanded', !isExpanded);
-          mobileMenu.classList.toggle('mobile-menu--open');
-          mobileMenu.setAttribute('aria-hidden', isExpanded);
-          document.body.classList.toggle('overflow-hidden');
-        });
+    // Mobile menu toggle
+    if (mobileMenuToggle && mobileMenu && mobileMenuClose) {
+      mobileMenuToggle.addEventListener('click', function () {
+        const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
+        mobileMenuToggle.setAttribute('aria-expanded', !isExpanded);
+        mobileMenu.classList.toggle('mobile-menu--open');
+        mobileMenu.setAttribute('aria-hidden', isExpanded);
+        document.body.classList.toggle('overflow-hidden');
+      });
 
-        mobileMenuClose.addEventListener('click', function () {
+      mobileMenuClose.addEventListener('click', function () {
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        mobileMenu.classList.remove('mobile-menu--open');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('overflow-hidden');
+      });
+
+      // Close mobile menu when clicking on a link
+      const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+      mobileMenuLinks.forEach((link) => {
+        link.addEventListener('click', function () {
           mobileMenuToggle.setAttribute('aria-expanded', 'false');
           mobileMenu.classList.remove('mobile-menu--open');
           mobileMenu.setAttribute('aria-hidden', 'true');
           document.body.classList.remove('overflow-hidden');
         });
+      });
 
-        // Close mobile menu when clicking on a link
-        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-        mobileMenuLinks.forEach((link) => {
-          link.addEventListener('click', function () {
-            mobileMenuToggle.setAttribute('aria-expanded', 'false');
-            mobileMenu.classList.remove('mobile-menu--open');
-            mobileMenu.setAttribute('aria-hidden', 'true');
-            document.body.classList.remove('overflow-hidden');
-          });
-        });
-
-        // Close mobile menu on Escape key
-        document.addEventListener('keydown', function (e) {
-          if (e.key === 'Escape' && mobileMenu.classList.contains('mobile-menu--open')) {
-            mobileMenuToggle.setAttribute('aria-expanded', 'false');
-            mobileMenu.classList.remove('mobile-menu--open');
-            mobileMenu.setAttribute('aria-hidden', 'true');
-            document.body.classList.remove('overflow-hidden');
-          }
-        });
-
-        // Close mobile menu on overlay click
-        mobileMenu.addEventListener('click', function (e) {
-          if (e.target === mobileMenu) {
-            mobileMenuToggle.setAttribute('aria-expanded', 'false');
-            mobileMenu.classList.remove('mobile-menu--open');
-            mobileMenu.setAttribute('aria-hidden', 'true');
-            document.body.classList.remove('overflow-hidden');
-          }
-        });
-      }
-
-      // Search Modal Functionality
-      const searchToggle = document.querySelector('[data-search-toggle]');
-      const searchModal = document.getElementById('search-modal');
-      const searchClose = document.querySelector('[data-search-close]');
-      const searchInput = document.querySelector('.search-modal__input');
-      const searchForm = document.querySelector('.search-modal__form');
-      const searchResults = document.querySelector('.search-modal__content-results');
-      const searchLoading = document.querySelector('.search-modal__loading');
-      const searchNoResults = document.querySelector('.search-modal__no-results');
-
-      // Open search modal
-      if (searchToggle && searchModal) {
-        searchToggle.addEventListener('click', function () {
-          searchModal.classList.remove('hidden');
-          document.body.classList.add('overflow-hidden');
-          searchInput.focus();
-          // Ensure clean state when opening
-          clearSearchResults();
-        });
-      }
-
-      // Close search modal
-      if (searchClose && searchModal) {
-        searchClose.addEventListener('click', function () {
-          searchModal.classList.add('hidden');
-          document.body.classList.remove('overflow-hidden');
-          searchInput.value = '';
-          clearSearchResults();
-        });
-      }
-
-      // Close search modal on overlay click
-      if (searchModal) {
-        searchModal.addEventListener('click', function (e) {
-          if (e.target === searchModal) {
-            searchModal.classList.add('hidden');
-            document.body.classList.remove('overflow-hidden');
-            searchInput.value = '';
-            clearSearchResults();
-          }
-        });
-      }
-
-      // Close search modal on Escape key
+      // Close mobile menu on Escape key
       document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && searchModal && !searchModal.classList.contains('hidden')) {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('mobile-menu--open')) {
+          mobileMenuToggle.setAttribute('aria-expanded', 'false');
+          mobileMenu.classList.remove('mobile-menu--open');
+          mobileMenu.setAttribute('aria-hidden', 'true');
+          document.body.classList.remove('overflow-hidden');
+        }
+      });
+
+      // Close mobile menu on overlay click
+      mobileMenu.addEventListener('click', function (e) {
+        if (e.target === mobileMenu) {
+          mobileMenuToggle.setAttribute('aria-expanded', 'false');
+          mobileMenu.classList.remove('mobile-menu--open');
+          mobileMenu.setAttribute('aria-hidden', 'true');
+          document.body.classList.remove('overflow-hidden');
+        }
+      });
+    }
+
+    // Search Modal Functionality
+    const searchToggle = document.querySelector('[data-search-toggle]');
+    const searchModal = document.getElementById('search-modal');
+    const searchClose = document.querySelector('[data-search-close]');
+    const searchInput = document.querySelector('.search-modal__input');
+    const searchForm = document.querySelector('.search-modal__form');
+    const searchResults = document.querySelector('.search-modal__content-results');
+    const searchLoading = document.querySelector('.search-modal__loading');
+    const searchNoResults = document.querySelector('.search-modal__no-results');
+
+    // Open search modal
+    if (searchToggle && searchModal) {
+      searchToggle.addEventListener('click', function () {
+        searchModal.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+        searchInput.focus();
+        // Ensure clean state when opening
+        clearSearchResults();
+      });
+    }
+
+    // Close search modal
+    if (searchClose && searchModal) {
+      searchClose.addEventListener('click', function () {
+        searchModal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+        searchInput.value = '';
+        clearSearchResults();
+      });
+    }
+
+    // Close search modal on overlay click
+    if (searchModal) {
+      searchModal.addEventListener('click', function (e) {
+        if (e.target === searchModal) {
           searchModal.classList.add('hidden');
           document.body.classList.remove('overflow-hidden');
           searchInput.value = '';
           clearSearchResults();
         }
       });
+    }
 
-      // Predictive search functionality
-      let searchTimeout;
-      if (searchInput) {
-        searchInput.addEventListener('input', function () {
-          const query = this.value.trim();
-
-          // Clear previous timeout
-          clearTimeout(searchTimeout);
-
-          if (query.length < 2) {
-            clearSearchResults();
-            return;
-          }
-
-          // Show loading state
-          showSearchLoading();
-
-          // Debounce search requests
-          searchTimeout = setTimeout(() => {
-            performPredictiveSearch(query);
-          }, 300);
-        });
+    // Close search modal on Escape key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && searchModal && !searchModal.classList.contains('hidden')) {
+        searchModal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+        searchInput.value = '';
+        clearSearchResults();
       }
+    });
 
-      // Handle form submission
-      if (searchForm) {
-        searchForm.addEventListener('submit', function (e) {
-          const query = searchInput.value.trim();
-          if (!query) {
-            e.preventDefault();
-            return;
-          }
-          // Let the form submit normally to the search page
-        });
-      }
+    // Predictive search functionality
+    let searchTimeout;
+    if (searchInput) {
+      searchInput.addEventListener('input', function () {
+        const query = this.value.trim();
 
-      // Search functions
-      function showSearchLoading() {
-        if (searchLoading) searchLoading.classList.remove('hidden');
-        if (searchResults) searchResults.classList.add('hidden');
-        if (searchNoResults) searchNoResults.classList.add('hidden');
-      }
+        // Clear previous timeout
+        clearTimeout(searchTimeout);
 
-      function hideSearchLoading() {
-        if (searchLoading) searchLoading.classList.add('hidden');
-      }
-
-      function clearSearchResults() {
-        if (searchResults) {
-          searchResults.innerHTML = '';
-          searchResults.classList.add('hidden');
-        }
-        if (searchLoading) searchLoading.classList.add('hidden');
-        if (searchNoResults) searchNoResults.classList.add('hidden');
-      }
-
-      // Initialize search modal state
-      function initializeSearchModal() {
-        if (searchLoading) searchLoading.classList.add('hidden');
-        if (searchResults) searchResults.classList.add('hidden');
-        if (searchNoResults) searchNoResults.classList.add('hidden');
-      }
-
-      // Initialize on page load
-      initializeSearchModal();
-
-      async function performPredictiveSearch(query) {
-        try {
-          const response = await fetch(
-            `/search/suggest.json?q=${encodeURIComponent(query)}&resources[type]=product&resources[limit]=6`,
-          );
-
-          if (!response.ok) {
-            throw new Error('Search request failed');
-          }
-
-          const data = await response.json();
-          console.log('Search API response:', data); // Debug log
-
-          // Handle the suggest.json response structure
-          let results = [];
-          if (data.resources && data.resources.results) {
-            // Check if results is an array or object
-            if (Array.isArray(data.resources.results)) {
-              results = data.resources.results;
-            } else if (typeof data.resources.results === 'object') {
-              // If results is an object, extract products from it
-              const resultsObj = data.resources.results;
-              Object.keys(resultsObj).forEach((key) => {
-                if (Array.isArray(resultsObj[key])) {
-                  results.push(...resultsObj[key]);
-                }
-              });
-            }
-          } else if (data.resources && data.resources.products && Array.isArray(data.resources.products)) {
-            results = data.resources.products;
-          } else if (data.results && Array.isArray(data.results)) {
-            results = data.results;
-          } else if (data.products && Array.isArray(data.products)) {
-            results = data.products;
-          }
-
-          console.log('Extracted results:', results); // Log the final results
-
-          hideSearchLoading();
-          displaySearchResults(results, query);
-        } catch (error) {
-          console.error('Search error:', error);
-          hideSearchLoading();
-          showNoResults();
-        }
-      }
-
-      function displaySearchResults(results, query) {
-        if (!searchResults) return;
-
-        // Debug: Log the results structure
-        console.log('Displaying results:', results);
-
-        // Ensure results is an array and has items
-        if (!Array.isArray(results) || results.length === 0) {
-          showNoResults();
+        if (query.length < 2) {
+          clearSearchResults();
           return;
         }
 
-        let html = '<div class="space-y-4">';
+        // Show loading state
+        showSearchLoading();
 
-        results.forEach((result, index) => {
-          console.log(`Result ${index}:`, result);
+        // Debounce search requests
+        searchTimeout = setTimeout(() => {
+          performPredictiveSearch(query);
+        }, 300);
+      });
+    }
 
-          // Ensure result has required properties
-          if (!result || !result.title) {
-            console.log(`Skipping result ${index} - missing title`);
-            return; // Skip invalid results
+    // Handle form submission
+    if (searchForm) {
+      searchForm.addEventListener('submit', function (e) {
+        const query = searchInput.value.trim();
+        if (!query) {
+          e.preventDefault();
+          return;
+        }
+        // Let the form submit normally to the search page
+      });
+    }
+
+    // Search functions
+    function showSearchLoading() {
+      if (searchLoading) searchLoading.classList.remove('hidden');
+      if (searchResults) searchResults.classList.add('hidden');
+      if (searchNoResults) searchNoResults.classList.add('hidden');
+    }
+
+    function hideSearchLoading() {
+      if (searchLoading) searchLoading.classList.add('hidden');
+    }
+
+    function clearSearchResults() {
+      if (searchResults) {
+        searchResults.innerHTML = '';
+        searchResults.classList.add('hidden');
+      }
+      if (searchLoading) searchLoading.classList.add('hidden');
+      if (searchNoResults) searchNoResults.classList.add('hidden');
+    }
+
+    // Initialize search modal state
+    function initializeSearchModal() {
+      if (searchLoading) searchLoading.classList.add('hidden');
+      if (searchResults) searchResults.classList.add('hidden');
+      if (searchNoResults) searchNoResults.classList.add('hidden');
+    }
+
+    // Initialize on page load
+    initializeSearchModal();
+
+    async function performPredictiveSearch(query) {
+      try {
+        const response = await fetch(
+          `/search/suggest.json?q=${encodeURIComponent(query)}&resources[type]=product&resources[limit]=6`,
+        );
+
+        if (!response.ok) {
+          throw new Error('Search request failed');
+        }
+
+        const data = await response.json();
+        console.log('Search API response:', data); // Debug log
+
+        // Handle the suggest.json response structure
+        let results = [];
+        if (data.resources && data.resources.results) {
+          // Check if results is an array or object
+          if (Array.isArray(data.resources.results)) {
+            results = data.resources.results;
+          } else if (typeof data.resources.results === 'object') {
+            // If results is an object, extract products from it
+            const resultsObj = data.resources.results;
+            Object.keys(resultsObj).forEach((key) => {
+              if (Array.isArray(resultsObj[key])) {
+                results.push(...resultsObj[key]);
+              }
+            });
           }
+        } else if (data.resources && data.resources.products && Array.isArray(data.resources.products)) {
+          results = data.resources.products;
+        } else if (data.results && Array.isArray(data.results)) {
+          results = data.results;
+        } else if (data.products && Array.isArray(data.products)) {
+          results = data.products;
+        }
 
-          // Fix URL handling - ensure it's a string
-          let productUrl = '';
-          if (result.handle) {
-            productUrl = `/products/${result.handle}`;
-          } else if (typeof result.url === 'string') {
-            productUrl = result.url;
-          } else if (result.id) {
-            productUrl = `/products/${result.id}`;
-          } else {
-            console.log(`Skipping result ${index} - no valid URL`);
-            return;
-          }
+        console.log('Extracted results:', results); // Log the final results
 
-          const title = highlightQuery(result.title, query);
+        hideSearchLoading();
+        displaySearchResults(results, query);
+      } catch (error) {
+        console.error('Search error:', error);
+        hideSearchLoading();
+        showNoResults();
+      }
+    }
 
-          // Fix price handling
-          let priceDisplay = '';
-          if (result.price) {
-            priceDisplay = `<span class="text-primary font-semibold">$${result.price}</span>`;
-          } else if (result.price_min) {
-            priceDisplay = `<span class="text-primary font-semibold">$${result.price_min}</span>`;
-          }
+    function displaySearchResults(results, query) {
+      if (!searchResults) return;
 
-          // Fix image handling - prioritize image field from API
-          let imageDisplay = '';
-          if (result.image) {
-            imageDisplay = `<img src="${result.image}" alt="${result.title}" class="w-12 h-12 object-cover rounded-lg">`;
-          } else if (result.featured_image) {
-            imageDisplay = `<img src="${result.featured_image}" alt="${result.title}" class="w-12 h-12 object-cover rounded-lg">`;
-          }
+      // Debug: Log the results structure
+      console.log('Displaying results:', results);
 
-          // Determine result type for styling
-          const resultType = result.type || 'product';
-          const typeLabel = 'Product';
+      // Ensure results is an array and has items
+      if (!Array.isArray(results) || results.length === 0) {
+        showNoResults();
+        return;
+      }
 
-          html += `
+      let html = '<div class="space-y-4">';
+
+      results.forEach((result, index) => {
+        console.log(`Result ${index}:`, result);
+
+        // Ensure result has required properties
+        if (!result || !result.title) {
+          console.log(`Skipping result ${index} - missing title`);
+          return; // Skip invalid results
+        }
+
+        // Fix URL handling - ensure it's a string
+        let productUrl = '';
+        if (result.handle) {
+          productUrl = `/products/${result.handle}`;
+        } else if (typeof result.url === 'string') {
+          productUrl = result.url;
+        } else if (result.id) {
+          productUrl = `/products/${result.id}`;
+        } else {
+          console.log(`Skipping result ${index} - no valid URL`);
+          return;
+        }
+
+        const title = highlightQuery(result.title, query);
+
+        // Fix price handling
+        let priceDisplay = '';
+        if (result.price) {
+          priceDisplay = `<span class="text-primary font-semibold">$${result.price}</span>`;
+        } else if (result.price_min) {
+          priceDisplay = `<span class="text-primary font-semibold">$${result.price_min}</span>`;
+        }
+
+        // Fix image handling - prioritize image field from API
+        let imageDisplay = '';
+        if (result.image) {
+          imageDisplay = `<img src="${result.image}" alt="${result.title}" class="w-12 h-12 object-cover rounded-lg">`;
+        } else if (result.featured_image) {
+          imageDisplay = `<img src="${result.featured_image}" alt="${result.title}" class="w-12 h-12 object-cover rounded-lg">`;
+        }
+
+        // Determine result type for styling
+        const resultType = result.type || 'product';
+        const typeLabel = 'Product';
+
+        html += `
             <a href="${productUrl}" class="search-result-item flex items-center gap-4 p-3 rounded-lg hover:bg-gray-800/60 transition-colors duration-200 group">
               <div class="flex-shrink-0">
                 ${imageDisplay}
@@ -828,28 +827,27 @@
               </div>
             </a>
           `;
-        });
+      });
 
-        html += '</div>';
+      html += '</div>';
 
-        searchResults.innerHTML = html;
-        searchResults.classList.remove('hidden');
-        if (searchNoResults) searchNoResults.classList.add('hidden');
-      }
+      searchResults.innerHTML = html;
+      searchResults.classList.remove('hidden');
+      if (searchNoResults) searchNoResults.classList.add('hidden');
+    }
 
-      function showNoResults() {
-        if (searchNoResults) searchNoResults.classList.remove('hidden');
-        if (searchResults) searchResults.classList.add('hidden');
-      }
+    function showNoResults() {
+      if (searchNoResults) searchNoResults.classList.remove('hidden');
+      if (searchResults) searchResults.classList.add('hidden');
+    }
 
-      function highlightQuery(text, query) {
-        if (!query) return text;
-        const regex = new RegExp(`(${query})`, 'gi');
-        return text.replace(regex, '<mark class="bg-primary/20 text-primary px-1 rounded">$1</mark>');
-      }
-    });
-  </script>
-</header-drawer>
+    function highlightQuery(text, query) {
+      if (!query) return text;
+      const regex = new RegExp(`(${query})`, 'gi');
+      return text.replace(regex, '<mark class="bg-primary/20 text-primary px-1 rounded">$1</mark>');
+    }
+  });
+</script>
 
 {% schema %}
 {
