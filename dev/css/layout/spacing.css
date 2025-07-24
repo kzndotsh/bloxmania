@@ -5,5 +5,27 @@
 /* This file will be populated in task 4.4 */
 
 @layer utilities {
-  /* Spacing utilities will be implemented here */
+  /* Margin Utilities */
+  .m-xs { margin: var(--spacing-xs) !important; }
+  .m-sm { margin: var(--spacing-sm) !important; }
+  .m-md { margin: var(--spacing-md) !important; }
+  .m-lg { margin: var(--spacing-lg) !important; }
+  .m-xl { margin: var(--spacing-xl) !important; }
+  .m-2xl { margin: var(--spacing-2xl) !important; }
+
+  /* Padding Utilities */
+  .p-xs { padding: var(--spacing-xs) !important; }
+  .p-sm { padding: var(--spacing-sm) !important; }
+  .p-md { padding: var(--spacing-md) !important; }
+  .p-lg { padding: var(--spacing-lg) !important; }
+  .p-xl { padding: var(--spacing-xl) !important; }
+  .p-2xl { padding: var(--spacing-2xl) !important; }
+
+  /* Gap Utilities (for flex & grid) */
+  .gap-xs { gap: var(--spacing-xs); }
+  .gap-sm { gap: var(--spacing-sm); }
+  .gap-md { gap: var(--spacing-md); }
+  .gap-lg { gap: var(--spacing-lg); }
+  .gap-xl { gap: var(--spacing-xl); }
+  .gap-2xl { gap: var(--spacing-2xl); }
 }

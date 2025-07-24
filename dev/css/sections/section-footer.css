@@ -2,8 +2,20 @@
 /* Footer section specific styles */
 
 @layer components {
-  /* Footer section styles will be implemented in later tasks */
   .section-footer {
-    /* Placeholder for footer section styles */
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .section-footer__newsletter {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .section-footer__social {
+    display: flex;
+    gap: var(--spacing-md);
   }
 }

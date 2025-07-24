@@ -5,5 +5,32 @@
 /* This file will be populated in task 4.3 */
 
 @layer components {
-  /* Footer layout styles will be implemented here */
+  .footer {
+    background: var(--color-surface);
+    color: rgb(var(--color-foreground-rgb));
+    padding-top: var(--section-padding-top);
+    padding-bottom: var(--section-padding-bottom);
+  }
+
+  .footer__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  @media (min-width: var(--breakpoint-lg)) {
+    .footer__inner {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  .footer__logo {
+    max-width: 180px;
+  }
+
+  .footer__social {
+    display: flex;
+    gap: var(--spacing-md);
+  }
 }

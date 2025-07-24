@@ -4,6 +4,15 @@
 @layer components {
   /* Hero section styles will be implemented in later tasks */
   .section-hero {
-    /* Placeholder for hero section styles */
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .section-hero__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
   }
 }
