@@ -198,4 +198,40 @@
     width: 20px;
     height: 20px;
   }
+
+  /* Predictive search results (new utility classes) */
+  .search-results__image {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .search-results__title {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: rgb(var(--color-foreground-rgb));
+    margin: 0 0 0.25rem;
+  }
+
+  .search-results__price {
+    font-size: var(--font-size-xs);
+    color: var(--color-primary);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .search-results__item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background var(--duration-default) var(--easing-smooth), transform var(--duration-default) var(--easing-smooth);
+  }
+
+  .search-results__item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+  }
 }
