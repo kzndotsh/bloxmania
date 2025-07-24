@@ -2,10 +2,26 @@
 /* Hover, focus, active state utilities */
 
 @layer utilities {
-  /* State utilities will be implemented in later tasks */
+  /* Loading State (opacity & pointer-events) */
+  .is-loading {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: progress;
+  }
 
-  /* Consistent interaction patterns */
-  .states-placeholder {
-    /* Placeholder for state utilities */
+  /* Disabled State */
+  .is-disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
+  /* Active State scaling */
+  .active-scale {
+    transition: transform var(--duration-fast) var(--easing-smooth);
+  }
+
+  .active-scale:active {
+    transform: scale(0.97);
   }
 }
