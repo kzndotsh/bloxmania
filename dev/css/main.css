@@ -22,6 +22,7 @@
 @import "./components/component-mobile-menu.css";
 @import "./components/component-product-form.css";
 @import "./components/component-hero.css";
+@import "./components/component-search-modal.css";
 
 /* Sections Layer - Section-specific styles */
 @import "./sections/section-header.css";
