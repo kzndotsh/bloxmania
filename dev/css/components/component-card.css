@@ -1,0 +1,8 @@
+/* Card Component Styles */
+/* This file contains all card-related styles using design tokens */
+
+@layer components {
+  .card {
+    /* Base card styles will be implemented in task 5.2 */
+  }
+}

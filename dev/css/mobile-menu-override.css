@@ -1,0 +1,238 @@
+/* ===== MOBILE MENU OVERRIDE CSS ===== */
+/* High-specificity rules to force mobile menu visibility */
+/* This file should be imported LAST to override all other styles */
+
+/* Force mobile menu header to be ALWAYS VISIBLE - regardless of state */
+#mobile-menu .mobile-menu__header,
+.mobile-menu .mobile-menu__header,
+.mobile-menu--open .mobile-menu__header,
+body .mobile-menu .mobile-menu__header,
+body .mobile-menu--open .mobile-menu__header,
+body .mobile-menu.mobile-menu--open .mobile-menu__header,
+#mobile-menu.mobile-menu--open .mobile-menu__header,
+.mobile-menu.mobile-menu--open .mobile-menu__header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 1.5rem !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(15, 23, 42, 0.6) 100%) !important;
+  backdrop-filter: blur(16px) saturate(150%) !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 80px !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  z-index: 999999 !important;
+  position: relative !important;
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
+  overflow: visible !important;
+  clip: auto !important;
+  margin: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Force mobile menu logo link to be ALWAYS VISIBLE - regardless of state */
+#mobile-menu .mobile-menu__logo-link,
+.mobile-menu .mobile-menu__logo-link,
+.mobile-menu--open .mobile-menu__logo-link,
+body .mobile-menu .mobile-menu__logo-link,
+body .mobile-menu--open .mobile-menu__logo-link,
+body .mobile-menu.mobile-menu--open .mobile-menu__logo-link,
+#mobile-menu.mobile-menu--open .mobile-menu__logo-link,
+.mobile-menu.mobile-menu--open .mobile-menu__logo-link {
+  display: flex !important;
+  align-items: center !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  text-decoration: none !important;
+  color: white !important;
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
+  position: relative !important;
+  width: auto !important;
+  height: auto !important;
+  overflow: visible !important;
+  clip: auto !important;
+  margin: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Force mobile menu logo to be ALWAYS VISIBLE - regardless of state */
+#mobile-menu .mobile-menu__logo,
+.mobile-menu .mobile-menu__logo,
+.mobile-menu--open .mobile-menu__logo,
+body .mobile-menu .mobile-menu__logo,
+body .mobile-menu--open .mobile-menu__logo,
+body .mobile-menu.mobile-menu--open .mobile-menu__logo,
+#mobile-menu.mobile-menu--open .mobile-menu__logo,
+.mobile-menu.mobile-menu--open .mobile-menu__logo {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: 40px !important;
+  width: auto !important;
+  max-width: 160px !important;
+  object-fit: contain !important;
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
+  position: relative !important;
+  overflow: visible !important;
+  clip: auto !important;
+  margin: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Force mobile menu close button to be ALWAYS VISIBLE - regardless of state */
+#mobile-menu .mobile-menu__close,
+.mobile-menu .mobile-menu__close,
+.mobile-menu--open .mobile-menu__close,
+body .mobile-menu .mobile-menu__close,
+body .mobile-menu--open .mobile-menu__close,
+body .mobile-menu.mobile-menu--open .mobile-menu__close,
+#mobile-menu.mobile-menu--open .mobile-menu__close,
+.mobile-menu.mobile-menu--open .mobile-menu__close {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 48px !important;
+  height: 48px !important;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 40%, rgba(255, 255, 255, 0.03) 70%, transparent 100%) !important;
+  border-radius: 50% !important;
+  color: white !important;
+  border: none !important;
+  cursor: pointer !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  z-index: 999999 !important;
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
+  position: relative !important;
+  overflow: visible !important;
+  clip: auto !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Force mobile menu close icon to be ALWAYS VISIBLE - regardless of state */
+#mobile-menu .mobile-menu__close-icon,
+.mobile-menu .mobile-menu__close-icon,
+.mobile-menu--open .mobile-menu__close-icon,
+body .mobile-menu .mobile-menu__close-icon,
+body .mobile-menu--open .mobile-menu__close-icon,
+body .mobile-menu.mobile-menu--open .mobile-menu__close-icon,
+#mobile-menu.mobile-menu--open .mobile-menu__close-icon,
+.mobile-menu.mobile-menu--open .mobile-menu__close-icon {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 24px !important;
+  height: 24px !important;
+  color: white !important;
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
+  position: relative !important;
+  overflow: visible !important;
+  clip: auto !important;
+  margin: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Ensure mobile menu container is properly positioned */
+#mobile-menu,
+.mobile-menu,
+#mobile-menu.mobile-menu--open,
+.mobile-menu--open,
+body .mobile-menu,
+body .mobile-menu--open {
+  z-index: 999999 !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100vh !important;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.9) 100%) !important;
+  backdrop-filter: blur(20px) saturate(200%) !important;
+}
+
+/* Force mobile menu to be visible when open */
+#mobile-menu.mobile-menu--open,
+.mobile-menu--open,
+body .mobile-menu--open {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: translateX(0) !important;
+}
+
+/* Override any display:none rules */
+#mobile-menu[style*="display: none"] .mobile-menu__header,
+.mobile-menu[style*="display: none"] .mobile-menu__header,
+#mobile-menu[style*="display: none"] .mobile-menu__logo-link,
+.mobile-menu[style*="display: none"] .mobile-menu__logo-link,
+#mobile-menu[style*="display: none"] .mobile-menu__logo,
+.mobile-menu[style*="display: none"] .mobile-menu__logo,
+#mobile-menu[style*="display: none"] .mobile-menu__close,
+.mobile-menu[style*="display: none"] .mobile-menu__close,
+#mobile-menu[style*="display: none"] .mobile-menu__close-icon,
+.mobile-menu[style*="display: none"] .mobile-menu__close-icon {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 480px) {
+  #mobile-menu .mobile-menu__header,
+  .mobile-menu .mobile-menu__header,
+  #mobile-menu.mobile-menu--open .mobile-menu__header,
+  .mobile-menu--open .mobile-menu__header,
+  body .mobile-menu .mobile-menu__header,
+  body .mobile-menu--open .mobile-menu__header {
+    padding: 1rem !important;
+    min-height: 70px !important;
+  }
+
+  #mobile-menu .mobile-menu__logo,
+  .mobile-menu .mobile-menu__logo,
+  #mobile-menu.mobile-menu--open .mobile-menu__logo,
+  .mobile-menu--open .mobile-menu__logo,
+  body .mobile-menu .mobile-menu__logo,
+  body .mobile-menu--open .mobile-menu__logo {
+    height: 35px !important;
+  }
+
+  #mobile-menu .mobile-menu__close,
+  .mobile-menu .mobile-menu__close,
+  #mobile-menu.mobile-menu--open .mobile-menu__close,
+  .mobile-menu--open .mobile-menu__close,
+  body .mobile-menu .mobile-menu__close,
+  body .mobile-menu--open .mobile-menu__close {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  #mobile-menu .mobile-menu__close-icon,
+  .mobile-menu .mobile-menu__close-icon,
+  #mobile-menu.mobile-menu--open .mobile-menu__close-icon,
+  .mobile-menu--open .mobile-menu__close-icon,
+  body .mobile-menu .mobile-menu__close-icon,
+  body .mobile-menu--open .mobile-menu__close-icon {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}

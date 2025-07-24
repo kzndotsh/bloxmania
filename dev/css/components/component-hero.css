@@ -1,0 +1,8 @@
+/* Hero Component Styles */
+/* This file contains hero section component styles using design tokens */
+
+@layer components {
+  .hero {
+    /* Hero component styles will be implemented in task 5.5 */
+  }
+}

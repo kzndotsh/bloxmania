@@ -64,6 +64,7 @@ class SimpleBundler {
       "features/customer.js",
       "features/gallery.js",
       "features/quick-add.js",
+      "features/mobile-menu.js",
     ];
 
     // UI files

@@ -1,0 +1,39 @@
+/* BloxMania CSS Architecture - Main Entry Point */
+/* This file imports all CSS modules in the correct order for proper cascade */
+
+/* Design Tokens - CSS Custom Properties */
+@import "./design-tokens.css";
+
+/* Base Layer - Reset, typography, animations, accessibility */
+@import "./base/reset.css";
+@import "./base/typography.css";
+@import "./base/animations.css";
+@import "./base/accessibility.css";
+
+/* Layout Layer - Header, footer, grid, spacing */
+@import "./layout/header.css";
+@import "./layout/footer.css";
+@import "./layout/grid.css";
+@import "./layout/spacing.css";
+
+/* Components Layer - Reusable component styles */
+@import "./components/component-button.css";
+@import "./components/component-card.css";
+@import "./components/component-mobile-menu.css";
+@import "./components/component-product-form.css";
+@import "./components/component-hero.css";
+
+/* Sections Layer - Section-specific styles */
+@import "./sections/section-header.css";
+@import "./sections/section-footer.css";
+@import "./sections/section-hero.css";
+
+/* Utilities Layer - Responsive, states, overrides */
+@import "./utilities/responsive.css";
+@import "./utilities/states.css";
+@import "./utilities/overrides.css";
+
+/* Tailwind CSS Layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

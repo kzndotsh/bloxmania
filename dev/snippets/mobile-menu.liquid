@@ -1,0 +1,214 @@
+{% comment %}
+  Mobile Menu Snippet
+  Include this snippet in header.liquid to restore mobile menu functionality
+  Usage: {% render 'mobile-menu' %}
+{% endcomment %}
+
+<div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true">
+  <!-- Mobile Menu Header -->
+  <div class="mobile-menu__header">
+    <!-- Mobile Logo -->
+    <a href="{{ routes.root_url }}" class="mobile-menu__logo-link">
+      {% if section.settings.logo != blank %}
+        <img
+          src="{{ section.settings.logo | image_url: width: 160 }}"
+          alt="{{ shop.name }}"
+          class="mobile-menu__logo"
+          width="160"
+          height="40"
+          loading="lazy"
+        >
+      {% else %}
+        <span class="text-xl font-bold text-white">{{ shop.name }}</span>
+      {% endif %}
+    </a>
+
+    <!-- Close Button -->
+    <button
+      type="button"
+      class="mobile-menu__close"
+      aria-label="Close mobile menu"
+    >
+      <svg class="mobile-menu__close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Menu Content -->
+  <div class="mobile-menu__content">
+    <!-- User Section (if logged in) -->
+    {% if customer %}
+      <div class="mobile-menu__user-section">
+        <div class="mobile-menu__user-info">
+          <div class="mobile-menu__user-avatar">
+            <svg class="w-6 h-6 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <div class="mobile-menu__user-details">
+            <h3 class="mobile-menu__user-name">
+              {{ customer.first_name }}
+              {{ customer.last_name }}
+            </h3>
+            <p class="mobile-menu__user-email">{{ customer.email }}</p>
+          </div>
+        </div>
+        <div class="mobile-menu__user-actions">
+          <a href="{{ routes.account_url }}" class="mobile-menu__user-action-btn">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            </svg>
+            Account
+          </a>
+          <a href="{{ routes.account_logout_url }}" class="mobile-menu__user-action-btn">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+            </svg>
+            Logout
+          </a>
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- Search Section -->
+    <div class="mobile-menu__search">
+      <form action="{{ routes.search_url }}" method="get" class="mobile-menu__search-form" role="search">
+        <div class="mobile-menu__search-wrapper">
+          <input
+            type="search"
+            name="q"
+            placeholder="Search products..."
+            class="mobile-menu__search-input"
+            aria-label="Search products"
+          >
+          <button type="submit" class="mobile-menu__search-submit" aria-label="Submit search">
+            <svg class="mobile-menu__search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="mobile-menu__quick-actions">
+      <h3 class="mobile-menu__section-title">Quick Actions</h3>
+      <div class="mobile-menu__quick-actions-grid">
+        <a href="{{ routes.cart_url }}" class="mobile-menu__quick-action">
+          <div class="mobile-menu__quick-action-icon">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"></path>
+            </svg>
+            {% if cart.item_count > 0 %}
+              <span class="mobile-menu__cart-badge">{{ cart.item_count }}</span>
+            {% endif %}
+          </div>
+          <span class="mobile-menu__quick-action-text">Cart</span>
+        </a>
+
+        <a href="{{ routes.account_url }}" class="mobile-menu__quick-action">
+          <div class="mobile-menu__quick-action-icon">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            </svg>
+          </div>
+          <span class="mobile-menu__quick-action-text">Account</span>
+        </a>
+
+        <a href="{{ routes.root_url }}" class="mobile-menu__quick-action">
+          <div class="mobile-menu__quick-action-icon">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+            </svg>
+          </div>
+          <span class="mobile-menu__quick-action-text">Home</span>
+        </a>
+
+        <a href="{{ routes.search_url }}" class="mobile-menu__quick-action">
+          <div class="mobile-menu__quick-action-icon">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+          <span class="mobile-menu__quick-action-text">Search</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="mobile-menu__navigation">
+      <div class="mobile-menu__nav-section">
+        <div class="mobile-menu__nav-list">
+          {% for link in linklists['main-menu'].links %}
+            <a href="{{ link.url }}" class="mobile-menu__nav-link">
+              <div class="mobile-menu__nav-icon">
+                {% case link.title %}
+                  {% when 'Products' %}
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                    </svg>
+                  {% when 'Collections' %}
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                    </svg>
+                  {% when 'About' %}
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                  {% when 'Contact' %}
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                  {% else %}
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                {% endcase %}
+              </div>
+              <span class="mobile-menu__nav-text">{{ link.title }}</span>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Social Links -->
+    <div class="mobile-menu__social">
+      <div class="mobile-menu__social-links">
+        <a href="#" class="mobile-menu__social-link" aria-label="Follow us on Facebook">
+          <svg class="mobile-menu__social-icon" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+          <span class="mobile-menu__social-text">Facebook</span>
+        </a>
+        <a href="#" class="mobile-menu__social-link" aria-label="Follow us on Twitter">
+          <svg class="mobile-menu__social-icon" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+          </svg>
+          <span class="mobile-menu__social-text">Twitter</span>
+        </a>
+        <a href="#" class="mobile-menu__social-link" aria-label="Follow us on Instagram">
+          <svg class="mobile-menu__social-icon" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987 6.62 0 11.987-5.367 11.987-11.987C24.014 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.323-1.297C4.198 14.895 3.708 13.744 3.708 12.447s.49-2.448 1.297-3.323c.875-.807 2.026-1.297 3.323-1.297s2.448.49 3.323 1.297c.807.875 1.297 2.026 1.297 3.323s-.49 2.448-1.297 3.323c-.875.807-2.026 1.297-3.323 1.297zm7.83-9.781c-.49 0-.875-.385-.875-.875s.385-.875.875-.875.875.385.875.875-.385.875-.875.875zm-7.83 9.781c-2.026 0-3.673-1.647-3.673-3.673s1.647-3.673 3.673-3.673 3.673 1.647 3.673 3.673-1.647 3.673-3.673 3.673z"/>
+          </svg>
+          <span class="mobile-menu__social-text">Instagram</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="mobile-menu__footer">
+      <div class="mobile-menu__footer-links">
+        <a href="{{ routes.root_url }}/pages/privacy-policy" class="mobile-menu__footer-link">Privacy</a>
+        <a href="{{ routes.root_url }}/pages/terms-of-service" class="mobile-menu__footer-link">Terms</a>
+        <a href="{{ routes.root_url }}/pages/contact" class="mobile-menu__footer-link">Contact</a>
+        <a href="{{ routes.root_url }}/pages/help" class="mobile-menu__footer-link">Help</a>
+      </div>
+      <p class="mobile-menu__footer-copyright">
+        © {{ 'now' | date: '%Y' }}
+        {{ shop.name }}. All rights reserved.
+      </p>
+    </div>
+  </div>
+</div>

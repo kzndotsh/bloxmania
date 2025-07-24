@@ -1,0 +1,292 @@
+/* BloxMania Design Tokens - CSS Custom Properties */
+/* Centralized design system variables for consistent theming */
+
+:root {
+  /* Colors - Primary (Yellow) */
+  --color-primary: #ffd800;
+  --color-primary-50: #fffbeb;
+  --color-primary-100: #fff3c4;
+  --color-primary-200: #ffe285;
+  --color-primary-300: #ffca46;
+  --color-primary-400: #ffb31b;
+  --color-primary-500: #ffd800;
+  --color-primary-600: #d97706;
+  --color-primary-700: #b45309;
+  --color-primary-800: #92400e;
+  --color-primary-900: #78350f;
+  --color-primary-light: #ffed4e;
+
+  /* Colors - Secondary (Blue) */
+  --color-secondary: #4791f0;
+  --color-secondary-50: #eff6ff;
+  --color-secondary-100: #dbeafe;
+  --color-secondary-200: #bfdbfe;
+  --color-secondary-300: #93c5fd;
+  --color-secondary-400: #60a5fa;
+  --color-secondary-500: #4791f0;
+  --color-secondary-600: #2563eb;
+  --color-secondary-700: #1d4ed8;
+  --color-secondary-800: #1e40af;
+  --color-secondary-900: #1e3a8a;
+
+  /* Colors - Background & Surface */
+  --color-background: #1d1e26;
+  --color-background-rgb: 29 30 38;
+  --color-surface: #252730;
+  --color-surface-rgb: 37 39 48;
+  --color-surface-dark: #0f172a;
+  --color-foreground: #ffffff;
+  --color-foreground-rgb: 255 255 255;
+  --color-accent: #59bab9;
+  --color-border: #333441;
+  --color-border-rgb: 51 52 65;
+
+  /* Colors - Gray Scale */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  /* Colors - Slate Scale */
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+
+  /* Colors - Semantic */
+  --color-success: #10b981;
+  --color-success-light: #22c55e;
+  --color-warning: #f59e0b;
+  --color-warning-light: #fbbf24;
+  --color-error: #ef4444;
+  --color-error-light: #fca5a5;
+  --color-info: #3b82f6;
+
+  /* Colors - Special Effects */
+  --color-shadow: 0 0 0;
+  --color-button: var(--color-primary);
+  --color-button-text: 0 0 0;
+  --color-button-hover: 217 119 6;
+
+  /* Spacing Scale */
+  --spacing-xs: 0.25rem;    /* 4px */
+  --spacing-sm: 0.5rem;     /* 8px */
+  --spacing-md: 1rem;       /* 16px */
+  --spacing-lg: 1.5rem;     /* 24px */
+  --spacing-xl: 2rem;       /* 32px */
+  --spacing-2xl: 3rem;      /* 48px */
+  --spacing-3xl: 4rem;      /* 64px */
+  --spacing-4xl: 6rem;      /* 96px */
+  --spacing-5xl: 8rem;      /* 128px */
+
+  /* Layout & Container */
+  --page-width: 1280px;
+  --container-padding: 1.5rem;
+  --section-padding-top: 3rem;
+  --section-padding-bottom: 3rem;
+  --section-padding-top-desktop: 4rem;
+  --section-padding-bottom-desktop: 4rem;
+
+  /* Typography Scale */
+  --font-family-base: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-family-heading: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+
+  --font-size-xs: 0.75rem;     /* 12px */
+  --font-size-sm: 0.875rem;    /* 14px */
+  --font-size-base: 1rem;      /* 16px */
+  --font-size-lg: 1.125rem;    /* 18px */
+  --font-size-xl: 1.25rem;     /* 20px */
+  --font-size-2xl: 1.5rem;     /* 24px */
+  --font-size-3xl: 1.875rem;   /* 30px */
+  --font-size-4xl: 2.25rem;    /* 36px */
+  --font-size-5xl: 3rem;       /* 48px */
+  --font-size-6xl: 3.75rem;    /* 60px */
+  --font-size-7xl: 4.5rem;     /* 72px */
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
+
+  --line-height-tight: 1.25;
+  --line-height-snug: 1.375;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  --line-height-loose: 2;
+
+  /* Typography Scales */
+  --font-body-scale: 1;
+  --font-heading-scale: 1.2;
+
+  /* Transitions & Animations */
+  --duration-fast: 0.15s;
+  --duration-short: 0.2s;
+  --duration-default: 0.3s;
+  --duration-medium: 0.4s;
+  --duration-slow: 0.5s;
+  --duration-long: 0.6s;
+  --duration-card: 0.6s;
+  --duration-very-slow: 1s;
+
+  --easing-linear: linear;
+  --easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --easing-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --easing-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --easing-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --easing-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Z-index Scale */
+  --z-base: 0;
+  --z-behind: -1;
+  --z-default: 1;
+  --z-above: 10;
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-toast: 1080;
+  --z-mobile-menu: 9999;
+  --z-mobile-menu-toggle: 10000;
+  --z-maximum: 999999;
+
+  /* Border Radius */
+  --radius-none: 0;
+  --radius-sm: 0.25rem;     /* 4px */
+  --radius-md: 0.5rem;      /* 8px */
+  --radius-lg: 0.75rem;     /* 12px */
+  --radius-xl: 1rem;        /* 16px */
+  --radius-2xl: 1.5rem;     /* 24px */
+  --radius-3xl: 2rem;       /* 32px */
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-none: none;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  --shadow-glow: 0 0 20px rgba(255, 216, 0, 0.3);
+  --shadow-glow-secondary: 0 0 20px rgba(71, 145, 240, 0.3);
+  --shadow-glow-strong: 0 0 30px rgba(255, 216, 0, 0.5);
+  --shadow-card: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1), 0 0 20px rgba(255, 216, 0, 0.2);
+  --shadow-header: 0 2px 12px rgba(0, 0, 0, 0.15);
+  --shadow-button: 0 4px 15px rgba(255, 216, 0, 0.3);
+  --shadow-button-hover: 0 6px 20px rgba(255, 216, 0, 0.4);
+
+  /* Opacity Scale */
+  --opacity-0: 0;
+  --opacity-5: 0.05;
+  --opacity-10: 0.1;
+  --opacity-20: 0.2;
+  --opacity-25: 0.25;
+  --opacity-30: 0.3;
+  --opacity-40: 0.4;
+  --opacity-50: 0.5;
+  --opacity-60: 0.6;
+  --opacity-70: 0.7;
+  --opacity-75: 0.75;
+  --opacity-80: 0.8;
+  --opacity-85: 0.85;
+  --opacity-90: 0.9;
+  --opacity-95: 0.95;
+  --opacity-100: 1;
+
+  /* Backdrop Blur */
+  --backdrop-blur-none: none;
+  --backdrop-blur-xs: blur(2px);
+  --backdrop-blur-sm: blur(4px);
+  --backdrop-blur-md: blur(8px);
+  --backdrop-blur-lg: blur(12px);
+  --backdrop-blur-xl: blur(16px);
+  --backdrop-blur-2xl: blur(20px);
+
+  /* Alpha Values for Backgrounds */
+  --alpha-button-background: 1;
+  --alpha-button-border: 1;
+  --alpha-link: 0.85;
+  --alpha-badge-border: 0.1;
+
+  /* Background Images */
+  --featured-bg-image: url("image-hero-bg.jpg");
+  --widget-bg-image: url("image-widget-backing.png");
+  --why-choose-bg-image: url("image-hero-bg.jpg");
+  --hero-bg-desktop: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.6)), url("image-hero-bg.jpg");
+  --hero-bg-mobile: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.6)), url("image-hero.png");
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #ffd800 0%, #ffed4e 100%);
+  --gradient-primary-reverse: linear-gradient(135deg, #ffed4e 0%, #ffd800 100%);
+  --gradient-secondary: linear-gradient(135deg, #4791f0 0%, #2563eb 100%);
+  --gradient-text: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  --gradient-card: linear-gradient(135deg, rgba(31, 41, 55, 0.6) 0%, rgba(17, 24, 39, 0.6) 100%);
+  --gradient-card-hover: linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.8) 100%);
+  --gradient-error: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05));
+  --gradient-success: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.05));
+
+  /* Header Variables */
+  --header-height: 120px;
+  --header-height-mobile: 100px;
+  --header-height-small: 90px;
+  --header-bg-opacity-start: 0.05;
+  --header-bg-opacity-end: 0.6;
+  --header-blur-start: 0;
+  --header-blur-end: 16px;
+  --header-border-opacity-start: 0.03;
+  --header-border-opacity-end: 0.08;
+
+  /* Animation Delays */
+  --delay-0: 0s;
+  --delay-100: 0.1s;
+  --delay-200: 0.2s;
+  --delay-300: 0.3s;
+  --delay-400: 0.4s;
+  --delay-500: 0.5s;
+  --delay-600: 0.6s;
+
+  /* Aspect Ratios */
+  --ratio-square: 1;
+  --ratio-video: 16/9;
+  --ratio-golden: 1.618;
+  --ratio-percent: 100%;
+
+  /* Breakpoints (for reference in CSS) */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* Legacy Support (for existing code compatibility) */
+  --background: rgb(var(--color-background-rgb));
+  --foreground: rgb(var(--color-foreground-rgb));
+  --primary-color: rgb(var(--color-primary));
+  --border-radius-sm: var(--radius-sm);
+  --border-radius: var(--radius-md);
+  --border-radius-lg: var(--radius-lg);
+  --border-radius-xl: var(--radius-xl);
+  --shadow: var(--shadow-md);
+  --duration-short: var(--duration-short);
+  --duration-long: var(--duration-long);
+  --scroll-progress: 0;
+}

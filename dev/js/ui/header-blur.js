@@ -49,7 +49,7 @@
     initializeHeader() {
       // Start with transparent state
       this.header.classList.add("header--transparent");
-      this.header.classList.remove("header--blurred");
+      this.header.classList.remove("header--fixed");
       this.header.style.setProperty("--header-blur-progress", "0");
     }
 
@@ -70,10 +70,10 @@
       // Apply appropriate classes
       if (scrollY > this.scrollThreshold) {
         this.header.classList.remove("header--transparent");
-        this.header.classList.add("header--blurred");
+        this.header.classList.add("header--fixed");
       } else {
         this.header.classList.add("header--transparent");
-        this.header.classList.remove("header--blurred");
+        this.header.classList.remove("header--fixed");
       }
     }
 
@@ -85,10 +85,10 @@
     }
   }
 
-  // Initialize header blur effect
-  const headerBlur = new HeaderBlur();
+  // Initialize header blur effect - DISABLED to prevent conflicts with main header.js
+  // const headerBlur = new HeaderBlur();
 
   // Export for global access if needed
   window.HeaderBlur = HeaderBlur;
-  window.headerBlur = headerBlur;
+  // window.headerBlur = headerBlur;
 })();

@@ -52,6 +52,18 @@ class HeaderManager {
     this.searchClose = document.querySelector("[data-search-close]");
     this.searchInput = document.querySelector(".search-modal__input");
 
+    // Log element finding results
+    console.log("HeaderManager: Element finding results:", {
+      header: this.header,
+      mobileMenu: this.mobileMenu,
+      mobileMenuToggle: this.mobileMenuToggle,
+      mobileMenuClose: this.mobileMenuClose,
+      searchModal: this.searchModal,
+      searchToggle: this.searchToggle,
+      searchClose: this.searchClose,
+      searchInput: this.searchInput,
+    });
+
     if (!this.header) {
       console.warn("Header element not found");
       console.log("Available header elements:", {
@@ -59,11 +71,10 @@ class HeaderManager {
         header: document.querySelector("header"),
         "#header": document.querySelector("#header"),
       });
-      return;
+    } else {
+      console.log("Header found:", this.header);
+      console.log("Header classes:", this.header.className);
     }
-
-    console.log("Header found:", this.header);
-    console.log("Header classes:", this.header.className);
   }
 
   setupScrollEffects() {
@@ -85,34 +96,33 @@ class HeaderManager {
         this.header.classList.add("header--dynamic");
         this.header.classList.add("header--fixed");
         this.header.classList.remove("header--transparent");
-        document.body.classList.add("header-fixed");
         console.log("Header is now fixed - scroll position:", scrollTop);
       } else {
         this.header.classList.remove("header--dynamic");
         this.header.classList.remove("header--fixed");
         this.header.classList.add("header--transparent");
-        document.body.classList.remove("header-fixed");
         console.log("Header is now transparent - scroll position:", scrollTop);
       }
 
-      // Hide/show header on scroll (optional)
-      if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
-        this.header.classList.add("header--hidden");
-      } else {
-        this.header.classList.remove("header--hidden");
+      // Keep header visible when scrolling - removed hide/show logic
+      // Header will remain visible and sticky when scrolling
+    };
+
+    // Add scroll event listener with throttling for better performance
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          updateHeaderStyles(scrollTop);
+          lastScrollTop = scrollTop;
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    // Add scroll event listener
-    window.addEventListener(
-      "scroll",
-      () => {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        updateHeaderStyles(scrollTop);
-        lastScrollTop = scrollTop;
-      },
-      { passive: true },
-    );
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     // Initial call to set correct state
     const initialScrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -121,6 +131,11 @@ class HeaderManager {
 
   setupMobileMenu() {
     if (!this.mobileMenu || !this.mobileMenuToggle || !this.mobileMenuClose) return;
+
+    // Ensure mobile menu is closed on page load
+    this.mobileMenu.classList.remove("mobile-menu--open");
+    this.mobileMenu.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("overflow-hidden");
 
     // Mobile menu toggle
     this.mobileMenuToggle.addEventListener("click", () => {
@@ -397,16 +412,15 @@ class HeaderManager {
   initializeHeaderState() {
     if (!this.header) return;
 
-    // Initialize header state on page load
+    // Initialize header state on page load - header starts transparent
     this.header.classList.add("header--transparent");
     this.header.classList.remove("header--dynamic");
     this.header.classList.remove("header--fixed");
-    this.header.classList.remove("header--hidden");
-    document.body.classList.remove("header-fixed");
+    this.header.classList.remove("header--hidden"); // Ensure header is never hidden
 
     // Force the header to be transparent on page load
     this.header.style.setProperty("--scroll-progress", "0");
-    console.log("🎯 HeaderManager: Header state initialized");
+    console.log("🎯 HeaderManager: Header state initialized - header will remain visible when scrolling");
   }
 }
 

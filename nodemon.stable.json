@@ -22,9 +22,12 @@
     "**/.git/**",
     "**/build/**",
     "**/theme/**",
-    "dev/images/**/*"
+    "dev/images/**/*",
+    "dev/layout/**/*",
+    "dev/config/**/*",
+    "dev/locales/**/*"
   ],
-  "delay": 2000,
+  "delay": 3000,
   "exec": "npm run build:dev",
   "env": {
     "NODE_ENV": "development"
@@ -48,7 +51,7 @@
     "ignorePermissionErrors": true,
     "atomic": true,
     "usePolling": false,
-    "interval": 1000,
-    "binaryInterval": 3000
+    "interval": 2000,
+    "binaryInterval": 5000
   }
-}
+} 
