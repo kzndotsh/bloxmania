@@ -65,6 +65,7 @@ class SimpleBundler {
       "features/gallery.js",
       "features/quick-add.js",
       "features/mobile-menu.js",
+      "features/guarantee-icons.js",
     ];
 
     // UI files
@@ -74,6 +75,7 @@ class SimpleBundler {
       "ui/modal.js",
       "ui/header.js",
       "ui/header-search-manager.js",
+      "ui/search-modal.js",
     ];
 
     // System files
