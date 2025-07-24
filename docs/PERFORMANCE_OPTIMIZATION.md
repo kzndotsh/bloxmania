@@ -40,8 +40,8 @@ This document outlines the performance optimizations implemented in the BloxMani
 
 // Feature bundles load based on page type
 if (pageType === 'product') {
-  loadScript('feature-product.js');
-  loadScript('feature-gallery.js');
+  loadScript('product.js');
+  loadScript('gallery.js');
 }
 ```
 

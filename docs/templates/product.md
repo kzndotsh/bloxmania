@@ -25,9 +25,9 @@ Minimal Product Page Template - Conversion Optimized Focus: Clear product info, 
 
 - **asset**: style-base.css
 
-- **asset**: feature-product.js
+- **asset**: product.js
 
-- **asset**: feature-gallery.js
+- **asset**: gallery.js
 
 
 ## Usage

@@ -145,9 +145,9 @@ Main product section following Dawn's patterns with BloxMania styling Includes c
 
 - **snippet**: related-products
 
-- **asset**: feature-product.js
+- **asset**: product.js
 
-- **asset**: feature-gallery.js
+- **asset**: gallery.js
 
 - **asset**: system-theme-editor.js
 

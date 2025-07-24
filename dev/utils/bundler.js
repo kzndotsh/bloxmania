@@ -57,12 +57,12 @@ class SimpleBundler {
 
     // Feature files
     const featureFiles = [
-      "features/feature-cart.js",
-      "features/feature-product.js",
-      "features/feature-search.js",
-      "features/feature-collection.js",
-      "features/feature-customer.js",
-      "features/feature-gallery.js",
+      "features/cart.js",
+      "features/product.js",
+      "features/search.js",
+      "features/collection.js",
+      "features/customer.js",
+      "features/gallery.js",
       "features/quick-add.js",
     ];
 

@@ -123,7 +123,7 @@ No blocks available.
 
 - **snippet**: pagination
 
-- **asset**: feature-collection.js
+- **asset**: collection.js
 
 - **asset**: ui-search-modal.js
 

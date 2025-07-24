@@ -33,7 +33,7 @@ No blocks available.
 
 - **snippet**: pagination
 
-- **asset**: feature-customer.js
+- **asset**: customer.js
 
 
 ## Usage
