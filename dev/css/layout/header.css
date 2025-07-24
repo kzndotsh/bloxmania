@@ -1,9 +1,51 @@
 /* BloxMania Layout - Header Styles */
 /* Header positioning and layout styles */
 
-/* Placeholder for header layout styles */
-/* This file will be populated in task 4.1 */
-
 @layer components {
-  /* Header layout styles will be implemented here */
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-fixed);
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    padding-inline: var(--container-padding);
+    transition: all var(--duration-default) var(--easing-smooth);
+    background: transparent;
+    backdrop-filter: none;
+  }
+
+  /* Header heights for mobile */
+  @media (max-width: calc(var(--breakpoint-md) - 1px)) {
+    .header {
+      height: var(--header-height-mobile);
+    }
+  }
+
+  /* Transparent state (default on top of page) */
+  .header--transparent {
+    background: transparent;
+  }
+
+  /* Scrolled state */
+  .header--scrolled {
+    background: rgba(var(--color-background-rgb), var(--header-bg-opacity-end));
+    backdrop-filter: blur(var(--header-blur-end));
+    box-shadow: var(--shadow-header);
+  }
+
+  /* Navigation wrapper */
+  .header__navigation {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    margin-left: auto;
+  }
+
+  /* Hide desktop nav when mobile menu open (handled by :has selector) */
+  body:has(.mobile-menu--open) .header__navigation {
+    display: none;
+  }
 }

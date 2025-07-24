@@ -3,6 +3,47 @@
 
 @layer components {
   .product-form {
-    /* Product form styles will be implemented in task 5.4 */
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .product-form__option-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .product-form__label {
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-sm);
+  }
+
+  .product-form__select,
+  .product-form__quantity-input {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: rgb(var(--color-foreground-rgb));
+    transition: border-color var(--duration-fast) var(--easing-smooth);
+  }
+
+  .product-form__select:focus,
+  .product-form__quantity-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+  }
+
+  .product-form__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
+
+  .product-form__error {
+    color: var(--color-error);
+    font-size: var(--font-size-sm);
   }
 }

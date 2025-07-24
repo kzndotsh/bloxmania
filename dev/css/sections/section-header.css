@@ -3,6 +3,31 @@
 
 @layer components {
   .section-header {
-    /* Header section styles will be implemented in task 6.1 */
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .section-header__logo {
+    flex-shrink: 0;
+  }
+
+  .section-header__nav {
+    margin-left: auto;
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: center;
+  }
+
+  .section-header__nav-link {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: rgb(var(--color-foreground-rgb));
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--easing-smooth);
+  }
+
+  .section-header__nav-link:hover {
+    color: var(--color-primary);
   }
 }

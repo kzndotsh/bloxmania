@@ -3,6 +3,51 @@
 
 @layer components {
   .mobile-menu {
-    /* Mobile menu styles will be implemented in task 5.3 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
+    backdrop-filter: var(--backdrop-blur-2xl);
+    z-index: var(--z-mobile-menu);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform var(--duration-default) var(--easing-smooth);
+  }
+
+  .mobile-menu--open {
+    transform: translateX(0);
+  }
+
+  /* Prevent body scroll when menu open */
+  body:has(.mobile-menu--open) {
+    overflow: hidden;
+  }
+
+  .mobile-menu__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  .mobile-menu__list {
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-lg);
+    gap: var(--spacing-md);
+  }
+
+  .mobile-menu__link {
+    font-size: var(--font-size-lg);
+    color: rgb(var(--color-foreground-rgb));
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--easing-smooth);
+  }
+
+  .mobile-menu__link:hover {
+    color: var(--color-primary);
   }
 }
