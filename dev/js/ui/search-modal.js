@@ -115,7 +115,8 @@ class SearchModal extends HTMLElement {
   }
 
   handleBackdropClick(event) {
-    if (event.target === this) {
+    const content = this.querySelector('.search-modal__content');
+    if (!content || !content.contains(event.target)) {
       this.close();
     }
   }
