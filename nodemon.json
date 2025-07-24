@@ -20,7 +20,7 @@
     ".DS_Store",
     "Thumbs.db"
   ],
-  "delay": 3000,
+  "delay": 5000,
   "exec": "npm run build:dev",
   "env": {
     "NODE_ENV": "development"
