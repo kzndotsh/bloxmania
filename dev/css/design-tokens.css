@@ -232,7 +232,7 @@
   --widget-bg-image: url("image-widget-backing.png");
   --why-choose-bg-image: url("image-hero-bg.jpg");
   --hero-bg-desktop: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.6)), url("image-hero-bg.jpg");
-  --hero-bg-mobile: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.6)), url("image-hero.png");
+  --hero-bg-mobile: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.6)), url("image-hero-bg.jpg");
 
   /* Gradients */
   --gradient-primary: linear-gradient(135deg, #ffd800 0%, #ffed4e 100%);
