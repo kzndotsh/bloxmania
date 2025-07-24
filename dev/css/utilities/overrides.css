@@ -21,4 +21,10 @@
     white-space: nowrap !important;
     border: 0 !important;
   }
+
+  .text-gradient {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }

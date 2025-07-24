@@ -23,6 +23,13 @@
     font-family: var(--font-family-base);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    padding-top: var(--header-height);
+  }
+
+  @media (max-width: calc(var(--breakpoint-md) - 1px)) {
+    body {
+      padding-top: var(--header-height-mobile);
+    }
   }
 
   /* Remove list styles on ul, ol elements with a list role */

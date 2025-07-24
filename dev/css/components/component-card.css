@@ -18,6 +18,15 @@
     box-shadow: var(--shadow-card), var(--shadow-glow);
   }
 
+  .card-hover {
+    transition: transform var(--duration-card) var(--easing-smooth), box-shadow var(--duration-card) var(--easing-smooth);
+  }
+
+  .card-hover:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--shadow-card), var(--shadow-glow);
+  }
+
   .card__image {
     width: 100%;
     aspect-ratio: var(--ratio-video);
