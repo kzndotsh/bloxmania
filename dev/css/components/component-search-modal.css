@@ -209,10 +209,7 @@
   }
 
   .search-results__title {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    color: rgb(var(--color-foreground-rgb));
-    margin: 0 0 0.25rem;
+    font-size: var(--font-size-sm) !important;
   }
 
   .search-results__price {
@@ -236,7 +233,7 @@
   }
 
   .search-results__heading {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-sm) !important;
     font-weight: var(--font-weight-semibold);
     color: rgb(var(--color-gray-300));
     margin: 0 0 var(--spacing-sm);
