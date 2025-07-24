@@ -1,0 +1,109 @@
+/* Customer Reviews Section Styles */
+
+@layer components {
+  .customer-reviews-section {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .customer-reviews-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1));
+    pointer-events: none;
+  }
+
+  .customer-reviews-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+    margin-top: var(--spacing-2xl);
+  }
+
+  @media (min-width: var(--breakpoint-md)) {
+    .customer-reviews-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .customer-review-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-2xl);
+    text-align: left;
+    transition: all var(--duration-fast) var(--easing-smooth);
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+  }
+
+  .customer-review-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 216, 0, 0.3);
+  }
+
+  .customer-review-stars {
+    display: flex;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .customer-review-stars .star {
+    color: var(--color-primary);
+    font-size: var(--font-size-lg);
+  }
+
+  .customer-review-text {
+    color: rgb(var(--color-foreground-rgb));
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-size-lg);
+    flex-grow: 1;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .customer-review-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    flex-shrink: 0;
+  }
+
+  .customer-review-author {
+    color: var(--color-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .customer-review-date {
+    color: rgba(74, 222, 128, 0.9);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-normal);
+    background: rgba(74, 222, 128, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+  }
+
+  @media (min-width: var(--breakpoint-sm)) {
+    .customer-review-text {
+      font-size: var(--font-size-xl);
+    }
+    .customer-review-stars .star {
+      font-size: var(--font-size-xl);
+    }
+  }
+
+  @media (min-width: var(--breakpoint-lg)) {
+    .customer-review-text {
+      font-size: 1.375rem;
+    }
+    .customer-review-stars .star {
+      font-size: 1.375rem;
+    }
+  }
+}
