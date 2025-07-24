@@ -1,9 +1,72 @@
 /* BloxMania Base - CSS Reset and Normalization */
 /* Modern CSS reset with gaming-focused defaults */
 
-/* Placeholder for CSS reset styles */
-/* This file will be populated in task 3.1 */
-
 @layer base {
-  /* CSS reset will be implemented here */
+  /* Box sizing rules */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* Remove default margin */
+  * {
+    margin: 0;
+  }
+
+  /* Set core body defaults */
+  body {
+    min-height: 100%;
+    line-height: var(--line-height-normal);
+    background: rgb(var(--color-background-rgb));
+    color: rgb(var(--color-foreground-rgb));
+    font-family: var(--font-family-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Remove list styles on ul, ol elements with a list role */
+  ul[role="list"],
+  ol[role="list"] {
+    list-style: none;
+  }
+
+  /* Set core root defaults */
+  html:focus-within {
+    scroll-behavior: smooth;
+  }
+
+  /* Improve media defaults */
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* Inherit fonts for inputs and buttons */
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  /* Remove animations for users that prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
