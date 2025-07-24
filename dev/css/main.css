@@ -29,6 +29,7 @@
 @import "./sections/section-hero.css";
 @import "./sections/section-guarantee.css";
 @import "./sections/section-customer-reviews.css";
+@import "./sections/section-featured-products.css";
 
 /* Utilities Layer - Responsive, states, overrides */
 @import "./utilities/responsive.css";

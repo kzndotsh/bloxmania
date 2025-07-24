@@ -27,4 +27,25 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+
+  .smooth-scale {
+    transition: transform var(--duration-default) var(--easing-spring);
+    transform: translateZ(0);
+  }
+
+  .smooth-scale:hover {
+    transform: scale(1.05);
+  }
+
+  .smooth-opacity {
+    transition: opacity var(--duration-default) var(--easing-smooth);
+  }
+
+  .smooth-shadow {
+    transition: box-shadow var(--duration-default) var(--easing-smooth);
+  }
+
+  .smooth-border {
+    transition: border-color var(--duration-default) var(--easing-smooth), border-width var(--duration-default) var(--easing-smooth);
+  }
 }
