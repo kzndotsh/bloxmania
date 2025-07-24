@@ -1,114 +1,158 @@
-# BloxMania Theme Documentation
+# 📚 BloxMania Theme Documentation
 
-## Overview
-BloxMania is a modern Shopify theme designed for digital goods marketplaces, with a focus on gaming items and virtual products.
+Welcome to the comprehensive documentation for the BloxMania Shopify theme - a high-performance, modern theme designed for digital goods marketplaces with a focus on gaming items, Roblox assets, and Fortnite cosmetics.
 
-## Quick Navigation
+## 🚀 Quick Start
 
-### 📄 [Templates](./templates/README.md)
+- **[Getting Started Guide](GETTING_STARTED.md)** - Set up and run the theme locally
+- **[Development Workflow](DEVELOPMENT.md)** - Learn the development process
+- **[Build System](BUILD_SYSTEM.md)** - Understand how the build system works
+
+## 📋 Documentation Index
+
+### 🛠️ Development Guides
+- **[Getting Started](GETTING_STARTED.md)** - Initial setup and installation
+- **[Development Workflow](DEVELOPMENT.md)** - Development process and best practices
+- **[Development Scripts](DEVELOPMENT_SCRIPTS.md)** - All available npm scripts and commands
+- **[Build System](BUILD_SYSTEM.md)** - Build system architecture and configuration
+- **[Project Structure](PROJECT_STRUCTURE.md)** - Complete project organization and file structure
+
+### 🎨 Design & Standards
+- **[Performance Guidelines](PERFORMANCE.md)** - Performance optimization best practices
+- **[Accessibility Guidelines](ACCESSIBILITY.md)** - WCAG compliance and accessibility standards
+- **[Style Guide](style-guide/README.md)** - Coding standards and conventions
+
+### 🧩 Component Documentation
+
+#### 📄 Sections
+Sections are customizable content blocks that can be added to pages through the Shopify theme editor.
+
+**[Sections Overview](sections/README.md)**
+
+**Main Pages:**
+- [Header](sections/header.md) - Site navigation and branding
+- [Footer](sections/footer.md) - Site footer and links
+- [Hero](sections/hero.md) - Hero banner section
+- [Main Cart](sections/main-cart.md) - Shopping cart page
+- [Main Product](sections/main-product.md) - Product detail page
+- [Main Search](sections/main-search.md) - Search results page
+- [Main Collection](sections/main-collection-product-grid.md) - Collection listing page
+- [Main Blog](sections/main-blog.md) - Blog listing page
+- [Main Article](sections/main-article.md) - Blog article page
+- [Main 404](sections/main-404.md) - 404 error page
+- [Main Password](sections/main-password.md) - Password protection page
+
+**Customer Pages:**
+- [Main Account](sections/main-account.md) - Customer account dashboard
+- [Main Login](sections/main-login.md) - Customer login page
+- [Main Register](sections/main-register.md) - Customer registration page
+- [Main Addresses](sections/main-addresses.md) - Address management
+- [Main Order](sections/main-order.md) - Order details page
+- [Main Activate Account](sections/main-activate-account.md) - Account activation
+- [Main Reset Password](sections/main-reset-password.md) - Password reset
+
+**Content Sections:**
+- [Featured Product](sections/featured-product.md) - Single product showcase
+- [Featured Products](sections/featured-products.md) - Multiple products showcase
+- [Featured Collection](sections/featured-collection.md) - Collection showcase
+- [Image Banner](sections/image-banner.md) - Image with overlay text
+- [Image with Text](sections/image-with-text.md) - Image and text side-by-side
+- [Rich Text](sections/rich-text.md) - Rich text content
+- [Newsletter](sections/newsletter.md) - Email newsletter signup
+- [FAQ](sections/faq.md) - Frequently asked questions
+- [Customer Reviews](sections/customer-reviews.md) - Product reviews display
+- [Contact Form](sections/contact-form.md) - Contact form
+- [Why Choose Us](sections/why-choose-us.md) - Value proposition section
+- [Supported Games](sections/supported-games.md) - Games showcase
+- [Main Guarantee](sections/main-guarantee.md) - Guarantee page
+
+#### 🧩 Snippets
+Snippets are reusable components that can be included in templates and sections.
+
+**[Snippets Overview](snippets/README.md)**
+
+**Product Components:**
+- [Product Media Gallery](snippets/product-media-gallery.md) - Product image gallery
+- [Product Buy Buttons](snippets/product-buy-buttons.md) - Add to cart functionality
+- [Product Variant Picker](snippets/product-variant-picker.md) - Product options selection
+- [Product Price](snippets/product-price.md) - Price display
+- [Product Rating](snippets/product-rating.md) - Star rating display
+- [Product Reviews](snippets/product-reviews.md) - Customer reviews
+- [Product Features](snippets/product-features.md) - Product feature list
+- [Product Inventory](snippets/product-inventory.md) - Stock status
+- [Card Product](snippets/card-product.md) - Product card component
+- [Related Products](snippets/related-products.md) - Related products display
+
+**UI Components:**
+- [Button](snippets/button.md) - Button component
+- [Accessible Button](snippets/accessible-button.md) - Accessible button variant
+- [Accessible Form](snippets/accessible-form.md) - Accessible form wrapper
+- [Accessible Input](snippets/accessible-input.md) - Accessible input field
+- [Loading Spinner](snippets/loading-spinner.md) - Loading indicator
+- [Icon](snippets/icon.md) - Icon component
+- [Breadcrumb](snippets/breadcrumb.md) - Navigation breadcrumbs
+- [Pagination](snippets/pagination.md) - Page navigation
+- [Collapsible Content](snippets/collapsible-content.md) - Expandable content
+- [Cart Notification](snippets/cart-notification.md) - Cart update notifications
+
+**Content Components:**
+- [Article Card](snippets/article-card.md) - Blog article preview
+- [Creators Carousel](snippets/creators-carousel.md) - Content creators showcase
+- [Chat Widget](snippets/chat-widget.md) - Live chat component
+- [Search Form](snippets/search-form.md) - Search functionality
+- [Share Button](snippets/share-button.md) - Social sharing
+- [Responsive Image](snippets/responsive-image.md) - Responsive image component
+- [Quantity Input](snippets/quantity-input.md) - Quantity selector
+- [Meta Tags](snippets/meta-tags.md) - SEO meta tags
+
+#### 📄 Templates
 Page templates that define the structure of different page types.
-- [product](./templates/product.md)
-- [page.guarantee](./templates/page.guarantee.md)
-- [index](./templates/index.md)
-- [debug-collections](./templates/debug-collections.md)
-- [collection](./templates/collection.md)
 
-### 🧩 [Snippets](./snippets/README.md)
-Reusable components that can be included in templates and sections.
-- [share-button](./snippets/share-button.md)
-- [search-form](./snippets/search-form.md)
-- [responsive-image](./snippets/responsive-image.md)
-- [related-products](./snippets/related-products.md)
-- [quantity-input](./snippets/quantity-input.md)
-- [product-variant-picker](./snippets/product-variant-picker.md)
-- [product-reviews](./snippets/product-reviews.md)
-- [product-rating](./snippets/product-rating.md)
-- [product-price](./snippets/product-price.md)
-- [product-media-gallery](./snippets/product-media-gallery.md)
-- [product-inventory](./snippets/product-inventory.md)
-- [product-features](./snippets/product-features.md)
-- [product-buy-buttons](./snippets/product-buy-buttons.md)
-- [pagination](./snippets/pagination.md)
-- [meta-tags](./snippets/meta-tags.md)
-- [loading-spinner](./snippets/loading-spinner.md)
-- [icon](./snippets/icon.md)
-- [critical-css](./snippets/critical-css.md)
-- [critical-css-loader](./snippets/critical-css-loader.md)
-- [critical-css-inline](./snippets/critical-css-inline.md)
-- [creators-carousel](./snippets/creators-carousel.md)
-- [collapsible-content](./snippets/collapsible-content.md)
-- [chat-widget](./snippets/chat-widget.md)
-- [cart-notification](./snippets/cart-notification.md)
-- [card-product](./snippets/card-product.md)
-- [button](./snippets/button.md)
-- [breadcrumb](./snippets/breadcrumb.md)
-- [article-card](./snippets/article-card.md)
-- [accessible-input](./snippets/accessible-input.md)
-- [accessible-form](./snippets/accessible-form.md)
-- [accessible-button](./snippets/accessible-button.md)
+**[Templates Overview](templates/README.md)**
 
-### 📊 [Sections](./sections/README.md)
-Customizable content blocks that can be added to pages through the theme editor.
-- [why-choose-us](./sections/why-choose-us.md)
-- [supported-games](./sections/supported-games.md)
-- [rich-text](./sections/rich-text.md)
-- [newsletter](./sections/newsletter.md)
-- [main-search](./sections/main-search.md)
-- [main-reset-password](./sections/main-reset-password.md)
-- [main-register](./sections/main-register.md)
-- [main-product](./sections/main-product.md)
-- [main-password](./sections/main-password.md)
-- [main-order](./sections/main-order.md)
-- [main-login](./sections/main-login.md)
-- [main-guarantee](./sections/main-guarantee.md)
-- [main-collection-product-grid](./sections/main-collection-product-grid.md)
-- [main-collection-banner](./sections/main-collection-banner.md)
-- [main-cart](./sections/main-cart.md)
-- [main-blog](./sections/main-blog.md)
-- [main-article](./sections/main-article.md)
-- [main-addresses](./sections/main-addresses.md)
-- [main-activate-account](./sections/main-activate-account.md)
-- [main-account](./sections/main-account.md)
-- [main-404](./sections/main-404.md)
-- [image-with-text](./sections/image-with-text.md)
-- [image-banner](./sections/image-banner.md)
-- [hero](./sections/hero.md)
-- [header](./sections/header.md)
-- [footer](./sections/footer.md)
-- [featured-products](./sections/featured-products.md)
-- [featured-product](./sections/featured-product.md)
-- [featured-collection](./sections/featured-collection.md)
-- [faq](./sections/faq.md)
-- [customer-reviews](./sections/customer-reviews.md)
-- [contact-form](./sections/contact-form.md)
+- [Index](templates/index.md) - Homepage template
+- [Product](templates/product.md) - Product page template
+- [Collection](templates/collection.md) - Collection page template
+- [Page](templates/page.md) - Generic page template
+- [Page Guarantee](templates/page-guarantee.md) - Guarantee page template
+- [Blog](templates/blog.md) - Blog listing template
+- [Article](templates/article.md) - Blog article template
+- [Cart](templates/cart.md) - Cart page template
+- [Search](templates/search.md) - Search results template
+- [404](templates/404.md) - 404 error template
+- [Password](templates/password.md) - Password protection template
 
-### 🎨 [Assets](./assets/README.md)
-JavaScript, CSS, and other static files.
-- 
+### 🎨 Style Guide
+- **[Style Guide Overview](style-guide/README.md)** - Design system and standards
+- **[CSS Standards](style-guide/CSS.md)** - BEM methodology and CSS conventions
+- **[JavaScript Standards](style-guide/JAVASCRIPT.md)** - JavaScript coding standards
+- **[Liquid Standards](style-guide/LIQUID.md)** - Liquid templating standards
 
-### ⚙️ [Configuration](./config/README.md)
-Theme settings and configuration files.
-- [settings_schema.json](./config/settings_schema.json.md)
-- [settings_data.json](./config/settings_data.json.md)
+### 📁 Assets
+- **[Assets Documentation](assets/README.md)** - Static assets and their usage
 
-### 📚 [API Reference](./api/README.md)
-Complete reference for all theme functions, classes, and utilities.
+## 🔧 Project Structure
 
-### 🎨 [Style Guide](./style-guide/README.md)
-Design system, components, and styling guidelines.
+```
+bloxmania/
+├── dev/                    # 🛠️ Development Environment
+│   ├── js/                # JavaScript source files
+│   ├── css/               # CSS source files
+│   ├── sections/          # Shopify sections
+│   ├── snippets/          # Shopify snippets
+│   ├── templates/         # Shopify templates
+│   └── ...
+├── theme/                  # 🚀 Production Theme
+├── docs/                   # 📚 This documentation
+└── ...
+```
 
-## Getting Started
+## 🆘 Support
 
-1. **Installation**: Upload the theme to your Shopify store
-2. **Configuration**: Use the theme editor to customize settings
-3. **Customization**: Refer to individual component documentation for advanced customization
+- **Issues**: [GitHub Issues](https://github.com/kzndotsh/bloxmania/issues)
+- **Development**: [Development Guide](DEVELOPMENT.md)
+- **Build System**: [Build System Documentation](BUILD_SYSTEM.md)
 
-## Development
+---
 
-- **Build System**: [BUILD_SYSTEM.md](../BUILD_SYSTEM.md)
-- **Tailwind Setup**: [TAILWIND_SETUP.md](../TAILWIND_SETUP.md)
-- **Theme Configuration**: [THEME_CONFIGURATION.md](../THEME_CONFIGURATION.md)
-
-## Support
-
-For technical support and customization help, refer to the troubleshooting section in each component's documentation.
+**Built with ❤️ for the gaming community**
