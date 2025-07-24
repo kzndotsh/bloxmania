@@ -149,15 +149,22 @@
   }
 
   .search-modal__result-image {
-    width: 48px;
-    height: 48px;
+    width: 60px;
+    height: 60px;
     border-radius: var(--radius-md);
     object-fit: cover;
   }
 
   .search-modal__result-title {
     font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
     color: rgb(var(--color-foreground-rgb));
+    margin: 0 0 0.25rem;
+  }
+
+  .search-modal__result-price-text,
+  .search-modal__result-price {
+    font-size: var(--font-size-xs);
   }
 
   .search-modal__content {
