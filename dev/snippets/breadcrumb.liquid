@@ -15,27 +15,21 @@
     <li>
       <a href="{{ routes.root_url }}" class="hover:text-primary transition-colors duration-200">
         <span class="sr-only">{{ 'general.breadcrumbs.home' | t }}</span>
-        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
-        </svg>
+        {% render 'icon', icon: 'home', size: 'small' %}
       </a>
     </li>
 
     {%- if template.name == 'product' and product -%}
       {%- if collection -%}
         <li class="flex items-center">
-          <svg class="w-4 h-4 text-gray-500 mx-2" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-          </svg>
+          {% render 'icon', icon: 'chevron-right', size: 'small', color: 'gray', class: 'mx-2' %}
           <a href="{{ collection.url }}" class="hover:text-primary transition-colors duration-200">
             {{ collection.title }}
           </a>
         </li>
       {%- else -%}
         <li class="flex items-center">
-          <svg class="w-4 h-4 text-gray-500 mx-2" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-          </svg>
+          {% render 'icon', icon: 'chevron-right', size: 'small', color: 'gray', class: 'mx-2' %}
           <a href="{{ routes.all_products_collection_url }}" class="hover:text-primary transition-colors duration-200">
             {{ 'general.breadcrumbs.products' | t }}
           </a>
@@ -43,9 +37,7 @@
       {%- endif -%}
 
       <li class="flex items-center">
-        <svg class="w-4 h-4 text-gray-500 mx-2" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-        </svg>
+        {% render 'icon', icon: 'chevron-right', size: 'small', color: 'gray', class: 'mx-2' %}
         <span class="text-white font-medium" aria-current="page">
           {{ product.title | truncate: 50 }}
         </span>
@@ -53,9 +45,7 @@
 
     {%- elsif template.name == 'collection' and collection -%}
       <li class="flex items-center">
-        <svg class="w-4 h-4 text-gray-500 mx-2" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-        </svg>
+        {% render 'icon', icon: 'chevron-right', size: 'small', color: 'gray', class: 'mx-2' %}
         <span class="text-white font-medium" aria-current="page">
           {{ collection.title }}
         </span>
@@ -63,9 +53,7 @@
 
     {%- elsif template.name == 'page' and page -%}
       <li class="flex items-center">
-        <svg class="w-4 h-4 text-gray-500 mx-2" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-        </svg>
+        {% render 'icon', icon: 'chevron-right', size: 'small', color: 'gray', class: 'mx-2' %}
         <span class="text-white font-medium" aria-current="page">
           {{ page.title }}
         </span>

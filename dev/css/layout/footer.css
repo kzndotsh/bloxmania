@@ -9,7 +9,7 @@
     background: var(--color-surface);
     color: rgb(var(--color-foreground-rgb));
     padding-top: var(--section-padding-top);
-    padding-bottom: var(--section-padding-bottom);
+    padding-bottom: 0; /* Footer should be flush to bottom */
   }
 
   .footer__inner {

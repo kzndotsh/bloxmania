@@ -3,9 +3,9 @@
   id="header"
   role="banner"
 >
-  <div class="flex items-center px-4 md:px-12 lg:px-20 xl:px-32 py-6 max-w-full mx-auto">
+  <div class="flex items-center px-4 md:px-8 lg:px-12 xl:px-20 py-6 max-w-full mx-auto">
     <!-- Left: Logo -->
-    <div class="flex items-center flex-shrink-0 mr-8 md:mr-16 lg:mr-24 xl:mr-32">
+    <div class="flex items-center flex-shrink-0 mr-6 md:mr-12 lg:mr-16 xl:mr-24">
       <!-- Logo -->
       <div class="flex-shrink-0">
         {% if section.settings.logo != blank %}
@@ -13,7 +13,7 @@
             <img
               src="{{ section.settings.logo | image_url: width: 233 }}"
               alt="{{ shop.name }}"
-              class="h-12 md:h-14 lg:h-16 w-auto transition-transform duration-300 cursor-pointer hover:scale-105"
+              class="h-14 md:h-16 lg:h-16 w-auto transition-transform duration-300 cursor-pointer hover:scale-105"
               width="233"
               height="70"
             >
@@ -23,7 +23,7 @@
             <img
               src="{{ 'image-BM.png' | asset_url }}"
               alt="BloxMania"
-              class="h-12 md:h-14 lg:h-16 w-auto transition-transform duration-300 cursor-pointer hover:scale-105"
+              class="h-14 md:h-16 lg:h-16 w-auto transition-transform duration-300 cursor-pointer hover:scale-105"
               width="233"
               height="70"
             >
@@ -33,41 +33,27 @@
     </div>
 
     <!-- Center: Desktop Navigation (Hidden on Mobile) -->
-    <div class="hidden md:flex justify-center flex-1 min-w-0">
+    <div class="hidden lg:flex justify-center flex-1 min-w-0">
       <!-- Desktop Navigation -->
       <nav
-        class="flex items-center justify-center gap-8 lg:gap-10 xl:gap-12 min-w-0"
+        class="flex items-center justify-center gap-6 lg:gap-8 xl:gap-10 min-w-0"
         role="navigation"
         aria-label="Main navigation"
       >
         <a
           href="{{ routes.all_products_collection_url }}"
-          class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+          class="nav-link text-gray-300 no-underline font-semibold text-base lg:text-lg xl:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
         >
-          <svg
-            class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119.997ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/>
-          </svg>
+          {% render 'icon', icon: 'shopping-bag', class: 'transition-colors duration-300', size: 'medium' %}
           Shop Now
         </a>
 
         <a
           href="{{ pages.guarantee.url | default: '/pages/guarantee' }}"
-          class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+          class="nav-link text-gray-300 no-underline font-semibold text-base lg:text-lg xl:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
         >
           <div class="relative">
-            <svg
-              class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/>
-            </svg>
+            {% render 'icon', icon: 'shield', class: 'transition-colors duration-300', size: 'medium' %}
           </div>
           Our Guarantee
         </a>
@@ -75,81 +61,72 @@
         {% if section.settings.discord_url != blank %}
           <a
             href="{{ section.settings.discord_url }}"
-            class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+            class="nav-link text-gray-300 no-underline font-semibold text-base lg:text-lg xl:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             target="_blank"
             rel="noopener"
           >
-            <svg class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
-            </svg>
+            {% render 'icon',
+              icon: 'discord',
+              class: 'transition-colors duration-300 flex items-center',
+              size: 'medium'
+            %}
             Daily Giveaways
           </a>
         {% else %}
           <a
             href="https://discord.gg/bloxmania"
-            class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+            class="nav-link text-gray-300 no-underline font-semibold text-base lg:text-lg xl:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             target="_blank"
             rel="noopener"
           >
-            <svg class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
-            </svg>
+            {% render 'icon',
+              icon: 'discord',
+              class: 'transition-colors duration-300 flex items-center',
+              size: 'medium'
+            %}
             Daily Giveaways
           </a>
         {% endif %}
 
         <a
           href="{{ pages['purchasing-guide'].url | default: '/pages/purchasing-guide' }}"
-          class="nav-link text-gray-300 no-underline font-semibold text-lg lg:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+          class="nav-link text-gray-300 no-underline font-semibold text-base lg:text-lg xl:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
         >
-          <svg
-            class="w-5 h-5 lg:w-6 lg:h-6 transition-colors duration-300"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2Z"/>
-          </svg>
+          {% render 'icon', icon: 'file-lines', class: 'transition-colors duration-300', size: 'medium' %}
           Purchasing Guide
         </a>
       </nav>
     </div>
 
     <!-- Right: User Actions -->
-    <div class="flex items-center justify-end gap-3 flex-shrink-0 ml-auto md:ml-16 lg:ml-24 xl:ml-32">
+    <div class="flex items-center justify-end gap-3 flex-shrink-0 ml-auto md:ml-12 lg:ml-16 xl:ml-24">
       <!-- Mobile Menu Toggle (Visible on Mobile Only) -->
       <button
-        class="md:hidden mobile-menu-toggle header__icon-button"
+        class="lg:hidden mobile-menu-toggle header__icon-button"
         aria-label="Open mobile menu"
         type="button"
         data-mobile-menu-toggle
       >
-        <svg class="header__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
-        </svg>
+        {% render 'icon', icon: 'bars', class: 'header__icon', size: 'large' %}
       </button>
 
       <!-- Search Button (Hidden on Mobile) -->
       <button
-        class="header__icon-button search-toggle hidden md:flex"
+        class="header__icon-button search-toggle hidden lg:flex"
         aria-label="Search"
         type="button"
         data-search-toggle
       >
-        <svg class="header__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/>
-        </svg>
+        {% render 'icon', icon: 'search', size: 'medium' %}
       </button>
 
       <!-- Cart Button (Hidden on Mobile) -->
       <a
         href="{{ routes.cart_url }}"
-        class="header__icon-button header__cart-button hidden md:flex"
+        class="header__icon-button header__cart-button hidden lg:flex"
         aria-label="Shopping cart"
       >
-        <svg class="header__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/>
-        </svg>
+        {% render 'icon', icon: 'cart', size: 'medium' %}
         {% if cart.item_count > 0 %}
           <span class="header__cart-badge">
             {{- cart.item_count -}}
@@ -160,12 +137,10 @@
       <!-- Account Button (Hidden on Mobile) -->
       <a
         href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
-        class="header__icon-button hidden md:flex"
+        class="header__icon-button hidden lg:flex"
         aria-label="{% if customer %}User account{% else %}Sign in{% endif %}"
       >
-        <svg class="header__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-        </svg>
+        {% render 'icon', icon: 'user', size: 'medium' %}
       </a>
     </div>
   </div>
@@ -187,9 +162,7 @@
           aria-label="Close search"
           data-search-close
         >
-          <svg class="search-modal__close-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18 18 6M6 6l12 12"/>
-          </svg>
+          {% render 'icon', icon: 'close', class: 'search-modal__close-icon', size: 'medium' %}
         </button>
       </div>
 
@@ -206,19 +179,12 @@
               autocomplete="off"
               spellcheck="false"
             >
-            <div class="search-modal__icon">
-              <svg class="search-modal__icon-svg" fill="currentColor" viewBox="0 0 24 24">
-                <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clip-rule="evenodd"/>
-              </svg>
-            </div>
             <button
               type="submit"
               class="search-modal__submit"
               aria-label="Submit search"
             >
-              <svg class="search-modal__submit-icon" fill="currentColor" viewBox="0 0 24 24">
-                <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clip-rule="evenodd"/>
-              </svg>
+              {% render 'icon', icon: 'search', class: 'search-modal__submit-icon', size: 'medium' %}
             </button>
           </div>
         </form>

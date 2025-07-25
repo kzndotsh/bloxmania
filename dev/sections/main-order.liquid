@@ -132,14 +132,7 @@
                           >
                             {%- for discount_allocation in line_item.line_level_discount_allocations -%}
                               <li class="order-item__discount">
-                                <svg
-                                  aria-hidden="true"
-                                  focusable="false"
-                                  class="icon icon-discount"
-                                  viewBox="0 0 12 12"
-                                >
-                                  <path fill-rule="evenodd" clip-rule="evenodd" d="m0 6 6-6h6v6l-6 6H0V6Z"/>
-                                </svg>
+                                {% render 'icon', icon: 'discount', size: 'small' %}
                                 {{ discount_allocation.discount_application.title }} (-
                                 {{- discount_allocation.amount | money -}}
                                 )

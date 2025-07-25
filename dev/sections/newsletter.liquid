@@ -80,20 +80,12 @@
                     id="Subscribe"
                     aria-label="Subscribe"
                   >
-                    <span class="svg-wrapper">
-                      <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8.46967 1.53033C8.76256 1.23744 9.23744 1.23744 9.53033 1.53033L13.5303 5.53033C13.8232 5.82322 13.8232 6.29811 13.5303 6.591L9.53033 10.591C9.23744 10.8839 8.76256 10.8839 8.46967 10.591C8.17678 10.2981 8.17678 9.82322 8.46967 9.53033L11.1893 6.81066H1C0.585786 6.81066 0.25 6.47487 0.25 6.06066C0.25 5.64644 0.585786 5.31066 1 5.31066H11.1893L8.46967 2.59099C8.17678 2.29811 8.17678 1.82322 8.46967 1.53033Z" fill="currentColor"/>
-                      </svg>
-                    </span>
+                    {% render 'icon', icon: 'arrow-right', size: 'small' %}
                   </button>
                 </div>
                 {%- if form.errors -%}
                   <small class="newsletter-form__message form__message" id="Newsletter-error--{{ section.id }}">
-                    <span class="svg-wrapper">
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0ZM7.875 10.5H6.125V9.1H7.875V10.5ZM7.875 7.7H6.125V3.5H7.875V7.7Z" fill="currentColor"/>
-                      </svg>
-                    </span>
+                    {% render 'icon', icon: 'info', size: 'small' %}
                     {{- form.errors.translated_fields.email | capitalize }}
                     {{ form.errors.messages.email -}}
                   </small>
@@ -106,11 +98,7 @@
                   tabindex="-1"
                   autofocus
                 >
-                  <span class="svg-wrapper">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0ZM10.5 5.25L6.125 9.625L3.5 7L4.375 6.125L6.125 7.875L9.625 4.375L10.5 5.25Z" fill="currentColor"/>
-                    </svg>
-                  </span>
+                  {% render 'icon', icon: 'success', size: 'small' %}
                   Thank you for subscribing!
                 </h3>
               {%- endif -%}

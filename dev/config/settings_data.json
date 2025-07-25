@@ -110,7 +110,7 @@
         "type": "featured-products",
         "settings": {
           "collection": "",
-          "products_to_show": 6,
+          "products_to_show": 8,
           "view_all_link": "/collections/all"
         }
       },

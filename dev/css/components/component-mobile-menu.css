@@ -89,8 +89,6 @@
   }
 
   .mobile-menu__close-icon {
-    width: 24px;
-    height: 24px;
     color: white;
   }
 
@@ -109,8 +107,6 @@
   .mobile-menu__search-icon {
     position: absolute;
     left: 1rem;
-    width: 20px;
-    height: 20px;
     color: rgba(255, 255, 255, 0.6);
     pointer-events: none;
   }
@@ -160,9 +156,10 @@
 
   .mobile-menu__quick-action {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    gap: 0.5rem;
+    justify-content: center;
+    gap: 0.75rem;
     padding: 1rem;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -178,8 +175,6 @@
   }
 
   .mobile-menu__quick-action-icon {
-    width: 24px;
-    height: 24px;
     color: white;
   }
 
@@ -215,8 +210,6 @@
   }
 
   .mobile-menu__nav-icon {
-    width: 20px;
-    height: 20px;
     color: white;
     flex-shrink: 0;
   }
@@ -254,8 +247,6 @@
   }
 
   .mobile-menu__social-icon {
-    width: 18px;
-    height: 18px;
     color: white;
     flex-shrink: 0;
   }

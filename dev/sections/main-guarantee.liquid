@@ -1,13 +1,13 @@
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    padding-bottom: 0;
   }
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
+      padding-bottom: 0;
     }
   }
 
@@ -19,7 +19,7 @@
   }
 {%- endstyle -%}
 
-<div class="guarantee-hero section-{{ section.id }}-padding">
+<div class="guarantee-hero section-{{ section.id }}-padding content-spacing">
   <div class="guarantee-hero-content">
     {% if section.settings.show_rating_section %}
       <div class="guarantee-rating">
@@ -27,7 +27,7 @@
           {{- section.settings.rating_text | default: 'Excellent' -}}
         </span>
         <span class="flex items-center text-[#ffd800] font-bold text-lg">
-          {% render 'icon', icon: 'star', class: 'w-5 h-5 mr-1 fill-[#ffd800]' %}
+          {% render 'icon', icon: 'star', size: 'medium', color: 'white', class: 'mr-1' %}
           {{ section.settings.rating_score | default: '5.0' }}
         </span>
         <span class="text-gray-400 text-lg">{{ section.settings.rating_out_of | default: 'out of 5' }}</span>
@@ -120,15 +120,15 @@
     {% if section.settings.show_guarantee_tags %}
       <div class="guarantee-tags">
         <span class="guarantee-tag guarantee-tag--blue">
-          {% render 'icon', icon: 'zap', class: 'w-5 h-5 mr-2' %}
+          {% render 'icon', icon: 'zap', size: 'medium', class: 'mr-2' %}
           {{ section.settings.tag1_text | default: 'Fast Delivery' }}
         </span>
         <span class="guarantee-tag guarantee-tag--yellow">
-          {% render 'icon', icon: 'tag', class: 'w-5 h-5 mr-2' %}
+          {% render 'icon', icon: 'tag', size: 'medium', class: 'mr-2' %}
           {{ section.settings.tag2_text | default: 'Best Prices' }}
         </span>
         <span class="guarantee-tag guarantee-tag--blue">
-          {% render 'icon', icon: 'message-circle', class: 'w-5 h-5 mr-2' %}
+          {% render 'icon', icon: 'message-circle', size: 'medium', class: 'mr-2' %}
           {{ section.settings.tag3_text | default: '24/7 Support' }}
         </span>
       </div>
@@ -137,7 +137,7 @@
 
   <div class="guarantee-card">
     <div class="guarantee-icon">
-      {% render 'icon', icon: 'shield', class: 'w-12 h-12 text-[#ffd800]' %}
+      {% render 'icon', icon: 'shield', size: 'large', color: 'white', class: 'text-[#ffd800]' %}
     </div>
 
     <h2 class="guarantee-card-title">{{ section.settings.card_title | default: 'Our Guarantee' }}</h2>
@@ -245,7 +245,7 @@
 {
   "name": "Guarantee Page",
   "tag": "section",
-  "class": "section",
+  "class": "section section--flush-footer",
   "settings": [
     {
       "type": "header",
@@ -451,7 +451,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding Bottom",
-      "default": 36
+      "default": 0
     }
   ],
   "presets": [

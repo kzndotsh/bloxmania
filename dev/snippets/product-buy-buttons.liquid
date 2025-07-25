@@ -19,17 +19,7 @@
 <div class="product-form__buttons space-y-4">
   <product-form class="product-form" data-hide-errors="{{ product.selected_or_first_available_variant.available }}">
     <div class="product-form__error-message-wrapper" role="alert" hidden>
-      <svg
-        aria-hidden="true"
-        focusable="false"
-        class="icon icon-error"
-        viewBox="0 0 13 13"
-      >
-        <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"/>
-        <circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B" stroke="#EB001B" stroke-width="0.7"/>
-        <path d="m5.87413 3.52832 5.6689 0.112701 0.11662 5.66816-5.66989-0.112701z" fill="white"/>
-        <path d="m4.10322 5.2041 7.32986 0.139267 0.13926 7.32986-7.32986-0.139267z" fill="white"/>
-      </svg>
+      {% render 'icon', icon: 'error', size: 'small', color: 'red' %}
       <span class="product-form__error-message"></span>
     </div>
 
@@ -54,9 +44,7 @@
           <!-- Button Content -->
           <div class="flex items-center justify-center gap-3">
             <!-- Cart Icon -->
-            <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m1.6 8L6 5H3m4 8v6a1 1 0 001 1h8a1 1 0 001-1v-6M9 19a1 1 0 100 2 1 1 0 000-2zm8 0a1 1 0 100 2 1 1 0 000-2z"></path>
-            </svg>
+            {% render 'icon', icon: 'cart', size: 'medium', color: 'black' %}
 
             <!-- Button Text -->
             <span>

@@ -93,20 +93,352 @@
     padding-bottom: 0 !important;
   }
 
-  /* Ensure empty cart page has no top spacing at all */
-  .cart-page.is-empty {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
+  /* ========================================
+     MODERN EMPTY CART DESIGN
+     ======================================== */
+  
+  .empty-cart {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-8) 0;
+    overflow: hidden;
   }
 
-  .cart-page.is-empty body {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
+  .empty-cart__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, transparent 0%, rgba(var(--color-primary), 0.01) 100%);
+    z-index: 0;
   }
 
-  .cart-page.is-empty main {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
+  .empty-cart__particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .empty-cart__particles::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(0deg, transparent 0%, transparent 49%, rgba(var(--color-primary), 0.06) 50%, rgba(var(--color-primary), 0.06) 51%, transparent 52%, transparent 100%),
+      linear-gradient(90deg, transparent 0%, transparent 49%, rgba(var(--color-primary), 0.04) 50%, rgba(var(--color-primary), 0.04) 51%, transparent 52%, transparent 100%);
+    background-size: 80px 80px;
+    animation: retroMove 25s linear infinite;
+  }
+
+  .empty-cart__particles::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(45deg, transparent 0%, transparent 48%, rgba(var(--color-secondary), 0.03) 49%, rgba(var(--color-secondary), 0.03) 51%, transparent 52%, transparent 100%),
+      linear-gradient(-45deg, transparent 0%, transparent 48%, rgba(var(--color-secondary), 0.02) 49%, rgba(var(--color-secondary), 0.02) 51%, transparent 52%, transparent 100%);
+    background-size: 120px 120px;
+    animation: retroMove 35s linear infinite reverse;
+  }
+
+  .particle {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+    opacity: 0.15;
+    animation: retroLine 12s ease-in-out infinite;
+  }
+
+  .particle--1 { 
+    top: 25%; 
+    left: -20%; 
+    width: 150px;
+    animation-delay: 0s;
+    transform: rotate(0deg);
+  }
+  
+  .particle--2 { 
+    top: 45%; 
+    right: -20%; 
+    width: 200px;
+    animation-delay: 3s;
+    transform: rotate(0deg);
+  }
+  
+  .particle--3 { 
+    top: 65%; 
+    left: -20%; 
+    width: 120px;
+    animation-delay: 6s;
+    transform: rotate(0deg);
+  }
+  
+  .particle--4 { 
+    top: 35%; 
+    right: -20%; 
+    width: 180px;
+    animation-delay: 9s;
+    transform: rotate(0deg);
+  }
+  
+  .particle--5 { 
+    top: 75%; 
+    left: -20%; 
+    width: 160px;
+    animation-delay: 1.5s;
+    transform: rotate(0deg);
+  }
+
+  @keyframes retroMove {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(20px, 20px); }
+  }
+
+  @keyframes retroLine {
+    0%, 100% { 
+      transform: translateX(-100px); 
+      opacity: 0;
+    }
+    10%, 90% {
+      opacity: 0.15;
+    }
+    50% { 
+      transform: translateX(calc(100vw + 100px)); 
+      opacity: 0.25;
+    }
+  }
+
+  .empty-cart__content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+  }
+
+  /* Icon Section */
+  .empty-cart__icon-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: var(--spacing-8);
+  }
+
+  .empty-cart__icon-background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.1; }
+    50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.2; }
+  }
+
+  .empty-cart__icon {
+    position: relative;
+    font-size: 4rem;
+    color: var(--color-primary);
+    z-index: 1;
+  }
+
+  /* Text Content */
+  .empty-cart__text {
+    margin-bottom: var(--spacing-8);
+  }
+
+  .empty-cart__title {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-foreground);
+    margin-bottom: var(--spacing-4);
+    line-height: var(--line-height-tight);
+  }
+
+  .empty-cart__subtitle {
+    font-size: var(--font-size-xl);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-4);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .empty-cart__description {
+    font-size: var(--font-size-base);
+    color: rgba(var(--color-foreground-rgb), 0.7);
+    line-height: var(--line-height-relaxed);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* Action Buttons */
+  .empty-cart__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    align-items: center;
+    margin-bottom: var(--spacing-8);
+  }
+
+  @media (min-width: 640px) {
+    .empty-cart__actions {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+
+  .empty-cart__primary-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    padding: var(--spacing-4) var(--spacing-8);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+    color: var(--color-slate-900);
+    text-decoration: none;
+    border-radius: var(--radius-lg);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-base);
+    transition: all var(--duration-default) var(--easing-smooth);
+    box-shadow: var(--shadow-button);
+  }
+
+  .empty-cart__primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(var(--color-primary), 0.25);
+    background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+  }
+
+  .empty-cart__secondary-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    padding: var(--spacing-4) var(--spacing-6);
+    background: rgba(var(--color-foreground-rgb), 0.05);
+    border: 1px solid rgba(var(--color-foreground-rgb), 0.1);
+    color: rgba(var(--color-foreground-rgb), 0.8);
+    text-decoration: none;
+    border-radius: var(--radius-lg);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-sm);
+    transition: all var(--duration-default) var(--easing-smooth);
+    backdrop-filter: var(--backdrop-blur-sm);
+  }
+
+  .empty-cart__secondary-btn:hover {
+    background: rgba(var(--color-primary), 0.1);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    transform: translateY(-1px);
+  }
+
+
+  /* Login Section */
+  .empty-cart__login {
+    margin-top: var(--spacing-8);
+  }
+
+  .empty-cart__login-card {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    padding: var(--spacing-6);
+    background: rgba(var(--color-foreground-rgb), 0.03);
+    border: 1px solid rgba(var(--color-foreground-rgb), 0.08);
+    border-radius: var(--radius-xl);
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: left;
+    transition: all var(--duration-default) var(--easing-smooth);
+  }
+
+  .empty-cart__login-card:hover {
+    background: rgba(var(--color-foreground-rgb), 0.05);
+    border-color: rgba(var(--color-primary), 0.2);
+  }
+
+  .empty-cart__login-card > i {
+    font-size: var(--font-size-3xl);
+    color: var(--color-primary);
+    opacity: 0.8;
+  }
+
+  .empty-cart__login-title {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-foreground);
+    margin-bottom: var(--spacing-1);
+  }
+
+  .empty-cart__login-text {
+    font-size: var(--font-size-sm);
+    color: rgba(var(--color-foreground-rgb), 0.7);
+    margin: 0;
+  }
+
+  .empty-cart__login-link {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    transition: color var(--duration-fast) var(--easing-smooth);
+  }
+
+  .empty-cart__login-link:hover {
+    color: var(--color-primary-light);
+  }
+
+  /* Responsive Typography */
+  @media (max-width: 640px) {
+    .empty-cart__title {
+      font-size: var(--font-size-3xl);
+    }
+    
+    .empty-cart__subtitle {
+      font-size: var(--font-size-lg);
+    }
+    
+    .empty-cart__icon {
+      font-size: 3rem;
+    }
+    
+    .empty-cart__icon-background {
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+  /* Accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .particle,
+    .empty-cart__icon-background,
+    .empty-cart__particles::before,
+    .empty-cart__particles::after {
+      animation: none;
+    }
+    
+    .empty-cart__primary-btn:hover,
+    .empty-cart__secondary-btn:hover {
+      transform: none;
+    }
   }
 
   /* Hide error icons by default */
@@ -222,14 +554,7 @@
                 <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
                   {%- for discount in item.line_level_discount_allocations -%}
                     <li class="discounts__discount">
-                      <svg
-                        aria-hidden="true"
-                        focusable="false"
-                        class="icon icon-discount"
-                        viewBox="0 0 12 12"
-                      >
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="m0 6 6-6h6v6l-6 6H0V6Z"/>
-                      </svg>
+                      {% render 'icon', icon: 'discount', size: 'small' %}
                       {{ discount.discount_application.title | escape }}
                     </li>
                   {%- endfor -%}
@@ -246,16 +571,7 @@
                       type="button"
                       aria-label="{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true"
-                        focusable="false"
-                        class="icon icon-minus"
-                        fill="none"
-                        viewBox="0 0 10 2"
-                      >
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M.5 1C.5.7.7.5 1 .5h8a.5.5 0 110 1H1A.5.5 0 01.5 1z" fill="currentColor">
-                      </svg>
+                      {% render 'icon', icon: 'minus', size: 'small' %}
                     </button>
                     <input
                       class="quantity__input"
@@ -274,16 +590,7 @@
                       type="button"
                       aria-label="{{ 'products.product.quantity.increase' | t: product: item.product.title | escape }}"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true"
-                        focusable="false"
-                        class="icon icon-plus"
-                        fill="none"
-                        viewBox="0 0 10 10"
-                      >
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1 4.51a.5.5 0 000 1h3.5l.01 3.5a.5.5 0 001-.01V5.5l3.5-.01a.5.5 0 00-.01-1H5.5L5.49.99a.5.5 0 00-1 .01v3.5l-3.5.01H1z" fill="currentColor">
-                      </svg>
+                      {% render 'icon', icon: 'plus', size: 'small' %}
                     </button>
                   </quantity-input>
 
@@ -297,15 +604,7 @@
                       class="button button--tertiary"
                       aria-label="{{ 'sections.cart.remove_title' | t: title: item.title | escape }}"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 16 16"
-                        aria-hidden="true"
-                        focusable="false"
-                        class="icon icon-close"
-                      >
-                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                      </svg>
+                      {% render 'icon', icon: 'close', size: 'small' %}
                     </button>
                   </cart-remove-button>
                 </div>
@@ -317,11 +616,7 @@
                   aria-live="polite"
                 >
                   <small class="cart-item__error-text"></small>
-                  <svg aria-hidden="true" focusable="false" class="icon icon-error" viewBox="0 0 13 13">
-                    <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-opacity="0.25" fill="none"/>
-                    <circle cx="6.5" cy="6.5" r="5.5" stroke="#EB001B" stroke-width="0.7"/>
-                    <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="#EB001B"/>
-                  </svg>
+                  {% render 'icon', icon: 'error', size: 'small', color: 'red' %}
                 </div>
               </div>
             </div>
@@ -351,16 +646,7 @@
                 <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
                   {%- for discount in cart.cart_level_discount_applications -%}
                     <li class="discounts__discount discounts__discount--position">
-                      <svg
-                        aria-hidden="true"
-                        focusable="false"
-                        class="icon icon-discount"
-                        viewBox="0 0 12 12"
-                        width="16"
-                        height="16"
-                      >
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="m0 6 6-6h6v6l-6 6H0V6Z"/>
-                      </svg>
+                      {% render 'icon', icon: 'discount', size: 'small' %}
                       {{ discount.title | escape }}
                       (-{{ discount.total_allocated_amount | money }})
                     </li>
@@ -409,22 +695,65 @@
         </div>
       </form>
     {%- else -%}
-      <div class="cart__warnings">
-        <div class="cart__warnings-ring"></div>
-        <div class="decorative-dot-1"></div>
-        <div class="decorative-dot-2"></div>
-        <p class="cart__empty-description">Ready to level up your inventory?</p>
-        <h1 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h1>
-        <a href="{{ routes.all_products_collection_url }}" class="button">
-          {{ 'general.continue_shopping' | t }}
-        </a>
+      <div class="empty-cart">
+        <!-- Background Elements -->
+        <div class="empty-cart__background" aria-hidden="true"></div>
+        <div class="empty-cart__particles" aria-hidden="true">
+          <div class="particle particle--1"></div>
+          <div class="particle particle--2"></div>
+          <div class="particle particle--3"></div>
+          <div class="particle particle--4"></div>
+          <div class="particle particle--5"></div>
+        </div>
 
-        {%- if shop.customer_accounts_enabled and customer == null -%}
-          <h2 class="cart__login-title">{{ 'sections.cart.login.title' | t }}</h2>
-          <p class="cart__login-paragraph">
-            <a href="{{ routes.account_login_url }}" class="link underlined-link">Log in</a> to check out faster.
-          </p>
-        {%- endif -%}
+        <!-- Main Content -->
+        <div class="empty-cart__content">
+          <!-- Icon Section -->
+          <div class="empty-cart__icon-container">
+            <div class="empty-cart__icon-background"></div>
+            <i class="fas fa-box-open empty-cart__icon" aria-hidden="true"></i>
+          </div>
+
+          <!-- Text Content -->
+          <div class="empty-cart__text">
+            <h1 class="empty-cart__title">Your Cart is Empty</h1>
+            <p class="empty-cart__subtitle">Ready to level up your gaming inventory?</p>
+            <p class="empty-cart__description">
+              Discover awesome gaming items, collectibles, and digital goods. 
+              Start building your collection today!
+            </p>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="empty-cart__actions">
+            <a href="{{ routes.all_products_collection_url }}" class="empty-cart__primary-btn">
+              <i class="fas fa-store" aria-hidden="true"></i>
+              <span>Start Shopping</span>
+            </a>
+            
+            <a href="{{ pages['purchasing-guide'].url | default: '/pages/purchasing-guide' }}" class="empty-cart__secondary-btn">
+              <i class="fas fa-book-open" aria-hidden="true"></i>
+              <span>Buying Guide</span>
+            </a>
+          </div>
+
+
+          <!-- Login Section -->
+          {%- if shop.customer_accounts_enabled and customer == null -%}
+            <div class="empty-cart__login">
+              <div class="empty-cart__login-card">
+                <i class="fas fa-user-circle" aria-hidden="true"></i>
+                <div class="empty-cart__login-content">
+                  <h3 class="empty-cart__login-title">Have an account?</h3>
+                  <p class="empty-cart__login-text">
+                    <a href="{{ routes.account_login_url }}" class="empty-cart__login-link">Sign in</a> 
+                    for faster checkout and order history
+                  </p>
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
       </div>
     {%- endif -%}
   </div>
