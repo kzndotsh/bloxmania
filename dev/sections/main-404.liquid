@@ -1,137 +1,572 @@
-{%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-  }
+{% comment %}
+  Modern Gaming-Themed 404 Page for BloxMania
+  Features:
+  - Gaming-inspired design with animated elements
+  - Interactive background effects
+  - Modern glassmorphism styling
+  - Font Awesome icons throughout
+  - Responsive design with mobile optimizations
+  - Engaging animations and hover effects
+{% endcomment %}
 
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-  }
-
-  /* Simple top spacing for 404 page */
-  .template-404 {
-    margin-top: 4rem;
-  }
-
-  @media screen and (max-width: 749px) {
-    .template-404 {
-      margin-top: 2rem;
-    }
-  }
-{%- endstyle -%}
-
-<div
-  class="
-    template-404 page-width page-margin section-{{ section.id }}-padding
-    {% if section.settings.layout == 'centered' %}text-center{% endif %}
-    {% if section.settings.layout == 'minimal' %}template-404--minimal{% endif %}
-  "
->
-  <div class="error-code">404</div>
-
-  <h1 class="title">
-    {%- if section.settings.title != blank -%}
-      {{ section.settings.title }}
-    {%- else -%}
-      {{ 'templates.404.title' | t }}
-    {%- endif -%}
-  </h1>
-
-  <p>
-    {%- if section.settings.subtext != blank -%}
-      {{ section.settings.subtext }}
-    {%- else -%}
-      {{ 'templates.404.subtext' | t }}
-    {%- endif -%}
-  </p>
-
-  <!-- Search form for better user experience -->
-  {% if section.settings.show_search %}
-    {% render 'search-form', class: 'template-404__search-form', id: 'Search-404' %}
-  {% endif %}
-
-  <!-- Helpful navigation links -->
-  {% if section.settings.show_helpful_links %}
-    <div class="helpful-links">
-      <h2>
-        {%- if section.settings.helpful_links_title != blank -%}
-          {{ section.settings.helpful_links_title }}
-        {%- else -%}
-          {{ 'templates.404.helpful_links' | t }}
-        {%- endif -%}
-      </h2>
-      <ul>
-        <li>
-          <a href="{{ routes.root_url }}">{{ 'general.404.link_home' | t }}</a>
-        </li>
-        <li>
-          <a href="{{ routes.all_products_collection_url }}">
-            {{- 'general.404.link_products' | t -}}
-          </a>
-        </li>
-        {%- if section.settings.show_blog_link and blog.handles.size > 0 -%}
-          <li>
-            <a href="/blogs/{{ blog.handles.first }}">{{ 'general.404.link_blog' | t }}</a>
-          </li>
-        {%- endif -%}
-        <li>
-          <a href="{{ routes.search_url }}">{{ 'general.404.link_search' | t }}</a>
-        </li>
-      </ul>
+<div class="error-404-section">
+  <!-- Animated Background -->
+  <div class="error-404__background" aria-hidden="true">
+    <div class="error-404__particles">
+      <div class="star star--1">★</div>
+      <div class="star star--2">★</div>
+      <div class="star star--3">★</div>
+      <div class="star star--4">★</div>
+      <div class="star star--5">★</div>
+      <div class="star star--6">★</div>
+      <div class="star star--7">★</div>
+      <div class="star star--8">★</div>
+      <div class="star star--9">★</div>
+      <div class="star star--10">★</div>
+      <div class="star star--11">★</div>
+      <div class="star star--12">★</div>
     </div>
-  {% endif %}
+    <div class="error-404__grid-pattern"></div>
+  </div>
 
-  <!-- Primary CTA button -->
-  <a
-    href="{{ section.settings.cta_button_link | default: routes.all_products_collection_url }}"
-    class="button cta-button"
-  >
-    {%- if section.settings.cta_button_text != blank -%}
-      {{ section.settings.cta_button_text }}
-    {%- else -%}
-      {{ 'general.continue_shopping' | t }}
-    {%- endif -%}
-  </a>
+  <div class="error-404__container">
+    <!-- Main Content -->
+    <div class="error-404__content">
+      <!-- 404 Number with Gaming Style -->
+      <div class="error-404__number-container">
+        <div class="error-404__number">
+          <span class="error-404__digit">4</span>
+          <div class="error-404__icon-container">
+            <i class="fas fa-gamepad-2" aria-hidden="true"></i>
+          </div>
+          <span class="error-404__digit">4</span>
+        </div>
+        <div class="error-404__glitch-overlay" aria-hidden="true">404</div>
+      </div>
+
+      <!-- Title and Description -->
+      <div class="error-404__text">
+        <h1 class="error-404__title">
+          {{ section.settings.title | default: 'Page Not Found' }}
+        </h1>
+        <p class="error-404__subtitle">
+          {{ section.settings.subtitle | default: 'Looks like this page respawned somewhere else!' }}
+        </p>
+        <p class="error-404__description">
+          {{ section.settings.description | default: "Don't worry, we've got plenty of other awesome items waiting for you in the shop." }}
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="error-404__actions">
+        <a href="{{ routes.root_url }}" class="error-404__btn error-404__btn--primary">
+          <i class="fas fa-home" aria-hidden="true"></i>
+          <span>Back to Home</span>
+        </a>
+        
+        <a href="{{ routes.all_products_collection_url }}" class="error-404__btn error-404__btn--secondary">
+          <i class="fas fa-store" aria-hidden="true"></i>
+          <span>Browse Shop</span>
+        </a>
+      </div>
+
+
+    </div>
+
+    <!-- Gaming Character/Mascot -->
+    <div class="error-404__mascot" aria-hidden="true">
+      <div class="error-404__mascot-container">
+        <i class="fas fa-robot error-404__mascot-icon"></i>
+        <div class="error-404__mascot-speech">
+          {{ section.settings.mascot_message | default: 'Oops! Lost in the game world?' }}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<style>
+/* ========================================
+   MODERN 404 PAGE STYLES
+   ======================================== */
+
+.error-404-section {
+  position: relative;
+  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--color-slate-900) 0%, var(--color-slate-800) 100%);
+}
+
+.error-404__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.error-404__particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.star {
+  position: absolute;
+  color: var(--color-primary);
+  font-size: 0.8rem;
+  opacity: 0.4;
+  animation: starTwinkle 4s ease-in-out infinite;
+  text-shadow: 0 0 4px currentColor;
+}
+
+.star--1 { top: 15%; left: 8%; animation-delay: 0s; }
+.star--2 { top: 25%; left: 85%; animation-delay: 0.5s; }
+.star--3 { top: 45%; left: 12%; animation-delay: 1s; }
+.star--4 { top: 35%; right: 20%; animation-delay: 1.5s; }
+.star--5 { top: 65%; left: 75%; animation-delay: 2s; }
+.star--6 { top: 80%; left: 15%; animation-delay: 2.5s; }
+.star--7 { top: 20%; left: 50%; animation-delay: 3s; }
+.star--8 { top: 70%; right: 10%; animation-delay: 3.5s; }
+.star--9 { top: 40%; left: 40%; animation-delay: 0.2s; }
+.star--10 { top: 55%; right: 45%; animation-delay: 0.8s; }
+.star--11 { top: 10%; right: 35%; animation-delay: 1.3s; }
+.star--12 { top: 85%; left: 60%; animation-delay: 1.8s; }
+
+@keyframes starTwinkle {
+  0%, 100% { 
+    opacity: 0.4; 
+    transform: scale(1) rotate(0deg); 
+    text-shadow: 0 0 4px currentColor;
+  }
+  25% { 
+    opacity: 0.8; 
+    transform: scale(1.2) rotate(45deg); 
+    text-shadow: 0 0 8px currentColor;
+  }
+  50% { 
+    opacity: 1; 
+    transform: scale(1.4) rotate(90deg); 
+    text-shadow: 0 0 12px currentColor, 0 0 16px rgba(255, 216, 0, 0.5);
+  }
+  75% { 
+    opacity: 0.6; 
+    transform: scale(1.1) rotate(135deg); 
+    text-shadow: 0 0 6px currentColor;
+  }
+}
+
+.error-404__grid-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(var(--color-primary-rgb), 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--color-primary-rgb), 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
+
+.error-404__container {
+  position: relative;
+  z-index: 1;
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+}
+
+/* ========================================
+   404 NUMBER STYLING
+   ======================================== */
+
+.error-404__number-container {
+  position: relative;
+  margin-bottom: var(--spacing-8);
+}
+
+.error-404__number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-4);
+  font-size: 8rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  text-shadow: 0 4px 20px rgba(var(--color-primary-rgb), 0.5);
+  position: relative;
+}
+
+.error-404__digit {
+  display: inline-block;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.error-404__digit:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.error-404__icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  border-radius: 50%;
+  font-size: 3rem;
+  color: var(--color-slate-900);
+  box-shadow: var(--shadow-glow);
+  animation: rotate 4s linear infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-404__glitch-overlay {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-secondary);
+  opacity: 0;
+  animation: glitch 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes glitch {
+  0%, 90%, 100% { opacity: 0; transform: translateX(-50%); }
+  91%, 99% { opacity: 0.3; transform: translateX(-48%) skew(2deg); }
+}
+
+/* ========================================
+   TEXT CONTENT
+   ======================================== */
+
+.error-404__text {
+  margin-bottom: var(--spacing-8);
+}
+
+.error-404__title {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-foreground);
+  margin-bottom: var(--spacing-4);
+  line-height: var(--line-height-tight);
+}
+
+.error-404__subtitle {
+  font-size: var(--font-size-xl);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-3);
+}
+
+.error-404__description {
+  font-size: var(--font-size-base);
+  color: rgba(var(--color-foreground-rgb), 0.8);
+  line-height: var(--line-height-relaxed);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ========================================
+   ACTION BUTTONS
+   ======================================== */
+
+.error-404__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  align-items: center;
+  margin-bottom: var(--spacing-10);
+}
+
+@media (min-width: 640px) {
+  .error-404__actions {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.error-404__btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4) var(--spacing-8);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-base);
+  transition: all var(--duration-default) var(--easing-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.error-404__btn--primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  color: var(--color-slate-900);
+  box-shadow: var(--shadow-button);
+}
+
+.error-404__btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-button-hover);
+}
+
+.error-404__btn--secondary {
+  background: rgba(var(--color-foreground-rgb), 0.05);
+  border: 1px solid rgba(var(--color-foreground-rgb), 0.2);
+  color: var(--color-foreground);
+  backdrop-filter: var(--backdrop-blur-sm);
+}
+
+.error-404__btn--secondary:hover {
+  background: rgba(var(--color-primary), 0.1);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+
+/* ========================================
+   QUICK LINKS
+   ======================================== */
+
+.error-404__quick-links {
+  margin-bottom: var(--spacing-8);
+}
+
+.error-404__quick-links-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-foreground);
+  margin-bottom: var(--spacing-4);
+}
+
+.error-404__quick-links-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-3);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .error-404__quick-links-grid {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 600px;
+  }
+}
+
+.error-404__quick-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-4);
+  background: rgba(var(--color-foreground-rgb), 0.05);
+  border: 1px solid rgba(var(--color-foreground-rgb), 0.1);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: rgba(var(--color-foreground-rgb), 0.8);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--duration-default) var(--easing-smooth);
+  backdrop-filter: var(--backdrop-blur-sm);
+}
+
+.error-404__quick-link:hover {
+  background: rgba(var(--color-primary), 0.1);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.error-404__quick-link i {
+  font-size: var(--font-size-lg);
+}
+
+/* ========================================
+   MASCOT
+   ======================================== */
+
+.error-404__mascot {
+  position: fixed;
+  bottom: var(--spacing-6);
+  right: var(--spacing-6);
+  z-index: 10;
+}
+
+.error-404__mascot-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.error-404__mascot-icon {
+  font-size: 3rem;
+  color: var(--color-primary);
+  animation: bounce 2s ease-in-out infinite;
+  cursor: pointer;
+}
+
+.error-404__mascot-speech {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  margin-bottom: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-3);
+  background: var(--color-foreground);
+  color: var(--color-slate-900);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-xs);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all var(--duration-default) var(--easing-smooth);
+  pointer-events: none;
+}
+
+.error-404__mascot-speech::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  right: var(--spacing-3);
+  border: 6px solid transparent;
+  border-top-color: var(--color-foreground);
+}
+
+.error-404__mascot-container:hover .error-404__mascot-speech {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 640px) {
+  .error-404__number {
+    font-size: 6rem;
+    gap: var(--spacing-2);
+  }
+  
+  .error-404__icon-container {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+  }
+  
+  .error-404__glitch-overlay {
+    font-size: 6rem;
+  }
+  
+  .error-404__title {
+    font-size: var(--font-size-3xl);
+  }
+  
+  .error-404__subtitle {
+    font-size: var(--font-size-lg);
+  }
+  
+  .error-404__mascot {
+    display: none;
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .star,
+  .error-404__digit,
+  .error-404__icon-container,
+  .error-404__glitch-overlay,
+  .error-404__grid-pattern {
+    animation: none;
+  }
+  
+  .error-404__btn:hover,
+  .error-404__quick-link:hover {
+    transform: none;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+</style>
 
 {% schema %}
 {
   "name": "404 Page",
-  "tag": "section",
-  "class": "section",
+  "tag": "div",
   "settings": [
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
     {
       "type": "text",
       "id": "title",
       "label": "Page Title",
-      "default": "Page not found"
+      "default": "Page Not Found"
+    },
+    {
+      "type": "text", 
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Looks like this gaming item respawned somewhere else!"
     },
     {
       "type": "textarea",
-      "id": "subtext",
-      "label": "Page Subtext",
-      "default": "Sorry, we can't find the page you're looking for. Try searching for something else or check out our helpful links below."
+      "id": "description", 
+      "label": "Description",
+      "default": "Don't worry, we've got plenty of other awesome items waiting for you in the shop."
     },
     {
       "type": "text",
-      "id": "helpful_links_title",
-      "label": "Helpful Links Title",
-      "default": "Helpful Links"
+      "id": "mascot_message",
+      "label": "Mascot Message",
+      "default": "Oops! Lost in the game world?"
     },
     {
-      "type": "text",
-      "id": "cta_button_text",
-      "label": "CTA Button Text",
-      "default": "Continue Shopping"
-    },
-    {
-      "type": "url",
-      "id": "cta_button_link",
-      "label": "CTA Button Link",
-      "default": "/collections/all"
+      "type": "header",
+      "content": "Search Settings"
     },
     {
       "type": "checkbox",
@@ -140,66 +575,32 @@
       "default": true
     },
     {
-      "type": "checkbox",
-      "id": "show_helpful_links",
-      "label": "Show helpful links",
-      "default": true
+      "type": "text",
+      "id": "search_title",
+      "label": "Search Title", 
+      "default": "Search for Items"
     },
     {
-      "type": "checkbox",
-      "id": "show_blog_link",
-      "label": "Show blog link",
-      "default": true
-    },
-    {
-      "type": "select",
-      "id": "layout",
-      "label": "Layout Style",
-      "options": [
-        {
-          "value": "centered",
-          "label": "Centered"
-        },
-        {
-          "value": "left-aligned",
-          "label": "Left Aligned"
-        },
-        {
-          "value": "minimal",
-          "label": "Minimal"
-        }
-      ],
-      "default": "centered"
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Search Placeholder",
+      "default": "Search for gaming items..."
     },
     {
       "type": "header",
-      "content": "Styling"
+      "content": "Quick Links Settings"
     },
     {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "Color scheme",
-      "default": "scheme-1"
+      "type": "checkbox",
+      "id": "show_quick_links",
+      "label": "Show quick links",
+      "default": true
     },
     {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding top",
-      "default": 40
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding bottom",
-      "default": 40
+      "type": "text",
+      "id": "quick_links_title",
+      "label": "Quick Links Title",
+      "default": "Popular Categories"
     }
   ],
   "presets": [
