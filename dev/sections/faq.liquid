@@ -1,4 +1,4 @@
-<section class="section container-spacing bg-slate-900 relative overflow-hidden">
+<section class="section container-spacing bg-slate-900 relative overflow-hidden faq-section">
   <div class="faq-pattern absolute inset-0 opacity-50"></div>
   <div class="max-w-4xl mx-auto relative z-20">
     <div class="text-center mb-12">
@@ -120,6 +120,33 @@
     </div>
   </div>
 </section>
+
+<style>
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .faq-answer.active {
+    max-height: 500px;
+  }
+
+  .faq-icon {
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
+  }
+
+  .active .faq-icon {
+    transform: rotate(45deg);
+  }
+
+  @media (max-width: 640px) {
+    .faq-section {
+      padding-top: var(--spacing-16) !important;
+    }
+  }
+</style>
 
 <script>
   function toggleFaq(button) {

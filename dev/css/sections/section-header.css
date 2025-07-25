@@ -82,6 +82,27 @@
     transition: all var(--duration-default) var(--easing-smooth);
   }
 
+  /* Larger mobile menu button for better visibility */
+  @media (max-width: 1023px) {
+    .header__icon-button {
+      width: 56px;
+      height: 56px;
+    }
+    
+    .header__icon {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .header__icon-button .fa-solid,
+    .header__icon-button .fa-regular,
+    .header__icon-button .fa-brands {
+      width: 24px !important;
+      height: 24px !important;
+      font-size: 18px !important;
+    }
+  }
+
   /* Fix Font Awesome icon alignment within header buttons */
   .header__icon-button .fa-solid,
   .header__icon-button .fa-regular,

@@ -1,175 +1,180 @@
-<footer
-  class="relative overflow-hidden bg-gradient-to-br from-slate-900/70 to-indigo-900/25 pt-16 pb-0 px-8"
-  role="contentinfo"
->
-  <div
-    class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.03] z-0 footer-background"
-  ></div>
+{% comment %}
+  Modern Footer Component
+  Features:
+  - Semantic HTML structure
+  - Design system integration
+  - Responsive layout with progressive enhancement
+  - Font Awesome icons
+  - CSS custom properties
+  - Accessibility best practices
+{% endcomment %}
 
-  <style>
-    .footer-background {
-      background-image: url('{{ "image-slam.png" | asset_url }}');
-    }
-  </style>
-  <div class="relative z-10 max-w-6xl mx-auto">
+<footer class="footer" role="contentinfo" aria-label="Site footer">
+  <!-- Background Pattern -->
+  <div class="footer__background" aria-hidden="true"></div>
+  
+  <div class="footer__container">
     <!-- Main Footer Content -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+    <div class="footer__main">
       <!-- Brand Section -->
-      <div class="text-center md:text-left">
-        <h3 class="text-2xl font-bold text-white mb-4"><span class="text-primary">Blox</span>Mania</h3>
-        <p class="text-gray-300 leading-relaxed mb-6 max-w-sm">
-          {{
-            section.settings.company_description
-            | default: 'The fastest, safest, and most reliable marketplace for digital gaming items.'
-          }}
+      <div class="footer__brand">
+        <div class="footer__logo">
+          <h2 class="footer__logo-text">
+            <span class="footer__logo-highlight">Blox</span>Mania
+          </h2>
+        </div>
+        
+        <p class="footer__description">
+          {{ section.settings.company_description | default: 'The fastest, safest, and most reliable marketplace for digital gaming items.' }}
         </p>
 
         <!-- Social Links -->
-        <div class="flex justify-center md:justify-start space-x-3" role="list" aria-label="Social media links">
-          {% if section.settings.discord_url != blank %}
-            <a
-              href="{{ section.settings.discord_url }}"
-              class="inline-flex items-center justify-center w-10 h-10 bg-white/5 border border-white/10 rounded-full text-gray-400 no-underline transition-all duration-300 backdrop-blur-sm hover:bg-primary/10 hover:text-primary hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/20"
-              target="_blank"
-              rel="noopener"
-              aria-label="Discord"
-            >
-              {% render 'icon', icon: 'discord', size: 'medium' %}
+        <div class="footer__social" role="list" aria-label="Social media links">
+          {%- if section.settings.discord_url != blank -%}
+            <a href="{{ section.settings.discord_url }}" 
+               class="footer__social-link" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               aria-label="Follow us on Discord">
+              <i class="fab fa-discord" aria-hidden="true"></i>
+              <span class="footer__social-text">Discord</span>
             </a>
-          {% endif %}
+          {%- endif -%}
 
-          {% if section.settings.tiktok_url != blank %}
-            <a
-              href="{{ section.settings.tiktok_url }}"
-              class="inline-flex items-center justify-center w-10 h-10 bg-white/5 border border-white/10 rounded-full text-gray-400 no-underline transition-all duration-300 backdrop-blur-sm hover:bg-primary/10 hover:text-primary hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/20"
-              target="_blank"
-              rel="noopener"
-              aria-label="TikTok"
-            >
-              {% render 'icon', icon: 'tiktok', size: 'medium' %}
+          {%- if section.settings.youtube_url != blank -%}
+            <a href="{{ section.settings.youtube_url }}" 
+               class="footer__social-link" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               aria-label="Subscribe to our YouTube channel">
+              <i class="fab fa-youtube" aria-hidden="true"></i>
+              <span class="footer__social-text">YouTube</span>
             </a>
-          {% endif %}
+          {%- endif -%}
 
-          {% if section.settings.youtube_url != blank %}
-            <a
-              href="{{ section.settings.youtube_url }}"
-              class="inline-flex items-center justify-center w-10 h-10 bg-white/5 border border-white/10 rounded-full text-gray-400 no-underline transition-all duration-300 backdrop-blur-sm hover:bg-primary/10 hover:text-primary hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/20"
-              target="_blank"
-              rel="noopener"
-              aria-label="YouTube"
-            >
-              {% render 'icon', icon: 'youtube', size: 'medium' %}
+          {%- if section.settings.tiktok_url != blank -%}
+            <a href="{{ section.settings.tiktok_url }}" 
+               class="footer__social-link" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               aria-label="Follow us on TikTok">
+              <i class="fab fa-tiktok" aria-hidden="true"></i>
+              <span class="footer__social-text">TikTok</span>
             </a>
-          {% endif %}
+          {%- endif -%}
+
+          {%- if section.settings.twitter_url != blank -%}
+            <a href="{{ section.settings.twitter_url }}" 
+               class="footer__social-link" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               aria-label="Follow us on Twitter">
+              <i class="fab fa-twitter" aria-hidden="true"></i>
+              <span class="footer__social-text">Twitter</span>
+            </a>
+          {%- endif -%}
+
+          {%- if section.settings.instagram_url != blank -%}
+            <a href="{{ section.settings.instagram_url }}" 
+               class="footer__social-link" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               aria-label="Follow us on Instagram">
+              <i class="fab fa-instagram" aria-hidden="true"></i>
+              <span class="footer__social-text">Instagram</span>
+            </a>
+          {%- endif -%}
         </div>
       </div>
 
-      <!-- Empty column for gap -->
-      <div class="hidden md:block"></div>
+      <!-- Navigation Links -->
+      <nav class="footer__nav" role="navigation" aria-label="Footer navigation">
+        <div class="footer__nav-section">
+          <h3 class="footer__nav-title">Shop</h3>
+          <ul class="footer__nav-list" role="list">
+            <li>
+              <a href="{{ routes.all_products_collection_url }}" class="footer__nav-link">
+                <i class="fas fa-store" aria-hidden="true"></i>
+                All Items
+              </a>
+            </li>
+            <li>
+              <a href="{{ collections.featured.url | default: routes.all_products_collection_url }}" class="footer__nav-link">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                Featured
+              </a>
+            </li>
+            <li>
+              <a href="{{ collections['new-arrivals'].url | default: routes.all_products_collection_url }}" class="footer__nav-link">
+                <i class="fas fa-plus-circle" aria-hidden="true"></i>
+                New Arrivals
+              </a>
+            </li>
+          </ul>
+        </div>
 
-      <!-- Quick Links -->
-      <nav class="text-center md:text-left" role="navigation" aria-labelledby="quick-links-heading">
-        <h4 id="quick-links-heading" class="text-lg font-semibold text-white mb-4">Quick Links</h4>
-        <ul class="space-y-3" role="list">
-          <li>
-            <a
-              href="{{ routes.all_products_collection_url }}"
-              class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5"
-            >
-              Shop All Items
-            </a>
-          </li>
-          <li>
-            <a
-              href="{{ pages.guarantee.url | default: '/pages/guarantee' }}"
-              class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5"
-            >
-              Our Guarantee
-            </a>
-          </li>
-          <li>
-            <a
-              href="{{ pages.faq.url | default: '/pages/faq' }}"
-              class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5"
-            >
-              FAQ
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://discord.gg/bloxmania"
-              class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5"
-              target="_blank"
-              rel="noopener"
-            >
-              Support
-            </a>
-          </li>
-        </ul>
-      </nav>
+        <div class="footer__nav-section">
+          <h3 class="footer__nav-title">Support</h3>
+          <ul class="footer__nav-list" role="list">
+            <li>
+              <a href="{{ pages.guarantee.url | default: '/pages/guarantee' }}" class="footer__nav-link">
+                <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                Our Guarantee
+              </a>
+            </li>
+            <li>
+              <a href="{{ pages.contact.url | default: '/pages/contact' }}" class="footer__nav-link">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+                Contact Us
+              </a>
+            </li>
+          </ul>
+        </div>
 
-      <!-- Legal -->
-      <nav class="text-center md:text-left" role="navigation" aria-labelledby="legal-links-heading">
-        <h4 id="legal-links-heading" class="text-lg font-semibold text-white mb-4">Legal</h4>
-        <ul class="space-y-3" role="list">
-          <li>
-            <a
-              href="{{ pages['privacy-policy'].url | default: '/pages/privacy-policy' }}"
-              class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5"
-            >
-              Privacy Policy
-            </a>
-          </li>
-          <li>
-            <a
-              href="{{ pages['terms-of-service'].url | default: '/pages/terms-of-service' }}"
-              class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5"
-            >
-              Terms of Service
-            </a>
-          </li>
-          <li>
-            <a
-              href="{{ pages['refund-policy'].url | default: '/pages/refund-policy' }}"
-              class="text-gray-400 no-underline font-medium transition-all duration-300 hover:text-primary hover:-translate-y-0.5"
-            >
-              Refund Policy
-            </a>
-          </li>
-        </ul>
+
+        <div class="footer__nav-section">
+          <h3 class="footer__nav-title">Community</h3>
+          <ul class="footer__nav-list" role="list">
+            <li>
+              <a href="{{ section.settings.discord_url | default: 'https://discord.gg/bloxmania' }}" 
+                 class="footer__nav-link" 
+                 target="_blank" 
+                 rel="noopener">
+                <i class="fab fa-discord" aria-hidden="true"></i>
+                Discord Server
+              </a>
+            </li>
+            <li>
+              <a href="{{ pages['purchasing-guide'].url | default: '/pages/purchasing-guide' }}" class="footer__nav-link">
+                <i class="fas fa-book-open" aria-hidden="true"></i>
+                Buying Guide
+              </a>
+            </li>
+          </ul>
+        </div>
       </nav>
     </div>
 
-
-    <!-- Modern Footer Badge -->
-    <div class="relative -mx-8 mb-6">
-      <div class="mx-8">
-        <div class="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-slate-900/80 via-slate-800/60 to-slate-900/80 backdrop-blur-xl shadow-2xl shadow-black/40">
-          <!-- Subtle gaming glow effect -->
-          <div class="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-secondary/5 opacity-50"></div>
-          <div class="absolute -top-px left-20 right-20 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
-          
-          <!-- Content -->
-          <div class="relative px-8 py-6">
-            <div class="max-w-6xl mx-auto flex justify-center">
-              <div class="flex items-center gap-4 px-6 py-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
-                <span class="text-white/90 text-sm font-medium">© {{ 'now' | date: '%Y' }} BloxMania - All rights reserved</span>
-                <span class="text-white/40">•</span>
-                <span class="text-white/70 text-sm">Made with</span>
-                <div class="relative">
-                  <span class="text-red-400 text-sm animate-pulse">❤️</span>
-                  <div class="absolute inset-0 animate-ping">
-                    <span class="text-red-400/30 text-sm">❤️</span>
-                  </div>
-                </div>
-                <span class="text-white/70 text-sm">for gamers</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Bottom accent line -->
-          <div class="absolute -bottom-px left-8 right-8 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+    <!-- Footer Bottom -->
+    <div class="footer__bottom">
+      <!-- Made with love badge - centered and prominent -->
+      <div class="footer__love-badge">
+        <div class="footer__badge">
+          <span>Made with</span>
+          <i class="fas fa-heart" aria-hidden="true"></i>
+          <span>for gamers</span>
         </div>
+      </div>
+      
+      <!-- Legal links - centered below -->
+      <div class="footer__legal-links">
+        <span class="footer__copyright">© {{ 'now' | date: '%Y' }} BloxMania</span>
+        <span class="footer__legal-separator">|</span>
+        <a href="{{ pages['privacy-policy'].url | default: '/pages/privacy-policy' }}">Privacy Policy</a>
+        <span class="footer__legal-separator">|</span>
+        <a href="{{ pages['terms-of-service'].url | default: '/pages/terms-of-service' }}">Terms of Service</a>
+        <span class="footer__legal-separator">|</span>
+        <a href="{{ pages['refund-policy'].url | default: '/pages/refund-policy' }}">Refund Policy</a>
       </div>
     </div>
   </div>
@@ -178,28 +183,63 @@
 {% schema %}
 {
   "name": "Footer",
+  "class": "section-footer",
   "settings": [
+    {
+      "type": "header",
+      "content": "Company Information"
+    },
     {
       "type": "textarea",
       "id": "company_description",
       "label": "Company Description",
-      "default": "The fastest, safest, and most reliable marketplace for digital gaming items."
+      "default": "The fastest, safest, and most reliable marketplace for digital gaming items.",
+      "info": "Brief description of your company"
     },
     {
-      "type": "text",
+      "type": "header",
+      "content": "Social Media Links"
+    },
+    {
+      "type": "url",
       "id": "discord_url",
-      "label": "Discord URL",
-      "default": "https://discord.gg/bloxmania"
+      "label": "Discord URL"
     },
     {
-      "type": "text",
+      "type": "url",
       "id": "youtube_url",
       "label": "YouTube URL"
     },
     {
-      "type": "text",
+      "type": "url",
       "id": "tiktok_url",
       "label": "TikTok URL"
+    },
+    {
+      "type": "url",
+      "id": "twitter_url",
+      "label": "Twitter URL"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "header",
+      "content": "Footer Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "label": "Show newsletter signup",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "Show payment method icons",
+      "default": true
     }
   ]
 }
