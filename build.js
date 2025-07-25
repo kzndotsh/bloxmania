@@ -146,6 +146,9 @@ class ThemeBuilder {
 
     // Copy built assets
     await this.copyBuiltAssets();
+
+    // Copy images and other assets
+    await this.copyAssets();
   }
 
   async cleanThemeDir() {

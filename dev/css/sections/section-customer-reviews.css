@@ -96,20 +96,20 @@
     .customer-review-text {
       font-size: var(--font-size-base);
     }
-    
+
     .customer-reviews-section {
       padding-top: var(--spacing-16) !important;
     }
-    
+
     .customer-review-card {
       padding: var(--spacing-lg);
       min-height: 160px;
     }
-    
+
     .customer-review-stars {
       margin-bottom: var(--spacing-md);
     }
-    
+
     .customer-review-text {
       margin-bottom: var(--spacing-md);
     }
@@ -132,5 +132,4 @@
       font-size: var(--font-size-lg);
     }
   }
-
 }

@@ -5,15 +5,16 @@
   /* ========================================
      FOOTER CONTAINER
      ======================================== */
-  
+
   .footer {
     position: relative;
-    background: linear-gradient(
-      135deg,
-      var(--color-slate-900) 0%,
-      var(--color-slate-800) 50%,
-      var(--color-slate-900) 100%
-    );
+    background:
+      linear-gradient(
+        135deg,
+        var(--color-slate-900) 0%,
+        var(--color-slate-800) 50%,
+        var(--color-slate-900) 100%
+      );
     color: var(--color-foreground);
     padding-top: var(--spacing-16);
     padding-bottom: var(--spacing-8);
@@ -45,7 +46,7 @@
   /* ========================================
      MAIN CONTENT AREA
      ======================================== */
-  
+
   .footer__main {
     display: grid;
     grid-template-columns: 1fr;
@@ -72,7 +73,7 @@
   /* ========================================
      BRAND SECTION
      ======================================== */
-  
+
   .footer__brand {
     display: flex;
     flex-direction: column;
@@ -102,7 +103,7 @@
   /* ========================================
      SOCIAL LINKS
      ======================================== */
-  
+
   .footer__social {
     display: flex;
     flex-wrap: wrap;
@@ -150,7 +151,7 @@
   /* ========================================
      NAVIGATION SECTIONS
      ======================================== */
-  
+
   .footer__nav {
     display: grid;
     grid-template-columns: 1fr;
@@ -227,7 +228,7 @@
   /* ========================================
      FOOTER BOTTOM
      ======================================== */
-  
+
   .footer__bottom {
     position: relative;
     padding-top: var(--spacing-8);
@@ -240,18 +241,19 @@
   }
 
   .footer__bottom::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 20%;
     right: 20%;
     height: 1px;
-    background: linear-gradient(
-      to right,
-      transparent,
-      var(--color-primary),
-      transparent
-    );
+    background:
+      linear-gradient(
+        to right,
+        transparent,
+        var(--color-primary),
+        transparent
+      );
   }
 
   .footer__love-badge {
@@ -308,7 +310,8 @@
   }
 
   @keyframes heartbeat {
-    0%, 100% {
+    0%,
+ 100% {
       transform: scale(1);
     }
     50% {
@@ -345,16 +348,16 @@
   /* ========================================
      RESPONSIVE TYPOGRAPHY
      ======================================== */
-  
+
   @media (max-width: 640px) {
     .footer__logo-text {
       font-size: var(--font-size-2xl);
     }
-    
+
     .footer__description {
       font-size: var(--font-size-sm);
     }
-    
+
     .footer__nav-title {
       font-size: var(--font-size-base);
     }
@@ -363,14 +366,14 @@
   /* ========================================
      ACCESSIBILITY ENHANCEMENTS
      ======================================== */
-  
+
   @media (prefers-reduced-motion: reduce) {
     .footer__social-link,
     .footer__nav-link,
     .footer__badge {
       transition: none;
     }
-    
+
     .footer__badge:first-child i {
       animation: none;
     }
@@ -381,7 +384,7 @@
     .footer {
       background: var(--color-slate-900);
     }
-    
+
     .footer__social-link,
     .footer__badge {
       border-color: var(--color-foreground);
