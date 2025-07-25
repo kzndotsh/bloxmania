@@ -32,17 +32,13 @@
     {%- form 'contact', id: 'ContactForm', class: contact_form_class -%}
       {%- if form.posted_successfully? -%}
         <h2 class="form-status form-status-list form__message" tabindex="-1" autofocus>
-          <svg class="icon icon-success" width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm-2 15l-5-5 1.41-1.41L8 13.17l7.59-7.59L17 7l-9 8z" fill="#00ff00"/>
-          </svg>
+          {% render 'icon', icon: 'success', size: 'medium', color: 'green' %}
           Thank you for your message. We'll get back to you soon!
         </h2>
       {%- elsif form.errors -%}
         <div class="form__message">
           <h2 class="form-status caption-large text-body" role="alert" tabindex="-1" autofocus>
-            <svg class="icon icon-error" width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm1 15H9v-2h2v2zm0-4H9V5h2v6z" fill="#ff6b6b"/>
-            </svg>
+            {% render 'icon', icon: 'error', size: 'medium', color: 'red' %}
             There was an error submitting your form. Please try again.
           </h2>
         </div>
@@ -96,9 +92,7 @@
               <span class="visually-hidden">Error</span>
               <span class="form__message">
                 <span class="svg-wrapper">
-                  <svg class="icon icon-error" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8S12.42 0 8 0zm1 12H7v-2h2v2zm0-3H7V5h2v4z" fill="#ff6b6b"/>
-                  </svg>
+                  {% render 'icon', icon: 'error', size: 'small', color: 'red' %}
                 </span>
                 {{- form.errors.translated_fields.email | capitalize }}
                 {{ form.errors.messages.email -}}

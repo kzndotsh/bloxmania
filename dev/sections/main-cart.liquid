@@ -222,14 +222,7 @@
                 <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
                   {%- for discount in item.line_level_discount_allocations -%}
                     <li class="discounts__discount">
-                      <svg
-                        aria-hidden="true"
-                        focusable="false"
-                        class="icon icon-discount"
-                        viewBox="0 0 12 12"
-                      >
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="m0 6 6-6h6v6l-6 6H0V6Z"/>
-                      </svg>
+                      {% render 'icon', icon: 'discount', size: 'small' %}
                       {{ discount.discount_application.title | escape }}
                     </li>
                   {%- endfor -%}
@@ -246,16 +239,7 @@
                       type="button"
                       aria-label="{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true"
-                        focusable="false"
-                        class="icon icon-minus"
-                        fill="none"
-                        viewBox="0 0 10 2"
-                      >
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M.5 1C.5.7.7.5 1 .5h8a.5.5 0 110 1H1A.5.5 0 01.5 1z" fill="currentColor">
-                      </svg>
+                      {% render 'icon', icon: 'minus', size: 'small' %}
                     </button>
                     <input
                       class="quantity__input"
@@ -274,16 +258,7 @@
                       type="button"
                       aria-label="{{ 'products.product.quantity.increase' | t: product: item.product.title | escape }}"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true"
-                        focusable="false"
-                        class="icon icon-plus"
-                        fill="none"
-                        viewBox="0 0 10 10"
-                      >
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1 4.51a.5.5 0 000 1h3.5l.01 3.5a.5.5 0 001-.01V5.5l3.5-.01a.5.5 0 00-.01-1H5.5L5.49.99a.5.5 0 00-1 .01v3.5l-3.5.01H1z" fill="currentColor">
-                      </svg>
+                      {% render 'icon', icon: 'plus', size: 'small' %}
                     </button>
                   </quantity-input>
 
@@ -297,15 +272,7 @@
                       class="button button--tertiary"
                       aria-label="{{ 'sections.cart.remove_title' | t: title: item.title | escape }}"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 16 16"
-                        aria-hidden="true"
-                        focusable="false"
-                        class="icon icon-close"
-                      >
-                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                      </svg>
+                      {% render 'icon', icon: 'close', size: 'small' %}
                     </button>
                   </cart-remove-button>
                 </div>
@@ -317,11 +284,7 @@
                   aria-live="polite"
                 >
                   <small class="cart-item__error-text"></small>
-                  <svg aria-hidden="true" focusable="false" class="icon icon-error" viewBox="0 0 13 13">
-                    <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-opacity="0.25" fill="none"/>
-                    <circle cx="6.5" cy="6.5" r="5.5" stroke="#EB001B" stroke-width="0.7"/>
-                    <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="#EB001B"/>
-                  </svg>
+                  {% render 'icon', icon: 'error', size: 'small', color: 'red' %}
                 </div>
               </div>
             </div>
@@ -351,16 +314,7 @@
                 <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
                   {%- for discount in cart.cart_level_discount_applications -%}
                     <li class="discounts__discount discounts__discount--position">
-                      <svg
-                        aria-hidden="true"
-                        focusable="false"
-                        class="icon icon-discount"
-                        viewBox="0 0 12 12"
-                        width="16"
-                        height="16"
-                      >
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="m0 6 6-6h6v6l-6 6H0V6Z"/>
-                      </svg>
+                      {% render 'icon', icon: 'discount', size: 'small' %}
                       {{ discount.title | escape }}
                       (-{{ discount.total_allocated_amount | money }})
                     </li>

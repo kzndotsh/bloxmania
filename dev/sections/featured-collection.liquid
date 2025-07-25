@@ -189,9 +189,7 @@
             aria-label="Previous slide"
             aria-controls="Slider-{{ section.id }}"
           >
-            <svg width="10" height="18" viewBox="0 0 10 18" fill="none">
-              <path d="M9 1L1 9L9 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            {% render 'icon', icon: 'chevron-left', size: 'small' %}
           </button>
 
           <div class="slider-counter caption">
@@ -207,9 +205,7 @@
             aria-label="Next slide"
             aria-controls="Slider-{{ section.id }}"
           >
-            <svg width="10" height="18" viewBox="0 0 10 18" fill="none">
-              <path d="M1 1L9 9L1 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            {% render 'icon', icon: 'chevron-right', size: 'small' %}
           </button>
         </div>
       {%- endif -%}

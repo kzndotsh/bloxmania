@@ -122,9 +122,7 @@
     <div class="address-form-modal__header">
       <h2 class="address-form-modal__title">{{ 'customer.addresses.add_new' | t }}</h2>
       <button type="button" class="address-form-modal__close" aria-label="{{ 'accessibility.close' | t }}">
-        <svg class="icon icon-close" aria-hidden="true" focusable="false">
-          <use href="#icon-close">
-        </svg>
+        {% render 'icon', icon: 'close', size: 'small' %}
       </button>
     </div>
 
@@ -294,9 +292,7 @@
     <div class="address-form-modal__header">
       <h2 class="address-form-modal__title">{{ 'customer.addresses.edit_address' | t }}</h2>
       <button type="button" class="address-form-modal__close" aria-label="{{ 'accessibility.close' | t }}">
-        <svg class="icon icon-close" aria-hidden="true" focusable="false">
-          <use href="#icon-close">
-        </svg>
+        {% render 'icon', icon: 'close', size: 'small' %}
       </button>
     </div>
 
