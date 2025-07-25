@@ -18,9 +18,9 @@
 <div class="product-share">
   <details class="share-button-details">
     <summary class="share-button-summary flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white font-medium px-4 py-3 rounded-lg border border-gray-600 transition-colors duration-200 cursor-pointer">
-      {% render 'icon', icon: 'share', class: 'w-5 h-5' %}
+      {% render 'icon', icon: 'share', size: 'medium' %}
       {{ share_label }}
-      {% render 'icon', icon: 'chevron-down', class: 'w-4 h-4 transition-transform duration-200' %}
+      {% render 'icon', icon: 'chevron-down', class: 'transition-transform duration-200', size: 'small' %}
     </summary>
 
     <div class="share-options absolute z-10 mt-2 bg-gray-800 border border-gray-600 rounded-lg shadow-lg p-4 min-w-[280px]">
@@ -37,7 +37,7 @@
           class="share-btn share-btn--facebook flex items-center gap-2 bg-[#1877F2] hover:bg-[#166FE5] text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200"
           aria-label="{{ 'general.share.share_on_facebook' | t }}"
         >
-          {% render 'icon', icon: 'facebook', class: 'w-4 h-4' %}
+          {% render 'icon', icon: 'facebook', size: 'small' %}
           Facebook
         </a>
 
@@ -49,7 +49,7 @@
           class="share-btn share-btn--twitter flex items-center gap-2 bg-[#1DA1F2] hover:bg-[#1A91DA] text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200"
           aria-label="{{ 'general.share.share_on_twitter' | t }}"
         >
-          {% render 'icon', icon: 'twitter', class: 'w-4 h-4' %}
+          {% render 'icon', icon: 'twitter', size: 'small' %}
           Twitter
         </a>
 
@@ -61,7 +61,7 @@
           class="share-btn share-btn--pinterest flex items-center gap-2 bg-[#E60023] hover:bg-[#D50020] text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200"
           aria-label="{{ 'general.share.share_on_pinterest' | t }}"
         >
-          {% render 'icon', icon: 'pinterest', class: 'w-4 h-4' %}
+          {% render 'icon', icon: 'pinterest', size: 'small' %}
           Pinterest
         </a>
 
@@ -73,7 +73,7 @@
           class="share-btn share-btn--whatsapp flex items-center gap-2 bg-[#25D366] hover:bg-[#22C55E] text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200"
           aria-label="{{ 'general.share.share_on_whatsapp' | t }}"
         >
-          {% render 'icon', icon: 'whatsapp', class: 'w-4 h-4' %}
+          {% render 'icon', icon: 'whatsapp', size: 'small' %}
           WhatsApp
         </a>
       </div>
@@ -94,7 +94,7 @@
             onclick="copyToClipboard('{{ share_link }}')"
             aria-label="{{ 'general.share.copy_link' | t }}"
           >
-            {% render 'icon', icon: 'clipboard', class: 'w-4 h-4' %}
+            {% render 'icon', icon: 'clipboard', size: 'small' %}
           </button>
         </div>
         <div

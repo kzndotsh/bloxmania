@@ -15,21 +15,21 @@
     <li>
       <a href="{{ routes.root_url }}" class="hover:text-primary transition-colors duration-200">
         <span class="sr-only">{{ 'general.breadcrumbs.home' | t }}</span>
-        {% render 'icon', icon: 'home', class: 'w-4 h-4' %}
+        {% render 'icon', icon: 'home', size: 'small' %}
       </a>
     </li>
 
     {%- if template.name == 'product' and product -%}
       {%- if collection -%}
         <li class="flex items-center">
-          {% render 'icon', icon: 'chevron-right', class: 'w-4 h-4 text-gray-500 mx-2' %}
+          {% render 'icon', icon: 'chevron-right', size: 'small', color: 'gray', class: 'mx-2' %}
           <a href="{{ collection.url }}" class="hover:text-primary transition-colors duration-200">
             {{ collection.title }}
           </a>
         </li>
       {%- else -%}
         <li class="flex items-center">
-          {% render 'icon', icon: 'chevron-right', class: 'w-4 h-4 text-gray-500 mx-2' %}
+          {% render 'icon', icon: 'chevron-right', size: 'small', color: 'gray', class: 'mx-2' %}
           <a href="{{ routes.all_products_collection_url }}" class="hover:text-primary transition-colors duration-200">
             {{ 'general.breadcrumbs.products' | t }}
           </a>
@@ -37,7 +37,7 @@
       {%- endif -%}
 
       <li class="flex items-center">
-        {% render 'icon', icon: 'chevron-right', class: 'w-4 h-4 text-gray-500 mx-2' %}
+        {% render 'icon', icon: 'chevron-right', size: 'small', color: 'gray', class: 'mx-2' %}
         <span class="text-white font-medium" aria-current="page">
           {{ product.title | truncate: 50 }}
         </span>
@@ -45,7 +45,7 @@
 
     {%- elsif template.name == 'collection' and collection -%}
       <li class="flex items-center">
-        {% render 'icon', icon: 'chevron-right', class: 'w-4 h-4 text-gray-500 mx-2' %}
+        {% render 'icon', icon: 'chevron-right', size: 'small', color: 'gray', class: 'mx-2' %}
         <span class="text-white font-medium" aria-current="page">
           {{ collection.title }}
         </span>
@@ -53,7 +53,7 @@
 
     {%- elsif template.name == 'page' and page -%}
       <li class="flex items-center">
-        {% render 'icon', icon: 'chevron-right', class: 'w-4 h-4 text-gray-500 mx-2' %}
+        {% render 'icon', icon: 'chevron-right', size: 'small', color: 'gray', class: 'mx-2' %}
         <span class="text-white font-medium" aria-current="page">
           {{ page.title }}
         </span>

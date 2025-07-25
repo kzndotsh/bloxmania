@@ -38,7 +38,7 @@
             assign star_class = 'text-yellow-400 half-star'
           endif
         -%}
-        {% render 'icon', icon: 'star', class: 'w-4 h-4 ' | append: star_class %}
+        {% render 'icon', icon: 'star', size: 'small', class: star_class %}
       {%- endfor -%}
     </div>
 
@@ -75,7 +75,7 @@
   <div class="product-rating flex items-center gap-2">
     <div class="rating-stars flex items-center" aria-label="{{ 'products.product.rating.no_rating' | t }}">
       {%- for i in (1..5) -%}
-        {% render 'icon', icon: 'star', class: 'w-4 h-4 text-gray-600' %}
+        {% render 'icon', icon: 'star', size: 'small', color: 'gray' %}
       {%- endfor -%}
     </div>
 
