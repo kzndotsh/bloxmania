@@ -230,7 +230,10 @@
             | default: "With BloxMania, you're not just buying items - you're joining a community that's all about fast, secure, and happy transactions. So go ahead, make that purchase, and let us show you how we do it!"
           }}
         </p>
-        <a href="{{ section.settings.cta_button_link | default: routes.collections_url }}" class="guarantee-button">
+        <a
+          href="{{ section.settings.cta_button_link | default: routes.collections_url }}"
+          class="btn btn--gaming btn--lg"
+        >
           {{- section.settings.cta_button_text | default: 'Shop Now!' -}}
         </a>
       </div>
