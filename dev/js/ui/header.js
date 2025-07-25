@@ -68,7 +68,7 @@ class HeaderManager {
     if (!this.header) return;
 
     let lastScrollTop = 0;
-    const scrollThreshold = 100;
+    const scrollThreshold = 0; // Changed to 0 so header is transparent at the very top
     const maxScrollForEffect = 300;
 
     const updateHeaderStyles = (scrollTop) => {
@@ -80,15 +80,13 @@ class HeaderManager {
 
       // Apply appropriate classes based on scroll position
       if (scrollTop > scrollThreshold) {
-        this.header.classList.add("header--dynamic");
-        this.header.classList.add("header--fixed");
+        this.header.classList.add("header--scrolled");
         this.header.classList.remove("header--transparent");
-        console.log("Header is now fixed - scroll position:", scrollTop);
+        console.log("Header is now scrolled - scroll position:", scrollTop, "Classes:", this.header.className);
       } else {
-        this.header.classList.remove("header--dynamic");
-        this.header.classList.remove("header--fixed");
+        this.header.classList.remove("header--scrolled");
         this.header.classList.add("header--transparent");
-        console.log("Header is now transparent - scroll position:", scrollTop);
+        console.log("Header is now transparent - scroll position:", scrollTop, "Classes:", this.header.className);
       }
 
       // Keep header visible when scrolling - removed hide/show logic
@@ -200,12 +198,19 @@ class HeaderManager {
 
     // Initialize header state on page load - header starts transparent
     this.header.classList.add("header--transparent");
-    this.header.classList.remove("header--dynamic");
-    this.header.classList.remove("header--fixed");
+    this.header.classList.remove("header--scrolled");
     this.header.classList.remove("header--hidden"); // Ensure header is never hidden
 
     // Force the header to be transparent on page load
     this.header.style.setProperty("--scroll-progress", "0");
+
+    // Ensure header is completely transparent at the top
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrollTop === 0) {
+      this.header.classList.add("header--transparent");
+      this.header.classList.remove("header--scrolled");
+    }
+
     console.log("🎯 HeaderManager: Header state initialized - header will remain visible when scrolling");
   }
 }
