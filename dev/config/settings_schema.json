@@ -812,5 +812,52 @@
         "default": false
       }
     ]
+  },
+  {
+    "name": "SEO & Social Media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Global SEO Settings"
+      },
+      {
+        "type": "textarea",
+        "id": "global_meta_description",
+        "label": "Global Meta Description",
+        "info": "Default description for pages without specific meta descriptions",
+        "default": "BloxMania - Premium gaming merchandise and collectibles for gamers worldwide. Fast, safe, and instant delivery of digital goods and gaming items."
+      },
+      {
+        "type": "text",
+        "id": "global_og_image",
+        "label": "Global Open Graph Image",
+        "info": "Default image for social media sharing (1200x630px recommended)"
+      },
+      {
+        "type": "header",
+        "content": "Social Media"
+      },
+      {
+        "type": "text",
+        "id": "twitter_handle",
+        "label": "Twitter Handle",
+        "default": "@bloxmania",
+        "info": "Your Twitter username (without @)"
+      },
+      {
+        "type": "url",
+        "id": "discord_invite_url",
+        "label": "Discord Invite URL",
+        "default": "https://discord.gg/bloxmania",
+        "info": "Your Discord server invite link"
+      },
+      {
+        "type": "text",
+        "id": "site_name",
+        "label": "Site Name",
+        "default": "BloxMania",
+        "info": "Name displayed in social media previews"
+      }
+    ]
   }
 ]

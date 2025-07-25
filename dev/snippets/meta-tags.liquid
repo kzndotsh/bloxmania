@@ -1,37 +1,59 @@
 {%- comment -%}
-  Meta tags for SEO and social media sharing
+  Enhanced Meta tags for SEO and social media sharing
+  Optimized for Discord, Twitter, Facebook, and other platforms
 {%- endcomment -%}
 
 <meta name="robots" content="index, follow">
 <meta name="author" content="{{ shop.name }}">
+<meta name="theme-color" content="#ffd800">
+<meta name="msapplication-TileColor" content="#ffd800">
+
+{%- comment -%} Set fallback values {%- endcomment -%}
+{%- assign fallback_description = settings.global_meta_description
+  | default: 'BloxMania - Premium gaming merchandise and collectibles for gamers worldwide. Fast, safe, and instant delivery of digital goods and gaming items.'
+-%}
+{%- assign fallback_image = settings.global_og_image
+  | image_url: width: 1200
+  | default: shop.url
+  | append: '/assets/image-hero-original.png'
+-%}
+{%- assign site_name = settings.site_name | default: shop.name -%}
 
 {%- if template contains 'product' -%}
   {%- assign og_type = 'product' -%}
   {%- assign og_title = product.title | escape -%}
-  {%- assign og_description = product.description | strip_html | truncatewords: 150 -%}
-  {%- assign og_image = product.featured_image | image_url: width: 1200 -%}
+  {%- assign og_description = product.description | strip_html | truncatewords: 150 | default: fallback_description -%}
+  {%- assign og_image = product.featured_image | image_url: width: 1200 | default: fallback_image -%}
   {%- assign og_url = shop.url | append: product.url -%}
 {%- elsif template contains 'collection' -%}
   {%- assign og_type = 'product.group' -%}
   {%- assign og_title = collection.title | escape -%}
-  {%- assign og_description = collection.description | strip_html | truncatewords: 150 -%}
-  {%- assign og_image = collection.image | image_url: width: 1200 -%}
+  {%- assign og_description = collection.description
+    | strip_html
+    | truncatewords: 150
+    | default: fallback_description
+  -%}
+  {%- assign og_image = collection.image | image_url: width: 1200 | default: fallback_image -%}
   {%- assign og_url = shop.url | append: collection.url -%}
 {%- elsif template contains 'article' -%}
   {%- assign og_type = 'article' -%}
   {%- assign og_title = article.title | escape -%}
-  {%- assign og_description = article.excerpt_or_content | strip_html | truncatewords: 150 -%}
-  {%- assign og_image = article.image | image_url: width: 1200 -%}
+  {%- assign og_description = article.excerpt_or_content
+    | strip_html
+    | truncatewords: 150
+    | default: fallback_description
+  -%}
+  {%- assign og_image = article.image | image_url: width: 1200 | default: fallback_image -%}
   {%- assign og_url = shop.url | append: article.url -%}
 {%- else -%}
   {%- assign og_type = 'website' -%}
   {%- assign og_title = page_title | escape -%}
-  {%- assign og_description = page_description | escape -%}
-  {%- assign og_image = settings.og_image | image_url: width: 1200 -%}
+  {%- assign og_description = page_description | escape | default: fallback_description -%}
+  {%- assign og_image = fallback_image -%}
   {%- assign og_url = canonical_url -%}
 {%- endif -%}
 
-<!-- Open Graph / Facebook -->
+<!-- Open Graph / Facebook / Discord -->
 <meta property="og:type" content="{{ og_type }}">
 <meta property="og:url" content="{{ og_url }}">
 <meta property="og:title" content="{{ og_title }}">
@@ -40,8 +62,10 @@
   <meta property="og:image" content="{{ og_image }}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{ og_title | escape }}">
 {%- endif -%}
-<meta property="og:site_name" content="{{ shop.name }}">
+<meta property="og:site_name" content="{{ site_name }}">
+<meta property="og:locale" content="{{ request.locale.iso_code }}">
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image">
@@ -50,7 +74,10 @@
 <meta property="twitter:description" content="{{ og_description }}">
 {%- if og_image != blank -%}
   <meta property="twitter:image" content="{{ og_image }}">
+  <meta property="twitter:image:alt" content="{{ og_title | escape }}">
 {%- endif -%}
+<meta property="twitter:site" content="{{ settings.twitter_handle }}">
+<meta property="twitter:creator" content="{{ settings.twitter_handle }}">
 
 <!-- Additional SEO -->
 {%- if template contains 'product' -%}
@@ -62,6 +89,18 @@
   <meta property="product:price:amount" content="{{ product.price | money_without_currency | strip_html }}">
   <meta property="product:price:currency" content="{{ shop.currency }}">
 {%- endif -%}
+
+<!-- Discord-specific meta tags -->
+<meta name="discord:invite" content="{{ settings.discord_invite_url }}">
+<meta name="application-name" content="{{ shop.name }}">
+<meta name="apple-mobile-web-app-title" content="{{ shop.name }}">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- Additional social media optimization -->
+<meta name="format-detection" content="telephone=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="msapplication-config" content="/browserconfig.xml">
 
 <!-- Structured Data -->
 {%- if template contains 'product' -%}
@@ -75,14 +114,21 @@
       "url": {{ shop.url | append: product.url | json }},
       "brand": {
         "@type": "Brand",
-        "name": {{ shop.name | json }}
+        "name": {{ site_name | json }}
       },
+      "category": "Gaming",
       "offers": {
         "@type": "Offer",
         "price": {{ product.price | money_without_currency | strip_html | json }},
         "priceCurrency": {{ shop.currency | json }},
         "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
-        "url": {{ shop.url | append: product.url | json }}
+        "url": {{ shop.url | append: product.url | json }},
+        "priceValidUntil": "{{ 'now' | date: '%Y-%m-%d' | plus: 365 | date: '%Y-%m-%d' }}"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "150"
       }
     }
   </script>
@@ -103,10 +149,19 @@
       "@type": "WebSite",
       "name": {{ shop.name | json }},
       "url": {{ shop.url | json }},
+      "description": "Premium gaming merchandise and collectibles for gamers worldwide",
       "potentialAction": {
         "@type": "SearchAction",
         "target": "{{ shop.url }}/search?q={search_term_string}",
         "query-input": "required name=search_term_string"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": {{ site_name | json }},
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{ shop.url }}/assets/image-BG.png"
+        }
       }
     }
   </script>

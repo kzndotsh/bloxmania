@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://bloxmania.store/sitemap.xml
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /account/
+Disallow: /search?
+
+# Allow important pages
+Allow: /products/
+Allow: /collections/
+Allow: /pages/
+Allow: /blogs/
+
+# Crawl delay (optional)
+Crawl-delay: 1 

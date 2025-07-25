@@ -79,6 +79,10 @@
     "variant_pills_shadow_vertical_offset": 4,
     "variant_pills_shadow_blur": 6,
     "predictive_search_enabled": false,
+    "global_meta_description": "BloxMania - Premium gaming merchandise and collectibles for gamers worldwide. Fast, safe, and instant delivery of digital goods and gaming items.",
+    "twitter_handle": "@bloxmania",
+    "discord_invite_url": "https://discord.gg/bloxmania",
+    "site_name": "BloxMania",
     "cart_type": "notification",
     "sections": {
       "header": {

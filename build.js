@@ -270,6 +270,23 @@ class ThemeBuilder {
         console.log(`  ✅ Copied ${file}`);
       }
     }
+
+    // Copy SEO files to theme root
+    const seoFiles = ['browserconfig.xml', 'robots.txt'];
+
+    for (const file of seoFiles) {
+      const srcPath = path.join(this.devDir, file);
+      const destPath = path.join(this.themeDir, file);
+
+      if (await fs.pathExists(srcPath)) {
+        await fs.copy(srcPath, destPath, { 
+          overwrite: true,
+          preserveTimestamps: true,
+          errorOnExist: false
+        });
+        console.log(`  ✅ Copied ${file} to theme root`);
+      }
+    }
   }
 
   async copySystemFiles() {
