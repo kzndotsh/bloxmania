@@ -32,6 +32,11 @@
     }
   }
 
+  /* Homepage specific - remove padding for hero section */
+  body.template-index {
+    padding-top: 0;
+  }
+
   /* Remove list styles on ul, ol elements with a list role */
   ul[role="list"],
   ol[role="list"] {

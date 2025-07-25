@@ -91,5 +91,13 @@
   .animate-fade-in-right { animation: fadeInRight var(--duration-slow) var(--easing-smooth) forwards; }
   .animate-fade-in { animation: fadeIn var(--duration-default) var(--easing-smooth) forwards; }
   .animate-scale-in { animation: scaleIn var(--duration-default) var(--easing-spring) forwards; }
-  .animate-scroll { animation: scroll 20s linear infinite; }
+  .animate-scroll {
+    animation: scroll 8s linear infinite;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  .animate-scroll:hover {
+    animation-play-state: paused;
+    opacity: 0.95;
+  }
 }
