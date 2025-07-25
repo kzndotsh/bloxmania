@@ -300,7 +300,8 @@ class QuantityInput extends HTMLElement {
   }
 }
 
-// Register the component
-if (!customElements.get("quantity-input")) {
+// Register the component only if not on cart page to avoid conflicts with modern cart
+const isOnCartPage = window.location.pathname === '/cart';
+if (!customElements.get("quantity-input") && !isOnCartPage) {
   customElements.define("quantity-input", QuantityInput);
 }

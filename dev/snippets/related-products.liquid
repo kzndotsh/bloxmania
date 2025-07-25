@@ -1,5 +1,5 @@
 {% comment %}
-  Renders related products section using existing card-product snippet
+  Renders related products section - Clean & Modern Design
 
   Accepts:
   - product: {Object} Product Liquid object (required)
@@ -18,35 +18,58 @@
 -%}
 
 {%- if related_products.size > 0 -%}
-  <div class="related-products-section">
-    <div class="related-products-header mb-8">
-      <h2 class="text-2xl lg:text-3xl font-bold text-white text-center">
+  <div class="related-products-section py-16">
+    <!-- Section Header -->
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
         {{ heading }}
       </h2>
+      <p class="text-gray-400 text-lg">
+        Discover more items you'll love
+      </p>
     </div>
 
-    <div class="related-products-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- Products Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
       {%- assign products_shown = 0 -%}
+      
+      {%- comment -%} Related Products {%- endcomment -%}
       {%- for related_product in related_products -%}
         {%- if related_product.id != current_product_id and products_shown < products_to_show -%}
-          <div class="related-product-item">
-            {% render 'card-product',
-              card_product: related_product,
-              media_aspect_ratio: 'square',
-              show_secondary_image: false,
-              show_vendor: false,
-              show_rating: false,
-              extend_height: true,
-              lazy_load: true
-            %}
+          <div class="product-card">
+            <a href="{{ related_product.url }}" class="block group no-underline">
+              <!-- Product Image -->
+              <div class="aspect-square bg-slate-800 rounded-xl overflow-hidden mb-4 group-hover:ring-2 group-hover:ring-primary transition-all duration-300">
+                {%- if related_product.featured_media -%}
+                  <img
+                    src="{{ related_product.featured_media | image_url: width: 300 }}"
+                    alt="{{ related_product.featured_media.alt | escape }}"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  >
+                {%- else -%}
+                  <div class="w-full h-full flex items-center justify-center text-gray-500">
+                    <i class="fas fa-image text-4xl"></i>
+                  </div>
+                {%- endif -%}
+              </div>
+              
+              <!-- Product Info -->
+              <div class="text-center">
+                <h3 class="text-white font-semibold text-lg mb-2 group-hover:text-primary transition-colors duration-300">
+                  {{ related_product.title | escape }}
+                </h3>
+                <div class="text-primary font-bold text-xl">
+                  {{ related_product.price | money }}
+                </div>
+              </div>
+            </a>
           </div>
           {%- assign products_shown = products_shown | plus: 1 -%}
         {%- endif -%}
       {%- endfor -%}
 
-      {%- comment -%}
-        If we don't have enough related products, fill with products from the same collection
-      {%- endcomment -%}
+      {%- comment -%} Fill with collection products if needed {%- endcomment -%}
       {%- if products_shown < products_to_show and product.collections.size > 0 -%}
         {%- assign main_collection = product.collections.first -%}
         {%- for collection_product in main_collection.products -%}
@@ -60,16 +83,34 @@
             {%- endfor -%}
 
             {%- unless already_shown -%}
-              <div class="related-product-item">
-                {% render 'card-product',
-                  card_product: collection_product,
-                  media_aspect_ratio: 'square',
-                  show_secondary_image: false,
-                  show_vendor: false,
-                  show_rating: false,
-                  extend_height: true,
-                  lazy_load: true
-                %}
+              <div class="product-card">
+                <a href="{{ collection_product.url }}" class="block group no-underline">
+                  <!-- Product Image -->
+                  <div class="aspect-square bg-slate-800 rounded-xl overflow-hidden mb-4 group-hover:ring-2 group-hover:ring-primary transition-all duration-300">
+                    {%- if collection_product.featured_media -%}
+                      <img
+                        src="{{ collection_product.featured_media | image_url: width: 300 }}"
+                        alt="{{ collection_product.featured_media.alt | escape }}"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                      >
+                    {%- else -%}
+                      <div class="w-full h-full flex items-center justify-center text-gray-500">
+                        <i class="fas fa-image text-4xl"></i>
+                      </div>
+                    {%- endif -%}
+                  </div>
+                  
+                  <!-- Product Info -->
+                  <div class="text-center">
+                    <h3 class="text-white font-semibold text-lg mb-2 group-hover:text-primary transition-colors duration-300">
+                      {{ collection_product.title | escape }}
+                    </h3>
+                    <div class="text-primary font-bold text-xl">
+                      {{ collection_product.price | money }}
+                    </div>
+                  </div>
+                </a>
               </div>
               {%- assign products_shown = products_shown | plus: 1 -%}
             {%- endunless -%}
@@ -77,15 +118,12 @@
         {%- endfor -%}
       {%- endif -%}
 
-      {%- comment -%}
-        If we still don't have enough products, fill with random products from all collections
-      {%- endcomment -%}
+      {%- comment -%} Fill with random products if still needed {%- endcomment -%}
       {%- if products_shown < products_to_show -%}
         {%- for fallback_product in collections.all.products limit: 20 -%}
           {%- if fallback_product.id != current_product_id and products_shown < products_to_show -%}
             {%- assign already_shown = false -%}
 
-            {%- comment -%} Check if already shown in related products {%- endcomment -%}
             {%- for related_product in related_products -%}
               {%- if related_product.id == fallback_product.id -%}
                 {%- assign already_shown = true -%}
@@ -93,7 +131,6 @@
               {%- endif -%}
             {%- endfor -%}
 
-            {%- comment -%} Check if already shown in collection products {%- endcomment -%}
             {%- unless already_shown -%}
               {%- if product.collections.size > 0 -%}
                 {%- assign main_collection = product.collections.first -%}
@@ -107,16 +144,34 @@
             {%- endunless -%}
 
             {%- unless already_shown -%}
-              <div class="related-product-item">
-                {% render 'card-product',
-                  card_product: fallback_product,
-                  media_aspect_ratio: 'square',
-                  show_secondary_image: false,
-                  show_vendor: false,
-                  show_rating: false,
-                  extend_height: true,
-                  lazy_load: true
-                %}
+              <div class="product-card">
+                <a href="{{ fallback_product.url }}" class="block group no-underline">
+                  <!-- Product Image -->
+                  <div class="aspect-square bg-slate-800 rounded-xl overflow-hidden mb-4 group-hover:ring-2 group-hover:ring-primary transition-all duration-300">
+                    {%- if fallback_product.featured_media -%}
+                      <img
+                        src="{{ fallback_product.featured_media | image_url: width: 300 }}"
+                        alt="{{ fallback_product.featured_media.alt | escape }}"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                      >
+                    {%- else -%}
+                      <div class="w-full h-full flex items-center justify-center text-gray-500">
+                        <i class="fas fa-image text-4xl"></i>
+                      </div>
+                    {%- endif -%}
+                  </div>
+                  
+                  <!-- Product Info -->
+                  <div class="text-center">
+                    <h3 class="text-white font-semibold text-lg mb-2 group-hover:text-primary transition-colors duration-300">
+                      {{ fallback_product.title | escape }}
+                    </h3>
+                    <div class="text-primary font-bold text-xl">
+                      {{ fallback_product.price | money }}
+                    </div>
+                  </div>
+                </a>
               </div>
               {%- assign products_shown = products_shown | plus: 1 -%}
             {%- endunless -%}
@@ -125,84 +180,68 @@
       {%- endif -%}
     </div>
 
-    {%- comment -%}
-      Show "View All" button if there are more products in the collection
-    {%- endcomment -%}
+    {%- comment -%} View All Button {%- endcomment -%}
     {%- if product.collections.size > 0 -%}
       {%- assign main_collection = product.collections.first -%}
       {%- if main_collection.products.size > products_to_show -%}
-        <div class="related-products-footer text-center mt-8">
+        <div class="text-center mt-12">
           <a
             href="{{ main_collection.url }}"
-            class="inline-flex items-center gap-2 bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-black font-medium px-6 py-3 rounded-lg transition-all duration-300"
+            class="inline-flex items-center gap-2 bg-primary text-black font-semibold px-8 py-3 rounded-lg hover:bg-primary-light transition-colors duration-300"
           >
-            {{ 'sections.featured_collection.view_all' | t }}
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-            </svg>
+            View All Products
+            <i class="fas fa-arrow-right text-sm"></i>
           </a>
         </div>
       {%- endif -%}
     {%- endif -%}
   </div>
 
-  {%- comment -%} Schema markup for related products {%- endcomment -%}
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org/",
-      "@type": "ItemList",
-      "name": {{ heading | json }},
-      "numberOfItems": {{ products_shown | json }},
-      "itemListElement": [
-        {%- assign item_index = 0 -%}
-        {%- for related_product in related_products -%}
-          {%- if related_product.id != current_product_id and item_index < products_to_show -%}
-            {%- unless forloop.first -%},{%- endunless -%}
-            {
-              "@type": "ListItem",
-              "position": {{ item_index | plus: 1 | json }},
-              "item": {
-                "@type": "Product",
-                "name": {{ related_product.title | json }},
-                "url": {{ request.origin | append: related_product.url | json }},
-                "image": {{ related_product.featured_image | image_url: width: 300 | json }},
-                "offers": {
-                  "@type": "Offer",
-                  "price": {{ related_product.price | divided_by: 100.0 | json }},
-                  "priceCurrency": {{ cart.currency.iso_code | json }},
-                  "availability": "{% if related_product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}"
-                }
-              }
-            }
-            {%- assign item_index = item_index | plus: 1 -%}
-          {%- endif -%}
-        {%- endfor -%}
-      ]
-    }
-  </script>
-
 {%- else -%}
   {%- comment -%} Fallback when no related products are available {%- endcomment -%}
-  <div class="related-products-section">
-    <div class="related-products-header mb-8">
-      <h2 class="text-2xl lg:text-3xl font-bold text-white text-center">
-        {{ 'products.product.related_products_fallback' | t | default: 'More Products' }}
+  <div class="related-products-section py-16">
+    <!-- Section Header -->
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+        More Products
       </h2>
+      <p class="text-gray-400 text-lg">
+        Check out these other items
+      </p>
     </div>
 
-    <div class="related-products-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- Products Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
       {%- for fallback_product in collections.all.products limit: products_to_show -%}
         {%- if fallback_product.id != current_product_id -%}
-          <div class="related-product-item">
-            {% render 'card-product',
-              card_product: fallback_product,
-              media_aspect_ratio: 'square',
-              show_secondary_image: false,
-              show_vendor: false,
-              show_rating: false,
-              extend_height: true,
-              lazy_load: true
-            %}
+          <div class="product-card">
+            <a href="{{ fallback_product.url }}" class="block group no-underline">
+              <!-- Product Image -->
+              <div class="aspect-square bg-slate-800 rounded-xl overflow-hidden mb-4 group-hover:ring-2 group-hover:ring-primary transition-all duration-300">
+                {%- if fallback_product.featured_media -%}
+                  <img
+                    src="{{ fallback_product.featured_media | image_url: width: 300 }}"
+                    alt="{{ fallback_product.featured_media.alt | escape }}"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  >
+                {%- else -%}
+                  <div class="w-full h-full flex items-center justify-center text-gray-500">
+                    <i class="fas fa-image text-4xl"></i>
+                  </div>
+                {%- endif -%}
+              </div>
+              
+              <!-- Product Info -->
+              <div class="text-center">
+                <h3 class="text-white font-semibold text-lg mb-2 group-hover:text-primary transition-colors duration-300">
+                  {{ fallback_product.title | escape }}
+                </h3>
+                <div class="text-primary font-bold text-xl">
+                  {{ fallback_product.price | money }}
+                </div>
+              </div>
+            </a>
           </div>
         {%- endif -%}
       {%- endfor -%}
