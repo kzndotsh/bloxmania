@@ -47,7 +47,7 @@
 </script>
 
 <div class="bg-slate-900 text-white min-h-screen">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+  <div class="container mx-auto section">
     <!-- Breadcrumb -->
     <div class="mb-6">
       {% render 'breadcrumb', product: product %}
@@ -69,7 +69,7 @@
       <div class="lg:col-span-2 product-info space-y-6">
         <!-- Product Title & Price -->
         <div class="space-y-3">
-          <h1 class="text-3xl lg:text-4xl font-bold text-white">
+          <h1 class="text-h1 text-white">
             {{ product.title | escape }}
           </h1>
           <div class="product-price" id="price-template" role="status">
@@ -77,13 +77,13 @@
               product: product,
               use_variant: true,
               show_badges: true,
-              price_class: 'text-2xl lg:text-3xl font-bold text-white'
+              price_class: 'text-h2 font-bold text-white'
             %}
           </div>
         </div>
 
         <!-- Quick Benefits -->
-        <div class="flex items-center gap-4 text-sm text-gray-300">
+        <div class="flex items-center gap-4 text-body-sm text-gray-300">
           <div class="flex items-center gap-1">
             <svg class="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
@@ -172,7 +172,7 @@
           </div>
 
           <!-- Trust Indicators -->
-          <div class="flex items-center gap-6 text-xs text-gray-400">
+          <div class="flex items-center gap-6 text-caption text-gray-400">
             <div class="flex items-center gap-1">
               <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
@@ -199,8 +199,8 @@
     <!-- Product Description -->
     {%- if product.description != blank -%}
       <div class="mt-12 pt-8 border-t border-slate-700">
-        <h2 class="text-xl font-semibold text-white mb-4">Product Details</h2>
-        <div class="prose prose-invert max-w-none text-gray-300">
+        <h2 class="text-h3 font-semibold text-white mb-4">Product Details</h2>
+        <div class="prose prose-invert max-w-none text-body text-gray-300">
           {{ product.description }}
         </div>
       </div>
@@ -209,14 +209,14 @@
 
   <!-- Product Reviews -->
   <div class="bg-slate-800 border-t border-slate-700">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="container mx-auto section">
       {% render 'product-reviews', product: product, section_id: 'template' %}
     </div>
   </div>
 
   <!-- Related Products -->
   <div class="bg-slate-900 border-t border-slate-700">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="container mx-auto section">
       {% render 'related-products', product: product, heading: 'You might also like', products_to_show: 4 %}
     </div>
   </div>
@@ -240,7 +240,7 @@
         break;
       case 'pinterest':
         shareUrl = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(
-          url,
+          url
         )}&description=${encodeURIComponent(title)}&media=${encodeURIComponent(image)}`;
         break;
       case 'copy':
