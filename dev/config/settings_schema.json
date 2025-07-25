@@ -845,7 +845,7 @@
         "info": "Your Twitter username (without @)"
       },
       {
-        "type": "url",
+        "type": "text",
         "id": "discord_invite_url",
         "label": "Discord Invite URL",
         "default": "https://discord.gg/bloxmania",

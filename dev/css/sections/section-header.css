@@ -19,6 +19,31 @@
     align-items: center;
   }
 
+  /* Ensure navigation links don't get compressed */
+  .nav-link {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Responsive navigation spacing */
+  @media (max-width: 1400px) {
+    .nav-link {
+      font-size: 0.875rem; /* 14px */
+    }
+  }
+
+  @media (max-width: 1300px) {
+    .nav-link {
+      font-size: 0.8125rem; /* 13px */
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .nav-link {
+      font-size: 0.75rem; /* 12px */
+    }
+  }
+
   .section-header__nav-link {
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);

@@ -5,7 +5,7 @@
 >
   <div class="flex items-center px-4 md:px-8 lg:px-12 xl:px-20 py-6 max-w-full mx-auto">
     <!-- Left: Logo -->
-    <div class="flex items-center flex-shrink-0 mr-6 md:mr-12 lg:mr-16 xl:mr-24">
+    <div class="flex items-center flex-shrink-0 mr-8 md:mr-12 lg:mr-16 xl:mr-20">
       <!-- Logo -->
       <div class="flex-shrink-0">
         {% if section.settings.logo != blank %}
@@ -33,16 +33,16 @@
     </div>
 
     <!-- Center: Desktop Navigation (Hidden on Mobile) -->
-    <div class="hidden lg:flex justify-center flex-1 min-w-0">
+    <div class="hidden lg:flex justify-center flex-1 min-w-0 px-2 lg:px-4 xl:px-6">
       <!-- Desktop Navigation -->
       <nav
-        class="flex items-center justify-center gap-6 lg:gap-8 xl:gap-10 min-w-0"
+        class="flex items-center justify-center gap-4 lg:gap-6 xl:gap-8 2xl:gap-12 min-w-0"
         role="navigation"
         aria-label="Main navigation"
       >
         <a
           href="{{ routes.all_products_collection_url }}"
-          class="nav-link text-gray-300 no-underline font-semibold text-base lg:text-lg xl:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+          class="nav-link text-gray-300 no-underline font-semibold text-sm lg:text-base xl:text-lg transition-all duration-300 relative flex items-center gap-1 lg:gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
         >
           {% render 'icon', icon: 'shopping-bag', class: 'transition-colors duration-300', size: 'medium' %}
           Shop Now
@@ -50,7 +50,7 @@
 
         <a
           href="{{ pages.guarantee.url | default: '/pages/guarantee' }}"
-          class="nav-link text-gray-300 no-underline font-semibold text-base lg:text-lg xl:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+          class="nav-link text-gray-300 no-underline font-semibold text-sm lg:text-base xl:text-lg transition-all duration-300 relative flex items-center gap-1 lg:gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
         >
           <div class="relative">
             {% render 'icon', icon: 'shield', class: 'transition-colors duration-300', size: 'medium' %}
@@ -61,7 +61,7 @@
         {% if section.settings.discord_url != blank %}
           <a
             href="{{ section.settings.discord_url }}"
-            class="nav-link text-gray-300 no-underline font-semibold text-base lg:text-lg xl:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+            class="nav-link text-gray-300 no-underline font-semibold text-sm lg:text-base xl:text-lg transition-all duration-300 relative flex items-center gap-1 lg:gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             target="_blank"
             rel="noopener"
           >
@@ -75,7 +75,7 @@
         {% else %}
           <a
             href="https://discord.gg/bloxmania"
-            class="nav-link text-gray-300 no-underline font-semibold text-base lg:text-lg xl:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+            class="nav-link text-gray-300 no-underline font-semibold text-sm lg:text-base xl:text-lg transition-all duration-300 relative flex items-center gap-1 lg:gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             target="_blank"
             rel="noopener"
           >
@@ -90,7 +90,7 @@
 
         <a
           href="{{ pages['purchasing-guide'].url | default: '/pages/purchasing-guide' }}"
-          class="nav-link text-gray-300 no-underline font-semibold text-base lg:text-lg xl:text-xl transition-all duration-300 relative flex items-center gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+          class="nav-link text-gray-300 no-underline font-semibold text-sm lg:text-base xl:text-lg transition-all duration-300 relative flex items-center gap-1 lg:gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
         >
           {% render 'icon', icon: 'file-lines', class: 'transition-colors duration-300', size: 'medium' %}
           Purchasing Guide
@@ -99,7 +99,7 @@
     </div>
 
     <!-- Right: User Actions -->
-    <div class="flex items-center justify-end gap-3 flex-shrink-0 ml-auto md:ml-12 lg:ml-16 xl:ml-24">
+    <div class="flex items-center justify-end gap-3 flex-shrink-0 ml-8 md:ml-12 lg:ml-16 xl:ml-20">
       <!-- Mobile Menu Toggle (Visible on Mobile Only) -->
       <button
         class="lg:hidden mobile-menu-toggle header__icon-button"
