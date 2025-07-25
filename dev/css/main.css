@@ -36,6 +36,8 @@
 @import "./utilities/responsive.css";
 @import "./utilities/states.css";
 @import "./utilities/overrides.css";
+@import "./utilities/spacing.css";
+@import "./utilities/typography.css";
 
 /* Tailwind CSS Layers */
 @tailwind base;

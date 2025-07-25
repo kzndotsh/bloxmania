@@ -15,6 +15,7 @@
     transition: all var(--duration-default) var(--easing-smooth);
     background: transparent;
     backdrop-filter: none;
+    border: none;
   }
 
   /* Header heights for mobile */
@@ -25,22 +26,43 @@
   }
 
   /* Transparent state (default on top of page) */
-  .header--transparent {
+  .header.header--transparent {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Make header elements completely blend with hero when header is transparent */
+  .header--transparent .header__icon-button {
     background: transparent;
+    box-shadow: none;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .header--transparent .header__icon-button::before {
+    display: none;
+  }
+
+  .header--transparent .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .header--transparent .nav-link:hover {
+    color: var(--color-primary);
   }
 
   /* Scrolled state */
-  .header--scrolled {
-    background: rgba(var(--color-background-rgb), var(--header-bg-opacity-end));
-    backdrop-filter: blur(var(--header-blur-end));
-    box-shadow: var(--shadow-header);
+  .header.header--scrolled {
+    background: rgba(15, 23, 42, 0.75) !important;
+    backdrop-filter: blur(20px) !important;
+    box-shadow: var(--shadow-header) !important;
   }
 
   /* Fixed (sticky) state */
-  .header--fixed {
-    background: rgba(var(--color-background-rgb), var(--header-bg-opacity-end));
-    backdrop-filter: blur(var(--header-blur-end));
-    box-shadow: var(--shadow-header);
+  .header.header--fixed {
+    background: rgba(15, 23, 42, 0.75) !important;
+    backdrop-filter: blur(20px) !important;
+    box-shadow: var(--shadow-header) !important;
   }
 
   /* Navigation wrapper */
