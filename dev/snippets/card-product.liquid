@@ -143,7 +143,7 @@
                     {%- if card_product.available -%}
                       <button
                         type="button"
-                        class="quick-add-btn inline-flex items-center justify-center px-4 py-2 bg-primary hover:bg-primary-dark text-black font-semibold rounded-lg transition-all duration-200 text-sm shadow-lg hover:shadow-xl hover:scale-105"
+                        class="btn btn--primary btn--sm"
                         data-product-id="{{ card_product.id }}"
                         aria-label="Quick add {{ card_product.title | escape }} to cart"
                       >
@@ -157,7 +157,7 @@
                     <!-- View Details Button -->
                     <a
                       href="{{ card_product.url }}"
-                      class="view-details-btn inline-flex items-center justify-center px-4 py-2 bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-black font-semibold rounded-lg transition-all duration-200 text-sm"
+                      class="btn btn--secondary btn--sm"
                       aria-label="View details for {{ card_product.title | escape }}"
                     >
                       View Details
