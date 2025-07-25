@@ -27,6 +27,42 @@
     }
   }
 
+  /* Modifier class for sections that should be flush to footer - MUST come after responsive rules */
+  .section--flush-footer {
+    padding-bottom: 0 !important;
+  }
+
+  /* Responsive overrides for flush footer */
+  @media (min-width: 640px) {
+    .section--flush-footer {
+      padding-bottom: 0 !important;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section--flush-footer {
+      padding-bottom: 0 !important;
+    }
+  }
+
+  /* Internal content spacing for flush sections */
+  .section--flush-footer .content-spacing > *:not(:last-child) {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .section--flush-footer .content-spacing > *:last-child {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  /* Page wrapper internal spacing for consistent content breathing room */
+  .page-content {
+    padding-bottom: var(--spacing-xl);
+  }
+
+  .page-content--flush-footer {
+    padding-bottom: 0;
+  }
+
   /* Section spacing variants */
   .section-sm {
     padding-top: var(--spacing-8);

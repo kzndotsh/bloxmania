@@ -15,18 +15,7 @@
     max-width: var(--page-width);
   }
 
-  /* Section wrapper for vertical padding */
-  .section {
-    padding-top: var(--section-padding-top);
-    padding-bottom: var(--section-padding-bottom);
-  }
-
-  @media (min-width: 1024px) {
-    .section {
-      padding-top: var(--section-padding-top-desktop);
-      padding-bottom: var(--section-padding-bottom-desktop);
-    }
-  }
+  /* Section wrapper moved to utilities/spacing.css to avoid duplicates */
 
   /* Simple CSS Grid utilities */
   .grid {
