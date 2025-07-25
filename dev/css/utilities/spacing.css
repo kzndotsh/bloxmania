@@ -1,0 +1,210 @@
+/* Spacing Utilities - Modern Responsive Spacing System */
+/* Provides consistent spacing across all components and sections */
+
+@layer utilities {
+  /* ========================================
+     SECTION SPACING
+     ======================================== */
+
+  /* Base section spacing - responsive */
+  .section {
+    padding-top: var(--section-padding-y);
+    padding-bottom: var(--section-padding-y);
+  }
+
+  /* Responsive section spacing */
+  @media (min-width: 640px) {
+    .section {
+      padding-top: var(--section-padding-y-sm);
+      padding-bottom: var(--section-padding-y-sm);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section {
+      padding-top: var(--section-padding-y-lg);
+      padding-bottom: var(--section-padding-y-lg);
+    }
+  }
+
+  /* Section spacing variants */
+  .section-sm {
+    padding-top: var(--spacing-8);
+    padding-bottom: var(--spacing-8);
+  }
+
+  .section-lg {
+    padding-top: var(--spacing-32);
+    padding-bottom: var(--spacing-32);
+  }
+
+  .section-xl {
+    padding-top: var(--spacing-32);
+    padding-bottom: var(--spacing-32);
+  }
+
+  @media (min-width: 1024px) {
+    .section-xl {
+      padding-top: calc(var(--spacing-32) * 1.5);
+      padding-bottom: calc(var(--spacing-32) * 1.5);
+    }
+  }
+
+  /* ========================================
+     COMPONENT SPACING
+     ======================================== */
+
+  /* Component padding */
+  .component {
+    padding: var(--spacing-6);
+  }
+
+  .component-sm {
+    padding: var(--spacing-4);
+  }
+
+  .component-lg {
+    padding: var(--spacing-8);
+  }
+
+  .component-xl {
+    padding: var(--spacing-12);
+  }
+
+  /* Component margins */
+  .component-margin {
+    margin: var(--spacing-6);
+  }
+
+  .component-margin-sm {
+    margin: var(--spacing-4);
+  }
+
+  .component-margin-lg {
+    margin: var(--spacing-8);
+  }
+
+  /* ========================================
+     LAYOUT SPACING
+     ======================================== */
+
+  /* Container spacing */
+  .container-spacing {
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+
+  /* Grid gaps */
+  .grid-gap-sm {
+    gap: var(--spacing-4);
+  }
+
+  .grid-gap {
+    gap: var(--spacing-6);
+  }
+
+  .grid-gap-lg {
+    gap: var(--spacing-8);
+  }
+
+  .grid-gap-xl {
+    gap: var(--spacing-12);
+  }
+
+  /* ========================================
+     RESPONSIVE SPACING UTILITIES
+     ======================================== */
+
+  /* Responsive padding utilities */
+  .p-responsive {
+    padding: var(--spacing-4);
+  }
+
+  @media (min-width: 640px) {
+    .p-responsive {
+      padding: var(--spacing-6);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .p-responsive {
+      padding: var(--spacing-8);
+    }
+  }
+
+  /* Responsive margin utilities */
+  .m-responsive {
+    margin: var(--spacing-4);
+  }
+
+  @media (min-width: 640px) {
+    .m-responsive {
+      margin: var(--spacing-6);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .m-responsive {
+      margin: var(--spacing-8);
+    }
+  }
+
+  /* ========================================
+     SPACING HELPERS
+     ======================================== */
+
+  /* Remove spacing */
+  .no-spacing {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Auto margins for centering */
+  .mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .my-auto {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  /* ========================================
+     COMMON SPACING PATTERNS
+     ======================================== */
+
+  /* Card spacing */
+  .card-spacing {
+    padding: var(--spacing-6);
+    margin-bottom: var(--spacing-6);
+  }
+
+  /* Form spacing */
+  .form-spacing {
+    margin-bottom: var(--spacing-6);
+  }
+
+  .form-group {
+    margin-bottom: var(--spacing-4);
+  }
+
+  /* Button spacing */
+  .button-spacing {
+    margin-right: var(--spacing-4);
+    margin-bottom: var(--spacing-4);
+  }
+
+  /* Navigation spacing */
+  .nav-spacing {
+    gap: var(--spacing-6);
+  }
+
+  .nav-spacing-sm {
+    gap: var(--spacing-4);
+  }
+
+  .nav-spacing-lg {
+    gap: var(--spacing-8);
+  }
+}

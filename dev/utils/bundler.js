@@ -65,10 +65,18 @@ class SimpleBundler {
       "features/gallery.js",
       "features/quick-add.js",
       "features/mobile-menu.js",
+      "features/guarantee-icons.js",
     ];
 
     // UI files
-    const uiFiles = ["ui/cart-notification.js", "ui/quantity.js", "ui/modal.js", "ui/header.js"];
+    const uiFiles = [
+      "ui/cart-notification.js",
+      "ui/quantity.js",
+      "ui/modal.js",
+      "ui/header.js",
+      "ui/header-search-manager.js",
+      "ui/search-modal.js",
+    ];
 
     // System files
     const systemFiles = [

@@ -1,9 +1,80 @@
 /* BloxMania Layout - Header Styles */
 /* Header positioning and layout styles */
 
-/* Placeholder for header layout styles */
-/* This file will be populated in task 4.1 */
-
 @layer components {
-  /* Header layout styles will be implemented here */
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-fixed);
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    padding-inline: var(--container-padding);
+    transition: all var(--duration-default) var(--easing-smooth);
+    background: transparent;
+    backdrop-filter: none;
+    border: none;
+  }
+
+  /* Header heights for mobile */
+  @media (max-width: 767px) {
+    .header {
+      height: var(--header-height-mobile);
+    }
+  }
+
+  /* Transparent state (default on top of page) */
+  .header.header--transparent {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Make header elements completely blend with hero when header is transparent */
+  .header--transparent .header__icon-button {
+    background: transparent;
+    box-shadow: none;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .header--transparent .header__icon-button::before {
+    display: none;
+  }
+
+  .header--transparent .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .header--transparent .nav-link:hover {
+    color: var(--color-primary);
+  }
+
+  /* Scrolled state */
+  .header.header--scrolled {
+    background: rgba(15, 23, 42, 0.75) !important;
+    backdrop-filter: blur(20px) !important;
+    box-shadow: var(--shadow-header) !important;
+  }
+
+  /* Fixed (sticky) state */
+  .header.header--fixed {
+    background: rgba(15, 23, 42, 0.75) !important;
+    backdrop-filter: blur(20px) !important;
+    box-shadow: var(--shadow-header) !important;
+  }
+
+  /* Navigation wrapper */
+  .header__navigation {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    margin-left: auto;
+  }
+
+  /* Hide desktop nav when mobile menu open (handled by :has selector) */
+  body:has(.mobile-menu--open) .header__navigation {
+    display: none;
+  }
 }

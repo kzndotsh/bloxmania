@@ -46,20 +46,20 @@
         <button
           type="submit"
           name="add"
-          class="add-to-cart-btn product-form__cart-submit relative"
+          class="btn btn--primary btn--lg relative"
           {% if current_variant.available == false %}
             disabled
           {% endif %}
         >
           <!-- Button Content -->
-          <div class="flex items-center justify-center gap-3 px-6 py-3">
+          <div class="flex items-center justify-center gap-3">
             <!-- Cart Icon -->
             <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m1.6 8L6 5H3m4 8v6a1 1 0 001 1h8a1 1 0 001-1v-6M9 19a1 1 0 100 2 1 1 0 000-2zm8 0a1 1 0 100 2 1 1 0 000-2z"></path>
             </svg>
 
             <!-- Button Text -->
-            <span class="font-semibold text-black text-base">
+            <span>
               {%- if current_variant.available -%}
                 {{ 'products.product.add_to_cart' | t }}
               {%- else -%}
@@ -70,7 +70,7 @@
 
           <!-- Loading Spinner -->
           <div class="loading-overlay__spinner absolute inset-0 flex items-center justify-center opacity-0 pointer-events-none">
-            <div class="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+            <div class="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
           </div>
         </button>
 
@@ -124,7 +124,7 @@
           if (this.cart) {
             formData.append(
               'sections',
-              this.cart.getSectionsToRender().map((section) => section.id),
+              this.cart.getSectionsToRender().map((section) => section.id)
             );
             formData.append('sections_url', window.location.pathname);
           }
@@ -211,7 +211,7 @@
             this.errorMessage.textContent = errorMessage;
           }
         }
-      },
+      }
     );
   }
 </script>

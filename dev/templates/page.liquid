@@ -8,22 +8,22 @@
 <script src="{{ 'main.js' | asset_url }}" defer="defer"></script>
 
 <div class="bg-slate-900 text-white min-h-screen">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="container mx-auto section">
     <!-- Page Header -->
     <div class="mb-8">
-      <h1 class="text-4xl lg:text-5xl font-bold text-white mb-4">
+      <h1 class="text-h1 text-white mb-4">
         {{ page.title | escape }}
       </h1>
 
       {% if page.description %}
-        <p class="text-xl text-gray-300 max-w-3xl">
+        <p class="text-h3 text-gray-300 max-w-3xl">
           {{ page.description | escape }}
         </p>
       {% endif %}
     </div>
 
     <!-- Page Content -->
-    <div class="prose prose-invert prose-lg max-w-none">
+    <div class="prose prose-invert max-w-none text-body">
       {% if page.content != blank %}
         {{ page.content }}
       {% endif %}
@@ -37,8 +37,8 @@
         <!-- Default page content -->
         {% if page.content == blank %}
           <div class="text-center py-12">
-            <h2 class="text-2xl font-semibold text-gray-300 mb-4">Page content coming soon</h2>
-            <p class="text-gray-400">This page is under construction. Please check back later.</p>
+            <h2 class="text-h3 font-semibold text-gray-300 mb-4">Page content coming soon</h2>
+            <p class="text-body text-gray-400">This page is under construction. Please check back later.</p>
           </div>
         {% endif %}
     {% endcase %}

@@ -5,5 +5,53 @@
 /* This file will be populated in task 3.4 */
 
 @layer base {
-  /* Accessibility styles will be implemented here */
+  /* Focus-visible outline */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  /* Remove default outline for non-keyboard interactions */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Visually hidden utility */
+  .sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
+  /* Skip link */
+  .skip-link {
+    position: absolute;
+    top: var(--spacing-sm);
+    left: var(--spacing-sm);
+    background: var(--color-primary);
+    color: var(--color-background);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    transform: translateY(-200%);
+    transition: transform var(--duration-fast) var(--easing-smooth);
+    z-index: var(--z-above);
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+
+  .visually-hidden {
+    @apply sr-only;
+  }
+
+  .skip-to-content-link {
+    @apply skip-link;
+  }
 }

@@ -15,6 +15,9 @@ function safeDefineCustomElement(name, constructor) {
   }
 }
 
+// Note: SearchModal is defined in header-components.js and should be available globally
+// If SearchModal is not available, we'll skip its registration
+
 // Base component class for common functionality
 class BloxManiaComponent extends HTMLElement {
   constructor() {
@@ -255,14 +258,18 @@ class ProductForm extends BloxManiaComponent {
 
 // Register all components
 safeDefineCustomElement("modal-dialog", ModalDialog);
-safeDefineCustomElement("search-modal", SearchModal);
+if (typeof SearchModal !== "undefined") {
+  safeDefineCustomElement("search-modal", SearchModal);
+} else {
+  console.warn("SearchModal not available - skipping registration");
+}
 safeDefineCustomElement("cart-notification", CartNotification);
 safeDefineCustomElement("product-form", ProductForm);
 
 // Export for use in other modules
 window.BloxManiaComponents = {
   ModalDialog,
-  SearchModal,
+  SearchModal: typeof SearchModal !== "undefined" ? SearchModal : null,
   CartNotification,
   ProductForm,
 };

@@ -1,0 +1,428 @@
+/* Guarantee Section Styles */
+/* Styles specific to the guarantee/guarantee.liquid page */
+
+@layer components {
+  /* Hero Section */
+  .guarantee-hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--spacing-2xl) var(--container-padding);
+    background-image: url('{{ "image-okok1.png" | asset_url }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--color-foreground);
+    overflow: hidden;
+    min-height: 100vh;
+  }
+
+  .guarantee-hero-content {
+    max-width: 42rem; /* max-w-2xl */
+    width: 100%;
+    z-index: 1;
+    margin-bottom: 2rem;
+    padding-top: 2rem; /* Reduced from 4rem to 2rem */
+  }
+
+  /* Rating Section */
+  .guarantee-rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .guarantee-rating .text-yellow {
+    color: #ffd800;
+  }
+
+  .guarantee-rating .text-green-400 {
+    color: #22c55e;
+  }
+
+  /* Main Heading */
+  .guarantee-heading {
+    font-size: 1.875rem; /* text-3xl */
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 1rem;
+    line-height: 1.25;
+    color: var(--color-foreground);
+    position: relative;
+    z-index: 10;
+  }
+
+  .guarantee-heading .underline {
+    color: #ffd800;
+    text-decoration: underline;
+    text-decoration-color: #ffd800;
+  }
+
+  .guarantee-description {
+    font-size: var(--font-size-lg);
+    color: #d1d5db; /* text-gray-300 */
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  /* Feature Buttons - styled as pills */
+  .guarantee-tags {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .guarantee-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    padding: 0.5rem 1rem;
+    border-radius: 9999px; /* rounded-full */
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border: 1px solid;
+    cursor: default;
+  }
+
+  .guarantee-tag:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  }
+
+  .guarantee-tag--blue {
+    background: rgba(59, 130, 246, 0.9); /* bg-blue-500/90 */
+    color: white;
+    border-color: rgba(59, 130, 246, 0.3);
+  }
+
+  .guarantee-tag--blue:hover {
+    border-color: rgba(59, 130, 246, 0.6);
+  }
+
+  .guarantee-tag--yellow {
+    background: rgba(255, 216, 0, 0.9); /* bg-yellow-500/90 */
+    color: #181926;
+    border-color: rgba(255, 216, 0, 0.3);
+  }
+
+  .guarantee-tag--yellow:hover {
+    border-color: rgba(255, 216, 0, 0.6);
+  }
+
+  /* Guarantee Card */
+  .guarantee-card {
+    position: relative;
+    background: #23243a; /* bg-dark-surface */
+    border: 2px solid rgba(255, 255, 255, 0.15); /* border-2 border-white/15 */
+    border-radius: 1rem; /* rounded-2xl */
+    padding: 1rem 1.5rem; /* Reduced padding */
+    max-width: 36rem; /* Reduced from 48rem to 36rem */
+    margin: 0 auto;
+    z-index: 1;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    transform: translateZ(0);
+    cursor: pointer;
+  }
+
+  .guarantee-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  .guarantee-card-title {
+    font-size: 1.5rem; /* text-2xl */
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 0.5rem;
+    color: #ffd800; /* text-[#ffd800] */
+  }
+
+  .guarantee-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .guarantee-card-description {
+    font-size: var(--font-size-lg);
+    color: #e5e7eb; /* text-gray-200 */
+    margin-bottom: 1.5rem;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  .guarantee-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    color: #d1d5db; /* text-gray-300 */
+  }
+
+  .guarantee-list li {
+    font-weight: 400;
+  }
+
+  .guarantee-list li b {
+    font-weight: var(--font-weight-bold);
+  }
+
+  .guarantee-disclaimer {
+    font-size: var(--font-size-sm);
+    color: #9ca3af; /* text-gray-400 */
+    text-align: center;
+  }
+
+  /* Floating Icons - simplified for debugging */
+  .guarantee-icon-container {
+    pointer-events: none;
+    position: absolute !important;
+    z-index: 999999 !important;
+    display: block !important;
+  }
+
+  /* Allow pointer events on the actual icons */
+  .guarantee-icon-container .guarantee-icon-float {
+    pointer-events: auto !important;
+  }
+
+  /* Left side icons - closer to center */
+  .guarantee-icon-container.absolute.left-0.top-1\/2.transform.-translate-y-1\/3.-translate-x-\[28rem\] {
+    left: 8rem !important;
+    top: 10% !important;
+    transform: none !important;
+  }
+
+  /* Right side icons - closer to center */
+  .guarantee-icon-container.absolute.right-0.top-1\/2.transform.-translate-y-1\/3.translate-x-\[28rem\] {
+    right: 8rem !important;
+    top: 10% !important;
+    transform: none !important;
+  }
+
+  .guarantee-icon-float {
+    width: 6rem !important;
+    height: 6rem !important;
+    opacity: 0.6 !important;
+    filter: none;
+    border-radius: 12px;
+    display: block !important;
+    margin: 1rem;
+    background: transparent;
+    object-fit: cover;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+  }
+
+  /* Hover state for guarantee icons */
+  .guarantee-icon-float:hover {
+    opacity: 1 !important;
+    transform: scale(1.1) !important;
+    z-index: 999999 !important;
+  }
+
+  /* JavaScript-controlled hover class */
+  .guarantee-icon-hover {
+    opacity: 1 !important;
+    z-index: 999999 !important;
+  }
+
+  /* Individual icon transforms - simplified */
+  .guarantee-icon-float.transform.-translate-x-8 {
+    transform: translateX(-1rem) !important;
+  }
+
+  .guarantee-icon-float.transform.translate-y-4 {
+    transform: translateY(1rem) !important;
+  }
+
+  .guarantee-icon-float.transform.-translate-y-2 {
+    transform: translateY(-0.5rem) !important;
+  }
+
+  .guarantee-icon-float.transform.translate-x-8 {
+    transform: translateX(1rem) !important;
+  }
+
+  .guarantee-icon-float.transform.-translate-y-4 {
+    transform: translateY(-1rem) !important;
+  }
+
+  .guarantee-icon-float.transform.translate-y-2 {
+    transform: translateY(0.5rem) !important;
+  }
+
+  /* Drop shadows for each icon color */
+  .guarantee-icon-float:nth-child(1) {
+    filter: drop-shadow(0 0 20px rgba(251, 146, 60, 0.6)) !important;
+  }
+
+  .guarantee-icon-float:nth-child(2) {
+    filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.6)) !important;
+  }
+
+  .guarantee-icon-float:nth-child(3) {
+    filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.6)) !important;
+  }
+
+  .guarantee-icon-float:nth-child(4) {
+    filter: drop-shadow(0 0 20px rgba(255, 216, 0, 0.6)) !important;
+  }
+
+  .guarantee-icon-float:nth-child(5) {
+    filter: drop-shadow(0 0 20px rgba(34, 197, 94, 0.6)) !important;
+  }
+
+  .guarantee-icon-float:nth-child(6) {
+    filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.6)) !important;
+  }
+
+  @keyframes float {
+    0%,
+    100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  /* Promo Section */
+  .guarantee-promo {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-items: center;
+    margin-top: 1.5rem;
+    max-width: 72rem; /* max-w-6xl */
+    width: 100%;
+  }
+
+  .guarantee-promo-content {
+    text-align: center;
+    flex: 1;
+  }
+
+  .guarantee-promo-heading {
+    font-size: 1.5rem; /* text-2xl */
+    font-weight: var(--font-weight-bold);
+    line-height: 1.25;
+    margin-bottom: 1.5rem;
+    color: var(--color-foreground);
+  }
+
+  .guarantee-promo-heading .text-yellow {
+    color: #ffd800;
+  }
+
+  .guarantee-promo-description {
+    font-size: var(--font-size-lg);
+    color: #d1d5db; /* text-gray-300 */
+    margin-bottom: 2rem;
+    line-height: 1.625;
+  }
+
+  /* Guarantee button now uses the new button system - no custom styles needed */
+
+  .guarantee-promo-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .guarantee-promo-image img {
+    width: 24rem; /* w-96 */
+    height: 24rem; /* h-96 */
+    object-fit: contain;
+    transition: all 0.3s ease;
+    transform: translateZ(0);
+    filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.3));
+    cursor: pointer;
+  }
+
+  .guarantee-promo-image img:hover {
+    transform: scale(1.05);
+  }
+
+  /* Responsive Design */
+  @media (min-width: 640px) {
+    .guarantee-tags {
+      flex-direction: row;
+    }
+
+    .guarantee-heading {
+      font-size: 3rem; /* md:text-5xl */
+    }
+  }
+
+  @media (min-width: 768px) {
+    .guarantee-card {
+      padding: 1.5rem 2rem; /* Reduced from 2rem 3rem */
+    }
+
+    .guarantee-card-title {
+      font-size: 1.875rem; /* md:text-3xl */
+    }
+  }
+
+  @media (min-width: 1024px) {
+    /* Show floating icons on larger screens */
+    .guarantee-icon-container {
+      display: block !important;
+    }
+
+    .guarantee-promo {
+      flex-direction: row;
+      gap: 3rem; /* lg:gap-12 */
+      margin-top: 3rem; /* lg:mt-12 */
+    }
+
+    .guarantee-promo-content {
+      text-align: left; /* lg:text-left */
+    }
+
+    .guarantee-promo-heading {
+      font-size: 1.875rem; /* md:text-3xl */
+    }
+
+    .guarantee-promo-image {
+      justify-content: flex-end; /* lg:justify-end */
+    }
+
+    .guarantee-promo-image img {
+      width: 28rem; /* lg:w-[28rem] */
+      height: 28rem; /* lg:h-[28rem] */
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .guarantee-promo-heading {
+      font-size: 2.25rem; /* lg:text-4xl */
+    }
+
+    .guarantee-promo-image img {
+      width: 32rem; /* xl:w-[32rem] */
+      height: 32rem; /* xl:h-[32rem] */
+    }
+  }
+
+  /* Hide floating icons on smaller screens */
+  @media (max-width: 1023px) {
+    .guarantee-icon-container {
+      display: none !important;
+    }
+  }
+}

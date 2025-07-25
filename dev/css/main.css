@@ -22,16 +22,22 @@
 @import "./components/component-mobile-menu.css";
 @import "./components/component-product-form.css";
 @import "./components/component-hero.css";
+@import "./components/component-search-modal.css";
 
 /* Sections Layer - Section-specific styles */
 @import "./sections/section-header.css";
 @import "./sections/section-footer.css";
 @import "./sections/section-hero.css";
+@import "./sections/section-guarantee.css";
+@import "./sections/section-customer-reviews.css";
+@import "./sections/section-featured-products.css";
 
 /* Utilities Layer - Responsive, states, overrides */
 @import "./utilities/responsive.css";
 @import "./utilities/states.css";
 @import "./utilities/overrides.css";
+@import "./utilities/spacing.css";
+@import "./utilities/typography.css";
 
 /* Tailwind CSS Layers */
 @tailwind base;

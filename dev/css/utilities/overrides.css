@@ -2,10 +2,50 @@
 /* Necessary overrides and fixes */
 
 @layer utilities {
-  /* Override utilities will be implemented in later tasks */
+  /* Text truncation */
+  .text-truncate {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 
-  /* Minimize use of !important declarations */
-  .overrides-placeholder {
-    /* Placeholder for override utilities */
+  /* Hide visually but keep for screen readers */
+  .hidden-visually {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
+  .text-gradient {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .smooth-scale {
+    transition: transform var(--duration-default) var(--easing-spring);
+    transform: translateZ(0);
+  }
+
+  .smooth-scale:hover {
+    transform: scale(1.05);
+  }
+
+  .smooth-opacity {
+    transition: opacity var(--duration-default) var(--easing-smooth);
+  }
+
+  .smooth-shadow {
+    transition: box-shadow var(--duration-default) var(--easing-smooth);
+  }
+
+  .smooth-border {
+    transition: border-color var(--duration-default) var(--easing-smooth), border-width var(--duration-default) var(--easing-smooth);
   }
 }

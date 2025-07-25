@@ -5,5 +5,57 @@
 /* This file will be populated in task 4.2 */
 
 @layer components {
-  /* Grid and container systems will be implemented here */
+  /* Container */
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+    max-width: var(--page-width);
+  }
+
+  /* Section wrapper for vertical padding */
+  .section {
+    padding-top: var(--section-padding-top);
+    padding-bottom: var(--section-padding-bottom);
+  }
+
+  @media (min-width: 1024px) {
+    .section {
+      padding-top: var(--section-padding-top-desktop);
+      padding-bottom: var(--section-padding-bottom-desktop);
+    }
+  }
+
+  /* Simple CSS Grid utilities */
+  .grid {
+    display: grid;
+    gap: var(--spacing-lg);
+  }
+
+  .grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Responsive variants */
+  @media (min-width: 768px) {
+    .md\:grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .md\:grid-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .md\:grid-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
 }

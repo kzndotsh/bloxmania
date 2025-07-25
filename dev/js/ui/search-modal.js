@@ -81,6 +81,11 @@ class SearchModal extends HTMLElement {
     if (this.results) {
       this.results.addEventListener("click", this.handleResultClick.bind(this));
     }
+
+    this.overlay = this.querySelector(".search-modal__overlay");
+    if (this.overlay) {
+      this.overlay.addEventListener("click", this.close.bind(this));
+    }
   }
 
   handleInputFocus() {
@@ -110,7 +115,8 @@ class SearchModal extends HTMLElement {
   }
 
   handleBackdropClick(event) {
-    if (event.target === this) {
+    const content = this.querySelector('.search-modal__content');
+    if (!content || !content.contains(event.target)) {
       this.close();
     }
   }

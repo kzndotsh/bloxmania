@@ -1,0 +1,50 @@
+/* Featured Products Section Styles */
+
+@layer components {
+  .featured-products-section {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-card-widget {
+    background-color: rgba(31, 41, 55, 0.5);
+    background-image: var(--widget-bg-image);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(75, 85, 99, 1);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transition: all var(--duration-card) var(--easing-smooth);
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    transform: translateZ(0);
+    text-decoration: none;
+  }
+
+  .product-card-widget:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1), var(--shadow-glow);
+    transform: translateY(-6px) scale(1.03) translateZ(0);
+  }
+
+  .product-card-widget img {
+    object-fit: cover;
+    max-width: 160px;
+    max-height: 160px;
+    transition: all var(--duration-card) var(--easing-smooth);
+  }
+
+  .product-card-widget .p-4,
+  .product-card-widget .sm\:p-6,
+  .product-card-widget .lg\:p-8 {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .product-card-widget .text-center {
+    margin-top: auto;
+    padding-top: var(--spacing-lg);
+  }
+}

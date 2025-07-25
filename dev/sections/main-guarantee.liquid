@@ -138,7 +138,6 @@
   <div class="guarantee-card">
     <div class="guarantee-icon">
       {% render 'icon', icon: 'shield', class: 'w-12 h-12 text-[#ffd800]' %}
-      {% render 'icon', icon: 'check', class: 'absolute inset-0 w-6 h-6 text-[#ffd800] m-auto' %}
     </div>
 
     <h2 class="guarantee-card-title">{{ section.settings.card_title | default: 'Our Guarantee' }}</h2>
@@ -231,7 +230,10 @@
             | default: "With BloxMania, you're not just buying items - you're joining a community that's all about fast, secure, and happy transactions. So go ahead, make that purchase, and let us show you how we do it!"
           }}
         </p>
-        <a href="{{ section.settings.cta_button_link | default: routes.collections_url }}" class="guarantee-button">
+        <a
+          href="{{ section.settings.cta_button_link | default: routes.collections_url }}"
+          class="btn btn--gaming btn--lg"
+        >
           {{- section.settings.cta_button_text | default: 'Shop Now!' -}}
         </a>
       </div>

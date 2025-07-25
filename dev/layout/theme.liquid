@@ -91,10 +91,8 @@
     {%- comment -%} Load main CSS {%- endcomment -%}
     {{ 'main.css' | asset_url | stylesheet_tag }}
 
-    {%- comment -%} Load mobile menu override CSS {%- endcomment -%}
-    {{ 'mobile-menu-override.css' | asset_url | stylesheet_tag }}
+    {%- comment -%} Load Font Awesome icons {%- endcomment -%}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     {%- comment -%}
       ========================================
       JAVASCRIPT INITIALIZATION
@@ -138,7 +136,7 @@
     </script>
   </head>
 
-  <body>
+  <body class="template-{{ template.name | handle }}">
     {%- comment -%}
       ========================================
       ACCESSIBILITY & NAVIGATION

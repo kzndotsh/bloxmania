@@ -1,0 +1,33 @@
+{% comment %}Tailwind-based mobile drawer{% endcomment %}
+<nav id="mobile-menu" class="fixed inset-0 z-[9999] lg:hidden translate-x-full bg-gradient-to-br from-slate-900 via-indigo-900/80 to-black/90 backdrop-blur-lg transition-transform duration-300 ease-in-out">
+  <div class="flex items-center justify-between px-6 py-4 border-b border-white/10">
+    <a href="{{ routes.root_url }}">
+      <img src="{{ 'image-BM.png' | asset_url }}" alt="{{ shop.name }}" class="h-10 w-auto">
+    </a>
+    <button id="menu-close" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-gray-300 transition hover:bg-white/10" aria-label="Close menu">
+      {% render 'icon', icon: 'x', class: 'w-5 h-5' %}
+    </button>
+  </div>
+  <form action="{{ routes.search_url }}" method="get" role="search" class="flex px-6 py-4 border-b border-white/10">
+    <input type="search" name="q" placeholder="Search products…" class="flex-1 bg-transparent border border-white/20 rounded-lg px-4 py-2 text-sm placeholder-gray-400 text-white">
+    <button type="submit" class="ml-2 p-2 rounded-lg bg-primary text-black transition hover:bg-primary-600" aria-label="Submit search">
+      {% render 'icon', icon: 'search', class: 'w-4 h-4' %}
+    </button>
+  </form>
+  <ul class="flex flex-col gap-4 px-6 py-6 text-lg font-medium">
+    <li><a href="/collections/all" class="hover:text-primary">Shop Now</a></li>
+    <li><a href="/pages/guarantee" class="hover:text-primary">Our Guarantee</a></li>
+    <li><a href="/pages/purchasing-guide" class="hover:text-primary">Purchasing Guide</a></li>
+    <li><a href="https://discord.gg/bloxmania" target="_blank" class="hover:text-primary">Daily Giveaways</a></li>
+  </ul>
+  <div class="mt-auto px-6 py-6 border-t border-white/10 space-y-4">
+    <a href="/cart" class="flex items-center gap-3 bg-white/5 border border-white/10 rounded-lg px-4 py-3 hover:bg-white/10">
+      {% render 'icon', icon: 'shopping-cart', class: 'w-5 h-5' %}
+      <span>Cart</span>
+    </a>
+    <a href="{{ routes.account_login_url }}" class="flex items-center gap-3 bg-white/5 border border-white/10 rounded-lg px-4 py-3 hover:bg-white/10">
+      {% render 'icon', icon: 'user', class: 'w-5 h-5' %}
+      <span>Sign in</span>
+    </a>
+  </div>
+</nav>
