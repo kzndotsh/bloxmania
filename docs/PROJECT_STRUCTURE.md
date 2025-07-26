@@ -18,7 +18,13 @@ bloxmania/
 │   │   ├── helpers/       # Helper utilities
 │   │   └── system/        # System-level files
 │   ├── css/               # CSS source files
-│   │   └── styles.css     # Main stylesheet with Tailwind directives
+│   │   ├── main.css       # Main entry point with imports
+│   │   ├── design-tokens.css # CSS custom properties
+│   │   ├── base/          # Base styles (reset, typography, etc.)
+│   │   ├── layout/        # Layout components
+│   │   ├── components/    # Reusable components
+│   │   ├── sections/      # Section-specific styles
+│   │   └── utilities/     # Utility classes
 │   ├── images/            # Image source files
 │   ├── sections/          # Shopify sections (Liquid)
 │   ├── snippets/          # Shopify snippets (Liquid)
@@ -27,10 +33,6 @@ bloxmania/
 │   ├── config/            # Shopify configuration
 │   ├── locales/           # Translation files
 │   └── utils/             # Build utilities
-├── build/                  # 🔨 Built Assets (Intermediate)
-│   ├── css/               # Generated CSS files
-│   ├── js/                # Generated JavaScript files
-│   └── images/            # Optimized images
 ├── theme/                  # 🚀 Production Theme (for Shopify)
 │   ├── assets/            # Final assets for Shopify
 │   ├── sections/          # Shopify sections
@@ -106,14 +108,14 @@ Helper utilities for common tasks.
 ```
 helpers/
 ├── accessibility.js       # Accessibility utilities
-├── html-update.js         # HTML update utilities
+├── html-update.js         # HTML update helpers
 ├── keyboard.js            # Keyboard navigation
-├── screen-reader.js       # Screen reader optimization
-└── section-id.js          # Section ID utilities
+├── screen-reader.js       # Screen reader support
+└── section-id.js          # Section ID generation
 ```
 
 #### System (`dev/js/system/`)
-System-level files and configurations.
+System-level files for performance and functionality.
 
 ```
 system/
@@ -121,296 +123,389 @@ system/
 ├── performance-monitoring.js # Performance monitoring
 ├── service-worker-registration.js # Service worker setup
 ├── shopify-analytics-fix.js # Analytics fixes
-├── system-performance.js  # System performance utilities
-├── system-service-worker.js # Service worker logic
+├── system-performance.js  # Performance optimizations
+├── system-service-worker.js # Service worker functionality
 ├── system-theme-editor.js # Theme editor integration
-└── system-web-components.js # Web components setup
+└── system-web-components.js # Web components
 ```
 
 ### CSS Organization (`dev/css/`)
 
-#### Main Stylesheet (`dev/css/styles.css`)
-The main CSS file containing all styles using Tailwind CSS directives.
+The CSS follows a modular architecture with clear separation of concerns.
+
+#### Main Entry Point (`dev/css/main.css`)
+The main CSS file that imports all other CSS modules in the correct order.
 
 ```css
-/* Tailwind CSS directives */
+/* Design Tokens - CSS Custom Properties */
+@import "./design-tokens.css";
+
+/* Base Layer - Reset, typography, animations, accessibility */
+@import "./base/reset.css";
+@import "./base/typography.css";
+@import "./base/animations.css";
+@import "./base/accessibility.css";
+
+/* Layout Layer - Header, footer, grid, spacing */
+@import "./layout/header.css";
+@import "./layout/footer.css";
+@import "./layout/grid.css";
+@import "./layout/spacing.css";
+
+/* Components Layer - Reusable component styles */
+@import "./components/component-button.css";
+@import "./components/component-card.css";
+@import "./components/component-mobile-menu.css";
+@import "./components/component-product-form.css";
+@import "./components/component-hero.css";
+@import "./components/component-search-modal.css";
+
+/* Sections Layer - Section-specific styles */
+@import "./sections/section-header.css";
+@import "./sections/section-footer.css";
+@import "./sections/section-hero.css";
+@import "./sections/section-guarantee.css";
+@import "./sections/section-customer-reviews.css";
+@import "./sections/section-featured-products.css";
+
+/* Utilities Layer - Responsive, states, overrides */
+@import "./utilities/responsive.css";
+@import "./utilities/states.css";
+@import "./utilities/overrides.css";
+@import "./utilities/spacing.css";
+@import "./utilities/typography.css";
+
+/* Tailwind CSS Layers */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+```
 
-/* Custom component styles */
-@layer components {
-  .btn--primary { /* ... */ }
-  .card { /* ... */ }
-  .form-input { /* ... */ }
-}
+#### Design Tokens (`dev/css/design-tokens.css`)
+CSS custom properties for consistent design values.
 
-/* Custom utilities */
-@layer utilities {
-  .text-shadow { /* ... */ }
-  .backdrop-blur-sm { /* ... */ }
+```css
+:root {
+  /* Colors */
+  --color-primary: #3b82f6;
+  --color-secondary: #64748b;
+  --color-accent: #f59e0b;
+  
+  /* Typography */
+  --font-family-base: 'Inter', sans-serif;
+  --font-size-base: 1rem;
+  --line-height-base: 1.5;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  
+  /* Breakpoints */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
 }
 ```
 
-### Shopify Files (`dev/sections/`, `dev/snippets/`, `dev/templates/`)
+#### Base Styles (`dev/css/base/`)
+Foundation styles that apply globally.
+
+```
+base/
+├── reset.css              # CSS reset and normalization
+├── typography.css         # Typography rules and font settings
+├── animations.css         # CSS animations and transitions
+└── accessibility.css      # Accessibility-focused styles
+```
+
+#### Layout Styles (`dev/css/layout/`)
+Layout-specific styles for major page sections.
+
+```
+layout/
+├── header.css             # Header layout and styling
+├── footer.css             # Footer layout and styling
+├── grid.css               # Grid system and layout utilities
+└── spacing.css            # Spacing utilities and layout helpers
+```
+
+#### Component Styles (`dev/css/components/`)
+Reusable component styles.
+
+```
+components/
+├── component-button.css   # Button component styles
+├── component-card.css     # Card component styles
+├── component-mobile-menu.css # Mobile menu styles
+├── component-product-form.css # Product form styles
+├── component-hero.css     # Hero section styles
+└── component-search-modal.css # Search modal styles
+```
+
+#### Section Styles (`dev/css/sections/`)
+Section-specific styles that correspond to Shopify sections.
+
+```
+sections/
+├── section-header.css     # Header section styles
+├── section-footer.css     # Footer section styles
+├── section-hero.css       # Hero section styles
+├── section-guarantee.css  # Guarantee section styles
+├── section-customer-reviews.css # Customer reviews styles
+└── section-featured-products.css # Featured products styles
+```
+
+#### Utility Styles (`dev/css/utilities/`)
+Utility classes and helper styles.
+
+```
+utilities/
+├── responsive.css         # Responsive design utilities
+├── states.css             # State-based styles (hover, focus, etc.)
+├── overrides.css          # Override styles for third-party components
+├── spacing.css            # Spacing utility classes
+└── typography.css         # Typography utility classes
+```
+
+### Shopify Theme Files
 
 #### Sections (`dev/sections/`)
 Shopify sections are customizable content blocks.
 
 ```
 sections/
-├── contact-form.liquid    # Contact form section
-├── customer-reviews.liquid # Customer reviews section
-├── faq.liquid            # FAQ section
-├── featured-collection.liquid # Featured collection
-├── featured-product.liquid # Featured product
-├── featured-products.liquid # Featured products grid
-├── footer.liquid         # Footer section
-├── header.liquid         # Header section
-├── hero.liquid           # Hero banner section
-├── image-banner.liquid   # Image banner section
-├── image-with-text.liquid # Image with text section
-├── main-404.liquid       # 404 page section
-├── main-account.liquid   # Account page section
+├── header.liquid          # Site header and navigation
+├── footer.liquid          # Site footer
+├── hero.liquid            # Hero banner section
+├── main-cart.liquid       # Shopping cart page
+├── main-product.liquid    # Product detail page
+├── main-search.liquid     # Search results page
+├── main-collection-product-grid.liquid # Collection listing
+├── main-blog.liquid       # Blog listing page
+├── main-article.liquid    # Blog article page
+├── main-404.liquid        # 404 error page
+├── main-password.liquid   # Password protection page
+├── main-account.liquid    # Customer account dashboard
+├── main-login.liquid      # Customer login page
+├── main-register.liquid   # Customer registration page
+├── main-addresses.liquid  # Address management
+├── main-order.liquid      # Order details page
 ├── main-activate-account.liquid # Account activation
-├── main-addresses.liquid # Addresses page section
-├── main-article.liquid   # Article page section
-├── main-blog.liquid      # Blog page section
-├── main-cart.liquid      # Cart page section
-├── main-collection-banner.liquid # Collection banner
-├── main-collection-product-grid.liquid # Collection grid
-├── main-guarantee.liquid # Guarantee page section
-├── main-login.liquid     # Login page section
-├── main-order.liquid     # Order page section
-├── main-password.liquid  # Password page section
-├── main-product.liquid   # Product page section
-├── main-register.liquid  # Register page section
-├── main-reset-password.liquid # Reset password
-├── main-search.liquid    # Search page section
-├── newsletter.liquid     # Newsletter section
-├── rich-text.liquid      # Rich text section
-├── supported-games.liquid # Supported games section
-└── why-choose-us.liquid  # Why choose us section
+├── main-reset-password.liquid # Password reset
+├── featured-product.liquid # Single product showcase
+├── featured-products.liquid # Multiple products showcase
+├── featured-collection.liquid # Collection showcase
+├── image-banner.liquid    # Image with overlay text
+├── image-with-text.liquid # Image and text side-by-side
+├── rich-text.liquid       # Rich text content
+├── newsletter.liquid      # Email newsletter signup
+├── faq.liquid             # Frequently asked questions
+├── customer-reviews.liquid # Product reviews display
+├── contact-form.liquid    # Contact form
+├── why-choose-us.liquid   # Value proposition section
+├── supported-games.liquid # Games showcase
+└── main-guarantee.liquid  # Guarantee page
 ```
 
 #### Snippets (`dev/snippets/`)
-Reusable Liquid components.
+Reusable components that can be included in templates and sections.
 
 ```
 snippets/
 ├── accessible-button.liquid # Accessible button component
 ├── accessible-form.liquid   # Accessible form wrapper
 ├── accessible-input.liquid  # Accessible input field
-├── article-card.liquid      # Article card component
-├── breadcrumb.liquid        # Breadcrumb navigation
+├── article-card.liquid      # Blog article preview
+├── breadcrumb.liquid        # Navigation breadcrumbs
 ├── button.liquid            # Button component
 ├── card-product.liquid      # Product card component
-├── cart-notification.liquid # Cart notification
-├── chat-widget.liquid       # Chat widget component
-├── collapsible-content.liquid # Collapsible content
-├── creators-carousel.liquid # Creators carousel
+├── cart-notification.liquid # Cart update notifications
+├── chat-widget.liquid       # Live chat component
+├── collapsible-content.liquid # Expandable content
+├── creators-carousel.liquid # Content creators showcase
 ├── icon.liquid              # Icon component
-├── loading-spinner.liquid   # Loading spinner
-├── meta-tags.liquid         # Meta tags component
-├── pagination.liquid        # Pagination component
-├── product-buy-buttons.liquid # Product buy buttons
-├── product-features.liquid  # Product features
-├── product-inventory.liquid # Product inventory
-├── product-media-gallery.liquid # Product gallery
-├── product-price.liquid     # Product price display
-├── product-rating.liquid    # Product rating
-├── product-reviews.liquid   # Product reviews
-├── product-variant-picker.liquid # Variant picker
-├── quantity-input.liquid    # Quantity input
-├── related-products.liquid  # Related products
-├── responsive-image.liquid  # Responsive image
-├── search-form.liquid       # Search form
-└── share-button.liquid      # Share button
+├── loading-spinner.liquid   # Loading indicator
+├── meta-tags.liquid         # SEO meta tags
+├── mobile-menu.liquid       # Mobile menu component
+├── pagination.liquid        # Page navigation
+├── product-buy-buttons.liquid # Add to cart functionality
+├── product-features.liquid  # Product feature list
+├── product-inventory.liquid # Stock status
+├── product-media-gallery.liquid # Product image gallery
+├── product-price.liquid     # Price display
+├── product-rating.liquid    # Star rating display
+├── product-reviews.liquid   # Customer reviews
+├── product-variant-picker.liquid # Product options selection
+├── quantity-input.liquid    # Quantity selector
+├── related-products.liquid  # Related products display
+├── responsive-image.liquid  # Responsive image component
+├── search-form.liquid       # Search functionality
+└── share-button.liquid      # Social sharing
 ```
 
 #### Templates (`dev/templates/`)
-Page templates that define page structure.
+Page templates that define the structure of different page types.
 
 ```
 templates/
-├── 404.json               # 404 error page
-├── article.json           # Blog article page
-├── blog.json              # Blog listing page
-├── cart.json              # Cart page
-├── collection.liquid      # Collection page
-├── customers/             # Customer account pages
-│   ├── account.json       # Account dashboard
-│   ├── activate_account.json # Account activation
-│   ├── addresses.json     # Address management
-│   ├── login.json         # Login page
-│   ├── order.json         # Order details
-│   ├── register.json      # Registration page
-│   └── reset_password.json # Password reset
-├── debug-collections.liquid # Debug collections page
-├── index.liquid           # Homepage
-├── page.guarantee.liquid  # Guarantee page
-├── page.liquid            # Generic page
-├── password.json          # Password protection
-├── product.liquid         # Product page
-└── search.json            # Search results
+├── index.liquid            # Homepage template
+├── product.liquid          # Product page template
+├── collection.liquid       # Collection page template
+├── page.liquid             # Generic page template
+├── page.guarantee.liquid   # Guarantee page template
+├── blog.json               # Blog listing template
+├── article.json            # Blog article template
+├── cart.json               # Cart page template
+├── search.json             # Search results template
+├── 404.json                # 404 error template
+├── password.json           # Password protection template
+├── customers/
+│   ├── account.json        # Customer account template
+│   ├── activate_account.json # Account activation template
+│   ├── addresses.json      # Address management template
+│   ├── login.json          # Customer login template
+│   ├── order.json          # Order details template
+│   ├── register.json       # Customer registration template
+│   └── reset_password.json # Password reset template
+└── debug-collections.liquid # Debug template for collections
 ```
 
-### Configuration (`dev/config/`, `dev/layout/`, `dev/locales/`)
-
-#### Layout (`dev/layout/`)
-Shopify layout templates.
+#### Layouts (`dev/layout/`)
+Layout files that define the overall page structure.
 
 ```
 layout/
-├── password.liquid        # Password protection layout
-└── theme.liquid           # Main theme layout
+├── theme.liquid            # Main theme layout
+└── password.liquid         # Password protection layout
 ```
 
 #### Configuration (`dev/config/`)
-Shopify theme configuration.
+Shopify theme configuration files.
 
 ```
 config/
-├── settings_data.json     # Theme settings data
-└── settings_schema.json   # Theme settings schema
+├── settings_data.json      # Theme settings data
+└── settings_schema.json    # Theme settings schema
 ```
 
 #### Locales (`dev/locales/`)
-Translation files.
+Translation files for internationalization.
 
 ```
 locales/
-├── en.default.json        # English translations
-└── en.default.schema.json # English schema
+├── en.default.json         # English translations
+└── en.default.schema.json  # English translation schema
 ```
 
-## 🔨 Build Directory (`build/`)
-
-The build directory contains intermediate files generated during the build process.
+#### Utils (`dev/utils/`)
+Build utilities and development tools.
 
 ```
-build/
-├── css/                   # Compiled CSS files
-│   └── main.css          # Generated Tailwind CSS
-├── js/                    # Bundled JavaScript files
-│   └── main.js           # Generated JavaScript bundle
-└── images/                # Optimized images
+utils/
+├── bundler.js              # JavaScript bundler
+├── css-deduplicator.js     # CSS deduplication utility
+├── css-optimizer.js        # CSS optimization utility
+├── liquid-doc-generator.js # Liquid documentation generator
+└── README.md               # Utils documentation
 ```
 
 ## 🚀 Production Theme (`theme/`)
 
-The theme directory contains the final production-ready files for Shopify deployment.
+The `theme/` directory contains the processed and optimized files ready for Shopify deployment.
+
+### Assets (`theme/assets/`)
+Final assets for Shopify deployment.
 
 ```
-theme/
-├── assets/                # Production assets
-│   ├── main.css          # Final CSS file
-│   ├── main.js           # Final JavaScript file
-│   └── [images]          # Optimized images
-├── sections/              # Shopify sections
-├── snippets/              # Shopify snippets
-├── templates/             # Shopify templates
-├── layout/                # Shopify layouts
-├── config/                # Shopify configuration
-└── locales/               # Translation files
+assets/
+├── main.css               # Compiled and optimized CSS
+├── main.js                # Bundled and minified JavaScript
+├── fa-brands-400.woff2    # Font Awesome brand icons
+├── fa-regular-400.woff2   # Font Awesome regular icons
+├── fa-solid-900.woff2     # Font Awesome solid icons
+├── fa-v4compatibility.woff2 # Font Awesome compatibility
+├── font-awesome.min.css   # Font Awesome CSS
+├── system-service-worker.js # Service worker file
+├── system-theme-editor.js # Theme editor integration
+└── [optimized images]     # Optimized image files
 ```
 
-## 📚 Documentation (`docs/`)
+### Theme Files
+The theme directory contains processed versions of all Shopify theme files:
+- `sections/` - Processed section files
+- `snippets/` - Processed snippet files
+- `templates/` - Processed template files
+- `layout/` - Processed layout files
+- `config/` - Theme configuration files
+- `locales/` - Translation files
 
-Comprehensive documentation for the project.
+## 🔧 Build System
 
-```
-docs/
-├── README.md              # Main documentation index
-├── GETTING_STARTED.md     # Setup and installation guide
-├── DEVELOPMENT.md         # Development workflow
-├── DEVELOPMENT_SCRIPTS.md # Development scripts guide
-├── BUILD_SYSTEM.md        # Build system documentation
-├── PROJECT_STRUCTURE.md   # This file
-├── sections/              # Section documentation
-├── snippets/              # Snippet documentation
-├── templates/             # Template documentation
-└── style-guide/           # Style guide and standards
-```
+### Build Script (`build.js`)
+The main build script that orchestrates the entire build process.
 
-## ⚙️ Configuration Files
-
-### Build Configuration
-- **`build.js`**: Main build script
-- **`package.json`**: Project dependencies and scripts
-- **`tailwind.config.js`**: Tailwind CSS configuration
-- **`postcss.config.js`**: PostCSS configuration
-- **`nodemon.json`**: File watching configuration
-
-### Code Quality
-- **`.prettierrc`**: Prettier code formatting
-- **`.prettierignore`**: Prettier exclusions
-- **`.stylelintrc.json`**: Stylelint CSS linting
-- **`.stylelintignore`**: Stylelint exclusions
-- **`.theme-check.yml`**: Shopify theme validation
-
-### Development Tools
-- **`knip.ts`**: Unused code detection
-- **`.env`**: Environment variables
-- **`.gitignore`**: Git exclusions
-
-## 🔄 Development Workflow
-
-### File Flow
-1. **Development**: Edit files in `dev/` directory
-2. **Build Process**: `build.js` processes and compiles files
-3. **Intermediate**: Files are generated in `build/` directory
-4. **Production**: Final files are copied to `theme/` directory
-5. **Deployment**: Only `theme/` directory is deployed to Shopify
+**Key Features:**
+- Fast development builds with minimal processing
+- Production builds with full optimization
+- Incremental builds that only process changed files
+- Asset optimization and compression
+- Live reload integration with Shopify CLI
 
 ### Build Process
-1. **CSS Processing**: Tailwind CSS compilation
-2. **JavaScript Bundling**: Module bundling and optimization
-3. **Asset Optimization**: Image compression and optimization
-4. **File Copying**: Shopify files copied to production
-5. **Validation**: Theme structure validation
+1. **Development Mode**: Fast file copying with minimal processing
+2. **Production Mode**: Full optimization with minification and compression
+3. **Asset Processing**: CSS compilation, JavaScript bundling, image optimization
+4. **File Copying**: Copy processed files to `theme/` directory
 
-## 🎯 Best Practices
+## 📁 Root Configuration Files
 
-### File Organization
-- **Keep `dev/` organized**: Maintain clear structure in development files
-- **Use descriptive names**: Name files and directories clearly
-- **Group related files**: Keep related functionality together
-- **Follow conventions**: Use consistent naming and structure
+### Package Management
+- `package.json` - Project dependencies and scripts
+- `package-lock.json` - Locked dependency versions
 
-### Development
-- **Never edit `theme/` directly**: All changes should be made in `dev/`
-- **Use build commands**: Let the build system handle file generation
-- **Test changes**: Verify changes work before committing
-- **Keep backups**: Backup important files before major changes
+### Build Configuration
+- `build.js` - Main build script
+- `tailwind.config.js` - Tailwind CSS configuration
+- `postcss.config.js` - PostCSS processing configuration
+- `nodemon.json` - File watching configuration
 
-### Performance
-- **Optimize assets**: Compress images and minify code
-- **Use efficient selectors**: Keep CSS selectors simple
-- **Minimize dependencies**: Only include necessary files
-- **Monitor file sizes**: Keep production files lean
+### Code Quality
+- `knip.ts` - Unused code detection configuration
+- `.prettierrc` - Code formatting rules
+- `.prettierignore` - Files to skip formatting
+- `.stylelintrc.json` - CSS linting rules
+- `.stylelintignore` - Files to skip CSS linting
+- `.theme-check.yml` - Shopify theme validation
 
-## 🚨 Important Notes
+### Development Tools
+- `.gitignore` - Version control exclusions
+- `.env` - Local environment variables (not in version control)
+- `dev/shopify.env.example` - Environment template
 
-### Directory Purposes
-- **`dev/`**: Source files for development (edit here)
-- **`build/`**: Intermediate files (generated, don't edit)
-- **`theme/`**: Production files (generated, don't edit)
-- **`docs/`**: Documentation (edit for updates)
+## 🎯 Key Principles
 
-### File Types
-- **`.liquid`**: Shopify Liquid templates
-- **`.json`**: JSON templates and configuration
-- **`.css`**: Stylesheets
-- **`.js`**: JavaScript files
-- **`.md`**: Documentation files
+### Separation of Concerns
+- **Development**: All source files in `dev/`
+- **Production**: Processed files in `theme/`
+- **Never edit files in `theme/` directly**
 
-### Build Output
-- **CSS**: Single optimized file in `theme/assets/main.css`
-- **JavaScript**: Single bundled file in `theme/assets/main.js`
-- **Images**: Optimized images in `theme/assets/`
-- **Shopify Files**: Direct copies from `dev/` to `theme/`
+### Modular Architecture
+- **CSS**: Modular CSS with clear separation of concerns
+- **JavaScript**: ES6 modules organized by functionality
+- **Components**: Reusable snippets and sections
 
----
+### Performance Optimization
+- **Development**: Fast builds for rapid iteration
+- **Production**: Optimized assets for deployment
+- **Incremental**: Only rebuild changed files
 
-**Organized for efficient development and deployment! 📁** 
+### Accessibility
+- **Semantic HTML**: Proper structure and landmarks
+- **ARIA Support**: Screen reader compatibility
+- **Keyboard Navigation**: Full keyboard accessibility
+
+This structure ensures a clean, maintainable, and scalable codebase that follows modern development practices while maintaining excellent performance and accessibility standards. 

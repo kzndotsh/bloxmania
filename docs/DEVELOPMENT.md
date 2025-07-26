@@ -1,100 +1,293 @@
-# Development Guide
+# 🔄 Development Workflow
 
-## Development Scripts
+This guide covers the development workflow for the BloxMania theme, including best practices, troubleshooting, and advanced configuration.
 
-We've created multiple development scripts to handle different scenarios and preferences:
+## 🚀 Development Modes
 
-### 🚀 Recommended: Simple Development
+### Primary Development Mode
 ```bash
-npm run dev:simple
+npm run dev
 ```
-- Builds the theme once and starts Shopify development server
-- No file watching - manually rebuild when needed
-- Most stable option, no conflicts with Shopify sync
-- **Best for**: Stable development, debugging, when you want full control
+- Builds the theme and starts Shopify development server
+- Enables live reload for automatic browser updates
+- **Best for**: Daily development work
 
-### 🎯 Interactive Development
+### Alternative Development Modes
 ```bash
-npm run dev:interactive
-```
-- Interactive command-line interface
-- Manual control over builds and development server
-- Commands: `build`, `dev`, `watch`, `exit`
-- **Best for**: When you want full control over the development process
+# Hot reload CSS and sections only
+npm run dev:hot
 
-### ⚡ Fast Development (Experimental)
+# Full page refresh on changes
+npm run dev:full
+
+# No live reload (manual refresh)
+npm run dev:off
+
+# Auto-open browser on start
+npm run dev:open
+
+# Watch for changes and rebuild
+npm run dev:watch
+```
+
+## 🔄 Development Process
+
+### 1. Start Development
 ```bash
-npm run dev:fast
+# Start the development server
+npm run dev
 ```
-- Uses the original nodemon configuration
-- Faster rebuilds but may cause conflicts
-- **Best for**: When you need rapid iteration and can handle occasional conflicts
 
-### 🔧 Stable Development (Experimental)
+### 2. Make Changes
+- Edit files in the `dev/` directory
+- Never edit files in `theme/` directly
+- Changes automatically trigger rebuilds
+- Browser automatically reloads with updates
+
+### 3. Test Changes
+- View changes in your Shopify store
+- Test on different devices and browsers
+- Use browser developer tools for debugging
+- Check for console errors
+
+### 4. Build for Production
 ```bash
-npm run dev:stable
+# Build optimized files for production
+npm run build
 ```
-- Uses optimized nodemon configuration with longer delays
-- Reduced conflicts but slower rebuilds
-- **Best for**: When you want file watching but with fewer conflicts
 
-### 📦 Manual Build
+### 5. Deploy to Shopify
 ```bash
-npm run build:manual
+# Deploy the theme to your Shopify store
+npm run push
 ```
-- Builds the theme once without starting development server
-- **Best for**: One-time builds, CI/CD, testing
 
-## Troubleshooting
+## 📁 File Organization
+
+### Development Structure
+```
+dev/                    # 🛠️ Source files (edit here)
+├── css/               # CSS source files
+│   ├── main.css       # Main entry point
+│   ├── design-tokens.css # CSS custom properties
+│   ├── base/          # Foundation styles
+│   ├── layout/        # Layout components
+│   ├── components/    # Reusable components
+│   ├── sections/      # Section-specific styles
+│   └── utilities/     # Utility classes
+├── js/                # JavaScript source files
+│   ├── core/          # Core utilities
+│   ├── features/      # Feature modules
+│   ├── ui/            # UI components
+│   ├── helpers/       # Helper utilities
+│   └── system/        # System files
+├── sections/          # Shopify sections
+├── snippets/          # Shopify snippets
+├── templates/         # Shopify templates
+├── layout/            # Shopify layouts
+├── config/            # Shopify configuration
+├── locales/           # Translation files
+└── utils/             # Build utilities
+```
+
+### Production Structure
+```
+theme/                  # 🚀 Production files (generated)
+├── assets/            # Compiled assets
+├── sections/          # Processed sections
+├── snippets/          # Processed snippets
+├── templates/         # Processed templates
+├── layout/            # Processed layouts
+├── config/            # Theme configuration
+└── locales/           # Translation files
+```
+
+## 🎨 CSS Development
+
+### Modular CSS Architecture
+The project uses a modular CSS architecture with clear separation of concerns:
+
+1. **Design Tokens** (`design-tokens.css`): CSS custom properties for consistent values
+2. **Base Styles** (`base/`): Foundation styles like reset, typography, animations
+3. **Layout Styles** (`layout/`): Layout components like header, footer, grid
+4. **Component Styles** (`components/`): Reusable component styles
+5. **Section Styles** (`sections/`): Section-specific styles
+6. **Utility Styles** (`utilities/`): Utility classes and helpers
+
+### Adding New Styles
+1. Create your CSS file in the appropriate directory
+2. Import it in `dev/css/main.css`
+3. The build system will automatically compile and include it
+
+### CSS Best Practices
+- Use CSS custom properties for consistent values
+- Follow the modular architecture
+- Keep styles organized and maintainable
+- Use Tailwind utilities when appropriate
+- Ensure accessibility compliance
+
+## 🔧 JavaScript Development
+
+### Module Organization
+JavaScript is organized into logical modules:
+
+1. **Core** (`core/`): Core utilities and constants
+2. **Features** (`features/`): Feature-specific modules
+3. **UI** (`ui/`): UI components and interactions
+4. **Helpers** (`helpers/`): Helper utilities
+5. **System** (`system/`): System-level files
+
+### Adding New JavaScript
+1. Create your JavaScript file in the appropriate directory
+2. Use ES6 modules for imports/exports
+3. The bundler will automatically include it in the final bundle
+
+### JavaScript Best Practices
+- Use ES6+ features and modules
+- Follow consistent naming conventions
+- Keep functions small and focused
+- Add proper error handling
+- Ensure accessibility compliance
+
+## 🛠️ Build System
+
+### Development Builds
+- Fast builds with minimal processing
+- Source maps for debugging
+- Live reload integration
+- Optimized for rapid iteration
+
+### Production Builds
+- Full optimization and minification
+- Asset compression
+- Tree shaking for unused code elimination
+- Performance-focused output
+
+### Build Process
+1. **File Watching**: Monitors `dev/` directory for changes
+2. **Asset Processing**: CSS compilation, JavaScript bundling
+3. **File Copying**: Copy processed files to `theme/`
+4. **Live Reload**: Trigger browser updates
+
+## 🚨 Troubleshooting
 
 ### Common Issues
 
-1. **Excessive rebuilds and conflicts**
-   - Use `npm run dev:simple` instead of `npm run dev:stable`
-   - The concurrent file watching can cause conflicts with Shopify's sync
+**Build Fails**
+```bash
+# Clean and rebuild
+npm run clean
+npm run build:dev
 
-2. **Build failures**
-   - Check that all dependencies are installed: `npm install`
-   - Ensure you're in the correct directory
-   - Check for syntax errors in your files
+# Check for syntax errors
+npm run check
+```
 
-3. **Shopify sync errors**
-   - Stop the development server (Ctrl+C)
-   - Run `npm run build:dev` to ensure clean build
-   - Restart with `npm run dev:simple`
+**Live Reload Not Working**
+```bash
+# Try different reload modes
+npm run dev:hot
+npm run dev:full
+npm run dev:off
+```
+
+**CSS Changes Not Reflecting**
+```bash
+# Force CSS rebuild
+npm run build:css:dev
+
+# Check CSS compilation
+npm run lint:css
+```
+
+**JavaScript Changes Not Working**
+```bash
+# Force JavaScript rebuild
+npm run build:js:dev
+
+# Check for syntax errors
+npm run check
+```
+
+**Theme Not Loading**
+```bash
+# Check environment configuration
+cat .env
+
+# Verify Shopify CLI connection
+shopify theme list
+```
+
+### Debug Commands
+```bash
+# Check build status
+npm run build:dev -- --verbose
+
+# Validate theme structure
+npm run check
+
+# Check for unused code
+npm run knip
+
+# Format code
+npm run format
+```
+
+## 🎯 Best Practices
 
 ### Development Workflow
+1. **Always work in `dev/`**: Never edit files in `theme/` directly
+2. **Use appropriate development mode**: Choose the right mode for your needs
+3. **Test frequently**: Verify changes work before committing
+4. **Keep backups**: Backup important files before major changes
+5. **Follow conventions**: Use consistent naming and structure
 
-1. **Start development**: `npm run dev:simple`
-2. **Make changes** to files in `dev/` directory
-3. **Rebuild manually**: Stop server (Ctrl+C) and run `npm run build:dev`
-4. **Restart development**: `npm run dev:simple`
+### Code Quality
+1. **Use linting**: Run `npm run lint:css` to check CSS quality
+2. **Format code**: Use `npm run format` to maintain consistency
+3. **Check for issues**: Use `npm run check` to validate theme structure
+4. **Remove unused code**: Use `npm run knip` to find unused files
 
-### File Structure
+### Performance
+1. **Optimize assets**: Ensure images and assets are optimized
+2. **Minimize bundle size**: Keep CSS and JavaScript lean
+3. **Use lazy loading**: Implement lazy loading for non-critical resources
+4. **Monitor performance**: Use browser dev tools to monitor performance
 
-- `dev/` - Source files (edit these)
-- `theme/` - Built theme (don't edit directly)
-- `build/` - Intermediate build files
+### Accessibility
+1. **Semantic HTML**: Use proper HTML structure and landmarks
+2. **ARIA support**: Add ARIA attributes for screen readers
+3. **Keyboard navigation**: Ensure full keyboard accessibility
+4. **Color contrast**: Maintain minimum 4.5:1 contrast ratio
+5. **Focus management**: Provide visible focus indicators
 
-### Best Practices
+## ⚙️ Advanced Configuration
 
-1. **Use `dev:simple` for most development**
-2. **Build manually when you make significant changes**
-3. **Keep the `dev/` directory clean and organized**
-4. **Test changes in the browser after each build**
-5. **Use version control to track changes**
+### Customizing Build Behavior
+Edit `build.js` to adjust build behavior:
+- `minBuildInterval`: Minimum time between builds
+- Build timeout delays for development mode
+- File watching configuration
 
-## Advanced Configuration
-
-### Customizing Build Delays
-
-Edit `nodemon.stable.json` to adjust file watching behavior:
-- `delay`: Time to wait before triggering build (milliseconds)
+### Customizing File Watching
+Edit `nodemon.json` to adjust file watching:
+- `delay`: Time to wait before triggering build
 - `watchOptions.interval`: File system polling interval
 - `watchOptions.binaryInterval`: Binary file polling interval
 
-### Build Script Optimization
+### Environment Configuration
+Edit `.env` file to configure development environment:
+- Shopify store URL
+- Theme ID
+- API credentials
 
-Edit `build.js` to adjust build behavior:
-- `minBuildInterval`: Minimum time between builds
-- Build timeout delays for development mode 
+## 📚 Related Documentation
+
+- **[Getting Started](GETTING_STARTED.md)** - Initial setup guide
+- **[Build System](BUILD_SYSTEM.md)** - Build system architecture
+- **[Development Scripts](DEVELOPMENT_SCRIPTS.md)** - All available commands
+- **[Project Structure](PROJECT_STRUCTURE.md)** - File organization
+
+---
+
+**Optimized for efficient and reliable development! 🚀** 

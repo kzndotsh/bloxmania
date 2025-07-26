@@ -16,7 +16,7 @@ npm run build:dev
 npm run build
 
 # Watch for changes and rebuild
-npm run build:watch
+npm run dev:watch
 ```
 
 ## 📋 Available Scripts
@@ -32,10 +32,13 @@ npm run dev
 npm run build:dev
 
 # Watch mode with automatic rebuilds
-npm run build:watch
+npm run dev:watch
 
-# Manual build (when needed)
-npm run build:manual
+# Alternative development modes
+npm run dev:hot          # Hot reload CSS and sections only
+npm run dev:full         # Full page refresh on changes
+npm run dev:off          # No live reload (manual refresh)
+npm run dev:open         # Auto-open browser on start
 ```
 
 #### Production Commands
@@ -59,35 +62,32 @@ npm run build:css:prod     # Production CSS
 # Build JavaScript only
 npm run build:js:dev       # Development JS
 npm run build:js:prod      # Production JS
-
-# Build images only
-npm run build:images
 ```
 
 ### 🧹 Maintenance Commands
 
 #### Cleanup
 ```bash
-# Clean build directories
+# Clean build and theme directories
 npm run clean
 
-# Clean and rebuild
-npm run clean:rebuild
+# Clean build directory only
+npm run clean:build
 
-# Remove node_modules and reinstall
-npm run reset
+# Clean theme directory only
+npm run clean:theme
 ```
 
 #### Status and Monitoring
 ```bash
-# Check build status
-npm run build:status
+# Check theme for issues
+npm run check
 
-# Check file structure
-npm run check:structure
+# Auto-fix theme issues
+npm run check:fix
 
-# Validate theme
-npm run theme:check
+# Check for unused code
+npm run knip
 ```
 
 ### 🔧 Configuration Commands
@@ -97,284 +97,252 @@ npm run theme:check
 # Setup environment variables
 npm run env:setup
 
-# Setup Shopify CLI
-npm run shopify:setup
+# Install dependencies
+npm run setup
 
-# Setup development environment
-npm run setup:dev
+# Guide for backfilling merchant changes
+npm run backfill
 ```
 
-#### Code Quality
+#### Shopify Integration
 ```bash
-# Run linting
-npm run lint
+# Pull latest theme from Shopify
+npm run pull
 
-# Fix linting issues
-npm run lint:fix
+# Push theme to Shopify
+npm run push
 
-# Run theme validation
-npm run theme:check
-
-# Fix theme structure issues
-npm run fix:theme
+# Package theme for distribution
+npm run package
 ```
 
-## 🔄 Development Workflows
+### 🎨 Code Quality Commands
 
-### 🎯 Recommended Workflow
+#### Formatting and Linting
+```bash
+# Format code with Prettier
+npm run format
 
-#### 1. Start Development
+# Lint CSS files
+npm run lint:css
+
+# Auto-fix CSS issues
+npm run lint:css:fix
+```
+
+## 📖 Detailed Command Reference
+
+### 🚀 Development Commands
+
+| Command | Description | Use Case |
+|---------|-------------|----------|
+| `npm run dev` | Start development server with live reload | Daily development |
+| `npm run dev:hot` | Hot reload CSS and sections only | CSS/HTML changes |
+| `npm run dev:full` | Full page refresh on changes | JavaScript changes |
+| `npm run dev:off` | No live reload (manual refresh) | Debugging |
+| `npm run dev:open` | Auto-open browser on start | Quick testing |
+| `npm run dev:watch` | Watch for changes and rebuild | Alternative to dev |
+
+### 🔨 Build Commands
+
+| Command | Description | Use Case |
+|---------|-------------|----------|
+| `npm run build` | Build for production | Deployment |
+| `npm run build:dev` | Build for development | Testing |
+| `npm run build:css:dev` | Build CSS for development | CSS development |
+| `npm run build:css:prod` | Build CSS for production | CSS optimization |
+| `npm run build:js:dev` | Build JavaScript for development | JS development |
+| `npm run build:js:prod` | Build JavaScript for production | JS optimization |
+
+### 📦 Deploy Commands
+
+| Command | Description | Use Case |
+|---------|-------------|----------|
+| `npm run push` | Build and deploy to Shopify | Live deployment |
+| `npm run pull` | Pull latest theme from Shopify | Sync changes |
+| `npm run package` | Create theme package | Distribution |
+
+### ✅ Quality Commands
+
+| Command | Description | Use Case |
+|---------|-------------|----------|
+| `npm run check` | Check theme for issues | Pre-deployment |
+| `npm run check:fix` | Auto-fix theme issues | Automated fixes |
+| `npm run format` | Format code with Prettier | Code consistency |
+| `npm run lint:css` | Lint CSS files | CSS quality |
+| `npm run lint:css:fix` | Auto-fix CSS issues | CSS fixes |
+| `npm run knip` | Check for unused code | Code cleanup |
+
+### 🧹 Cleanup Commands
+
+| Command | Description | Use Case |
+|---------|-------------|----------|
+| `npm run clean` | Clean build and theme directories | Fresh start |
+| `npm run clean:build` | Clean build directory only | CSS/JS rebuild |
+| `npm run clean:theme` | Clean theme directory only | Theme rebuild |
+
+### ⚙️ Setup Commands
+
+| Command | Description | Use Case |
+|---------|-------------|----------|
+| `npm run setup` | Install dependencies | Initial setup |
+| `npm run env:setup` | Set up environment file | Configuration |
+| `npm run backfill` | Guide for backfilling merchant changes | Theme updates |
+
+## 🔄 Development Workflow Examples
+
+### Daily Development
 ```bash
 # Start development server
 npm run dev
+
+# Make changes in dev/ directory
+# Files automatically rebuild and reload
 ```
-This command:
-- Starts the build system in watch mode
-- Launches Shopify CLI development server
-- Enables live reload for CSS and sections
-- Provides fast development experience
 
-#### 2. Make Changes
-- Edit files in `dev/` directory
-- Changes automatically trigger rebuilds
-- Browser automatically reloads
-- CSS changes are hot-reloaded
-
-#### 3. Build for Production
+### CSS Development
 ```bash
-# Production build
+# Start development with hot reload
+npm run dev:hot
+
+# Build CSS for development
+npm run build:css:dev
+
+# Lint CSS files
+npm run lint:css
+```
+
+### JavaScript Development
+```bash
+# Start development with full page refresh
+npm run dev:full
+
+# Build JavaScript for development
+npm run build:js:dev
+```
+
+### Production Deployment
+```bash
+# Build for production
 npm run build
-```
 
-#### 4. Deploy
-```bash
+# Check for issues
+npm run check
+
 # Deploy to Shopify
 npm run push
 ```
 
-### 🚀 Alternative Workflows
-
-#### Conservative Workflow (Maximum Stability)
+### Theme Updates
 ```bash
-# Start with minimal auto-reload
-npm run dev:conservative
+# Pull latest changes from Shopify
+npm run pull
 
-# Manual rebuilds when needed
-npm run build:manual
+# Make changes in dev/ directory
+npm run build
+
+# Push changes back to Shopify
+npm run push
 ```
 
-#### Fast Workflow (Maximum Speed)
-```bash
-# Start with aggressive auto-reload
-npm run dev:fast
+## ⚙️ Script Configuration
 
-# Watch for all changes
-npm run build:watch
-```
+### Package.json Scripts
+All scripts are defined in `package.json` and can be customized:
 
-#### Manual Workflow (Full Control)
-```bash
-# Start Shopify dev server only
-npm run shopify:dev
-
-# Manual builds as needed
-npm run build:dev
-npm run build:css:dev
-npm run build:js:dev
-```
-
-## ⚙️ Build System Configuration
-
-### Build Script (`build.js`)
-The main build script handles:
-- **File Watching**: Monitors `dev/` directory for changes
-- **Asset Processing**: CSS compilation, JS bundling, image optimization
-- **Incremental Builds**: Only rebuilds changed files
-- **Error Handling**: Graceful error handling and reporting
-- **Performance**: Optimized for fast development builds
-
-### Configuration Files
-
-#### `nodemon.json`
-```json
-{
-  "watch": ["dev/"],
-  "ignore": ["build/", "theme/", "node_modules/", ".git/"],
-  "ext": "css,js,liquid,json",
-  "delay": 1000,
-  "exec": "node build.js"
-}
-```
-
-#### `package.json` Scripts
 ```json
 {
   "scripts": {
-    "dev": "concurrently \"npm run build:watch\" \"shopify theme dev --path=theme\"",
-    "build:dev": "node build.js --mode=development",
+    "dev": "npm run build:dev && shopify theme dev --path=theme",
+    "dev:hot": "npm run build:dev && shopify theme dev --path=theme --live-reload=hot-reload",
+    "dev:full": "npm run build:dev && shopify theme dev --path=theme --live-reload=full-page",
+    "dev:off": "npm run build:dev && shopify theme dev --path=theme --live-reload=off",
+    "dev:open": "npm run build:dev && shopify theme dev --path=theme --open",
+    "dev:watch": "nodemon",
     "build": "node build.js --mode=production",
-    "build:watch": "nodemon --config nodemon.json",
-    "clean": "rm -rf build/ theme/",
-    "push": "npm run build && shopify theme push --path=theme"
+    "build:dev": "node build.js --mode=development",
+    "build:css:dev": "tailwindcss -i ./dev/css/main.css -o ./build/css/main.css --config ./tailwind.config.js",
+    "build:css:prod": "NODE_ENV=production tailwindcss -i ./dev/css/main.css -o ./build/css/main.css --config ./tailwind.config.js --minify",
+    "build:js:dev": "node ./dev/utils/bundler.js --mode=development",
+    "build:js:prod": "node ./dev/utils/bundler.js --mode=production",
+    "push": "npm run build && shopify theme push --path=theme",
+    "pull": "shopify theme pull --path=theme",
+    "package": "npm run build && shopify theme package --path=theme",
+    "check": "shopify theme check --path=theme",
+    "check:fix": "shopify theme check --auto-correct --path=theme",
+    "format": "prettier --write \"dev/**/*.{liquid,html,css,js,json}\"",
+    "lint:css": "stylelint \"dev/**/*.css\"",
+    "lint:css:fix": "stylelint \"dev/**/*.css\" --fix",
+    "clean": "rm -rf build theme",
+    "clean:build": "rm -rf build",
+    "clean:theme": "rm -rf theme",
+    "setup": "npm install",
+    "env:setup": "cp dev/shopify.env.example .env && echo 'Created .env file from example. Please edit .env with your store settings.'",
+    "backfill": "echo '🔍 Backfilling merchant changes...' && echo '1. Check git diff for changes to compiled files' && echo '2. Apply changes to source files in dev/' && echo '3. Run npm run build to regenerate' && echo '4. Run npm run push to deploy'",
+    "knip": "knip"
   }
 }
 ```
 
-## 🔧 Build Process Details
+### Environment Variables
+Scripts use environment variables from `.env` file:
 
-### Development Build Process
-1. **File Watching**: Monitors `dev/` directory for changes
-2. **Fast Copy**: Direct file copying with minimal processing
-3. **CSS Compilation**: Tailwind CSS compilation
-4. **Asset Copying**: Copy processed assets to `theme/`
-5. **Live Reload**: Shopify CLI triggers browser reload
-
-### Production Build Process
-1. **Clean Build**: Remove existing `theme/` directory
-2. **Asset Optimization**: Minify CSS and JavaScript
-3. **Image Optimization**: Compress and optimize images
-4. **File Processing**: Process all theme files
-5. **Final Copy**: Copy optimized files to `theme/`
-
-### Asset Processing
-
-#### CSS Processing
 ```bash
-# Source: dev/css/styles.css
-# Output: theme/assets/main.css
-
-# Development
-tailwindcss -i ./dev/css/styles.css -o ./build/css/main.css --config ./tailwind.config.js
-
-# Production
-NODE_ENV=production tailwindcss -i ./dev/css/styles.css -o ./build/css/main.css --config ./tailwind.config.js --minify
-```
-
-#### JavaScript Processing
-```bash
-# Source: dev/js/**/*.js
-# Output: theme/assets/main.js
-
-# Custom bundler processes all JavaScript files
-node ./dev/utils/bundler.js --mode=development
-node ./dev/utils/bundler.js --mode=production
-```
-
-#### Asset Processing
-```bash
-# Images: dev/images/ → theme/assets/
-# Fonts: dev/fonts/ → theme/assets/
-# Other: dev/assets/ → theme/assets/
+# .env file
+SHOPIFY_STORE=your-store.myshopify.com
+SHOPIFY_THEME_ID=your-theme-id
 ```
 
 ## 🚨 Troubleshooting
 
 ### Common Issues
 
-#### Build Fails
+**Script Not Found**
 ```bash
-# Check build logs
-npm run build:dev
+# Check if script exists in package.json
+npm run
 
+# Install dependencies if missing
+npm install
+```
+
+**Build Fails**
+```bash
 # Clean and rebuild
 npm run clean
 npm run build:dev
+
+# Check for syntax errors
+npm run check
 ```
 
-#### Slow Builds
+**Live Reload Not Working**
 ```bash
-# Check file watching
-# Reduce file count in dev/ directory
-# Optimize build configuration
-```
-
-#### Missing Assets
-```bash
-# Verify file paths
-# Check build output
-# Ensure assets are copied correctly
-```
-
-#### Shopify CLI Issues
-```bash
-# Restart Shopify CLI
-npm run shopify:dev
-
-# Check theme structure
-npm run theme:check
-
-# Fix theme structure
-npm run fix:theme
+# Try different reload modes
+npm run dev:hot
+npm run dev:full
+npm run dev:off
 ```
 
 ### Debug Commands
-
-#### Enable Verbose Logging
 ```bash
-# Enable debug logging
-DEBUG=* npm run build:dev
+# Check script definitions
+npm run
 
-# Check build timing
-time npm run build:dev
+# Run with verbose output
+npm run build:dev -- --verbose
+
+# Check theme structure
+npm run check
 ```
 
-#### Check File Structure
-```bash
-# Validate project structure
-npm run check:structure
+## 📚 Related Documentation
 
-# Check build output
-ls -la theme/assets/
-```
-
-#### Performance Monitoring
-```bash
-# Monitor build performance
-npm run build:status
-
-# Check file sizes
-du -sh theme/assets/*
-```
-
-## 📊 Build Statistics
-
-### File Counts
-- **Sections**: ~30 files
-- **Snippets**: ~25 files
-- **Templates**: ~15 files
-- **JavaScript**: ~50 modules
-- **CSS**: 1 main file + utilities
-
-### Build Times
-- **Development**: 1-2 seconds
-- **Production**: 5-10 seconds
-- **Incremental**: <500ms
-
-### Asset Sizes
-- **CSS**: ~50KB (development), ~15KB (production)
-- **JavaScript**: ~100KB (development), ~30KB (production)
-- **Images**: Optimized for web delivery
-
-## 🎯 Best Practices
-
-### Development
-1. **Use `npm run dev`**: For most development work
-2. **Monitor Build Status**: Use `npm run build:status` to check builds
-3. **Clean Regularly**: Use `npm run clean` when builds get stuck
-4. **Check Structure**: Use `npm run check:structure` to validate files
-
-### Production
-1. **Always Test**: Test production builds locally before deploying
-2. **Optimize Assets**: Ensure images and assets are optimized
-3. **Validate Theme**: Use `npm run theme:check` before deployment
-4. **Backup**: Keep backups before major deployments
-
-### Performance
-1. **Use Incremental Builds**: Let the build system handle file watching
-2. **Optimize File Count**: Keep `dev/` directory organized
-3. **Monitor Build Times**: Watch for build performance degradation
-4. **Clean Regularly**: Remove unnecessary files to speed up builds
+- **[Getting Started](GETTING_STARTED.md)** - Initial setup guide
+- **[Development Workflow](DEVELOPMENT.md)** - Development process
+- **[Build System](BUILD_SYSTEM.md)** - Build system architecture
+- **[Project Structure](PROJECT_STRUCTURE.md)** - File organization
 
 ---
 
-**Optimized for fast, reliable development! ⚡** 
+**Comprehensive script coverage for all development needs! 🛠️** 

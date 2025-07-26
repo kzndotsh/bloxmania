@@ -18,8 +18,6 @@ Welcome to the comprehensive documentation for the BloxMania Shopify theme - a h
 - **[Project Structure](PROJECT_STRUCTURE.md)** - Complete project organization and file structure
 
 ### 🎨 Design & Standards
-- **[Performance Guidelines](PERFORMANCE.md)** - Performance optimization best practices
-- **[Accessibility Guidelines](ACCESSIBILITY.md)** - WCAG compliance and accessibility standards
 - **[Style Guide](style-guide/README.md)** - Coding standards and conventions
 
 ### 🧩 Component Documentation
@@ -124,12 +122,9 @@ Page templates that define the structure of different page types.
 
 ### 🎨 Style Guide
 - **[Style Guide Overview](style-guide/README.md)** - Design system and standards
-- **[CSS Standards](style-guide/CSS.md)** - BEM methodology and CSS conventions
+- **[CSS Standards](style-guide/CSS.md)** - Modular CSS architecture and conventions
 - **[JavaScript Standards](style-guide/JAVASCRIPT.md)** - JavaScript coding standards
 - **[Liquid Standards](style-guide/LIQUID.md)** - Liquid templating standards
-
-### 📁 Assets
-- **[Assets Documentation](assets/README.md)** - Static assets and their usage
 
 ## 🔧 Project Structure
 
@@ -137,12 +132,34 @@ Page templates that define the structure of different page types.
 bloxmania/
 ├── dev/                    # 🛠️ Development Environment
 │   ├── js/                # JavaScript source files
+│   │   ├── core/          # Core utilities and constants
+│   │   ├── features/      # Feature-specific modules
+│   │   ├── ui/            # UI components and interactions
+│   │   ├── helpers/       # Helper utilities
+│   │   └── system/        # System-level files
 │   ├── css/               # CSS source files
+│   │   ├── main.css       # Main entry point with imports
+│   │   ├── design-tokens.css # CSS custom properties
+│   │   ├── base/          # Base styles (reset, typography, etc.)
+│   │   ├── layout/        # Layout components
+│   │   ├── components/    # Reusable components
+│   │   ├── sections/      # Section-specific styles
+│   │   └── utilities/     # Utility classes
 │   ├── sections/          # Shopify sections
 │   ├── snippets/          # Shopify snippets
 │   ├── templates/         # Shopify templates
-│   └── ...
+│   ├── layout/            # Shopify layouts
+│   ├── config/            # Shopify configuration
+│   ├── locales/           # Translation files
+│   └── utils/             # Build utilities
 ├── theme/                  # 🚀 Production Theme
+│   ├── assets/            # Final assets for Shopify
+│   ├── sections/          # Shopify sections
+│   ├── snippets/          # Shopify snippets
+│   ├── templates/         # Shopify templates
+│   ├── layout/            # Shopify layouts
+│   ├── config/            # Shopify configuration
+│   └── locales/           # Translation files
 ├── docs/                   # 📚 This documentation
 └── ...
 ```

@@ -99,7 +99,7 @@ npm run dev
 
 ### Alternative Development Modes
 ```bash
-# Hot reload (CSS and sections only)
+# Hot reload CSS and sections only
 npm run dev:hot
 
 # Full page refresh on changes
@@ -108,146 +108,217 @@ npm run dev:full
 # No live reload (manual refresh)
 npm run dev:off
 
-# Auto-open browser
+# Auto-open browser on start
 npm run dev:open
 ```
 
-### Building for Production
-```bash
-# Build for production (optimized)
-npm run build
+## 🔄 Development Workflow
 
-# Build for development (faster)
-npm run build:dev
+### 1. Start Development
+```bash
+# Start the development server
+npm run dev
 ```
 
-### Deploying to Shopify
+### 2. Make Changes
+- Edit files in the `dev/` directory
+- Never edit files in the `theme/` directory directly
+- Changes automatically trigger rebuilds
+- Browser automatically reloads with changes
+
+### 3. Build for Production
 ```bash
-# Build and deploy to Shopify
+# Build optimized files for production
+npm run build
+```
+
+### 4. Deploy to Shopify
+```bash
+# Deploy the theme to your Shopify store
 npm run push
-
-# Pull latest changes from Shopify
-npm run pull
-
-# Create theme package
-npm run package
 ```
 
 ## 📁 Project Structure
 
-Understanding the project structure is crucial for development:
-
+### Key Directories
 ```
 bloxmania/
-├── dev/                    # 🛠️ Development Environment
-│   ├── js/                # JavaScript source files
-│   │   ├── core/          # Core utilities and constants
-│   │   ├── features/      # Feature-specific modules
-│   │   ├── ui/            # UI components and interactions
-│   │   ├── helpers/       # Helper utilities
-│   │   └── system/        # System-level files
+├── dev/                    # 🛠️ Development files (edit here)
 │   ├── css/               # CSS source files
-│   │   └── styles.css     # Main stylesheet (BEM methodology)
+│   ├── js/                # JavaScript source files
 │   ├── sections/          # Shopify sections
 │   ├── snippets/          # Shopify snippets
 │   ├── templates/         # Shopify templates
-│   ├── layout/            # Shopify layouts
-│   ├── config/            # Shopify configuration
-│   └── locales/           # Translation files
-├── build/                  # 🔨 Built Assets (Intermediate)
-├── theme/                  # 🚀 Production Theme (for Shopify)
+│   └── ...
+├── theme/                  # 🚀 Production files (generated)
+│   ├── assets/            # Compiled assets
+│   ├── sections/          # Processed sections
+│   └── ...
 └── docs/                   # 📚 Documentation
 ```
 
-## 🔧 Development Workflow
+### Important Notes
+- **Always work in `dev/`**: Never edit files in `theme/` directly
+- **Build Process**: Files are automatically processed from `dev/` to `theme/`
+- **Live Reload**: Changes in `dev/` automatically update the browser
 
-### 1. Making Changes
-- **Always work in the `dev/` directory**
-- Never edit files in `theme/` directly
-- Changes automatically rebuild and reload
+## 🛠️ Available Commands
 
-### 2. File Types
-- **CSS**: Edit `dev/css/styles.css` (BEM methodology)
-- **JavaScript**: Edit files in `dev/js/` directories
-- **Sections**: Edit `dev/sections/` files
-- **Snippets**: Edit `dev/snippets/` files
-- **Templates**: Edit `dev/templates/` files
+### Development Commands
+```bash
+npm run dev              # Start development server
+npm run dev:hot          # Hot reload CSS and sections
+npm run dev:full         # Full page refresh
+npm run dev:off          # No live reload
+npm run dev:open         # Auto-open browser
+npm run dev:watch        # Watch for changes
+```
 
-### 3. Build Process
-1. Files in `dev/` are processed by the build system
-2. Processed files are copied to `theme/`
-3. Shopify CLI serves from the `theme/` directory
-4. Changes trigger automatic rebuilds
+### Build Commands
+```bash
+npm run build            # Production build
+npm run build:dev        # Development build
+npm run build:css:dev    # Build CSS for development
+npm run build:css:prod   # Build CSS for production
+npm run build:js:dev     # Build JavaScript for development
+npm run build:js:prod    # Build JavaScript for production
+```
 
-### 4. Testing Changes
-- View changes in your Shopify store
-- Test on different devices and browsers
-- Use browser developer tools for debugging
-- Check for console errors
+### Deploy Commands
+```bash
+npm run push             # Build and deploy to Shopify
+npm run pull             # Pull latest theme from Shopify
+npm run package          # Create theme package
+```
 
-## 🎨 Customization
+### Quality Commands
+```bash
+npm run check            # Check theme for issues
+npm run check:fix        # Auto-fix theme issues
+npm run format           # Format code with Prettier
+npm run lint:css         # Lint CSS files
+npm run lint:css:fix     # Auto-fix CSS issues
+```
 
-### Theme Settings
-1. Go to your Shopify admin
-2. Navigate to **Online Store > Themes**
-3. Click **Customize** on your theme
-4. Use the theme editor to modify settings
+### Cleanup Commands
+```bash
+npm run clean            # Clean build and theme directories
+npm run clean:build      # Clean build directory only
+npm run clean:theme      # Clean theme directory only
+```
 
-### Code Customization
-- **Sections**: Add/remove content blocks
-- **Snippets**: Reusable components
-- **CSS**: Styling and layout changes
-- **JavaScript**: Interactive functionality
+## 🎨 CSS Development
 
-## 🔍 Troubleshooting
+### CSS Architecture
+The project uses a modular CSS architecture:
+
+```
+dev/css/
+├── main.css              # Main entry point with imports
+├── design-tokens.css     # CSS custom properties
+├── base/                 # Foundation styles
+├── layout/               # Layout components
+├── components/           # Reusable components
+├── sections/             # Section-specific styles
+└── utilities/            # Utility classes
+```
+
+### Adding New Styles
+1. Create your CSS file in the appropriate directory
+2. Import it in `dev/css/main.css`
+3. The build system will automatically compile and include it
+
+## 🔧 JavaScript Development
+
+### JavaScript Architecture
+JavaScript is organized into logical modules:
+
+```
+dev/js/
+├── core/                 # Core utilities and constants
+├── features/             # Feature-specific modules
+├── ui/                   # UI components and interactions
+├── helpers/              # Helper utilities
+└── system/               # System-level files
+```
+
+### Adding New JavaScript
+1. Create your JavaScript file in the appropriate directory
+2. Use ES6 modules for imports/exports
+3. The bundler will automatically include it in the final bundle
+
+## 🚨 Troubleshooting
 
 ### Common Issues
 
-#### Build Errors
+**Build Fails**
 ```bash
-# Clean build directories
+# Clean and rebuild
 npm run clean
+npm run build:dev
 
-# Reinstall dependencies
-rm -rf node_modules package-lock.json
-npm install
+# Check for syntax errors
+npm run check
 ```
 
-#### Shopify CLI Issues
+**Live Reload Not Working**
 ```bash
-# Check Shopify CLI version
-shopify version
-
-# Update Shopify CLI
-npm update -g @shopify/cli @shopify/theme
-
-# Re-authenticate
-shopify auth logout
-shopify auth login
+# Try different reload modes
+npm run dev:hot
+npm run dev:full
+npm run dev:off
 ```
 
-#### Environment Issues
+**Theme Not Loading**
 ```bash
-# Verify environment file
+# Check environment configuration
 cat .env
 
-# Check if store is accessible
-curl -I https://your-store.myshopify.com
+# Verify Shopify CLI connection
+shopify theme list
 ```
 
+**CSS Changes Not Reflecting**
+```bash
+# Force CSS rebuild
+npm run build:css:dev
+
+# Check CSS compilation
+npm run lint:css
+```
+
+### Debug Commands
+```bash
+# Check build status
+npm run build:dev -- --verbose
+
+# Validate theme structure
+npm run check
+
+# Check for unused code
+npm run knip
+```
+
+## 📚 Next Steps
+
+### Learn More
+- **[Development Workflow](DEVELOPMENT.md)** - Detailed development process
+- **[Build System](BUILD_SYSTEM.md)** - How the build system works
+- **[Project Structure](PROJECT_STRUCTURE.md)** - Complete file organization
+- **[Development Scripts](DEVELOPMENT_SCRIPTS.md)** - All available commands
+
+### Best Practices
+1. **Always work in `dev/`**: Never edit files in `theme/` directly
+2. **Use modular CSS**: Follow the CSS architecture guidelines
+3. **Test changes**: Verify changes work before committing
+4. **Keep backups**: Backup important files before major changes
+5. **Follow conventions**: Use consistent naming and structure
+
 ### Getting Help
-- **Documentation**: Check the [main documentation](README.md)
-- **Issues**: [GitHub Issues](https://github.com/kzndotsh/bloxmania/issues)
-- **Development Guide**: [Development Workflow](DEVELOPMENT.md)
-
-## ✅ Next Steps
-
-1. **Explore the Documentation**: Read through the [main documentation](README.md)
-2. **Learn the Build System**: Understand [how the build system works](BUILD_SYSTEM.md)
-3. **Review Components**: Check out [sections](sections/README.md) and [snippets](snippets/README.md)
-4. **Follow Standards**: Read the [style guide](style-guide/README.md)
-5. **Start Developing**: Make your first changes and see them live!
+- **Documentation**: Check the docs directory for detailed guides
+- **Issues**: Report problems on GitHub Issues
+- **Community**: Join the development community
 
 ---
 
-**Happy coding! 🎮** 
+**Ready to start building! 🚀** 

@@ -66,74 +66,133 @@ font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 
 - **Container Padding**: `1rem` (16px) - Container side padding
 - **Grid Gap**: `2rem` (32px) - Standard grid spacing
 
+## 🎨 CSS Architecture
+
+### Design Tokens
+CSS custom properties are defined in `dev/css/design-tokens.css`:
+
+```css
+:root {
+  /* Colors */
+  --color-primary: #ffd800;
+  --color-secondary: #4791f0;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  
+  /* Typography */
+  --font-family-base: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-size-base: 1rem;
+  --line-height-base: 1.5;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  
+  /* Breakpoints */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+}
+```
+
+### Modular CSS Structure
+The CSS follows a modular architecture with clear separation of concerns:
+
+```
+dev/css/
+├── main.css              # Main entry point with imports
+├── design-tokens.css     # CSS custom properties
+├── base/                 # Foundation styles
+│   ├── reset.css
+│   ├── typography.css
+│   ├── animations.css
+│   └── accessibility.css
+├── layout/               # Layout components
+│   ├── header.css
+│   ├── footer.css
+│   ├── grid.css
+│   └── spacing.css
+├── components/           # Reusable components
+│   ├── component-button.css
+│   ├── component-card.css
+│   └── ...
+├── sections/             # Section-specific styles
+│   ├── section-header.css
+│   ├── section-hero.css
+│   └── ...
+└── utilities/            # Utility classes
+    ├── responsive.css
+    ├── states.css
+    └── ...
+```
+
 ### Component Standards
 
 #### Buttons
 ```css
 /* Primary Button */
 .btn--primary {
-  @apply bg-yellow-500 text-black font-semibold px-6 py-3 rounded-lg;
-  @apply hover:bg-yellow-400 transition-colors duration-200;
+  background-color: var(--color-primary);
+  color: var(--color-inverted-text);
+  font-weight: var(--font-weight-semibold);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--border-radius-lg);
+  transition: background-color var(--transition-duration);
+}
+
+.btn--primary:hover {
+  background-color: var(--color-primary-hover);
 }
 
 /* Secondary Button */
 .btn--secondary {
-  @apply bg-transparent border-2 border-yellow-500 text-yellow-500;
-  @apply hover:bg-yellow-500 hover:text-black transition-all duration-200;
+  background-color: transparent;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  transition: all var(--transition-duration);
+}
+
+.btn--secondary:hover {
+  background-color: var(--color-primary);
+  color: var(--color-inverted-text);
 }
 
 /* Ghost Button */
 .btn--ghost {
-  @apply bg-transparent text-white hover:bg-white/10;
-  @apply transition-colors duration-200;
+  background-color: transparent;
+  color: var(--color-text-primary);
+  transition: background-color var(--transition-duration);
+}
+
+.btn--ghost:hover {
+  background-color: var(--color-overlay-light);
 }
 ```
 
 #### Cards
 ```css
 .card {
-  @apply bg-white/5 border border-white/10 rounded-2xl p-6;
-  @apply backdrop-blur-sm shadow-lg;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-lg);
+  backdrop-filter: blur(var(--backdrop-blur));
+  box-shadow: var(--shadow-lg);
 }
 
 .card--elevated {
-  @apply bg-white/10 border-white/20 shadow-xl;
+  background-color: var(--color-surface-elevated);
+  border-color: var(--color-border-elevated);
+  box-shadow: var(--shadow-xl);
 }
 ```
 
-#### Forms
-```css
-.form-input {
-  @apply bg-white/5 border border-white/20 rounded-lg px-4 py-3;
-  @apply text-white placeholder-white/50 focus:border-yellow-500;
-  @apply transition-colors duration-200;
-}
-```
-
-### Animation System
-
-#### Duration
-- **Fast**: `150ms` - Quick interactions
-- **Normal**: `300ms` - Standard transitions
-- **Slow**: `500ms` - Complex animations
-
-#### Easing
-- **Smooth**: `cubic-bezier(0.4, 0, 0.2, 1)` - Standard easing
-- **Bounce**: `cubic-bezier(0.68, -0.55, 0.265, 1.55)` - Playful animations
-- **Linear**: `linear` - Simple transitions
-
-#### Hover Effects
-```css
-.hover-lift {
-  @apply transition-transform duration-200 hover:-translate-y-1;
-}
-
-.hover-glow {
-  @apply transition-shadow duration-200 hover:shadow-lg hover:shadow-yellow-500/25;
-}
-```
-
-## 🔧 Coding Standards
+## 📝 Coding Standards
 
 ### CSS Standards
 
@@ -142,29 +201,62 @@ Follow BEM (Block, Element, Modifier) methodology for class naming:
 
 ```css
 /* Block */
-.product-card { }
+.card { }
 
 /* Element */
-.product-card__image { }
-.product-card__title { }
-.product-card__price { }
+.card__title { }
+.card__content { }
+.card__footer { }
 
 /* Modifier */
-.product-card--featured { }
-.product-card__image--large { }
+.card--featured { }
+.card--compact { }
+.card__title--large { }
 ```
 
 #### File Organization
-- **Base Styles**: `dev/css/styles.css` - Main stylesheet
-- **Component Styles**: Use BEM classes in main stylesheet
-- **Utility Classes**: Leverage Tailwind utilities
-- **Custom Properties**: Use CSS custom properties for theming
+- Create separate CSS files for each component
+- Use descriptive file names
+- Import files in the correct order in `main.css`
+- Keep related styles together
 
-#### Best Practices
-- **Mobile-First**: Start with mobile styles, enhance for larger screens
-- **Semantic Class Names**: Use descriptive, meaningful class names
-- **Consistent Spacing**: Use the defined spacing system
-- **Performance**: Minimize specificity and avoid deep nesting
+#### CSS Properties Order
+Use alphabetical order for CSS properties:
+
+```css
+.element {
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  color: var(--color-text-primary);
+  display: flex;
+  font-size: var(--font-size-base);
+  margin: var(--spacing-md);
+  padding: var(--spacing-sm);
+  text-align: center;
+}
+```
+
+#### Responsive Design
+Use mobile-first approach with CSS custom properties:
+
+```css
+.component {
+  padding: var(--spacing-sm);
+}
+
+@media (min-width: 768px) {
+  .component {
+    padding: var(--spacing-md);
+  }
+}
+
+@media (min-width: 1024px) {
+  .component {
+    padding: var(--spacing-lg);
+  }
+}
+```
 
 ### JavaScript Standards
 
@@ -172,206 +264,211 @@ Follow BEM (Block, Element, Modifier) methodology for class naming:
 Use modern JavaScript features:
 
 ```javascript
-// Arrow functions
-const handleClick = () => {
-  // Handle click event
+// Use const and let instead of var
+const config = { /* ... */ };
+let state = { /* ... */ };
+
+// Use arrow functions
+const handleClick = (event) => {
+  // Handle click
 };
 
-// Destructuring
-const { id, title, price } = product;
+// Use destructuring
+const { title, content } = section.settings;
 
-// Template literals
-const message = `Product ${title} costs $${price}`;
-
-// Async/await
-const fetchProduct = async (id) => {
-  const response = await fetch(`/products/${id}.js`);
-  return response.json();
-};
+// Use template literals
+const message = `Hello, ${name}!`;
 ```
 
 #### Module Organization
+Organize JavaScript into logical modules:
+
 ```javascript
-// Core utilities
-import { debounce } from '../core/utils.js';
+// dev/js/features/cart.js
+export function initCart() {
+  // Cart initialization
+}
 
-// Feature modules
-import { ProductGallery } from '../features/product-gallery.js';
+export function addToCart(productId) {
+  // Add to cart logic
+}
 
-// UI components
-import { Modal } from '../ui/modal.js';
+export function removeFromCart(productId) {
+  // Remove from cart logic
+}
 ```
 
 #### Error Handling
+Always include proper error handling:
+
 ```javascript
-try {
-  const result = await riskyOperation();
-  return result;
-} catch (error) {
-  console.error('Operation failed:', error);
-  // Graceful fallback
-  return defaultValue;
+export function fetchData(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    // Handle error appropriately
+  }
 }
 ```
 
 ### Liquid Standards
 
 #### Template Structure
+Use consistent template structure:
+
 ```liquid
 {% comment %}
-  Section: Product Card
-  Description: Displays a product in card format
+  Section: Hero Banner
+  Purpose: Main hero section for homepage
+  Author: BloxMania Team
+  Date: 2024-01-01
 {% endcomment %}
 
-<div class="product-card{% if featured %} product-card--featured{% endif %}">
-  <img class="product-card__image" src="{{ product.featured_image | img_url: '400x' }}" alt="{{ product.title }}">
-  <h3 class="product-card__title">{{ product.title }}</h3>
-  <p class="product-card__price">{{ product.price | money }}</p>
-</div>
+<section class="hero" data-section-id="{{ section.id }}">
+  <div class="hero__container">
+    <h1 class="hero__title">{{ section.settings.title }}</h1>
+    <p class="hero__subtitle">{{ section.settings.subtitle }}</p>
+    {% if section.settings.button_text %}
+      <a href="{{ section.settings.button_url }}" class="btn btn--primary">
+        {{ section.settings.button_text }}
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Welcome to BloxMania"
+    }
+  ]
+}
+{% endschema %}
 ```
 
 #### Variable Naming
-```liquid
-{% comment %} Good: Descriptive variable names {% endcomment %}
-{% assign featured_product = section.settings.product %}
-{% assign product_price = featured_product.price %}
+Use descriptive variable names:
 
-{% comment %} Avoid: Generic names {% endcomment %}
-{% assign p = section.settings.product %}
-```
-
-#### Conditional Logic
 ```liquid
-{% if product.available %}
-  <button class="btn btn--primary">Add to Cart</button>
-{% else %}
-  <span class="product-unavailable">Out of Stock</span>
-{% endif %}
+{% comment %} Good {% endcomment %}
+{% assign product_title = product.title %}
+{% assign collection_products = collection.products %}
+
+{% comment %} Avoid {% endcomment %}
+{% assign t = product.title %}
+{% assign p = collection.products %}
 ```
 
 ## ♿ Accessibility Standards
 
-### WCAG 2.1 AA Compliance
-- **Color Contrast**: Minimum 4.5:1 ratio for normal text
-- **Focus Indicators**: Visible focus rings on all interactive elements
-- **Keyboard Navigation**: Full keyboard accessibility
-- **Screen Reader Support**: Proper ARIA labels and descriptions
-
 ### Semantic HTML
-```html
-<!-- Good: Semantic structure -->
-<main>
-  <section>
-    <h1>Page Title</h1>
-    <article>
-      <h2>Article Title</h2>
-      <p>Content here</p>
-    </article>
-  </section>
-</main>
+Use proper HTML elements:
 
-<!-- Avoid: Generic divs -->
-<div class="main">
-  <div class="section">
-    <div class="title">Page Title</div>
+```html
+<!-- Good -->
+<header class="header">
+  <nav class="nav" role="navigation">
+    <ul class="nav__list">
+      <li class="nav__item">
+        <a href="/" class="nav__link">Home</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Avoid -->
+<div class="header">
+  <div class="nav">
+    <div class="nav__list">
+      <div class="nav__item">
+        <a href="/" class="nav__link">Home</a>
+      </div>
+    </div>
   </div>
 </div>
 ```
 
 ### ARIA Attributes
+Include appropriate ARIA attributes:
+
 ```html
-<!-- Navigation -->
-<nav aria-label="Main navigation">
-  <ul role="menubar">
-    <li role="none">
-      <a role="menuitem" href="/products">Products</a>
-    </li>
-  </ul>
-</nav>
+<button 
+  class="btn btn--primary" 
+  aria-label="Add to cart"
+  aria-describedby="product-description">
+  Add to Cart
+</button>
 
-<!-- Form elements -->
-<input type="text" aria-label="Search products" aria-describedby="search-help">
-<div id="search-help">Enter product name or keywords</div>
+<div class="modal" role="dialog" aria-labelledby="modal-title">
+  <h2 id="modal-title">Product Details</h2>
+  <!-- Modal content -->
+</div>
 ```
 
-## 📱 Responsive Design
+### Keyboard Navigation
+Ensure full keyboard accessibility:
 
-### Breakpoints
-- **Mobile**: `0px - 639px` - Base styles
-- **Small**: `640px+` - Small tablets
-- **Medium**: `768px+` - Tablets
-- **Large**: `1024px+` - Small desktops
-- **Extra Large**: `1280px+` - Large desktops
-- **2XL**: `1536px+` - Extra large screens
-
-### Mobile-First Approach
 ```css
-/* Mobile styles (default) */
-.product-grid {
-  @apply grid-cols-1 gap-4;
+/* Focus styles */
+.btn:focus,
+.nav__link:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
-/* Small screens and up */
-@media (min-width: 640px) {
-  .product-grid {
-    @apply grid-cols-2 gap-6;
-  }
+/* Skip links */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--color-primary);
+  color: var(--color-inverted-text);
+  padding: 8px;
+  text-decoration: none;
+  z-index: 1000;
 }
 
-/* Medium screens and up */
-@media (min-width: 768px) {
-  .product-grid {
-    @apply grid-cols-3 gap-8;
-  }
+.skip-link:focus {
+  top: 6px;
 }
 ```
 
-### Touch Targets
-- **Minimum Size**: `44px × 44px` for touch targets
-- **Spacing**: `8px` minimum between touch targets
-- **Visual Feedback**: Clear hover and active states
-
-## 🚀 Performance Standards
+## 🎯 Performance Standards
 
 ### CSS Performance
-- **Efficient Selectors**: Use simple, efficient selectors
-- **Minimal Specificity**: Avoid overly specific selectors
-- **Critical CSS**: Inline critical styles for above-the-fold content
-- **Purge Unused**: Remove unused CSS in production
+- Use CSS custom properties for consistent values
+- Minimize CSS bundle size
+- Use efficient selectors
+- Leverage CSS Grid and Flexbox
 
 ### JavaScript Performance
-- **Lazy Loading**: Load non-critical JavaScript asynchronously
-- **Event Delegation**: Use event delegation for dynamic content
-- **Debouncing**: Debounce scroll and resize events
-- **Minimal DOM**: Keep DOM manipulation minimal
+- Use event delegation for dynamic content
+- Debounce user input events
+- Lazy load non-critical resources
+- Minimize DOM queries
 
 ### Image Optimization
-- **WebP Format**: Use WebP with fallbacks
-- **Responsive Images**: Use appropriate image sizes
-- **Lazy Loading**: Load images as they enter viewport
-- **Alt Text**: Always include descriptive alt text
+- Use appropriate image formats (WebP, AVIF)
+- Implement lazy loading
+- Provide multiple sizes for responsive images
+- Use descriptive alt text
 
-## 📚 Documentation Standards
+## 📚 Related Documentation
 
-### Code Comments
-```javascript
-/**
- * Fetches product data from Shopify API
- * @param {number} productId - The product ID
- * @returns {Promise<Object>} Product data
- */
-const fetchProduct = async (productId) => {
-  // Implementation
-};
-```
-
-### Component Documentation
-Each component should include:
-- **Purpose**: What the component does
-- **Props/Parameters**: Available options and their types
-- **Usage Examples**: Code examples and use cases
-- **Dependencies**: Any required dependencies
+- **[Project Structure](../PROJECT_STRUCTURE.md)** - File organization
+- **[Development Workflow](../DEVELOPMENT.md)** - Development process
+- **[Build System](../BUILD_SYSTEM.md)** - Build system architecture
 
 ---
 
-**Follow these standards for consistent, maintainable code! 🎯**
+**Maintain consistent, accessible, and performant code! 🎨**

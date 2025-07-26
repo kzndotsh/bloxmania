@@ -30,7 +30,7 @@ Core page sections that define the structure of main pages.
 | [Hero](hero.md) | Hero banner section | `hero.liquid` |
 | [Main Cart](main-cart.md) | Shopping cart page | `main-cart.liquid` |
 | [Main Product](main-product.md) | Product detail page | `main-product.liquid` |
-| [Main Search](main-search.md) | Search results page | `main-search.md` |
+| [Main Search](main-search.md) | Search results page | `main-search.liquid` |
 | [Main Collection](main-collection-product-grid.md) | Collection listing page | `main-collection-product-grid.liquid` |
 | [Main Blog](main-blog.md) | Blog listing page | `main-blog.liquid` |
 | [Main Article](main-article.md) | Blog article page | `main-article.liquid` |
@@ -104,7 +104,8 @@ Sections for rich content and marketing.
     {
       "type": "richtext",
       "id": "content",
-      "label": "Content"
+      "label": "Content",
+      "default": "<p>Add your content here</p>"
     }
   ],
   "presets": [
@@ -116,91 +117,95 @@ Sections for rich content and marketing.
 {% endschema %}
 ```
 
-2. **Add CSS Styling**
+2. **Add CSS Styles**
 ```css
-/* dev/css/styles.css */
+/* dev/css/sections/section-my-section.css */
 .my-section {
-  @apply py-12 px-4;
+  padding: var(--spacing-lg) 0;
 }
 
 .my-section__container {
-  @apply max-w-6xl mx-auto;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
 }
 
 .my-section__title {
-  @apply text-3xl font-bold mb-6;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-md);
 }
 
 .my-section__content {
-  @apply prose prose-lg;
+  line-height: var(--line-height-base);
 }
 ```
 
-3. **Add JavaScript (if needed)**
+3. **Import CSS in Main File**
+```css
+/* dev/css/main.css */
+@import "./sections/section-my-section.css";
+```
+
+4. **Add JavaScript (if needed)**
 ```javascript
 // dev/js/features/my-section.js
-export class MySection {
-  constructor(element) {
-    this.element = element;
-    this.init();
-  }
-
-  init() {
-    // Initialize section functionality
-  }
+export function initMySection() {
+  // Section-specific JavaScript
 }
+
+// Import in main.js or appropriate feature file
 ```
 
 ### Section Best Practices
 
 #### HTML Structure
-- **Semantic HTML**: Use proper HTML elements
-- **BEM Methodology**: Follow BEM class naming
-- **Accessibility**: Include ARIA attributes
-- **SEO**: Use proper heading hierarchy
+- Use semantic HTML elements
+- Follow BEM methodology for class names
+- Ensure accessibility compliance
+- Use proper heading hierarchy
 
-#### CSS Styling
-- **Mobile-First**: Start with mobile styles
-- **Responsive**: Use Tailwind responsive classes
-- **Performance**: Keep styles lightweight
-- **Maintainability**: Use BEM methodology
+#### CSS Organization
+- Create section-specific CSS files
+- Use CSS custom properties for consistent values
+- Follow the modular CSS architecture
+- Ensure responsive design
 
-#### JavaScript
-- **Modular**: Use ES6 modules
-- **Event Delegation**: Handle dynamic content
-- **Error Handling**: Graceful error handling
-- **Performance**: Optimize for performance
+#### JavaScript Integration
+- Keep JavaScript modular and reusable
+- Use ES6 modules for imports/exports
+- Ensure proper error handling
+- Maintain accessibility features
 
 #### Schema Design
-- **Clear Labels**: Use descriptive labels
-- **Sensible Defaults**: Provide good defaults
-- **Validation**: Add input validation
-- **Documentation**: Include help text
+- Provide meaningful default values
+- Use appropriate input types
+- Group related settings logically
+- Include helpful descriptions
 
 ## 🎨 Section Customization
 
 ### Theme Editor Settings
-Sections can be customized through the theme editor:
+Sections can be customized through the Shopify theme editor:
 
-1. **Go to Theme Editor**: Shopify Admin → Online Store → Themes → Customize
+1. **Go to Theme Editor**: Online Store > Themes > Customize
 2. **Select Page**: Choose the page to edit
 3. **Add Section**: Click "Add section" to add new sections
-4. **Customize**: Use the settings panel to customize
-5. **Reorder**: Drag and drop to reorder sections
+4. **Configure Settings**: Use the sidebar to customize appearance
+5. **Reorder Sections**: Drag and drop to change layout
 
 ### Common Settings Types
 - **Text**: Simple text input
-- **Rich Text**: Rich text editor
-- **Image**: Image picker
+- **Rich Text**: Formatted text with HTML
+- **Image**: Image upload and selection
 - **Color**: Color picker
-- **Range**: Slider input
 - **Select**: Dropdown selection
 - **Checkbox**: Boolean toggle
-- **Product**: Product picker
-- **Collection**: Collection picker
+- **Range**: Numeric slider
+- **URL**: Link input
 
-### Blocks
-Blocks allow for repeatable content within sections:
+### Section Blocks
+Sections can include blocks for dynamic content:
 
 ```liquid
 {% for block in section.blocks %}
@@ -220,12 +225,12 @@ Blocks allow for repeatable content within sections:
         {
           "type": "text",
           "id": "title",
-          "label": "Title"
+          "label": "Block Title"
         },
         {
           "type": "richtext",
           "id": "content",
-          "label": "Content"
+          "label": "Block Content"
         }
       ]
     }
@@ -234,57 +239,52 @@ Blocks allow for repeatable content within sections:
 {% endschema %}
 ```
 
-## 🔧 Section Development Workflow
+## 🔧 Section Integration
 
-### 1. Planning
-- Define section purpose and functionality
-- Plan HTML structure and content
-- Design settings and customization options
-- Consider accessibility and performance
+### Template Integration
+Sections are included in templates using Liquid:
 
-### 2. Development
-- Create Liquid template with schema
-- Add CSS styling with BEM methodology
-- Implement JavaScript functionality
-- Test across different devices
+```liquid
+<!-- dev/templates/index.liquid -->
+{% section 'hero' %}
+{% section 'featured-products' %}
+{% section 'newsletter' %}
+```
 
-### 3. Testing
-- Test in theme editor
-- Verify responsive behavior
-- Check accessibility
-- Test performance
+### CSS Integration
+Section styles are automatically included through the main CSS file:
 
-### 4. Documentation
-- Document section purpose
-- Explain settings and options
-- Provide usage examples
-- Include customization tips
+```css
+/* dev/css/main.css */
+@import "./sections/section-header.css";
+@import "./sections/section-hero.css";
+@import "./sections/section-featured-products.css";
+/* ... other sections */
+```
 
-## 📚 Section Documentation
+### JavaScript Integration
+Section JavaScript is bundled and available globally:
 
-Each section has detailed documentation including:
-- **Purpose**: What the section does
-- **Settings**: Available customization options
-- **Blocks**: Repeatable content options
-- **Usage**: How to use the section
-- **Customization**: Advanced customization tips
-- **Examples**: Usage examples and code snippets
+```javascript
+// dev/js/features/hero.js
+export function initHero() {
+  // Hero section functionality
+}
 
-## 🎯 Performance Considerations
+// dev/js/features/featured-products.js
+export function initFeaturedProducts() {
+  // Featured products functionality
+}
+```
 
-### Loading Performance
-- **Lazy Loading**: Load images and content as needed
-- **Minimal JavaScript**: Keep JavaScript lightweight
-- **Optimized Images**: Use appropriate image sizes
-- **CSS Optimization**: Minimize CSS bundle size
+## 📚 Related Documentation
 
-### Rendering Performance
-- **Efficient Liquid**: Optimize Liquid template logic
-- **Caching**: Leverage Shopify's caching
-- **CDN**: Use Shopify's CDN for assets
-- **Critical CSS**: Load critical styles first
+- **[Snippets](../snippets/README.md)** - Reusable components
+- **[Templates](../templates/README.md)** - Page templates
+- **[CSS Architecture](../../PROJECT_STRUCTURE.md)** - CSS organization
+- **[JavaScript Modules](../../PROJECT_STRUCTURE.md)** - JavaScript organization
 
 ---
 
-**Build amazing content with powerful sections! 🚀**
+**Build rich, dynamic content with flexible sections! 🎨**
 

@@ -72,18 +72,21 @@ bloxmania/
 │   │   ├── helpers/       # Helper utilities
 │   │   └── system/        # System-level files
 │   ├── css/               # CSS source files
-│   │   └── styles.css     # Main stylesheet (BEM methodology)
+│   │   ├── main.css       # Main entry point with imports
+│   │   ├── design-tokens.css # CSS custom properties
+│   │   ├── base/          # Base styles (reset, typography, etc.)
+│   │   ├── layout/        # Layout components
+│   │   ├── components/    # Reusable components
+│   │   ├── sections/      # Section-specific styles
+│   │   └── utilities/     # Utility classes
 │   ├── images/            # Image source files
 │   ├── sections/          # Shopify sections
 │   ├── snippets/          # Shopify snippets
 │   ├── templates/         # Shopify templates
 │   ├── layout/            # Shopify layouts
 │   ├── config/            # Shopify configuration
-│   └── locales/           # Translation files
-├── build/                  # 🔨 Built Assets (Intermediate)
-│   ├── css/               # Generated CSS files
-│   ├── js/                # Generated JavaScript files
-│   └── images/            # Optimized images
+│   ├── locales/           # Translation files
+│   └── utils/             # Build utilities
 ├── theme/                  # 🚀 Production Theme (for Shopify)
 │   ├── assets/            # Final assets for Shopify
 │   ├── sections/          # Shopify sections
@@ -93,9 +96,6 @@ bloxmania/
 │   ├── config/            # Shopify configuration
 │   └── locales/           # Translation files
 ├── docs/                   # 📚 Documentation
-├── .vscode/               # VS Code configuration
-│   ├── settings.json      # Editor settings
-│   └── extensions.json    # Recommended extensions
 ├── build.js               # Build script
 ├── package.json           # Project dependencies
 ├── tailwind.config.js     # Tailwind configuration
@@ -150,7 +150,7 @@ npm run push
 
 ### CSS Processing
 - **Framework**: Tailwind CSS 3.4+
-- **Source**: `dev/css/styles.css` (BEM methodology)
+- **Source**: `dev/css/main.css` (modular CSS architecture)
 - **Output**: Compiled CSS in `theme/assets/main.css`
 - **Features**: PostCSS processing, autoprefixer, minification
 
@@ -290,13 +290,13 @@ SHOPIFY_THEME_ID=your-theme-id
 
 ### Development Guidelines
 1. **Work in `dev/`**: Never edit files in `theme/` directly
-2. **Use BEM**: Follow BEM methodology for CSS classes
+2. **Use Modular CSS**: Follow the modular CSS architecture
 3. **Test Accessibility**: Ensure keyboard navigation works
 4. **Follow Standards**: Use Prettier and Stylelint
 5. **Document Changes**: Update documentation as needed
 
 ### Code Style
-- **CSS**: BEM methodology, alphabetical properties
+- **CSS**: Modular architecture, alphabetical properties
 - **JavaScript**: ES6+, meaningful variable names
 - **Liquid**: Proper indentation, meaningful comments
 - **HTML**: Semantic elements, proper attributes
@@ -329,6 +329,7 @@ SHOPIFY_THEME_ID=your-theme-id
 
 ### Frontend
 - **CSS Framework**: Tailwind CSS 3.4+
+- **CSS Architecture**: Modular CSS with design tokens
 - **JavaScript**: ES6+ modules
 - **Build Tool**: Custom bundler
 - **Package Manager**: npm
