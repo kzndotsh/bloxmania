@@ -25,9 +25,9 @@
 :root {
   /* Duration Scale - Compatible with tailwindcss-animate */
   --duration-instant: 0ms;
-  --duration-fast: 150ms; /* duration-150 */
-  --duration-normal: 300ms; /* duration-300 */
-  --duration-slow: 500ms; /* duration-500 */
+  --duration-fast: 200ms; /* duration-200 */
+  --duration-normal: 500ms; /* duration-500 */
+  --duration-slow: 700ms; /* duration-700 */
   --duration-slower: 1000ms; /* duration-1000 */
 
   /* Easing Functions - Compatible with tailwindcss-animate */

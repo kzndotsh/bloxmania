@@ -7,7 +7,7 @@
 
 class AnimationController {
   constructor() {
-    this.observers = new Map();
+    this.observer = null;
     this.isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     this.init();
   }
@@ -18,138 +18,77 @@ class AnimationController {
       return;
     }
 
-    // Initialize intersection observers for different animation types
-    this.initFadeInObserver();
-    this.initSlideInObserver();
-    this.initScaleInObserver();
-  }
-
-  initFadeInObserver() {
-    const observer = new IntersectionObserver(
+    // Create single intersection observer for all scroll animations
+    this.observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Use tailwindcss-animate classes
-            entry.target.classList.add("animate-in", "fade-in", "duration-300");
-            observer.unobserve(entry.target);
+            this.animateElement(entry.target);
           }
         });
       },
       {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px",
+        threshold: 0.15,
+        rootMargin: "0px 0px -100px 0px",
       },
     );
 
-    // Observe elements that should fade in
-    document.querySelectorAll('[data-animate="fade-in"]').forEach((el) => {
-      observer.observe(el);
-    });
-
-    // Also observe elements with data-scroll-animate="fade-in"
-    document.querySelectorAll('[data-scroll-animate="fade-in"]').forEach((el) => {
-      observer.observe(el);
-    });
-
-    this.observers.set("fade-in", observer);
+    // Observe all elements with animation attributes
+    this.observeElements();
   }
 
-  initSlideInObserver() {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const direction = entry.target.dataset.direction || "top";
-            // Use tailwindcss-animate classes
-            entry.target.classList.add("animate-in", `slide-in-from-${direction}`, "duration-300");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px",
-      },
-    );
-
-    // Observe elements that should slide in
-    document.querySelectorAll('[data-animate="slide-in"]').forEach((el) => {
-      observer.observe(el);
+  observeElements() {
+    // Observe elements with data-scroll-animate
+    document.querySelectorAll("[data-scroll-animate]").forEach((element) => {
+      this.observer.observe(element);
     });
 
-    // Also observe elements with data-scroll-animate for slide animations
-    document.querySelectorAll('[data-scroll-animate*="slide-in"]').forEach((el) => {
-      observer.observe(el);
+    // Also observe legacy data-animate elements for backward compatibility
+    document.querySelectorAll("[data-animate]").forEach((element) => {
+      this.observer.observe(element);
     });
-
-    this.observers.set("slide-in", observer);
   }
 
-  initScaleInObserver() {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Use tailwindcss-animate classes
-            entry.target.classList.add("animate-in", "zoom-in", "duration-300");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px",
-      },
-    );
+  animateElement(element) {
+    const animationType = element.dataset.scrollAnimate || element.dataset.animate;
+    const delay = element.dataset.scrollDelay || "0";
 
-    // Observe elements that should scale in
-    document.querySelectorAll('[data-animate="scale-in"]').forEach((el) => {
-      observer.observe(el);
-    });
+    if (!animationType) return;
 
-    this.observers.set("scale-in", observer);
+    // Add animation classes with smooth duration
+    element.classList.add("animate-in", animationType, "duration-700");
+    element.style.animationDelay = `${delay}ms`;
+
+    // Mark as animated to prevent re-triggering
+    element.dataset.animated = "true";
+
+    // Stop observing this element
+    this.observer.unobserve(element);
   }
 
-  // Manual animation triggers
-  animateElement(element, animationType, delay = 0) {
+  // Manual animation triggers for programmatic use
+  animateElementManual(element, animationType, delay = 0) {
     if (this.isReducedMotion) return;
 
     setTimeout(() => {
-      // Map our animation types to tailwindcss-animate classes
-      const animationMap = {
-        "fade-in": ["animate-in", "fade-in", "duration-300"],
-        "slide-in-up": ["animate-in", "slide-in-from-top", "duration-300"],
-        "slide-in-down": ["animate-in", "slide-in-from-bottom", "duration-300"],
-        "slide-in-left": ["animate-in", "slide-in-from-left", "duration-300"],
-        "slide-in-right": ["animate-in", "slide-in-from-right", "duration-300"],
-        "scale-in": ["animate-in", "zoom-in", "duration-300"],
-        "slide-in-from-bottom": ["animate-in", "slide-in-from-bottom", "duration-300"],
-        "slide-in-from-top": ["animate-in", "slide-in-from-top", "duration-300"],
-        "slide-in-from-left": ["animate-in", "slide-in-from-left", "duration-300"],
-        "slide-in-from-right": ["animate-in", "slide-in-from-right", "duration-300"],
-      };
-
-      const classes = animationMap[animationType] || [`animate-${animationType}`];
-      element.classList.add(...classes);
+      element.classList.add("animate-in", animationType, "duration-700");
     }, delay);
   }
 
   // Batch animation with staggered delays
-  animateElements(elements, animationType, staggerDelay = null) {
+  animateElements(elements, animationType, staggerDelay = 200) {
     if (this.isReducedMotion) return;
 
-    const defaultStaggerDelay = window.THEME_CONFIG?.ANIMATION_DURATIONS?.fast || 100;
-    const finalStaggerDelay = staggerDelay || defaultStaggerDelay;
-
     elements.forEach((element, index) => {
-      this.animateElement(element, animationType, index * finalStaggerDelay);
+      this.animateElementManual(element, animationType, index * staggerDelay);
     });
   }
 
   // Cleanup
   destroy() {
-    this.observers.forEach((observer) => observer.disconnect());
-    this.observers.clear();
+    if (this.observer) {
+      this.observer.disconnect();
+    }
   }
 }
 

@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       menuSections.forEach((section, index) => {
         setTimeout(() => {
-          section.classList.add("animate-in", "slide-in-from-left", "duration-300");
-        }, index * 100);
+          section.classList.add("animate-in", "slide-in-from-left", "duration-500");
+        }, index * 150);
       });
     });
 
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ".mobile-menu__section, .mobile-menu__search, .mobile-menu__footer",
         );
         menuSections.forEach((section) => {
-          section.classList.remove("animate-in", "slide-in-from-left", "duration-300");
+          section.classList.remove("animate-in", "slide-in-from-left", "duration-500");
         });
       });
     }
