@@ -64,11 +64,8 @@
           {%- endif -%}
 
           <div
-            class="product-grid-container{% if settings.animations_reveal_on_scroll %} scroll-trigger animate-in slide-in-from-bottom duration-500{% endif %}"
+            class="product-grid-container{% if settings.animations_reveal_on_scroll %} section-fade-in{% endif %}"
             id="ProductGridContainer"
-            {% if settings.animations_reveal_on_scroll %}
-              data-cascade
-            {% endif %}
           >
             <ul
               id="product-grid"
@@ -84,11 +81,7 @@
                   {%- assign lazy_load = true -%}
                 {%- endif -%}
                 <li
-                  class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate-in slide-in-from-bottom duration-500{% endif %}"
-                  {% if settings.animations_reveal_on_scroll %}
-                    data-cascade
-                    style="--animation-order: {{ forloop.index }};"
-                  {% endif %}
+                  class="grid__item{% if settings.animations_reveal_on_scroll %} section-fade-in{% endif %}"
                 >
                   <div class="card-product">
                     <div class="card-product__media">

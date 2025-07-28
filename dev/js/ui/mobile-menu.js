@@ -9,14 +9,14 @@ document.addEventListener("DOMContentLoaded", () => {
       mobileMenu.classList.add("mobile-menu--open");
       mobileMenu.setAttribute("aria-hidden", "false");
 
-      // Add staggered animations to menu sections
+      // Add simple fade animations to menu sections
       const menuSections = mobileMenu.querySelectorAll(
         ".mobile-menu__section, .mobile-menu__search, .mobile-menu__footer",
       );
       menuSections.forEach((section, index) => {
         setTimeout(() => {
-          section.classList.add("animate-in", "slide-in-from-left", "duration-500");
-        }, index * 150);
+          section.classList.add("section-fade-in", "fade-in-visible");
+        }, index * 100);
       });
     });
 
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ".mobile-menu__section, .mobile-menu__search, .mobile-menu__footer",
         );
         menuSections.forEach((section) => {
-          section.classList.remove("animate-in", "slide-in-from-left", "duration-500");
+          section.classList.remove("section-fade-in", "fade-in-visible");
         });
       });
     }

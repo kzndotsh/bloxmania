@@ -20,23 +20,15 @@
           {% render block %}
         {%- when 'heading' -%}
           <h2
-            class="inline-richtext {{ block.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate-in slide-in-from-bottom duration-500{% endif %}"
+            class="inline-richtext {{ block.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} section-fade-in{% endif %}"
             {{ block.shopify_attributes }}
-            {% if settings.animations_reveal_on_scroll %}
-              data-cascade
-              style="--animation-order: {{ forloop.index }};"
-            {% endif %}
           >
             {{ block.settings.heading }}
           </h2>
         {%- when 'paragraph' -%}
           <div
-            class="newsletter__subheading rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate-in slide-in-from-bottom duration-500{% endif %}"
+            class="newsletter__subheading rte{% if settings.animations_reveal_on_scroll %} section-fade-in{% endif %}"
             {{ block.shopify_attributes }}
-            {% if settings.animations_reveal_on_scroll %}
-              data-cascade
-              style="--animation-order: {{ forloop.index }};"
-            {% endif %}
           >
             {{ block.settings.text }}
           </div>
@@ -45,11 +37,7 @@
             {% form 'customer', class: 'newsletter-form' %}
               <input type="hidden" name="contact[tags]" value="newsletter">
               <div
-                class="newsletter-form__field-wrapper{% if settings.animations_reveal_on_scroll %} scroll-trigger animate-in slide-in-from-bottom duration-500{% endif %}"
-                {% if settings.animations_reveal_on_scroll %}
-                  data-cascade
-                  style="--animation-order: {{ forloop.index }};"
-                {% endif %}
+                class="newsletter-form__field-wrapper{% if settings.animations_reveal_on_scroll %} section-fade-in{% endif %}"
               >
                 <div class="field">
                   <input

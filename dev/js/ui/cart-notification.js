@@ -112,11 +112,11 @@ class CartNotification {
 
     // Trigger animation using tailwindcss-animate
     requestAnimationFrame(() => {
-      notification.classList.add("animate-in", "slide-in-from-right", "duration-300");
+      notification.classList.add("section-fade-in", "fade-in-visible");
     });
 
     // Auto remove after animation duration
-    const autoHideDuration = window.THEME_CONFIG?.ANIMATION_DURATIONS?.slower * 4 || 4000;
+    const autoHideDuration = 4000;
     setTimeout(() => {
       this.removeNotification(notification);
     }, autoHideDuration);
@@ -124,10 +124,10 @@ class CartNotification {
 
   removeNotification(notification) {
     // Animate out using tailwindcss-animate
-    notification.classList.add("animate-out", "slide-out-to-right", "duration-300");
+    notification.classList.remove("fade-in-visible");
 
     // Remove from DOM after animation
-    const removeDelay = window.THEME_CONFIG?.ANIMATION_DURATIONS?.normal || 300;
+    const removeDelay = 300;
     setTimeout(() => {
       if (notification.parentNode) {
         notification.parentNode.removeChild(notification);
@@ -143,7 +143,7 @@ class CartNotification {
 
   // Manual notification methods
   show(message, type = "success", duration = null) {
-    const defaultDuration = window.THEME_CONFIG?.ANIMATION_DURATIONS?.slower * 4 || 4000;
+    const defaultDuration = 4000;
     const finalDuration = duration || defaultDuration;
     const notification = this.createNotification({ message }, type);
     this.addNotification(notification);

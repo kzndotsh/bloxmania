@@ -1,4 +1,6 @@
-<section class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden">
+<section
+  class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden"
+>
   <!-- Background with proper overlay -->
   <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/50"></div>
 
@@ -6,7 +8,7 @@
   <div class="relative z-10 w-full max-w-5xl mx-auto px-6 py-16">
     <div class="text-center">
       <!-- Rating Badge -->
-      <div class="flex justify-center mb-8">
+      <div class="section-fade-in flex justify-center mb-8">
         {% render 'responsive-image',
           image: 'image-ratingz.png',
           alt: '5-Star Rating',
@@ -19,13 +21,13 @@
       </div>
 
       <!-- Main Title -->
-      <h1 class="hero-section__title mb-6">
+      <h1 class="hero-section__title section-fade-in mb-6">
         <span class="hero-section__title-primary">Instantly Buy Your Favorite Items</span>
         <span class="hero-section__title-accent">Fast, Safe, and Easy!</span>
       </h1>
 
       <!-- Subtitle -->
-      <p class="hero-description mb-10">
+      <p class="hero-description section-fade-in mb-10">
         {% if section.settings.subtitle != blank %}
           {{
             section.settings.subtitle
@@ -39,7 +41,7 @@
       </p>
 
       <!-- CTA Button -->
-      <div class="hero-cta mb-16">
+      <div class="hero-cta section-fade-in mb-16">
         <a
           href="{{ section.settings.cta_link | default: '/collections/all' }}"
           class="btn btn--gaming btn--xl"

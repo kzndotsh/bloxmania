@@ -22,25 +22,9 @@ const PUB_SUB_EVENTS = {
   themeEditor: "theme-editor",
 };
 
-// Animation constants - Compatible with tailwindcss-animate
-const ANIMATION_DURATIONS = {
-  fast: 150, // duration-150
-  normal: 300, // duration-300
-  slow: 500, // duration-500
-  slower: 1000, // duration-1000
-};
-
-// Tailwind Animate duration mapping
-const TAILWIND_ANIMATE_DURATIONS = {
-  75: 75, // duration-75
-  100: 100, // duration-100
-  150: 150, // duration-150
-  200: 200, // duration-200
-  300: 300, // duration-300
-  500: 500, // duration-500
-  700: 700, // duration-700
-  1000: 1000, // duration-1000
-};
+// Simple scroll fade animation constants
+const SCROLL_FADE_DURATION = 600; // 0.6s fade duration
+const SCROLL_FADE_THRESHOLD = 0.1; // 10% visibility threshold
 
 // Breakpoint constants
 const BREAKPOINTS = {
@@ -287,8 +271,8 @@ const THEME_CONFIG = {
   API,
   ON_CHANGE_DEBOUNCE_TIMER,
   PUB_SUB_EVENTS,
-  ANIMATION_DURATIONS,
-  TAILWIND_ANIMATE_DURATIONS,
+  SCROLL_FADE_DURATION,
+  SCROLL_FADE_THRESHOLD,
   BREAKPOINTS,
   Z_INDEX,
   API_ENDPOINTS,

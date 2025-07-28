@@ -96,8 +96,8 @@
   }
 
   /* Remove any potential selection indicators */
-  .header a::before,
-  .header a::after {
+  .header a:not(.nav-link)::before,
+  .header a:not(.nav-link)::after {
     display: none !important;
   }
 

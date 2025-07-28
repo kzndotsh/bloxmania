@@ -21,7 +21,7 @@
 
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}">
   <div class="page-width">
-    <div class="image-with-text image-with-text--{{ section.settings.content_layout }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate-in slide-in-from-bottom duration-500{% endif %}">
+    <div class="image-with-text image-with-text--{{ section.settings.content_layout }}{% if settings.animations_reveal_on_scroll %} section-fade-in{% endif %}">
       <div class="image-with-text__grid grid grid--gapless grid--1-col grid--{% if section.settings.desktop_image_width == 'medium' %}2-col-tablet{% else %}3-col-tablet{% endif %}{% if section.settings.layout == 'text_first' %} image-with-text__grid--reverse{% endif %}">
         <!-- Image Section -->
         <div class="image-with-text__media-item image-with-text__media-item--{{ section.settings.desktop_image_width }} image-with-text__media-item--{{ section.settings.desktop_content_position }} grid__item">

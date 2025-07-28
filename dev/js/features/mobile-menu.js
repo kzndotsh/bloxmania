@@ -96,7 +96,7 @@ class MobileMenu {
 
     // Focus the close button
     if (this.closeButton) {
-      const focusDelay = window.THEME_CONFIG?.ANIMATION_DURATIONS?.fast || 100;
+      const focusDelay = 100;
       setTimeout(() => this.closeButton.focus(), focusDelay);
     }
 
@@ -120,7 +120,7 @@ class MobileMenu {
 
     // Return focus to toggle button
     if (this.toggleButton) {
-      const focusDelay = window.THEME_CONFIG?.ANIMATION_DURATIONS?.fast || 100;
+      const focusDelay = 100;
       setTimeout(() => this.toggleButton.focus(), focusDelay);
     }
 

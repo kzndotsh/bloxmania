@@ -133,6 +133,13 @@
         "step": 4,
         "unit": "px",
         "default": 32
+      },
+      {
+        "type": "checkbox",
+        "id": "animations_reveal_on_scroll",
+        "label": "Enable scroll fade animations",
+        "default": true,
+        "info": "Adds subtle fade-in animations when sections come into view"
       }
     ]
   },

@@ -24,6 +24,7 @@
 @import "./components/component-hero.css";
 @import "./components/component-search-modal.css";
 @import "./components/component-pagination.css";
+@import "./components/component-creators-carousel.css";
 
 /* Sections Layer - Section-specific styles */
 @import "./sections/section-header.css";

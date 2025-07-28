@@ -1,37 +1,4 @@
-/* BloxMania Animation System - Enhanced with tailwindcss-animate */
-
-/* ===== CORE ANIMATION PRINCIPLES ===== */
-/*
-1. Performance First: Use transform and opacity only
-2. Accessibility: Respect prefers-reduced-motion
-3. Progressive Enhancement: Animations enhance, don't break functionality
-4. Consistency: Use tailwindcss-animate for standard animations
-5. Purposeful: Every animation serves a clear UX purpose
-*/
-
-/* ===== INITIAL ANIMATION STATES ===== */
-.hero-cta {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.hero-section__title {
-  opacity: 0;
-  transform: translateY(30px);
-}
-
-.hero-section__trusted {
-  opacity: 0;
-}
-
-.featured-products__header {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.creators-carousel {
-  opacity: 0;
-}
+/* BloxMania Simple Scroll Fade Effects */
 
 /* ===== REDUCED MOTION SUPPORT ===== */
 @media (prefers-reduced-motion: reduce) {
@@ -45,124 +12,21 @@
   }
 }
 
-/* ===== ANIMATION TOKENS ===== */
-:root {
-  /* Duration Scale - Compatible with tailwindcss-animate */
-  --duration-instant: 0ms;
-  --duration-fast: 200ms; /* duration-200 */
-  --duration-normal: 500ms; /* duration-500 */
-  --duration-slow: 700ms; /* duration-700 */
-  --duration-slower: 1000ms; /* duration-1000 */
+/* ===== SIMPLE SCROLL FADE EFFECTS ===== */
 
-  /* Easing Functions - Compatible with tailwindcss-animate */
-  --easing-linear: linear;
-  --easing-ease: ease;
-  --easing-ease-in: ease-in;
-  --easing-ease-out: ease-out;
-  --easing-ease-in-out: ease-in-out;
-  --easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
-  --easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-
-  /* Animation Delays */
-  --delay-instant: 0ms;
-  --delay-fast: 50ms;
-  --delay-normal: 100ms;
-  --delay-slow: 200ms;
-}
-
-/* ===== TRANSITION UTILITIES ===== */
-
-/* Basic Transitions - Compatible with tailwindcss-animate */
-.transition-all {
-  transition: all var(--duration-normal) var(--easing-smooth);
-}
-
-.transition-colors {
-  transition:
-    color var(--duration-fast) var(--easing-smooth),
-    background-color var(--duration-fast) var(--easing-smooth),
-    border-color var(--duration-fast) var(--easing-smooth);
-}
-
-.transition-transform {
-  transition: transform var(--duration-normal) var(--easing-smooth);
-}
-
-.transition-opacity {
-  transition: opacity var(--duration-fast) var(--easing-smooth);
-}
-
-.transition-shadow {
-  transition: box-shadow var(--duration-fast) var(--easing-smooth);
-}
-
-/* ===== INTERACTION STATES ===== */
-
-/* Hover Effects */
-.hover-lift {
-  transition: transform var(--duration-fast) var(--easing-smooth);
-}
-
-.hover-lift:hover {
-  transform: translateY(-2px);
-}
-
-.hover-scale {
-  transition: transform var(--duration-fast) var(--easing-smooth);
-}
-
-.hover-scale:hover {
-  transform: scale(1.05);
-}
-
-/* Focus States */
-.focus-ring {
-  transition: box-shadow var(--duration-fast) var(--easing-smooth);
-}
-
-.focus-ring:focus {
-  box-shadow: 0 0 0 3px rgba(255, 216, 0, 0.3);
-}
-
-/* ===== PERFORMANCE OPTIMIZATIONS ===== */
-
-/* Hardware Acceleration */
-.gpu-accelerated {
-  transform: translateZ(0);
-  will-change: transform;
-}
-
-/* Containment */
-.animation-container {
-  contain: layout style;
-}
-
-/* ===== RESPONSIVE ANIMATIONS ===== */
-
-/* Disable animations on mobile for performance */
-@media (max-width: 768px) {
-  .mobile-no-animation {
-    animation: none !important;
-    transition: none !important;
+/* Base fade-in animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* ===== ANIMATION CONTROLS ===== */
-
-/* Pause animations */
-.animation-paused {
-  animation-play-state: paused;
-}
-
-/* Disable animations */
-.animation-disabled {
-  animation: none !important;
-  transition: none !important;
-}
-
-/* ===== CUSTOM ANIMATIONS ===== */
-
-/* Infinite scroll animation for creators carousel */
+/* Carousel scrolling animation */
 @keyframes scroll {
   0% {
     transform: translateX(0);
@@ -172,84 +36,139 @@
   }
 }
 
-.animate-scroll {
-  animation: scroll 30s linear infinite;
+/* Section fade-in class */
+.section-fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
-/* Pause animation on hover */
+.section-fade-in.fade-in-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Carousel animation class - faster and with hover pause */
+.animate-scroll {
+  animation: scroll 12s linear infinite;
+  transition: animation-play-state 0.3s ease;
+}
+
 .animate-scroll:hover {
   animation-play-state: paused;
 }
 
-/* Pulse animation for loading states */
-@keyframes pulse {
-  0%,
-  100% {
+/* Special handling for carousels and immediate content */
+.section-fade-in .creators-carousel {
+  opacity: 1;
+  transform: none;
+}
+
+/* Keep the scrolling animation for the carousel content */
+.section-fade-in .animate-scroll {
+  opacity: 1;
+  /* Don't override transform for animate-scroll to keep the scrolling effect */
+}
+
+/* Ensure carousel container and contents are always visible */
+.section-fade-in .creators-container,
+.section-fade-in .creators-carousel,
+.section-fade-in .creators-carousel * {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Ensure the carousel container div is always visible */
+.section-fade-in .hero-section__trusted,
+.section-fade-in .hero-section__trusted * {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Ensure carousel is always visible, even before fade-in */
+.creators-container,
+.creators-carousel,
+.creators-carousel * {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Ensure the carousel container div is always visible */
+.hero-section__trusted,
+.hero-section__trusted * {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Force carousel to be visible regardless of parent opacity */
+.hero-section .creators-container,
+.hero-section .creators-carousel,
+.hero-section .creators-carousel *,
+.hero-section .hero-section__trusted,
+.hero-section .hero-section__trusted * {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Don't override transform for animate-scroll to keep the scrolling effect */
+.hero-section .animate-scroll {
+  opacity: 1 !important;
+  visibility: visible !important;
+  /* Keep the transform for scrolling animation */
+}
+
+/* Override any fade-in opacity for carousel elements */
+.section-fade-in .hero-section__trusted,
+.section-fade-in .hero-section__trusted *,
+.section-fade-in .creators-container,
+.section-fade-in .creators-carousel,
+.section-fade-in .creators-carousel * {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Don't override transform for animate-scroll to keep the scrolling effect */
+.section-fade-in .animate-scroll {
+  opacity: 1 !important;
+  visibility: visible !important;
+  /* Keep the transform for scrolling animation */
+}
+
+/* ===== BASIC TRANSITIONS ===== */
+
+/* Hover effects for interactive elements */
+.hover-lift {
+  transition: transform 0.2s ease-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+.hover-scale {
+  transition: transform 0.2s ease-out;
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+}
+
+/* Focus states */
+.focus-ring {
+  transition: box-shadow 0.2s ease-out;
+}
+
+.focus-ring:focus {
+  box-shadow: 0 0 0 3px rgba(255, 216, 0, 0.3);
+}
+
+/* ===== MOBILE OPTIMIZATION ===== */
+
+/* Disable animations on mobile for performance */
+@media (max-width: 768px) {
+  .section-fade-in {
     opacity: 1;
-  }
-
-  50% {
-    opacity: 0.5;
-  }
-}
-
-.animate-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-/* Bounce animation for notifications */
-@keyframes bounce {
-  0%,
-  20%,
-  53%,
-  80%,
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-
-  40%,
-  43% {
-    transform: translate3d(0, -30px, 0);
-  }
-
-  70% {
-    transform: translate3d(0, -15px, 0);
-  }
-
-  90% {
-    transform: translate3d(0, -4px, 0);
-  }
-}
-
-.animate-bounce {
-  animation: bounce 1s infinite;
-}
-
-/* ===== ACCESSIBILITY ===== */
-
-/* Respect user preferences */
-@media (prefers-reduced-motion: reduce) {
-  .animate-in,
-  .animate-out,
-  .animate-fade-in,
-  .animate-fade-out,
-  .animate-slide-in-from-top,
-  .animate-slide-in-from-bottom,
-  .animate-slide-in-from-left,
-  .animate-slide-in-from-right,
-  .animate-zoom-in,
-  .animate-zoom-out,
-  .animate-scroll,
-  .animate-pulse,
-  .animate-bounce {
-    animation: none !important;
-  }
-
-  .transition-all,
-  .transition-colors,
-  .transition-transform,
-  .transition-opacity,
-  .transition-shadow {
-    transition: none !important;
+    transform: none;
+    transition: none;
   }
 }

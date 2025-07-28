@@ -5,7 +5,7 @@
 
 // ===== SIMPLE ANIMATION SYSTEM =====
 
-class SimpleAnimationController {
+class SimpleScrollFadeController {
   constructor() {
     this.isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     this.init();
@@ -14,93 +14,39 @@ class SimpleAnimationController {
   init() {
     if (this.isReducedMotion) return;
 
-    // Only animate key elements that enhance UX
-    this.initHeroAnimations();
-    this.initProductAnimations();
-    this.initMobileMenuAnimations();
-    this.initPageLoadAnimations();
+    this.setupScrollFade();
   }
 
-  // Hero section - only animate the main CTA button
-  initHeroAnimations() {
-    const heroCTA = document.querySelector(".hero-cta");
-    if (heroCTA) {
-      // Simple fade in when page loads
-      setTimeout(() => {
-        heroCTA.classList.add("animate-in", "fade-in", "duration-700");
-        console.log("Hero CTA animation applied");
-      }, 300);
-    }
-  }
+  setupScrollFade() {
+    // Get all sections that should fade in
+    const sections = document.querySelectorAll("section, .section-fade-in");
 
-  // Product cards - only animate on hover, not scroll
-  initProductAnimations() {
-    const productCards = document.querySelectorAll(".product-card");
-    productCards.forEach((card) => {
-      // Remove any scroll animations
-      card.removeAttribute("data-scroll-animate");
-      card.removeAttribute("data-scroll-delay");
+    console.log("SimpleScrollFadeController: Found", sections.length, "sections to animate");
 
-      // Keep only hover effects (handled by CSS)
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            console.log("SimpleScrollFadeController: Animating section", entry.target);
+            entry.target.classList.add("fade-in-visible");
+            // Unobserve after animation to prevent re-triggering
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1, // Trigger when 10% of element is visible
+        rootMargin: "0px 0px -50px 0px", // Start animation slightly before element is fully in view
+      },
+    );
+
+    // Observe all sections
+    sections.forEach((section) => {
+      observer.observe(section);
+      console.log("SimpleScrollFadeController: Observing section", section);
     });
-  }
-
-  // Mobile menu - only animate when opening
-  initMobileMenuAnimations() {
-    const mobileMenu = document.getElementById("mobile-menu");
-    if (mobileMenu) {
-      // Remove any scroll animations
-      mobileMenu.removeAttribute("data-scroll-animate");
-    }
-  }
-
-  // Page load animations for key elements
-  initPageLoadAnimations() {
-    // Animate the rating badge
-    const ratingBadge = document.querySelector(".hero-section__trusted");
-    if (ratingBadge) {
-      setTimeout(() => {
-        ratingBadge.classList.add("animate-in", "fade-in", "duration-700");
-      }, 600);
-    }
-
-    // Animate the main title
-    const mainTitle = document.querySelector(".hero-section__title");
-    if (mainTitle) {
-      setTimeout(() => {
-        mainTitle.classList.add("animate-in", "slide-in-from-bottom", "duration-700");
-      }, 400);
-    }
-
-    // Animate featured products header
-    const featuredHeader = document.querySelector(".featured-products__header");
-    if (featuredHeader) {
-      setTimeout(() => {
-        featuredHeader.classList.add("animate-in", "slide-in-from-bottom", "duration-700");
-      }, 800);
-    }
-
-    // Animate creators carousel
-    const creatorsCarousel = document.querySelector(".creators-carousel");
-    if (creatorsCarousel) {
-      setTimeout(() => {
-        creatorsCarousel.classList.add("animate-in", "fade-in", "duration-1000");
-      }, 1000);
-    }
-  }
-
-  // Simple fade in for specific elements
-  fadeIn(element, delay = 0) {
-    if (this.isReducedMotion) return;
-
-    setTimeout(() => {
-      element.classList.add("animate-in", "fade-in", "duration-700");
-    }, delay);
-  }
-
-  // Cleanup
-  destroy() {
-    // No observers to clean up
   }
 }
 
@@ -346,7 +292,7 @@ class BloxManiaCore {
 
   setup() {
     // Initialize controllers
-    this.animationController = new SimpleAnimationController();
+    this.animationController = new SimpleScrollFadeController();
     this.interactionController = new InteractionController();
     this.performanceController = new PerformanceController();
     this.accessibilityController = new AccessibilityController();

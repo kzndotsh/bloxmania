@@ -1,180 +1,152 @@
-# BloxMania Animation System
+# BloxMania Simple Scroll Fade System
 
-BloxMania uses `tailwindcss-animate` for a comprehensive, performant animation system.
+BloxMania uses a simple, performant scroll fade system that triggers when sections come into view.
 
 ## Overview
 
-The animation system combines:
-- **tailwindcss-animate** - For standard animations and transitions
-- **Custom CSS** - For specific UI animations (loading spinners, etc.)
-- **JavaScript Controllers** - For programmatic animations
+The animation system provides:
+- **Simple scroll fade effects** - Sections fade in as they come into view
+- **Performance optimized** - Uses only opacity and transform
+- **Accessibility compliant** - Respects reduced motion preferences
+- **Mobile optimized** - Disabled on mobile for performance
 
 ## Usage
 
-### Basic Animations
+### Basic Section Fade
 
 ```html
-<!-- Fade in -->
-<div class="animate-in fade-in duration-300">Content</div>
-
-<!-- Slide in from top -->
-<div class="animate-in slide-in-from-top duration-300">Content</div>
-
-<!-- Zoom in -->
-<div class="animate-in zoom-in duration-300">Content</div>
-
-<!-- Exit animations -->
-<div class="animate-out fade-out duration-300">Content</div>
-<div class="animate-out slide-out-to-right duration-300">Content</div>
+<!-- Add the section-fade-in class to any element -->
+<div class="section-fade-in">
+  Content that will fade in when scrolled into view
+</div>
 ```
 
-### Animation Durations
+### Automatic Section Detection
 
-```html
-<!-- Available durations -->
-<div class="animate-in fade-in duration-75">75ms</div>
-<div class="animate-in fade-in duration-100">100ms</div>
-<div class="animate-in fade-in duration-150">150ms</div>
-<div class="animate-in fade-in duration-200">200ms</div>
-<div class="animate-in fade-in duration-300">300ms</div>
-<div class="animate-in fade-in duration-500">500ms</div>
-<div class="animate-in fade-in duration-700">700ms</div>
-<div class="animate-in fade-in duration-1000">1000ms</div>
-```
+The system automatically detects and animates:
+- All `<section>` elements
+- Elements with `.section-fade-in` class
 
-### Animation Delays
-
-```html
-<!-- Add delays -->
-<div class="animate-in fade-in duration-300 delay-150">Delayed</div>
-<div class="animate-in fade-in duration-300 delay-300">More delayed</div>
-```
-
-### Easing Functions
-
-```html
-<!-- Available easing -->
-<div class="animate-in fade-in duration-300 ease-linear">Linear</div>
-<div class="animate-in fade-in duration-300 ease-in">Ease in</div>
-<div class="animate-in fade-in duration-300 ease-out">Ease out</div>
-<div class="animate-in fade-in duration-300 ease-in-out">Ease in-out</div>
-```
-
-### Data Attributes for JavaScript
-
-```html
-<!-- Automatic animations via JavaScript -->
-<div data-animate="fade-in">Will animate when in viewport</div>
-<div data-animate="slide-in" data-direction="top">Slide from top</div>
-<div data-animate="scale-in">Scale in animation</div>
-```
-
-### Programmatic Animations
+### Manual Trigger
 
 ```javascript
-// Using the animation controller
-const animationController = window.BloxManiaCore?.animationController;
-
-// Animate a single element
-animationController.animateElement(element, 'fade-in', 100);
-
-// Animate multiple elements with stagger
-animationController.animateElements(elements, 'slide-in-up', 100);
+// Manually trigger fade in for an element
+element.classList.add('section-fade-in', 'fade-in-visible');
 ```
 
-## Available Animation Types
+## How It Works
 
-### Enter Animations
-- `fade-in` - Fade in from transparent
-- `slide-in-from-top` - Slide in from top
-- `slide-in-from-bottom` - Slide in from bottom
-- `slide-in-from-left` - Slide in from left
-- `slide-in-from-right` - Slide in from right
-- `zoom-in` - Scale in from 0
-- `spin-in` - Rotate in
+1. **Intersection Observer** - Watches for elements entering the viewport
+2. **Threshold** - Triggers when 10% of element is visible
+3. **Root Margin** - Starts animation slightly before element is fully in view
+4. **One-time Trigger** - Each element animates only once
 
-### Exit Animations
-- `fade-out` - Fade out to transparent
-- `slide-out-to-top` - Slide out to top
-- `slide-out-to-bottom` - Slide out to bottom
-- `slide-out-to-left` - Slide out to left
-- `slide-out-to-right` - Slide out to right
-- `zoom-out` - Scale out to 0
-- `spin-out` - Rotate out
+## CSS Classes
+
+### Primary Classes
+- `.section-fade-in` - Base class for fade-in elements
+- `.fade-in-visible` - Applied when element should be visible
+
+### Hover Effects
+- `.hover-lift` - Subtle lift on hover
+- `.hover-scale` - Subtle scale on hover
+- `.focus-ring` - Focus ring for accessibility
+
+## Animation Properties
+
+- **Duration**: 0.6 seconds
+- **Easing**: ease-out
+- **Transform**: translateY(30px) to translateY(0)
+- **Opacity**: 0 to 1
 
 ## Accessibility
 
-The animation system respects user preferences:
+The system respects user preferences:
 
+```css
+@media (prefers-reduced-motion: reduce) {
+  .section-fade-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+```
+
+## Mobile Optimization
+
+Animations are disabled on mobile for performance:
+
+```css
+@media (max-width: 768px) {
+  .section-fade-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+```
+
+## JavaScript API
+
+```javascript
+// Access the scroll fade controller
+const scrollFadeController = window.BloxManiaCore?.animationController;
+
+// Check if reduced motion is preferred
+const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+```
+
+## Best Practices
+
+1. **Use sparingly** - Only animate key sections
+2. **Keep it simple** - Avoid complex animations
+3. **Test on mobile** - Ensure good performance
+4. **Respect preferences** - Always check reduced motion
+
+## Examples
+
+### Section with Fade
 ```html
-<!-- Only animate if user hasn't requested reduced motion -->
-<div class="motion-safe:animate-in motion-safe:fade-in">Accessible</div>
+<section class="section-fade-in">
+  <h2>Section Title</h2>
+  <p>Content that fades in smoothly</p>
+</section>
+```
+
+### Product Grid
+```html
+<div class="product-grid">
+  <div class="product-card section-fade-in">
+    Product content
+  </div>
+</div>
+```
+
+### Newsletter Form
+```html
+<div class="newsletter-form__field-wrapper section-fade-in">
+  <input type="email" placeholder="Enter your email">
+  <button type="submit">Subscribe</button>
+</div>
 ```
 
 ## Performance
 
 - Uses `transform` and `opacity` for optimal performance
-- Hardware acceleration enabled by default
-- Reduced motion support built-in
-- Mobile performance optimizations
+- Hardware acceleration enabled
+- Intersection Observer for efficient detection
+- One-time triggers prevent re-animation
 
-## Custom Animations
+## Troubleshooting
 
-For specific UI animations, use custom CSS classes:
+### Animation not working?
+1. Check if reduced motion is enabled
+2. Verify element has `.section-fade-in` class
+3. Ensure element is in the DOM
+4. Check mobile viewport size
 
-```css
-/* Custom loading animation */
-.animate-spin-custom {
-  animation: spin 1s linear infinite;
-}
-
-/* Custom heartbeat animation */
-.animate-heartbeat {
-  animation: heartbeat 2s ease-in-out infinite;
-}
-```
-
-## Constants
-
-Animation durations are available in JavaScript:
-
-```javascript
-const { ANIMATION_DURATIONS, TAILWIND_ANIMATE_DURATIONS } = window.THEME_CONFIG;
-
-// Use in JavaScript
-setTimeout(callback, ANIMATION_DURATIONS.normal); // 300ms
-```
-
-## Best Practices
-
-1. **Use tailwindcss-animate for standard animations**
-2. **Respect reduced motion preferences**
-3. **Keep animations short and purposeful**
-4. **Use appropriate easing functions**
-5. **Test on mobile devices**
-6. **Avoid animating layout-triggering properties**
-
-## Examples
-
-### Card Hover Effects
-```html
-<div class="transition-all duration-300 hover:scale-105 hover:shadow-lg">
-  Card content
-</div>
-```
-
-### Loading States
-```html
-<div class="animate-spin duration-1000">
-  Loading...
-</div>
-```
-
-### Staggered Animations
-```html
-<div class="space-y-4">
-  <div class="animate-in fade-in duration-300 delay-0">Item 1</div>
-  <div class="animate-in fade-in duration-300 delay-100">Item 2</div>
-  <div class="animate-in fade-in duration-300 delay-200">Item 3</div>
-</div>
-``` 
+### Performance issues?
+1. Reduce number of animated elements
+2. Check for conflicting CSS
+3. Verify mobile optimization is working 
