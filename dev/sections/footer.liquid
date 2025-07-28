@@ -9,7 +9,7 @@
   - Accessibility best practices
 {% endcomment %}
 
-<footer class="footer animate-in slide-in-from-bottom duration-500" role="contentinfo" aria-label="Site footer">
+<footer class="footer" role="contentinfo" aria-label="Site footer">
   <!-- Background Pattern -->
   <div class="footer__background" aria-hidden="true"></div>
 
@@ -17,7 +17,7 @@
     <!-- Main Footer Content -->
     <div class="footer__main">
       <!-- Brand Section -->
-      <div class="footer__brand animate-in slide-in-from-bottom duration-500 delay-200">
+      <div class="footer__brand" data-scroll-animate="slide-in-from-bottom" data-scroll-delay="200">
         <div class="footer__logo">
           <h2 class="footer__logo-text"><span class="footer__logo-highlight">Blox</span>Mania</h2>
         </div>
@@ -31,9 +31,11 @@
 
         <!-- Social Links -->
         <div
-          class="footer__social animate-in slide-in-from-bottom duration-500 delay-400"
+          class="footer__social"
           role="list"
           aria-label="Social media links"
+          data-scroll-animate="slide-in-from-bottom"
+          data-scroll-delay="400"
         >
           {%- if section.settings.discord_url != blank -%}
             <a
@@ -104,9 +106,11 @@
 
       <!-- Navigation Links -->
       <nav
-        class="footer__nav animate-in slide-in-from-bottom duration-500 delay-300"
+        class="footer__nav"
         role="navigation"
         aria-label="Footer navigation"
+        data-scroll-animate="slide-in-from-bottom"
+        data-scroll-delay="300"
       >
         <div class="footer__nav-section">
           <h3 class="footer__nav-title">Shop</h3>

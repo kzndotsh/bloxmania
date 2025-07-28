@@ -15,7 +15,7 @@
 
   <div class="featured-products__container">
     <!-- Section Header -->
-    <header class="featured-products__header animate-in slide-in-from-bottom duration-500">
+    <header class="featured-products__header" data-scroll-animate="slide-in-from-bottom">
       <div class="featured-products__title-wrapper">
         <div class="featured-products__icon">
           <i class="fas fa-fire-flame-curved" aria-hidden="true"></i>
@@ -52,8 +52,10 @@
             {% endif %}
 
             <article
-              class="product-card animate-in slide-in-from-bottom duration-500 delay-{% cycle '100', '200', '300', '400' %}"
+              class="product-card"
               data-product-id="{{ product.id }}"
+              data-scroll-animate="slide-in-from-bottom"
+              data-scroll-delay="{% cycle '100', '200', '300', '400' %}"
             >
               <!-- Product Image -->
               <div class="product-card__media">
@@ -150,7 +152,7 @@
             {% assign prod_name = demo_names[index] | default: 'Featured Gaming Item' %}
             {% assign prod_price = demo_prices[index] | default: '$9.99' %}
 
-            <article class="product-card animate-in slide-in-from-bottom duration-500 delay-{% cycle '100', '200', '300', '400' %}">
+            <article class="product-card" data-scroll-animate="slide-in-from-bottom" data-scroll-delay="{% cycle '100', '200', '300', '400' %}">
               <div class="product-card__media">
                 <a href="/collections/all" class="product-card__link">
                   <img

@@ -160,7 +160,7 @@
     {%- comment -%} Main Content {%- endcomment -%}
     <main
       id="MainContent"
-      class="content-for-layout focus-none animate-in fade-in duration-500"
+      class="content-for-layout focus-none"
       role="main"
       tabindex="-1"
     >
@@ -178,6 +178,7 @@
 
     {%- comment -%} Load main JavaScript bundle {%- endcomment -%}
     <script src="{{ 'main.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'scroll-animations.js' | asset_url }}" defer="defer"></script>
 
     {%- comment -%} Theme editor support {%- endcomment -%}
     {%- if request.design_mode -%}
