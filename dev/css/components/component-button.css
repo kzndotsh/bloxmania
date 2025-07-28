@@ -159,7 +159,7 @@
 
   .btn--gaming:hover {
     box-shadow: var(--shadow-button-hover);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
     color: #000000 !important;
   }
 

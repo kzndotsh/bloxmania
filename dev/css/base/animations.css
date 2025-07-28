@@ -9,6 +9,30 @@
 5. Purposeful: Every animation serves a clear UX purpose
 */
 
+/* ===== INITIAL ANIMATION STATES ===== */
+.hero-cta {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.hero-section__title {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.hero-section__trusted {
+  opacity: 0;
+}
+
+.featured-products__header {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.creators-carousel {
+  opacity: 0;
+}
+
 /* ===== REDUCED MOTION SUPPORT ===== */
 @media (prefers-reduced-motion: reduce) {
   *,

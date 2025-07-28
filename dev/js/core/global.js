@@ -13,51 +13,88 @@ class SimpleAnimationController {
 
   init() {
     if (this.isReducedMotion) return;
-    
+
     // Only animate key elements that enhance UX
     this.initHeroAnimations();
     this.initProductAnimations();
     this.initMobileMenuAnimations();
+    this.initPageLoadAnimations();
   }
 
   // Hero section - only animate the main CTA button
   initHeroAnimations() {
-    const heroCTA = document.querySelector('.hero-cta');
+    const heroCTA = document.querySelector(".hero-cta");
     if (heroCTA) {
       // Simple fade in when page loads
       setTimeout(() => {
-        heroCTA.classList.add('animate-in', 'fade-in', 'duration-500');
-      }, 500);
+        heroCTA.classList.add("animate-in", "fade-in", "duration-700");
+        console.log("Hero CTA animation applied");
+      }, 300);
     }
   }
 
   // Product cards - only animate on hover, not scroll
   initProductAnimations() {
-    const productCards = document.querySelectorAll('.product-card');
-    productCards.forEach(card => {
+    const productCards = document.querySelectorAll(".product-card");
+    productCards.forEach((card) => {
       // Remove any scroll animations
-      card.removeAttribute('data-scroll-animate');
-      card.removeAttribute('data-scroll-delay');
-      
+      card.removeAttribute("data-scroll-animate");
+      card.removeAttribute("data-scroll-delay");
+
       // Keep only hover effects (handled by CSS)
     });
   }
 
   // Mobile menu - only animate when opening
   initMobileMenuAnimations() {
-    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenu = document.getElementById("mobile-menu");
     if (mobileMenu) {
       // Remove any scroll animations
-      mobileMenu.removeAttribute('data-scroll-animate');
+      mobileMenu.removeAttribute("data-scroll-animate");
+    }
+  }
+
+  // Page load animations for key elements
+  initPageLoadAnimations() {
+    // Animate the rating badge
+    const ratingBadge = document.querySelector(".hero-section__trusted");
+    if (ratingBadge) {
+      setTimeout(() => {
+        ratingBadge.classList.add("animate-in", "fade-in", "duration-700");
+      }, 600);
+    }
+
+    // Animate the main title
+    const mainTitle = document.querySelector(".hero-section__title");
+    if (mainTitle) {
+      setTimeout(() => {
+        mainTitle.classList.add("animate-in", "slide-in-from-bottom", "duration-700");
+      }, 400);
+    }
+
+    // Animate featured products header
+    const featuredHeader = document.querySelector(".featured-products__header");
+    if (featuredHeader) {
+      setTimeout(() => {
+        featuredHeader.classList.add("animate-in", "slide-in-from-bottom", "duration-700");
+      }, 800);
+    }
+
+    // Animate creators carousel
+    const creatorsCarousel = document.querySelector(".creators-carousel");
+    if (creatorsCarousel) {
+      setTimeout(() => {
+        creatorsCarousel.classList.add("animate-in", "fade-in", "duration-1000");
+      }, 1000);
     }
   }
 
   // Simple fade in for specific elements
   fadeIn(element, delay = 0) {
     if (this.isReducedMotion) return;
-    
+
     setTimeout(() => {
-      element.classList.add('animate-in', 'fade-in', 'duration-500');
+      element.classList.add("animate-in", "fade-in", "duration-700");
     }, delay);
   }
 
