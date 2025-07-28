@@ -46,6 +46,11 @@ class AnimationController {
       observer.observe(el);
     });
 
+    // Also observe elements with data-scroll-animate="fade-in"
+    document.querySelectorAll('[data-scroll-animate="fade-in"]').forEach((el) => {
+      observer.observe(el);
+    });
+
     this.observers.set("fade-in", observer);
   }
 
@@ -69,6 +74,11 @@ class AnimationController {
 
     // Observe elements that should slide in
     document.querySelectorAll('[data-animate="slide-in"]').forEach((el) => {
+      observer.observe(el);
+    });
+
+    // Also observe elements with data-scroll-animate for slide animations
+    document.querySelectorAll('[data-scroll-animate*="slide-in"]').forEach((el) => {
       observer.observe(el);
     });
 
@@ -113,6 +123,10 @@ class AnimationController {
         "slide-in-left": ["animate-in", "slide-in-from-left", "duration-300"],
         "slide-in-right": ["animate-in", "slide-in-from-right", "duration-300"],
         "scale-in": ["animate-in", "zoom-in", "duration-300"],
+        "slide-in-from-bottom": ["animate-in", "slide-in-from-bottom", "duration-300"],
+        "slide-in-from-top": ["animate-in", "slide-in-from-top", "duration-300"],
+        "slide-in-from-left": ["animate-in", "slide-in-from-left", "duration-300"],
+        "slide-in-from-right": ["animate-in", "slide-in-from-right", "duration-300"],
       };
 
       const classes = animationMap[animationType] || [`animate-${animationType}`];

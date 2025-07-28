@@ -22,8 +22,8 @@ class ScrollAnimations {
       },
       {
         threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      }
+        rootMargin: "0px 0px -50px 0px",
+      },
     );
 
     // Observe elements with scroll animation classes
@@ -31,8 +31,17 @@ class ScrollAnimations {
   }
 
   observeElements() {
-    const elements = document.querySelectorAll('[data-scroll-animate]');
+    const elements = document.querySelectorAll("[data-scroll-animate]");
     elements.forEach((element) => {
+      if (!this.animatedElements.has(element)) {
+        this.observer.observe(element);
+        this.animatedElements.add(element);
+      }
+    });
+
+    // Also observe elements with data-animate attributes for backward compatibility
+    const legacyElements = document.querySelectorAll("[data-animate]");
+    legacyElements.forEach((element) => {
       if (!this.animatedElements.has(element)) {
         this.observer.observe(element);
         this.animatedElements.add(element);
@@ -41,22 +50,22 @@ class ScrollAnimations {
   }
 
   animateElement(element) {
-    const animationType = element.dataset.scrollAnimate;
-    const delay = element.dataset.scrollDelay || '0';
-    
+    const animationType = element.dataset.scrollAnimate || element.dataset.animate;
+    const delay = element.dataset.scrollDelay || "0";
+
     // Add animation classes
-    element.classList.add('animate-in', animationType, 'duration-500');
+    element.classList.add("animate-in", animationType, "duration-500");
     element.style.animationDelay = `${delay}ms`;
-    
+
     // Mark as animated
-    element.dataset.scrollAnimated = 'true';
-    
+    element.dataset.scrollAnimated = "true";
+
     // Stop observing this element
     this.observer.unobserve(element);
   }
 
   // Public method to add scroll animations to new elements
-  addScrollAnimation(selector, animationType = 'fade-in', delay = 0) {
+  addScrollAnimation(selector, animationType = "fade-in", delay = 0) {
     const elements = document.querySelectorAll(selector);
     elements.forEach((element) => {
       element.dataset.scrollAnimate = animationType;
@@ -83,4 +92,4 @@ if (typeof module !== "undefined" && module.exports) {
 } else {
   window.ScrollAnimations = ScrollAnimations;
   window.scrollAnimations = scrollAnimations;
-} 
+}

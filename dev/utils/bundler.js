@@ -66,6 +66,7 @@ class SimpleBundler {
       "features/quick-add.js",
       "features/mobile-menu.js",
       "features/guarantee-icons.js",
+      "features/scroll-animations.js",
     ];
 
     // UI files
