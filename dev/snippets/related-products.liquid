@@ -24,15 +24,13 @@
       <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
         {{ heading }}
       </h2>
-      <p class="text-gray-400 text-lg">
-        Discover more items you'll love
-      </p>
+      <p class="text-gray-400 text-lg">Discover more items you'll love</p>
     </div>
 
     <!-- Products Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
       {%- assign products_shown = 0 -%}
-      
+
       {%- comment -%} Related Products {%- endcomment -%}
       {%- for related_product in related_products -%}
         {%- if related_product.id != current_product_id and products_shown < products_to_show -%}
@@ -53,7 +51,7 @@
                   </div>
                 {%- endif -%}
               </div>
-              
+
               <!-- Product Info -->
               <div class="text-center">
                 <h3 class="text-white font-semibold text-lg mb-2 group-hover:text-primary transition-colors duration-300">
@@ -100,7 +98,7 @@
                       </div>
                     {%- endif -%}
                   </div>
-                  
+
                   <!-- Product Info -->
                   <div class="text-center">
                     <h3 class="text-white font-semibold text-lg mb-2 group-hover:text-primary transition-colors duration-300">
@@ -161,7 +159,7 @@
                       </div>
                     {%- endif -%}
                   </div>
-                  
+
                   <!-- Product Info -->
                   <div class="text-center">
                     <h3 class="text-white font-semibold text-lg mb-2 group-hover:text-primary transition-colors duration-300">
@@ -202,12 +200,8 @@
   <div class="related-products-section py-16">
     <!-- Section Header -->
     <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-        More Products
-      </h2>
-      <p class="text-gray-400 text-lg">
-        Check out these other items
-      </p>
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">More Products</h2>
+      <p class="text-gray-400 text-lg">Check out these other items</p>
     </div>
 
     <!-- Products Grid -->
@@ -231,7 +225,7 @@
                   </div>
                 {%- endif -%}
               </div>
-              
+
               <!-- Product Info -->
               <div class="text-center">
                 <h3 class="text-white font-semibold text-lg mb-2 group-hover:text-primary transition-colors duration-300">

@@ -46,6 +46,8 @@
   }
 
   .smooth-border {
-    transition: border-color var(--duration-default) var(--easing-smooth), border-width var(--duration-default) var(--easing-smooth);
+    transition:
+      border-color var(--duration-default) var(--easing-smooth),
+      border-width var(--duration-default) var(--easing-smooth);
   }
 }

@@ -10,7 +10,9 @@
     border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow-card);
-    transition: transform var(--duration-card) var(--easing-smooth), box-shadow var(--duration-card) var(--easing-smooth);
+    transition:
+      transform var(--duration-card) var(--easing-smooth),
+      box-shadow var(--duration-card) var(--easing-smooth);
   }
 
   .card:hover {
@@ -19,7 +21,9 @@
   }
 
   .card-hover {
-    transition: transform var(--duration-card) var(--easing-smooth), box-shadow var(--duration-card) var(--easing-smooth);
+    transition:
+      transform var(--duration-card) var(--easing-smooth),
+      box-shadow var(--duration-card) var(--easing-smooth);
   }
 
   .card-hover:hover {

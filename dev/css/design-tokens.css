@@ -82,20 +82,20 @@
   --color-button-hover: 217 119 6;
 
   /* Spacing Scale - 8pt Grid System */
-  --spacing-0: 0;           /* 0px */
-  --spacing-1: 0.25rem;     /* 4px */
-  --spacing-2: 0.5rem;      /* 8px */
-  --spacing-3: 0.75rem;     /* 12px */
-  --spacing-4: 1rem;        /* 16px */
-  --spacing-5: 1.25rem;     /* 20px */
-  --spacing-6: 1.5rem;      /* 24px */
-  --spacing-8: 2rem;        /* 32px */
-  --spacing-10: 2.5rem;     /* 40px */
-  --spacing-12: 3rem;       /* 48px */
-  --spacing-16: 4rem;       /* 64px */
-  --spacing-20: 5rem;       /* 80px */
-  --spacing-24: 6rem;       /* 96px */
-  --spacing-32: 8rem;       /* 128px */
+  --spacing-0: 0; /* 0px */
+  --spacing-1: 0.25rem; /* 4px */
+  --spacing-2: 0.5rem; /* 8px */
+  --spacing-3: 0.75rem; /* 12px */
+  --spacing-4: 1rem; /* 16px */
+  --spacing-5: 1.25rem; /* 20px */
+  --spacing-6: 1.5rem; /* 24px */
+  --spacing-8: 2rem; /* 32px */
+  --spacing-10: 2.5rem; /* 40px */
+  --spacing-12: 3rem; /* 48px */
+  --spacing-16: 4rem; /* 64px */
+  --spacing-20: 5rem; /* 80px */
+  --spacing-24: 6rem; /* 96px */
+  --spacing-32: 8rem; /* 128px */
 
   /* Legacy spacing (for backward compatibility) */
   --spacing-xs: var(--spacing-1);
@@ -128,18 +128,18 @@
   --font-family-heading: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 
   /* Major Third Type Scale (1.25 ratio) - Practical Implementation */
-  --font-size-xs: 0.64rem;     /* 10.24px - small */
-  --font-size-sm: 0.8rem;      /* 12.8px - caption */
-  --font-size-base: 1rem;      /* 16px - base */
-  --font-size-lg: 1.25rem;     /* 20px - h5 */
-  --font-size-xl: 1.56rem;     /* 25px - h4 */
-  --font-size-2xl: 1.95rem;    /* 31.25px - h3 */
-  --font-size-3xl: 2.44rem;    /* 39px - h2 */
-  --font-size-4xl: 3.05rem;    /* 48.8px - h1 */
-  --font-size-5xl: 3.81rem;    /* 61px - display */
-  --font-size-6xl: 4.77rem;    /* 76px - large display */
-  --font-size-7xl: 5.96rem;    /* 95px - hero */
-  --font-size-8xl: 7.45rem;    /* 119px - massive */
+  --font-size-xs: 0.64rem; /* 10.24px - small */
+  --font-size-sm: 0.8rem; /* 12.8px - caption */
+  --font-size-base: 1rem; /* 16px - base */
+  --font-size-lg: 1.25rem; /* 20px - h5 */
+  --font-size-xl: 1.56rem; /* 25px - h4 */
+  --font-size-2xl: 1.95rem; /* 31.25px - h3 */
+  --font-size-3xl: 2.44rem; /* 39px - h2 */
+  --font-size-4xl: 3.05rem; /* 48.8px - h1 */
+  --font-size-5xl: 3.81rem; /* 61px - display */
+  --font-size-6xl: 4.77rem; /* 76px - large display */
+  --font-size-7xl: 5.96rem; /* 95px - hero */
+  --font-size-8xl: 7.45rem; /* 119px - massive */
 
   --font-weight-light: 300;
   --font-weight-normal: 400;
@@ -160,20 +160,20 @@
   --font-heading-scale: 1.2;
 
   /* Responsive Type Scale */
-  --type-scale-mobile: 0.875;    /* 14px base on mobile */
-  --type-scale-tablet: 0.9375;   /* 15px base on tablet */
-  --type-scale-desktop: 1;       /* 16px base on desktop */
-  --type-scale-large: 1.0625;    /* 17px base on large screens */
+  --type-scale-mobile: 0.875; /* 14px base on mobile */
+  --type-scale-tablet: 0.9375; /* 15px base on tablet */
+  --type-scale-desktop: 1; /* 16px base on desktop */
+  --type-scale-large: 1.0625; /* 17px base on large screens */
 
   /* Transitions & Animations - Using THEME_CONFIG.ANIMATION_DURATIONS */
-  --duration-fast: 0.15s;      /* ANIMATION_DURATIONS.fast */
+  --duration-fast: 0.15s; /* ANIMATION_DURATIONS.fast */
   --duration-short: 0.2s;
-  --duration-default: 0.3s;    /* ANIMATION_DURATIONS.normal */
+  --duration-default: 0.3s; /* ANIMATION_DURATIONS.normal */
   --duration-medium: 0.4s;
-  --duration-slow: 0.5s;       /* ANIMATION_DURATIONS.slow */
+  --duration-slow: 0.5s; /* ANIMATION_DURATIONS.slow */
   --duration-long: 0.6s;
   --duration-card: 0.6s;
-  --duration-very-slow: 1s;    /* ANIMATION_DURATIONS.slower */
+  --duration-very-slow: 1s; /* ANIMATION_DURATIONS.slower */
 
   --easing-linear: linear;
   --easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
@@ -202,12 +202,12 @@
 
   /* Border Radius */
   --radius-none: 0;
-  --radius-sm: 0.25rem;     /* 4px */
-  --radius-md: 0.5rem;      /* 8px */
-  --radius-lg: 0.75rem;     /* 12px */
-  --radius-xl: 1rem;        /* 16px */
-  --radius-2xl: 1.5rem;     /* 24px */
-  --radius-3xl: 2rem;       /* 32px */
+  --radius-sm: 0.25rem; /* 4px */
+  --radius-md: 0.5rem; /* 8px */
+  --radius-lg: 0.75rem; /* 12px */
+  --radius-xl: 1rem; /* 16px */
+  --radius-2xl: 1.5rem; /* 24px */
+  --radius-3xl: 2rem; /* 32px */
   --radius-full: 9999px;
 
   /* Shadows */

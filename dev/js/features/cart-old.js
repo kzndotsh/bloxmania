@@ -714,7 +714,7 @@ class CartNote extends HTMLElement {
 
 // Register components only if modern cart is not enabled
 // Also check if we're on the cart page to avoid conflicts
-const isCartPage = window.location.pathname === '/cart';
+const isCartPage = window.location.pathname === "/cart";
 if (!window.MODERN_CART_ENABLED && !isCartPage) {
   if (!customElements.get("cart-items")) {
     customElements.define("cart-items", CartItems);

@@ -113,7 +113,7 @@
           this.updateQuantity(this.currentValue);
 
           this.querySelectorAll('button').forEach((button) =>
-            button.addEventListener('click', this.onButtonClick.bind(this))
+            button.addEventListener('click', this.onButtonClick.bind(this)),
           );
         }
 
@@ -168,7 +168,7 @@
             buttonPlus.disabled = value >= this.max;
           }
         }
-      }
+      },
     );
   }
 </script>
