@@ -97,6 +97,7 @@ class SearchManager {
       this.showSearchLoading();
 
       // Debounce search requests
+      const debounceWait = window.THEME_CONFIG?.ON_CHANGE_DEBOUNCE_TIMER || 300;
       this.searchTimeout = setTimeout(() => {
         this.performPredictiveSearch(query);
       }, 300);

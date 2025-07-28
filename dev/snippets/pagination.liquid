@@ -1,28 +1,53 @@
+{% comment %}
+  Enhanced Pagination Component
+  Features:
+  - Accessible navigation with proper ARIA labels
+  - Responsive design with mobile optimization
+  - Keyboard navigation support
+  - Screen reader friendly
+  - Modern BloxMania theme styling
+{% endcomment %}
+
 {%- if paginate.pages > 1 -%}
-  <nav class="pagination-wrapper" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
-    <ul class="pagination list-unstyled" role="list">
+  <nav
+    class="pagination-wrapper animate-in fade-in duration-500"
+    role="navigation"
+    aria-label="{{ 'general.pagination.label' | t }}"
+    data-pagination-container
+  >
+    <ul class="pagination" role="list">
+      {%- comment -%} Previous Page Button {%- endcomment -%}
       {%- if paginate.previous -%}
         <li class="pagination__item pagination__item--prev">
           <a
             href="{{ paginate.previous.url }}"
-            class="pagination__item-link link motion-reduce"
+            class="pagination__item-link"
             aria-label="{{ 'general.pagination.previous' | t }}"
+            rel="prev"
           >
-            {% render 'icon', icon: 'chevron-left', class: 'icon icon-caret' %}
-            {{ 'general.pagination.previous' | t }}
+            {% render 'icon', icon: 'chevron-left', size: 'small', class: 'mr-1' %}
+            <span class="pagination__text">{{ 'general.pagination.previous' | t }}</span>
           </a>
+        </li>
+      {%- else -%}
+        <li class="pagination__item pagination__item--prev">
+          <span class="pagination__item-link pagination__item-link--disabled" aria-disabled="true">
+            {% render 'icon', icon: 'chevron-left', size: 'small', class: 'mr-1' %}
+            <span class="pagination__text">{{ 'general.pagination.previous' | t }}</span>
+          </span>
         </li>
       {%- endif -%}
 
+      {%- comment -%} Page Numbers {%- endcomment -%}
       {%- for part in paginate.parts -%}
         {%- if part.is_link -%}
           <li class="pagination__item">
             <a
               href="{{ part.url }}"
-              class="pagination__item-link link"
+              class="pagination__item-link"
               aria-label="{{ 'general.pagination.page' | t: number: part.title }}"
             >
-              {{- part.title -}}
+              <span class="pagination__number">{{ part.title }}</span>
             </a>
           </li>
         {%- else -%}
@@ -31,31 +56,50 @@
               <span
                 class="pagination__item-link"
                 aria-current="page"
-                aria-label="{{ 'general.pagination.page' | t: number: part.title }}"
+                aria-label="{{ 'general.pagination.current_page' | t: number: part.title }}"
               >
-                {{- part.title -}}
+                <span class="pagination__number">{{ part.title }}</span>
               </span>
             </li>
           {%- else -%}
             <li class="pagination__item">
-              <span class="pagination__item-link">{{ part.title }}</span>
+              <span class="pagination__item-link pagination__item-link--ellipsis">
+                <span class="pagination__ellipsis">{{ part.title }}</span>
+              </span>
             </li>
           {%- endif -%}
         {%- endif -%}
       {%- endfor -%}
 
+      {%- comment -%} Next Page Button {%- endcomment -%}
       {%- if paginate.next -%}
         <li class="pagination__item pagination__item--next">
           <a
             href="{{ paginate.next.url }}"
-            class="pagination__item-link link motion-reduce"
+            class="pagination__item-link"
             aria-label="{{ 'general.pagination.next' | t }}"
+            rel="next"
           >
-            {{ 'general.pagination.next' | t }}
-            {% render 'icon', icon: 'chevron-right', class: 'icon icon-caret' %}
+            <span class="pagination__text">{{ 'general.pagination.next' | t }}</span>
+            {% render 'icon', icon: 'chevron-right', size: 'small', class: 'ml-1' %}
           </a>
+        </li>
+      {%- else -%}
+        <li class="pagination__item pagination__item--next">
+          <span class="pagination__item-link pagination__item-link--disabled" aria-disabled="true">
+            <span class="pagination__text">{{ 'general.pagination.next' | t }}</span>
+            {% render 'icon', icon: 'chevron-right', size: 'small', class: 'ml-1' %}
+          </span>
         </li>
       {%- endif -%}
     </ul>
+
+    {%- comment -%} Screen Reader Summary {%- endcomment -%}
+    <div class="sr-only" aria-live="polite">
+      {{
+        'general.pagination.showing_items'
+        | t: first: paginate.current_page, last: paginate.pages, total: paginate.total
+      }}
+    </div>
   </nav>
 {%- endif -%}

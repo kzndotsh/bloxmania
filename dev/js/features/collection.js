@@ -11,6 +11,7 @@ class CollectionManager {
   init() {
     this.bindEvents();
     this.loadSavedPreferences();
+    this.initPagination();
   }
 
   bindEvents() {
@@ -136,6 +137,14 @@ class CollectionManager {
     }
 
     return url.toString();
+  }
+
+  // Initialize pagination functionality
+  initPagination() {
+    // Initialize pagination manager if it exists
+    if (window.PaginationManager) {
+      this.paginationManager = new window.PaginationManager();
+    }
   }
 
   // Method to handle AJAX loading of products (for future enhancement)

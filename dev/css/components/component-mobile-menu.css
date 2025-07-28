@@ -15,7 +15,7 @@
     display: flex;
     flex-direction: column;
     transform: translateX(-100%);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform var(--duration-normal) var(--easing-smooth);
     opacity: 0;
     visibility: hidden;
     overflow-y: auto;
@@ -51,7 +51,7 @@
     color: white;
     font-weight: 700;
     font-size: 1.5rem;
-    transition: transform 0.2s ease;
+    transition: transform var(--duration-fast) var(--easing-smooth);
   }
 
   .mobile-menu__logo:hover {
@@ -80,7 +80,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all var(--duration-fast) var(--easing-smooth);
   }
 
   .mobile-menu__close:hover {
@@ -119,7 +119,7 @@
     border-radius: 0.75rem;
     color: white;
     font-size: 0.875rem;
-    transition: all 0.2s ease;
+    transition: all var(--duration-fast) var(--easing-smooth);
   }
 
   .mobile-menu__search-input::placeholder {
@@ -166,7 +166,7 @@
     border-radius: 0.75rem;
     text-decoration: none;
     color: white;
-    transition: all 0.2s ease;
+    transition: all var(--duration-fast) var(--easing-smooth);
   }
 
   .mobile-menu__quick-action:hover {
@@ -201,7 +201,7 @@
     border-radius: 0.75rem;
     text-decoration: none;
     color: white;
-    transition: all 0.2s ease;
+    transition: all var(--duration-fast) var(--easing-smooth);
   }
 
   .mobile-menu__nav-link:hover {
@@ -238,7 +238,7 @@
     border-radius: 0.75rem;
     text-decoration: none;
     color: white;
-    transition: all 0.2s ease;
+    transition: all var(--duration-fast) var(--easing-smooth);
   }
 
   .mobile-menu__social-link:hover {
@@ -275,7 +275,7 @@
     color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     font-size: 0.75rem;
-    transition: color 0.2s ease;
+    transition: color var(--duration-fast) var(--easing-smooth);
   }
 
   .mobile-menu__footer-link:hover {

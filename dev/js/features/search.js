@@ -182,7 +182,8 @@ if (typeof PredictiveSearch === "undefined") {
       }
     }
 
-    debounce(func, wait) {
+    debounce(func, wait = null) {
+      const debounceWait = wait || window.THEME_CONFIG?.ON_CHANGE_DEBOUNCE_TIMER || 300;
       let timeout;
       return function executedFunction(...args) {
         const later = () => {
@@ -190,7 +191,7 @@ if (typeof PredictiveSearch === "undefined") {
           func.apply(this, args);
         };
         clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
+        timeout = setTimeout(later, debounceWait);
       };
     }
   }

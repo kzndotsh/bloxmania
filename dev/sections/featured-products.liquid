@@ -15,7 +15,7 @@
   
   <div class="featured-products__container">
     <!-- Section Header -->
-    <header class="featured-products__header">
+    <header class="featured-products__header animate-in slide-in-from-bottom duration-500">
       <div class="featured-products__title-wrapper">
         <div class="featured-products__icon">
           <i class="fas fa-fire-flame-curved" aria-hidden="true"></i>
@@ -51,7 +51,7 @@
               {% assign lazy_load = true %}
             {% endif %}
 
-            <article class="product-card" data-product-id="{{ product.id }}">
+            <article class="product-card animate-in slide-in-from-bottom duration-500 delay-{% cycle '100', '200', '300', '400' %}" data-product-id="{{ product.id }}">
               <!-- Product Image -->
               <div class="product-card__media">
                 <a href="{{ product.url }}" class="product-card__link" aria-label="{{ product.title | escape }}">
@@ -65,6 +65,8 @@
                       alt="{{ product.featured_media.alt | escape }}"
                       loading="{% if lazy_load %}lazy{% else %}eager{% endif %}"
                       class="product-card__image"
+                      width="300"
+                      height="300"
                     >
                   {%- else -%}
                     <div class="product-card__placeholder">
@@ -142,7 +144,7 @@
             {% assign prod_name = demo_names[index] | default: 'Featured Gaming Item' %}
             {% assign prod_price = demo_prices[index] | default: '$9.99' %}
 
-            <article class="product-card">
+            <article class="product-card animate-in slide-in-from-bottom duration-500 delay-{% cycle '100', '200', '300', '400' %}">
               <div class="product-card__media">
                 <a href="/collections/all" class="product-card__link">
                   <img
@@ -150,6 +152,8 @@
                     alt="{{ prod_name }}"
                     class="product-card__image"
                     loading="lazy"
+                    width="300"
+                    height="300"
                   >
                 </a>
                 <div class="product-card__badge product-card__badge--featured">

@@ -1,330 +1,191 @@
 /**
- * Cart Notification - Following Dawn's Web Component patterns
+ * Cart Notification System
  * Handles cart notifications with proper accessibility and animations
  */
 
-class CartNotification extends HTMLElement {
+class CartNotification {
   constructor() {
-    super();
-
-    this.notification = null;
-    this.closeButton = null;
-    this.isOpen = false;
-    this.hideTimeout = null;
-    this.focusTrap = null;
+    this.notifications = [];
+    this.container = null;
+    this.init();
   }
 
-  connectedCallback() {
-    this.notification = this.querySelector(".cart-notification") || this;
-    this.closeButton = this.querySelector(".cart-notification__close");
-
+  init() {
+    this.createContainer();
     this.setupEventListeners();
-    this.setupAccessibility();
-
-    // Listen for cart events
-    document.addEventListener("cart:item-added", this.handleCartItemAdded.bind(this));
-    document.addEventListener("cart:updated", this.handleCartUpdated.bind(this));
   }
 
-  disconnectedCallback() {
-    this.cleanup();
+  createContainer() {
+    // Create notification container
+    this.container = document.createElement("div");
+    this.container.className = "cart-notifications-container";
+    this.container.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    `;
+    document.body.appendChild(this.container);
   }
 
   setupEventListeners() {
-    // Close button
-    if (this.closeButton) {
-      this.closeButton.addEventListener("click", this.close.bind(this));
-    }
+    // Listen for cart update events
+    document.addEventListener("cart:updated", (event) => {
+      this.showNotification(event.detail);
+    });
 
-    // Escape key
-    this.addEventListener("keydown", this.handleKeydown.bind(this));
-
-    // Auto-hide on backdrop click
-    this.addEventListener("click", this.handleBackdropClick.bind(this));
+    // Listen for cart error events
+    document.addEventListener("cart:error", (event) => {
+      this.showError(event.detail);
+    });
   }
 
-  setupAccessibility() {
-    this.setAttribute("role", "status");
-    this.setAttribute("aria-live", "polite");
-    this.setAttribute("aria-atomic", "true");
-
-    if (this.closeButton) {
-      this.closeButton.setAttribute("aria-label", "Close notification");
-    }
+  showNotification(data) {
+    const notification = this.createNotification(data, "success");
+    this.addNotification(notification);
   }
 
-  handleKeydown(event) {
-    if (event.key === "Escape" && this.isOpen) {
-      this.close();
-    }
+  showError(data) {
+    const notification = this.createNotification(data, "error");
+    this.addNotification(notification);
   }
 
-  handleBackdropClick(event) {
-    if (event.target === this && this.isOpen) {
-      this.close();
-    }
+  createNotification(data, type = "success") {
+    const notification = document.createElement("div");
+    notification.className = `cart-notification cart-notification--${type}`;
+
+    // Set up notification content
+    const content = this.buildNotificationContent(data, type);
+    notification.innerHTML = content;
+
+    // Set up styles
+    notification.style.cssText = `
+      background: ${type === "success" ? "#10b981" : "#ef4444"};
+      color: white;
+      padding: 12px 16px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      font-size: 14px;
+      font-weight: 500;
+      max-width: 300px;
+      pointer-events: auto;
+    `;
+
+    return notification;
   }
 
-  handleCartItemAdded(event) {
-    const { item, cart } = event.detail;
-    this.showAddedNotification(item, cart);
-  }
-
-  handleCartUpdated(event) {
-    const { cart } = event.detail;
-    this.showUpdatedNotification(cart);
-  }
-
-  showAddedNotification(item, cart) {
-    const content = this.buildAddedContent(item, cart);
-    this.show(content, "success");
-  }
-
-  showUpdatedNotification(cart) {
-    const content = this.buildUpdatedContent(cart);
-    this.show(content, "info");
-  }
-
-  buildAddedContent(item, cart) {
-    const itemImage = item.featured_image
-      ? `<img src="${item.featured_image.url}" alt="${item.product_title}" class="cart-notification__image" loading="lazy">`
-      : "";
+  buildNotificationContent(data, type) {
+    const icon = type === "success" ? "✓" : "✕";
+    const title = type === "success" ? "Added to cart" : "Error";
 
     return `
-      <div class="cart-notification__content cart-notification__content--added">
+      <div class="cart-notification__content">
         <div class="cart-notification__header">
-          <h3 class="cart-notification__title">Item added to cart</h3>
-          ${
-            this.closeButton
-              ? ""
-              : '<button class="cart-notification__close" aria-label="Close notification">&times;</button>'
-          }
+          <span class="cart-notification__icon">${icon}</span>
+          <span class="cart-notification__title">${title}</span>
         </div>
-        <div class="cart-notification__body">
-          <div class="cart-notification__item">
-            ${itemImage}
-            <div class="cart-notification__item-details">
-              <h4 class="cart-notification__item-title">${item.product_title}</h4>
-              ${item.variant_title ? `<p class="cart-notification__item-variant">${item.variant_title}</p>` : ""}
-              <p class="cart-notification__item-price">
-                ${this.formatPrice(item.final_price)} × ${item.quantity}
-              </p>
+        ${data.message ? `<div class="cart-notification__message">${data.message}</div>` : ""}
+        ${
+          data.product
+            ? `
+          <div class="cart-notification__product">
+            <img src="${data.product.image}" alt="${data.product.title}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">
+            <div class="cart-notification__product-info">
+              <div class="cart-notification__product-title">${data.product.title}</div>
+              <div class="cart-notification__product-price">${data.product.price}</div>
             </div>
           </div>
-        </div>
-        <div class="cart-notification__footer">
-          <div class="cart-notification__cart-info">
-            <p class="cart-notification__cart-total">
-              Cart total: ${this.formatPrice(cart.total_price)} (${
-                cart.item_count
-              } ${cart.item_count === 1 ? "item" : "items"})
-            </p>
-          </div>
-          <div class="cart-notification__actions">
-            <button class="cart-notification__continue btn-secondary" onclick="this.closest('cart-notification').close()">
-              Continue shopping
-            </button>
-            <a href="/cart" class="cart-notification__view-cart btn-primary">
-              View cart
-            </a>
-          </div>
-        </div>
+        `
+            : ""
+        }
       </div>
     `;
   }
 
-  buildUpdatedContent(cart) {
-    return `
-      <div class="cart-notification__content cart-notification__content--updated">
-        <div class="cart-notification__header">
-          <h3 class="cart-notification__title">Cart updated</h3>
-          ${
-            this.closeButton
-              ? ""
-              : '<button class="cart-notification__close" aria-label="Close notification">&times;</button>'
-          }
-        </div>
-        <div class="cart-notification__body">
-          <p class="cart-notification__cart-total">
-            Cart total: ${this.formatPrice(cart.total_price)} (${
-              cart.item_count
-            } ${cart.item_count === 1 ? "item" : "items"})
-          </p>
-        </div>
-        <div class="cart-notification__footer">
-          <div class="cart-notification__actions">
-            <button class="cart-notification__continue btn-secondary" onclick="this.closest('cart-notification').close()">
-              Continue shopping
-            </button>
-            <a href="/cart" class="cart-notification__view-cart btn-primary">
-              View cart
-            </a>
-          </div>
-        </div>
-      </div>
-    `;
+  addNotification(notification) {
+    this.container.appendChild(notification);
+    this.notifications.push(notification);
+
+    // Trigger animation using tailwindcss-animate
+    requestAnimationFrame(() => {
+      notification.classList.add("animate-in", "slide-in-from-right", "duration-300");
+    });
+
+    // Auto remove after animation duration
+    const autoHideDuration = window.THEME_CONFIG?.ANIMATION_DURATIONS?.slower * 4 || 4000;
+    setTimeout(() => {
+      this.removeNotification(notification);
+    }, autoHideDuration);
   }
 
-  show(content, type = "info", duration = 5000) {
-    // Update content
-    this.innerHTML = content;
-
-    // Re-setup close button after content update
-    this.closeButton = this.querySelector(".cart-notification__close");
-    if (this.closeButton) {
-      this.closeButton.addEventListener("click", this.close.bind(this));
-    }
-
-    // Add type class
-    this.className = `cart-notification cart-notification--${type}`;
-
-    // Show notification
-    this.open();
-
-    // Auto-hide after duration
-    if (duration > 0) {
-      this.hideTimeout = setTimeout(() => {
-        this.close();
-      }, duration);
-    }
-
-    // Announce to screen readers
-    this.announceToScreenReader(type === "success" ? "Item added to cart" : "Cart updated");
-  }
-
-  open() {
-    if (this.isOpen) return;
-
-    this.isOpen = true;
-    this.classList.add("cart-notification--open");
-
-    // Animate in
-    this.style.transform = "translateX(100%)";
-    this.style.transition = "transform 0.3s ease-out";
-
-    // Force reflow
-    this.offsetHeight;
-
-    this.style.transform = "translateX(0)";
-
-    // Set up focus trap for keyboard users
-    this.setupFocusTrap();
-
-    // Dispatch event
-    this.dispatchEvent(
-      new CustomEvent("cart-notification:opened", {
-        bubbles: true,
-        detail: { notification: this },
-      }),
-    );
-  }
-
-  close() {
-    if (!this.isOpen) return;
-
-    this.isOpen = false;
-    this.classList.remove("cart-notification--open");
-
-    // Clear auto-hide timeout
-    if (this.hideTimeout) {
-      clearTimeout(this.hideTimeout);
-      this.hideTimeout = null;
-    }
-
-    // Animate out
-    this.style.transform = "translateX(100%)";
+  removeNotification(notification) {
+    // Animate out using tailwindcss-animate
+    notification.classList.add("animate-out", "slide-out-to-right", "duration-300");
 
     // Remove from DOM after animation
+    const removeDelay = window.THEME_CONFIG?.ANIMATION_DURATIONS?.normal || 300;
     setTimeout(() => {
-      this.style.transform = "";
-      this.style.transition = "";
-      this.innerHTML = "";
-    }, 300);
-
-    // Remove focus trap
-    this.removeFocusTrap();
-
-    // Dispatch event
-    this.dispatchEvent(
-      new CustomEvent("cart-notification:closed", {
-        bubbles: true,
-        detail: { notification: this },
-      }),
-    );
-  }
-
-  setupFocusTrap() {
-    // Only trap focus if user is navigating with keyboard
-    if (this.isKeyboardUser()) {
-      if (window.DOMUtils) {
-        this.focusTrap = window.DOMUtils.trapFocus(this);
+      if (notification.parentNode) {
+        notification.parentNode.removeChild(notification);
       }
-    }
-  }
 
-  removeFocusTrap() {
-    if (this.focusTrap && typeof this.focusTrap === "function") {
-      this.focusTrap();
-      this.focusTrap = null;
-    }
-  }
-
-  isKeyboardUser() {
-    // Simple heuristic: check if user has recently used keyboard
-    return (
-      document.body.classList.contains("keyboard-user") ||
-      (document.activeElement && document.activeElement !== document.body)
-    );
-  }
-
-  announceToScreenReader(message) {
-    if (window.ThemeUtilities) {
-      const a11yUtil = window.ThemeUtilities.getUtility("a11y");
-      if (a11yUtil) {
-        a11yUtil.announce(message);
+      // Remove from notifications array
+      const index = this.notifications.indexOf(notification);
+      if (index > -1) {
+        this.notifications.splice(index, 1);
       }
+    }, removeDelay);
+  }
+
+  // Manual notification methods
+  show(message, type = "success", duration = null) {
+    const defaultDuration = window.THEME_CONFIG?.ANIMATION_DURATIONS?.slower * 4 || 4000;
+    const finalDuration = duration || defaultDuration;
+    const notification = this.createNotification({ message }, type);
+    this.addNotification(notification);
+
+    if (finalDuration !== defaultDuration) {
+      setTimeout(() => {
+        this.removeNotification(notification);
+      }, finalDuration);
     }
   }
 
-  formatPrice(price) {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(price / 100);
+  showSuccess(message, duration) {
+    this.show(message, "success", duration);
   }
 
-  cleanup() {
-    // Clear timeouts
-    if (this.hideTimeout) {
-      clearTimeout(this.hideTimeout);
+  showError(message, duration) {
+    this.show(message, "error", duration);
+  }
+
+  // Clear all notifications
+  clear() {
+    this.notifications.forEach((notification) => {
+      this.removeNotification(notification);
+    });
+  }
+
+  // Destroy the notification system
+  destroy() {
+    this.clear();
+    if (this.container && this.container.parentNode) {
+      this.container.parentNode.removeChild(this.container);
     }
-
-    // Remove focus trap
-    this.removeFocusTrap();
-
-    // Remove event listeners
-    document.removeEventListener("cart:item-added", this.handleCartItemAdded.bind(this));
-    document.removeEventListener("cart:updated", this.handleCartUpdated.bind(this));
-  }
-
-  // Public API
-  toggle() {
-    if (this.isOpen) {
-      this.close();
-    } else {
-      this.open();
-    }
-  }
-
-  get opened() {
-    return this.isOpen;
   }
 }
 
-// Register the component
-if (!customElements.get("cart-notification")) {
-  customElements.define("cart-notification", CartNotification);
-}
+// Initialize cart notification system
+const cartNotification = new CartNotification();
 
-// Export for use in global scope
-window.CartNotification = CartNotification;
+// Export for use in other modules
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = CartNotification;
+} else {
+  window.CartNotification = CartNotification;
+  window.cartNotification = cartNotification;
+}

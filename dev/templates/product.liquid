@@ -30,7 +30,7 @@
     "sku": {{ current_variant.sku | json }},
     "brand": {
       "@type": "Brand",
-      "name": {{ product.vendor | json }}
+      "name": {%- if product.collections.size > 0 -%}{%- assign display_collection = nil -%}{%- for collection in product.collections -%}{%- unless collection.title == 'All Items' or collection.handle == 'all' -%}{%- assign display_collection = collection -%}{%- break -%}{%- endunless -%}{%- endfor -%}{%- if display_collection -%}{{ display_collection.title | json }}{%- else -%}{{ product.vendor | json }}{%- endif -%}{%- else -%}{{ product.vendor | json }}{%- endif -%}
     },
     "offers": {
       "@type": "Offer",
@@ -271,7 +271,7 @@
   .product-description * {
     color: white !important;
   }
-  
+
   .product-description p,
   .product-description div,
   .product-description span,

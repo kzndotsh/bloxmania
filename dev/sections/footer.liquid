@@ -9,77 +9,92 @@
   - Accessibility best practices
 {% endcomment %}
 
-<footer class="footer" role="contentinfo" aria-label="Site footer">
+<footer class="footer animate-in slide-in-from-bottom duration-500" role="contentinfo" aria-label="Site footer">
   <!-- Background Pattern -->
   <div class="footer__background" aria-hidden="true"></div>
-  
+
   <div class="footer__container">
     <!-- Main Footer Content -->
     <div class="footer__main">
       <!-- Brand Section -->
-      <div class="footer__brand">
+      <div class="footer__brand animate-in slide-in-from-bottom duration-500 delay-200">
         <div class="footer__logo">
-          <h2 class="footer__logo-text">
-            <span class="footer__logo-highlight">Blox</span>Mania
-          </h2>
+          <h2 class="footer__logo-text"><span class="footer__logo-highlight">Blox</span>Mania</h2>
         </div>
-        
+
         <p class="footer__description">
-          {{ section.settings.company_description | default: 'The fastest, safest, and most reliable marketplace for digital gaming items.' }}
+          {{
+            section.settings.company_description
+            | default: 'The fastest, safest, and most reliable marketplace for digital gaming items.'
+          }}
         </p>
 
         <!-- Social Links -->
-        <div class="footer__social" role="list" aria-label="Social media links">
+        <div
+          class="footer__social animate-in slide-in-from-bottom duration-500 delay-400"
+          role="list"
+          aria-label="Social media links"
+        >
           {%- if section.settings.discord_url != blank -%}
-            <a href="{{ section.settings.discord_url }}" 
-               class="footer__social-link" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               aria-label="Follow us on Discord">
+            <a
+              href="{{ section.settings.discord_url }}"
+              class="footer__social-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Follow us on Discord"
+            >
               <i class="fab fa-discord" aria-hidden="true"></i>
               <span class="footer__social-text">Discord</span>
             </a>
           {%- endif -%}
 
           {%- if section.settings.youtube_url != blank -%}
-            <a href="{{ section.settings.youtube_url }}" 
-               class="footer__social-link" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               aria-label="Subscribe to our YouTube channel">
+            <a
+              href="{{ section.settings.youtube_url }}"
+              class="footer__social-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Subscribe to our YouTube channel"
+            >
               <i class="fab fa-youtube" aria-hidden="true"></i>
               <span class="footer__social-text">YouTube</span>
             </a>
           {%- endif -%}
 
           {%- if section.settings.tiktok_url != blank -%}
-            <a href="{{ section.settings.tiktok_url }}" 
-               class="footer__social-link" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               aria-label="Follow us on TikTok">
+            <a
+              href="{{ section.settings.tiktok_url }}"
+              class="footer__social-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Follow us on TikTok"
+            >
               <i class="fab fa-tiktok" aria-hidden="true"></i>
               <span class="footer__social-text">TikTok</span>
             </a>
           {%- endif -%}
 
           {%- if section.settings.twitter_url != blank -%}
-            <a href="{{ section.settings.twitter_url }}" 
-               class="footer__social-link" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               aria-label="Follow us on Twitter">
+            <a
+              href="{{ section.settings.twitter_url }}"
+              class="footer__social-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Follow us on Twitter"
+            >
               <i class="fab fa-twitter" aria-hidden="true"></i>
               <span class="footer__social-text">Twitter</span>
             </a>
           {%- endif -%}
 
           {%- if section.settings.instagram_url != blank -%}
-            <a href="{{ section.settings.instagram_url }}" 
-               class="footer__social-link" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               aria-label="Follow us on Instagram">
+            <a
+              href="{{ section.settings.instagram_url }}"
+              class="footer__social-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Follow us on Instagram"
+            >
               <i class="fab fa-instagram" aria-hidden="true"></i>
               <span class="footer__social-text">Instagram</span>
             </a>
@@ -88,7 +103,11 @@
       </div>
 
       <!-- Navigation Links -->
-      <nav class="footer__nav" role="navigation" aria-label="Footer navigation">
+      <nav
+        class="footer__nav animate-in slide-in-from-bottom duration-500 delay-300"
+        role="navigation"
+        aria-label="Footer navigation"
+      >
         <div class="footer__nav-section">
           <h3 class="footer__nav-title">Shop</h3>
           <ul class="footer__nav-list" role="list">
@@ -99,13 +118,19 @@
               </a>
             </li>
             <li>
-              <a href="{{ collections.featured.url | default: routes.all_products_collection_url }}" class="footer__nav-link">
+              <a
+                href="{{ collections.featured.url | default: routes.all_products_collection_url }}"
+                class="footer__nav-link"
+              >
                 <i class="fas fa-star" aria-hidden="true"></i>
                 Featured
               </a>
             </li>
             <li>
-              <a href="{{ collections['new-arrivals'].url | default: routes.all_products_collection_url }}" class="footer__nav-link">
+              <a
+                href="{{ collections['new-arrivals'].url | default: routes.all_products_collection_url }}"
+                class="footer__nav-link"
+              >
                 <i class="fas fa-plus-circle" aria-hidden="true"></i>
                 New Arrivals
               </a>
@@ -131,21 +156,25 @@
           </ul>
         </div>
 
-
         <div class="footer__nav-section">
           <h3 class="footer__nav-title">Community</h3>
           <ul class="footer__nav-list" role="list">
             <li>
-              <a href="{{ section.settings.discord_url | default: 'https://discord.gg/bloxmania' }}" 
-                 class="footer__nav-link" 
-                 target="_blank" 
-                 rel="noopener">
+              <a
+                href="{{ section.settings.discord_url | default: 'https://discord.gg/bloxmania' }}"
+                class="footer__nav-link"
+                target="_blank"
+                rel="noopener"
+              >
                 <i class="fab fa-discord" aria-hidden="true"></i>
                 Discord Server
               </a>
             </li>
             <li>
-              <a href="{{ pages['purchasing-guide'].url | default: '/pages/purchasing-guide' }}" class="footer__nav-link">
+              <a
+                href="{{ pages['purchasing-guide'].url | default: '/pages/purchasing-guide' }}"
+                class="footer__nav-link"
+              >
                 <i class="fas fa-book-open" aria-hidden="true"></i>
                 Buying Guide
               </a>
@@ -165,7 +194,7 @@
           <span>for gamers</span>
         </div>
       </div>
-      
+
       <!-- Legal links - centered below -->
       <div class="footer__legal-links">
         <span class="footer__copyright">© {{ 'now' | date: '%Y' }} BloxMania</span>

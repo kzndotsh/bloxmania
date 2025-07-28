@@ -92,7 +92,7 @@
     padding: 0.5rem 1rem;
     border-radius: 9999px; /* rounded-full */
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all var(--duration-normal) var(--easing-smooth);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     border: 1px solid;
     cursor: default;
@@ -134,7 +134,7 @@
     margin: 0 auto;
     z-index: 1;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    transition: all var(--duration-normal) var(--easing-smooth);
     transform: translateZ(0);
     cursor: pointer;
   }
@@ -228,7 +228,7 @@
     margin: 1rem;
     background: transparent;
     object-fit: cover;
-    transition: all 0.3s ease;
+    transition: all var(--duration-normal) var(--easing-smooth);
     cursor: pointer;
     position: relative;
   }
@@ -296,12 +296,6 @@
     filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.6)) !important;
   }
 
-  @keyframes float {
-    0%,
-    100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-  }
-
   /* Promo Section */
   .guarantee-promo {
     display: flex;
@@ -349,7 +343,7 @@
     width: 24rem; /* w-96 */
     height: 24rem; /* h-96 */
     object-fit: contain;
-    transition: all 0.3s ease;
+    transition: all var(--duration-normal) var(--easing-smooth);
     transform: translateZ(0);
     filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.3));
     cursor: pointer;

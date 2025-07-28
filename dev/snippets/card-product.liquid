@@ -39,22 +39,22 @@
           <!-- Product Image Section -->
           <div class="flex-shrink-0">
             <div class="relative">
-              {%- if card_product.featured_image != blank -%}
-                <img
-                  src="{{ card_product.featured_image | image_url: width: 200 }}"
-                  alt="{{ card_product.title | escape }}"
-                  class="w-20 h-20 lg:w-24 lg:h-24 rounded-xl object-cover shadow-lg group-hover:scale-105 transition-transform duration-300"
-                  width="96"
-                  height="96"
-                  {% if lazy_load %}
-                    loading="lazy"
-                  {% endif %}
-                >
-              {%- else -%}
-                <div class="w-20 h-20 lg:w-24 lg:h-24 rounded-xl bg-gray-700 flex items-center justify-center shadow-lg">
+              <div class="w-20 h-20 lg:w-24 lg:h-24 rounded-xl bg-gray-700 flex items-center justify-center shadow-lg overflow-hidden">
+                {%- if card_product.featured_image != blank -%}
+                  <img
+                    src="{{ card_product.featured_image | image_url: width: 200 }}"
+                    alt="{{ card_product.title | escape }}"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    width="96"
+                    height="96"
+                    {% if lazy_load %}
+                      loading="lazy"
+                    {% endif %}
+                  >
+                {%- else -%}
                   {% render 'icon', icon: 'image', size: 'large', color: 'gray' %}
-                </div>
-              {%- endif -%}
+                {%- endif -%}
+              </div>
 
               <!-- Sale Badge -->
               {%- if show_compare_at_price and card_product.compare_at_price > card_product.price -%}
@@ -74,11 +74,6 @@
                 <h3 class="text-xl lg:text-2xl font-bold text-white mb-2 group-hover:text-primary transition-colors duration-200 line-clamp-2">
                   {{ card_product.title | escape }}
                 </h3>
-
-                <!-- Product Vendor -->
-                {%- if show_vendor and card_product.vendor != blank -%}
-                  <p class="text-sm text-gray-400 mb-3 font-medium">{{ card_product.vendor }}</p>
-                {%- endif -%}
 
                 <!-- Stock Status and Rating -->
                 <div class="flex items-center gap-4 mb-4">
@@ -169,31 +164,27 @@
     >
       <div class="p-4 sm:p-6 lg:p-8 flex-1 flex flex-col">
         <div class="relative group-hover:brightness-110 flex-shrink-0">
-          {% if card_product.featured_image != blank %}
-            <img
-              src="{{ card_product.featured_image | image_url: width: 300 }}"
-              alt="{{ card_product.title }}"
-              class="w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto rounded-xl mb-4 sm:mb-6 transition-all duration-300 object-cover"
-              width="160"
-              height="160"
-              {% if lazy_load %}
-                loading="lazy"
-              {% endif %}
-            >
-          {% else %}
-            <div class="w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto rounded-xl mb-4 sm:mb-6 bg-gray-700 flex items-center justify-center text-gray-400 text-xs">
-              No Image
-            </div>
-          {% endif %}
+          <div class="w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 mx-auto rounded-xl mb-4 sm:mb-6 bg-gray-700 flex items-center justify-center overflow-hidden">
+            {% if card_product.featured_image != blank %}
+              <img
+                src="{{ card_product.featured_image | image_url: width: 300 }}"
+                alt="{{ card_product.title }}"
+                class="w-full h-full object-cover transition-all duration-300"
+                width="160"
+                height="160"
+                {% if lazy_load %}
+                  loading="lazy"
+                {% endif %}
+              >
+            {% else %}
+              <div class="text-gray-400 text-xs">No Image</div>
+            {% endif %}
+          </div>
         </div>
         <div class="text-center mt-auto">
           <h2 class="font-semibold mb-2 text-sm sm:text-base lg:text-lg line-clamp-2 text-white group-hover:text-primary transition-colors duration-200">
             {{- card_product.title -}}
           </h2>
-
-          {%- if show_vendor -%}
-            <div class="text-xs mb-2 text-gray-400">{{ card_product.vendor }}</div>
-          {%- endif -%}
 
           <div class="font-bold text-base sm:text-lg lg:text-xl text-primary">
             {% if show_compare_at_price and card_product.compare_at_price > card_product.price %}

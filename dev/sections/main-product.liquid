@@ -71,7 +71,22 @@
               {%- if product.vendor != blank -%}
                 <div class="product-vendor" {{ block.shopify_attributes }}>
                   <p class="text-sm font-medium text-gray-400 uppercase tracking-wider">
-                    {{ product.vendor }}
+                    {%- if product.collections.size > 0 -%}
+                      {%- assign display_collection = null -%}
+                      {%- for collection in product.collections -%}
+                        {%- unless collection.title == 'All Items' or collection.handle == 'all' -%}
+                          {%- assign display_collection = collection -%}
+                          {%- break -%}
+                        {%- endunless -%}
+                      {%- endfor -%}
+                      {%- if display_collection -%}
+                        {{ display_collection.title }}
+                      {%- else -%}
+                        {{ product.vendor }}
+                      {%- endif -%}
+                    {%- else -%}
+                      {{ product.vendor }}
+                    {%- endif -%}
                   </p>
                 </div>
               {%- endif -%}

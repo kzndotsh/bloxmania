@@ -1,5 +1,5 @@
 <header
-  class="header header--transparent"
+  class="header header--transparent animate-in fade-in duration-500"
   id="header"
   role="banner"
 >
@@ -42,7 +42,7 @@
       >
         <a
           href="{{ routes.all_products_collection_url }}"
-          class="nav-link text-gray-300 no-underline font-semibold text-sm lg:text-base xl:text-lg transition-all duration-300 relative flex items-center gap-1 lg:gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+          class="nav-link text-gray-300 no-underline font-semibold text-sm lg:text-base xl:text-lg transition-all relative flex items-center gap-1 lg:gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full animate-in slide-in-from-top duration-300 delay-100"
         >
           {% render 'icon', icon: 'shopping-bag', class: 'transition-colors duration-300', size: 'medium' %}
           Shop Now
@@ -50,7 +50,7 @@
 
         <a
           href="{{ pages.guarantee.url | default: '/pages/guarantee' }}"
-          class="nav-link text-gray-300 no-underline font-semibold text-sm lg:text-base xl:text-lg transition-all duration-300 relative flex items-center gap-1 lg:gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+          class="nav-link text-gray-300 no-underline font-semibold text-sm lg:text-base xl:text-lg transition-all relative flex items-center gap-1 lg:gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full animate-in slide-in-from-top duration-300 delay-200"
         >
           <div class="relative">
             {% render 'icon', icon: 'shield', class: 'transition-colors duration-300', size: 'medium' %}
@@ -61,7 +61,7 @@
         {%- if section.settings.discord_url != blank -%}
           <a
             href="{{ section.settings.discord_url }}"
-            class="nav-link text-gray-300 no-underline font-semibold text-sm lg:text-base xl:text-lg transition-all duration-300 relative flex items-center gap-1 lg:gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+            class="nav-link text-gray-300 no-underline font-semibold text-sm lg:text-base xl:text-lg transition-all relative flex items-center gap-1 lg:gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full animate-in slide-in-from-top duration-300 delay-300"
             target="_blank"
             rel="noopener"
           >
@@ -76,7 +76,7 @@
 
         <a
           href="{{ pages['purchasing-guide'].url | default: '/pages/purchasing-guide' }}"
-          class="nav-link text-gray-300 no-underline font-semibold text-sm lg:text-base xl:text-lg transition-all duration-300 relative flex items-center gap-1 lg:gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+          class="nav-link text-gray-300 no-underline font-semibold text-sm lg:text-base xl:text-lg transition-all relative flex items-center gap-1 lg:gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full animate-in slide-in-from-top duration-300 delay-400"
         >
           {% render 'icon', icon: 'file-lines', class: 'transition-colors duration-300', size: 'medium' %}
           Purchasing Guide
@@ -98,7 +98,7 @@
 
       <!-- Search Button (Hidden on Mobile) -->
       <button
-        class="header__icon-button search-toggle hidden lg:flex"
+        class="header__icon-button search-toggle hidden lg:flex animate-in slide-in-from-top duration-300 delay-500"
         aria-label="Search"
         type="button"
         data-search-toggle
@@ -109,7 +109,7 @@
       <!-- Cart Button (Hidden on Mobile) -->
       <a
         href="{{ routes.cart_url }}"
-        class="header__icon-button header__cart-button hidden lg:flex"
+        class="header__icon-button header__cart-button hidden lg:flex animate-in slide-in-from-top duration-300 delay-600"
         aria-label="Shopping cart"
       >
         {% render 'icon', icon: 'cart', size: 'medium' %}
@@ -123,7 +123,7 @@
       <!-- Account Button (Hidden on Mobile) -->
       <a
         href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
-        class="header__icon-button hidden lg:flex"
+        class="header__icon-button hidden lg:flex animate-in slide-in-from-top duration-300 delay-700"
         aria-label="{% if customer %}User account{% else %}Sign in{% endif %}"
       >
         {% render 'icon', icon: 'user', size: 'medium' %}
@@ -137,8 +137,8 @@
 
 <!-- Search Modal -->
 <div id="search-modal" class="search-modal hidden">
-  <div class="search-modal__overlay"></div>
-  <div class="search-modal__content">
+  <div class="search-modal__overlay animate-in fade-in duration-300"></div>
+  <div class="search-modal__content animate-in slide-in-from-top duration-300 delay-100">
     <div class="search-modal__container">
       <!-- Search Modal Header -->
       <div class="search-modal__header">

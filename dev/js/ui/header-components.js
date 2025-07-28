@@ -624,7 +624,8 @@ class SearchModal extends HTMLElement {
   debounceSearch(func, wait) {
     return (...args) => {
       clearTimeout(this.searchTimeout);
-      this.searchTimeout = setTimeout(() => func.apply(this, args), wait);
+      const debounceWait = wait || window.THEME_CONFIG?.ON_CHANGE_DEBOUNCE_TIMER || 300;
+      this.searchTimeout = setTimeout(() => func.apply(this, args), debounceWait);
     };
   }
 

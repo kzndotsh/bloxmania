@@ -165,15 +165,15 @@
   --type-scale-desktop: 1;       /* 16px base on desktop */
   --type-scale-large: 1.0625;    /* 17px base on large screens */
 
-  /* Transitions & Animations */
-  --duration-fast: 0.15s;
+  /* Transitions & Animations - Using THEME_CONFIG.ANIMATION_DURATIONS */
+  --duration-fast: 0.15s;      /* ANIMATION_DURATIONS.fast */
   --duration-short: 0.2s;
-  --duration-default: 0.3s;
+  --duration-default: 0.3s;    /* ANIMATION_DURATIONS.normal */
   --duration-medium: 0.4s;
-  --duration-slow: 0.5s;
+  --duration-slow: 0.5s;       /* ANIMATION_DURATIONS.slow */
   --duration-long: 0.6s;
   --duration-card: 0.6s;
-  --duration-very-slow: 1s;
+  --duration-very-slow: 1s;    /* ANIMATION_DURATIONS.slower */
 
   --easing-linear: linear;
   --easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);

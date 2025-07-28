@@ -27,6 +27,32 @@
     box-shadow: var(--shadow-card), var(--shadow-glow);
   }
 
+  /* Product card specific hover animations */
+  .product-card {
+    transition: all var(--duration-normal) var(--easing-smooth);
+  }
+
+  .product-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .product-card__image {
+    transition: transform var(--duration-normal) var(--easing-smooth);
+  }
+
+  .product-card:hover .product-card__image {
+    transform: scale(1.05);
+  }
+
+  .product-card__badge {
+    transition: all var(--duration-fast) var(--easing-smooth);
+  }
+
+  .product-card:hover .product-card__badge {
+    transform: scale(1.1);
+  }
+
   .card__image {
     width: 100%;
     aspect-ratio: var(--ratio-video);

@@ -1,296 +1,455 @@
-// BloxMania Theme - Global JavaScript
+/**
+ * BloxMania Core - Global JavaScript
+ * Professional animation and interaction system
+ */
 
-// Wait for critical initialization to complete before starting main features
-document.addEventListener("theme:page:loaded", function () {
-  // Initialize utility modules
-  if (window.HeaderUtils) window.bloxManiaHeader = new window.HeaderUtils();
-  if (window.CartUtils) window.bloxManiaCart = new window.CartUtils();
-  if (window.SearchUtils) window.bloxManiaSearch = new window.SearchUtils();
+// ===== ANIMATION SYSTEM =====
 
-  // Initialize theme features
-  initializeThemeFeatures();
-});
-
-// Fallback initialization for DOMContentLoaded
-document.addEventListener("DOMContentLoaded", function () {
-  // Wait for utilities to load, then initialize
-  document.addEventListener("theme:utilities:loaded", initializeThemeFeatures);
-
-  // Fallback initialization if utilities are already loaded
-  if (window.ThemeUtilities && window.ThemeUtilities.initialized) {
-    initializeThemeFeatures();
+class AnimationController {
+  constructor() {
+    this.observers = new Map();
+    this.isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    this.init();
   }
 
-  // Trigger page loaded event if init.js hasn't already
-  setTimeout(() => {
-    if (!document.documentElement.classList.contains("page-loaded")) {
-      document.dispatchEvent(new CustomEvent("theme:page:loaded"));
+  init() {
+    // Skip animations if user prefers reduced motion
+    if (this.isReducedMotion) {
+      return;
     }
-  }, 500);
-});
 
-// Initialize theme features using enhanced utilities
-function initializeThemeFeatures() {
-  const utilities = window.ThemeUtilities;
-
-  if (!utilities) {
-    console.warn("ThemeUtilities not available, falling back to basic initialization");
-    initBasicFeatures();
-    return;
+    // Initialize intersection observers for different animation types
+    this.initFadeInObserver();
+    this.initSlideInObserver();
+    this.initScaleInObserver();
   }
 
-  // Initialize smooth scrolling using animation utility
-  initSmoothScrolling(utilities);
+  initFadeInObserver() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Use tailwindcss-animate classes
+            entry.target.classList.add("animate-in", "fade-in", "duration-300");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      },
+    );
 
-  // Initialize newsletter form
-  initNewsletterForm(utilities);
-
-  // Initialize animations using animation utility
-  initAnimations(utilities);
-
-  // Initialize lazy loading using performance utility
-  initLazyLoading(utilities);
-
-  // Initialize accessibility features
-  initAccessibilityFeatures(utilities);
-}
-
-// Enhanced smooth scrolling using utilities
-function initSmoothScrolling(utilities) {
-  const animationUtil = utilities.getUtility("animation");
-
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault();
-      const target = this.getAttribute("href");
-
-      if (animationUtil) {
-        animationUtil.scrollTo(target);
-      } else {
-        // Fallback
-        const element = document.querySelector(target);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      }
+    // Observe elements that should fade in
+    document.querySelectorAll('[data-animate="fade-in"]').forEach((el) => {
+      observer.observe(el);
     });
-  });
+
+    this.observers.set("fade-in", observer);
+  }
+
+  initSlideInObserver() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const direction = entry.target.dataset.direction || "top";
+            // Use tailwindcss-animate classes
+            entry.target.classList.add("animate-in", `slide-in-from-${direction}`, "duration-300");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      },
+    );
+
+    // Observe elements that should slide in
+    document.querySelectorAll('[data-animate="slide-in"]').forEach((el) => {
+      observer.observe(el);
+    });
+
+    this.observers.set("slide-in", observer);
+  }
+
+  initScaleInObserver() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Use tailwindcss-animate classes
+            entry.target.classList.add("animate-in", "zoom-in", "duration-300");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      },
+    );
+
+    // Observe elements that should scale in
+    document.querySelectorAll('[data-animate="scale-in"]').forEach((el) => {
+      observer.observe(el);
+    });
+
+    this.observers.set("scale-in", observer);
+  }
+
+  // Manual animation triggers
+  animateElement(element, animationType, delay = 0) {
+    if (this.isReducedMotion) return;
+
+    setTimeout(() => {
+      // Map our animation types to tailwindcss-animate classes
+      const animationMap = {
+        "fade-in": ["animate-in", "fade-in", "duration-300"],
+        "slide-in-up": ["animate-in", "slide-in-from-top", "duration-300"],
+        "slide-in-down": ["animate-in", "slide-in-from-bottom", "duration-300"],
+        "slide-in-left": ["animate-in", "slide-in-from-left", "duration-300"],
+        "slide-in-right": ["animate-in", "slide-in-from-right", "duration-300"],
+        "scale-in": ["animate-in", "zoom-in", "duration-300"],
+      };
+
+      const classes = animationMap[animationType] || [`animate-${animationType}`];
+      element.classList.add(...classes);
+    }, delay);
+  }
+
+  // Batch animation with staggered delays
+  animateElements(elements, animationType, staggerDelay = null) {
+    if (this.isReducedMotion) return;
+
+    const defaultStaggerDelay = window.THEME_CONFIG?.ANIMATION_DURATIONS?.fast || 100;
+    const finalStaggerDelay = staggerDelay || defaultStaggerDelay;
+
+    elements.forEach((element, index) => {
+      this.animateElement(element, animationType, index * finalStaggerDelay);
+    });
+  }
+
+  // Cleanup
+  destroy() {
+    this.observers.forEach((observer) => observer.disconnect());
+    this.observers.clear();
+  }
 }
 
-// Enhanced newsletter form with utilities
-function initNewsletterForm(utilities) {
-  const newsletterForm = document.querySelector(".newsletter-form");
-  if (!newsletterForm) return;
+// ===== INTERACTION SYSTEM =====
 
-  const formUtil = utilities.getUtility("form");
-  const a11yUtil = utilities.getUtility("a11y");
+class InteractionController {
+  constructor() {
+    this.init();
+  }
 
-  newsletterForm.addEventListener("submit", function (e) {
-    const submitButton = this.querySelector('button[type="submit"]');
-    const originalText = submitButton.textContent;
+  init() {
+    this.initHoverEffects();
+    this.initFocusEffects();
+    this.initClickEffects();
+  }
 
-    // Validate form if utility is available
-    if (formUtil) {
-      const validation = formUtil.validate(this, {
-        email: {
-          required: true,
-          pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-          message: "Please enter a valid email address",
-        },
+  initHoverEffects() {
+    // Add hover effects to elements with data-hover attribute
+    document.querySelectorAll("[data-hover]").forEach((element) => {
+      const hoverType = element.dataset.hover;
+      element.classList.add(`hover-${hoverType}`);
+    });
+  }
+
+  initFocusEffects() {
+    // Add focus effects to interactive elements
+    document.querySelectorAll("button, a, input, select, textarea").forEach((element) => {
+      element.classList.add("focus-ring");
+    });
+  }
+
+  initClickEffects() {
+    // Add click effects to buttons
+    document.querySelectorAll("button").forEach((button) => {
+      button.addEventListener("click", (e) => {
+        this.createRippleEffect(e);
       });
+    });
+  }
 
-      if (!validation.isValid) {
+  createRippleEffect(event) {
+    const button = event.currentTarget;
+    const ripple = document.createElement("span");
+    const rect = button.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = event.clientX - rect.left - size / 2;
+    const y = event.clientY - rect.top - size / 2;
+
+    ripple.style.cssText = `
+      position: absolute;
+      width: ${size}px;
+      height: ${size}px;
+      left: ${x}px;
+      top: ${y}px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple 0.6s linear;
+      pointer-events: none;
+    `;
+
+    button.style.position = "relative";
+    button.style.overflow = "hidden";
+    button.appendChild(ripple);
+
+    setTimeout(() => {
+      ripple.remove();
+    }, 600);
+  }
+}
+
+// ===== PERFORMANCE SYSTEM =====
+
+class PerformanceController {
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    this.initLazyLoading();
+    this.initSmoothScrolling();
+    this.initDebouncedResize();
+  }
+
+  initLazyLoading() {
+    const imageObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          if (img.dataset.src) {
+            img.src = img.dataset.src;
+            img.removeAttribute("data-src");
+            img.classList.remove("lazy");
+          }
+          imageObserver.unobserve(img);
+        }
+      });
+    });
+
+    document.querySelectorAll("img[data-src]").forEach((img) => {
+      imageObserver.observe(img);
+    });
+  }
+
+  initSmoothScrolling() {
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", (e) => {
         e.preventDefault();
-        if (a11yUtil) {
-          a11yUtil.announce("Please correct the form errors", "assertive");
+        const target = document.querySelector(anchor.getAttribute("href"));
+        if (target) {
+          target.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
         }
-        return;
+      });
+    });
+  }
+
+  initDebouncedResize() {
+    let resizeTimeout;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimeout);
+      const resizeDelay = window.THEME_CONFIG?.PERFORMANCE?.debounce?.resize || 250;
+      resizeTimeout = setTimeout(() => {
+        // Handle resize events
+        this.handleResize();
+      }, resizeDelay);
+    });
+  }
+
+  handleResize() {
+    // Handle responsive behavior
+    const isMobile = window.innerWidth <= 768;
+    document.body.classList.toggle("mobile", isMobile);
+  }
+}
+
+// ===== ACCESSIBILITY SYSTEM =====
+
+class AccessibilityController {
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    this.initSkipLinks();
+    this.initFocusManagement();
+    this.initKeyboardNavigation();
+  }
+
+  initSkipLinks() {
+    // Add skip to content link
+    const skipLink = document.createElement("a");
+    skipLink.href = "#main-content";
+    skipLink.textContent = "Skip to main content";
+    skipLink.className = "skip-link";
+    skipLink.style.cssText = `
+      position: absolute;
+      top: -40px;
+      left: 6px;
+      background: #000;
+      color: #fff;
+      padding: 8px;
+      text-decoration: none;
+      z-index: 1000;
+      transition: top var(--duration-normal);
+    `;
+
+    skipLink.addEventListener("focus", () => {
+      skipLink.style.top = "6px";
+    });
+
+    skipLink.addEventListener("blur", () => {
+      skipLink.style.top = "-40px";
+    });
+
+    document.body.insertBefore(skipLink, document.body.firstChild);
+  }
+
+  initFocusManagement() {
+    // Trap focus in modals
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Tab") {
+        const modals = document.querySelectorAll('[role="dialog"]');
+        modals.forEach((modal) => {
+          if (modal.style.display !== "none") {
+            const focusableElements = modal.querySelectorAll(
+              'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+            );
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            if (e.shiftKey && document.activeElement === firstElement) {
+              e.preventDefault();
+              lastElement.focus();
+            } else if (!e.shiftKey && document.activeElement === lastElement) {
+              e.preventDefault();
+              firstElement.focus();
+            }
+          }
+        });
       }
+    });
+  }
+
+  initKeyboardNavigation() {
+    // Enhanced keyboard navigation
+    document.addEventListener("keydown", (e) => {
+      // Escape key closes modals
+      if (e.key === "Escape") {
+        const modals = document.querySelectorAll('[role="dialog"]');
+        modals.forEach((modal) => {
+          if (modal.style.display !== "none") {
+            modal.style.display = "none";
+          }
+        });
+      }
+    });
+  }
+}
+
+// ===== INITIALIZATION =====
+
+class BloxManiaCore {
+  constructor() {
+    this.animationController = null;
+    this.interactionController = null;
+    this.performanceController = null;
+    this.accessibilityController = null;
+    this.init();
+  }
+
+  init() {
+    // Wait for DOM to be ready
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () => this.setup());
+    } else {
+      this.setup();
     }
+  }
 
-    setButtonState(submitButton, "Subscribing...", true);
+  setup() {
+    // Initialize controllers
+    this.animationController = new AnimationController();
+    this.interactionController = new InteractionController();
+    this.performanceController = new PerformanceController();
+    this.accessibilityController = new AccessibilityController();
 
-    // Form will be handled by Shopify's customer form
-    setTimeout(() => {
-      setButtonState(submitButton, "Subscribed!", true, "#10b981");
+    // Initialize theme features
+    this.initThemeFeatures();
+  }
 
-      if (a11yUtil) {
-        a11yUtil.announce("Successfully subscribed to newsletter");
-      }
+  initThemeFeatures() {
+    // Initialize view toggles
+    this.initViewToggles();
 
-      setTimeout(() => {
-        setButtonState(submitButton, originalText, false);
-      }, 2000);
-    }, 1000);
-  });
-}
+    // Initialize search functionality
+    this.initSearch();
 
-// Enhanced animations using utilities
-function initAnimations(utilities) {
-  const animationUtil = utilities.getUtility("animation");
+    // Initialize cart functionality
+    this.initCart();
+  }
 
-  if (animationUtil) {
-    const elements = document.querySelectorAll(".product-card, .feature-card, .hero-content");
-    animationUtil.observeForAnimation(elements, "animate-fade-in-up");
-  } else {
-    // Fallback to basic animation
-    initBasicAnimations();
+  initViewToggles() {
+    const viewToggles = document.querySelectorAll("[data-view-toggle]");
+    viewToggles.forEach((toggle) => {
+      toggle.addEventListener("click", (e) => {
+        e.preventDefault();
+        const view = toggle.dataset.view;
+        this.setView(view);
+      });
+    });
+  }
+
+  setView(view) {
+    // Update view state
+    localStorage.setItem("collection-view-preference", view);
+
+    // Update UI
+    document.querySelectorAll("[data-view]").forEach((element) => {
+      element.dataset.view = view;
+    });
+  }
+
+  initSearch() {
+    const searchForms = document.querySelectorAll("[data-search-form]");
+    searchForms.forEach((form) => {
+      form.addEventListener("submit", (e) => {
+        // Handle search submission
+        console.log("Search submitted");
+      });
+    });
+  }
+
+  initCart() {
+    const cartButtons = document.querySelectorAll("[data-cart-add]");
+    cartButtons.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        e.preventDefault();
+        const productId = button.dataset.productId;
+        this.addToCart(productId);
+      });
+    });
+  }
+
+  addToCart(productId) {
+    // Add to cart logic
+    console.log("Adding product to cart:", productId);
   }
 }
 
-// Enhanced lazy loading using utilities
-function initLazyLoading(utilities) {
-  const performanceUtil = utilities.getUtility("performance");
-
-  if (performanceUtil) {
-    // Use enhanced lazy loading with multiple selectors
-    performanceUtil.lazyLoadImages(".product-image[data-src], img[data-src], [data-background-image]");
-    performanceUtil.lazyLoadSections("[data-lazy-section]");
-
-    // Add resource hints for better performance
-    performanceUtil.addResourceHints();
-  } else {
-    // Fallback to basic lazy loading
-    initBasicLazyLoading();
-  }
-}
-
-// Initialize accessibility features
-function initAccessibilityFeatures(utilities) {
-  const a11yUtil = utilities.getUtility("a11y");
-
-  if (a11yUtil) {
-    a11yUtil.setupSkipLinks();
-  }
-}
-
-// Fallback functions for when utilities aren't available
-function initBasicFeatures() {
-  initBasicSmoothScrolling();
-  initBasicNewsletterForm();
-  initBasicAnimations();
-  initBasicLazyLoading();
-}
-
-function initBasicSmoothScrolling() {
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute("href"));
-      if (target) {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    });
-  });
-}
-
-function initBasicNewsletterForm() {
-  const newsletterForm = document.querySelector(".newsletter-form");
-  if (!newsletterForm) return;
-
-  newsletterForm.addEventListener("submit", function () {
-    const submitButton = this.querySelector('button[type="submit"]');
-    const originalText = submitButton.textContent;
-
-    setButtonState(submitButton, "Subscribing...", true);
-
-    setTimeout(() => {
-      setButtonState(submitButton, "Subscribed!", true, "#10b981");
-      setTimeout(() => {
-        setButtonState(submitButton, originalText, false);
-      }, 2000);
-    }, 1000);
-  });
-}
-
-function initBasicAnimations() {
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px",
-  };
-
-  const observer = new IntersectionObserver(function (entries) {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("animate-fade-in-up");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
-
-  document.querySelectorAll(".product-card, .feature-card, .hero-content").forEach((el) => {
-    observer.observe(el);
-  });
-}
-
-function initBasicLazyLoading() {
-  const productImages = document.querySelectorAll(".product-image[data-src], img[data-src]");
-  if (productImages.length === 0) return;
-
-  const imageObserver = new IntersectionObserver(function (entries) {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        if (img.dataset.src) {
-          img.src = img.dataset.src;
-          img.removeAttribute("data-src");
-        }
-        img.classList.remove("lazy");
-        imageObserver.unobserve(img);
-      }
-    });
-  });
-
-  productImages.forEach((img) => imageObserver.observe(img));
-}
-
-// Utility function for button states
-function setButtonState(button, text, disabled, backgroundColor = "") {
-  button.textContent = text;
-  button.disabled = disabled;
-  if (backgroundColor) button.style.background = backgroundColor;
-}
-
-// Import centralized theme configuration
-const config = window.THEME_CONFIG || {};
-
-// Theme settings from centralized config
-const themeSettings = {
-  primaryColor: config.COLORS?.primary?.DEFAULT || "#ffd800",
-  secondaryColor: config.COLORS?.secondary?.DEFAULT || "#4791f0",
-  backgroundColor: config.COLORS?.background?.DEFAULT || "#1d1e26",
-  textColor: config.COLORS?.text?.DEFAULT || "#ffffff",
-  // Animation settings
-  animationDuration: config.ANIMATIONS?.durations?.normal || "300ms",
-  animationEasing: config.ANIMATIONS?.easings?.smooth || "cubic-bezier(0.4, 0, 0.2, 1)",
-  // Layout settings
-  pageWidth: config.LAYOUT?.spacing?.pageWidth || "1200px",
-  sectionSpacing: config.LAYOUT?.spacing?.sections || "52px",
-};
-
-// Global theme utilities
-window.BloxManiaTheme = {
-  config: config,
-  themeSettings: themeSettings,
-  showNotification: showNotification,
-  formatPrice: formatPrice,
-};
-
-// Show notification utility
-function showNotification(message, type = "success") {
-  const notification = document.createElement("div");
-  notification.className = `notification notification-${type}`;
-  notification.textContent = message;
-
-  document.body.appendChild(notification);
-
-  setTimeout(() => notification.classList.add("show"), 100);
-
-  setTimeout(() => {
-    notification.classList.remove("show");
-    setTimeout(() => document.body.removeChild(notification), 300);
-  }, 3000);
-}
+// ===== GLOBAL UTILITIES =====
 
 // Format price utility
 function formatPrice(price, currency = "USD") {
@@ -300,53 +459,59 @@ function formatPrice(price, currency = "USD") {
   }).format(price);
 }
 
-// Initialize notification styles
-function initNotificationStyles() {
-  const notificationStyles = document.createElement("style");
-  notificationStyles.textContent = `
-    .notification {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      padding: 1rem 1.5rem;
-      border-radius: 8px;
-      color: white;
-      font-weight: 600;
-      z-index: 10000;
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
-    }
-    .notification.show { transform: translateX(0); }
-    .notification-success { background: #10b981; }
-    .notification-error { background: #ef4444; }
-    .notification-warning { background: #f59e0b; }
+// Show notification utility
+function showNotification(message, type = "success") {
+  const notification = document.createElement("div");
+  notification.className = `notification notification-${type}`;
+  notification.textContent = message;
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    color: white;
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
   `;
-  document.head.appendChild(notificationStyles);
+
+  // Set background color based on type
+  const colors = {
+    success: "#10b981",
+    error: "#ef4444",
+    warning: "#f59e0b",
+    info: "#3b82f6",
+  };
+  notification.style.backgroundColor = colors[type] || colors.info;
+
+  document.body.appendChild(notification);
+
+  // Animate in
+  requestAnimationFrame(() => {
+    notification.style.transform = "translateX(0)";
+  });
+
+  // Remove after 3 seconds
+  setTimeout(() => {
+    notification.style.transform = "translateX(100%)";
+    setTimeout(() => {
+      document.body.removeChild(notification);
+    }, 300);
+  }, 3000);
 }
 
-// Initialize notification styles immediately
-initNotificationStyles();
+// ===== EXPORT =====
 
-// Handle page visibility changes
-document.addEventListener("visibilitychange", function () {
-  if (document.hidden) {
-    document.body.classList.add("page-hidden");
-  } else {
-    document.body.classList.remove("page-hidden");
-  }
-});
+// Initialize core system
+const bloxManiaCore = new BloxManiaCore();
 
-// Handle window resize
-let resizeTimeout;
-window.addEventListener("resize", function () {
-  clearTimeout(resizeTimeout);
-  resizeTimeout = setTimeout(function () {
-    // Trigger resize event for any components that need it
-    window.dispatchEvent(new CustomEvent("themeResize"));
-  }, 250);
-});
-
-// Export for use in other scripts
-if (typeof module !== "undefined" && module.exports) {
-  module.exports = window.BloxManiaTheme;
-}
+// Export for use in other modules
+window.BloxManiaCore = {
+  animation: bloxManiaCore.animationController,
+  interaction: bloxManiaCore.interactionController,
+  performance: bloxManiaCore.performanceController,
+  accessibility: bloxManiaCore.accessibilityController,
+  formatPrice,
+  showNotification,
+};

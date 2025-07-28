@@ -306,17 +306,7 @@
   /* Heart animation */
   .footer__badge:first-child i {
     color: #ef4444;
-    animation: heartbeat 2s ease-in-out infinite;
-  }
-
-  @keyframes heartbeat {
-    0%,
- 100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.1);
-    }
+    opacity: 0.8;
   }
 
   /* Legal Links */

@@ -3,7 +3,7 @@
   Matches the design shown in the reference image
 {% endcomment %}
 
-<div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true" aria-hidden="true">
+<div id="mobile-menu" class="mobile-menu animate-in slide-in-from-left duration-300" role="dialog" aria-modal="true" aria-hidden="true">
   <!-- Header Section -->
   <div class="mobile-menu__header">
     <!-- Logo -->
@@ -19,7 +19,7 @@
   </div>
 
   <!-- Search Section -->
-  <div class="mobile-menu__search">
+  <div class="mobile-menu__search animate-in slide-in-from-left duration-300 delay-100">
     <div class="mobile-menu__search-wrapper">
       {% render 'icon', icon: 'search', class: 'mobile-menu__search-icon', size: 'medium' %}
       <input
@@ -32,7 +32,7 @@
   </div>
 
   <!-- Quick Actions Section -->
-  <div class="mobile-menu__section">
+  <div class="mobile-menu__section animate-in slide-in-from-left duration-300 delay-200">
     <h3 class="mobile-menu__section-title">Quick Actions</h3>
     <div class="mobile-menu__quick-actions">
       <a href="{{ routes.cart_url }}" class="mobile-menu__quick-action">
@@ -48,7 +48,7 @@
   </div>
 
   <!-- Navigation Section -->
-  <div class="mobile-menu__section">
+  <div class="mobile-menu__section animate-in slide-in-from-left duration-300 delay-300">
     <h3 class="mobile-menu__section-title">Navigation</h3>
     <div class="mobile-menu__navigation">
       <a href="/collections/all" class="mobile-menu__nav-link">
@@ -76,7 +76,7 @@
   </div>
 
   <!-- Social Media Section -->
-  <div class="mobile-menu__section">
+  <div class="mobile-menu__section animate-in slide-in-from-left duration-300 delay-400">
     <div class="mobile-menu__social">
       {%- if section.settings.discord_url != blank -%}
         <a href="{{ section.settings.discord_url }}" target="_blank" class="mobile-menu__social-link">
@@ -95,7 +95,7 @@
   </div>
 
   <!-- Footer Section -->
-  <div class="mobile-menu__footer">
+  <div class="mobile-menu__footer animate-in slide-in-from-left duration-300 delay-500">
     <div class="mobile-menu__footer-links">
       <a href="/pages/contact" class="mobile-menu__footer-link">Contact Us</a>
       <a href="/pages/privacy-policy" class="mobile-menu__footer-link">Privacy Policy</a>

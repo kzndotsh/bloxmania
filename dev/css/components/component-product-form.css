@@ -46,4 +46,51 @@
     color: var(--color-error);
     font-size: var(--font-size-sm);
   }
+
+  /* Enhanced animations for product form */
+  .product-form__option-group {
+    transition: all var(--duration-normal) var(--easing-smooth);
+  }
+
+  .product-form__option-group:hover {
+    transform: translateX(4px);
+  }
+
+  .product-form__select,
+  .product-form__quantity-input {
+    transition: all var(--duration-normal) var(--easing-smooth);
+  }
+
+  .product-form__select:hover,
+  .product-form__quantity-input:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(255, 216, 0, 0.1);
+  }
+
+  .product-form__select:focus,
+  .product-form__quantity-input:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 216, 0, 0.2);
+  }
+
+  /* Error animation */
+  .product-form__error {
+    animation: shake 0.5s ease-in-out;
+  }
+
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+
+    25% {
+      transform: translateX(-4px);
+    }
+
+    75% {
+      transform: translateX(4px);
+    }
+  }
 }

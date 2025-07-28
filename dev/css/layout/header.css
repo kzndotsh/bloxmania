@@ -77,4 +77,54 @@
   body:has(.mobile-menu--open) .header__navigation {
     display: none;
   }
+
+  /* Logo focus indicators - ensure clean appearance */
+  .header a:focus-visible {
+    outline: none !important;
+  }
+
+  .header a img {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .header a img:hover {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  /* Remove any potential selection indicators */
+  .header a::before,
+  .header a::after {
+    display: none !important;
+  }
+
+  /* Additional logo link styling to prevent any visual artifacts */
+  .header a:has(img) {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    text-decoration: none !important;
+  }
+
+  .header a:has(img):hover {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    text-decoration: none !important;
+  }
+
+  .header a:has(img):focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .header a:has(img):focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
 }

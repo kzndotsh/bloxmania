@@ -22,12 +22,24 @@ const PUB_SUB_EVENTS = {
   themeEditor: "theme-editor",
 };
 
-// Animation constants
+// Animation constants - Compatible with tailwindcss-animate
 const ANIMATION_DURATIONS = {
-  fast: 150,
-  normal: 300,
-  slow: 500,
-  slower: 1000,
+  fast: 150, // duration-150
+  normal: 300, // duration-300
+  slow: 500, // duration-500
+  slower: 1000, // duration-1000
+};
+
+// Tailwind Animate duration mapping
+const TAILWIND_ANIMATE_DURATIONS = {
+  75: 75, // duration-75
+  100: 100, // duration-100
+  150: 150, // duration-150
+  200: 200, // duration-200
+  300: 300, // duration-300
+  500: 500, // duration-500
+  700: 700, // duration-700
+  1000: 1000, // duration-1000
 };
 
 // Breakpoint constants
@@ -80,6 +92,160 @@ const CSS_CUSTOM_PROPERTIES = {
   spacingSectionsDesktop: "--spacing-sections-desktop",
 };
 
+// ===== THEME CONFIGURATION =====
+
+// Color palette
+const COLORS = {
+  primary: {
+    DEFAULT: "#ffd800",
+    dark: "#e6c200",
+    light: "#ffed4e",
+  },
+  secondary: {
+    DEFAULT: "#4791f0",
+    dark: "#3b7dd9",
+    light: "#6ba3f2",
+  },
+  background: {
+    DEFAULT: "#1d1e26",
+    light: "#2a2b35",
+    dark: "#15161a",
+  },
+  text: {
+    DEFAULT: "#ffffff",
+    muted: "#9ca3af",
+    primary: "#ffd800",
+  },
+  success: "#10b981",
+  error: "#ef4444",
+  warning: "#f59e0b",
+  info: "#3b82f6",
+};
+
+// Typography configuration
+const TYPOGRAPHY = {
+  fontFamily: {
+    sans: ["Inter", "system-ui", "sans-serif"],
+    mono: ["JetBrains Mono", "monospace"],
+  },
+  fontSize: {
+    xs: "0.75rem",
+    sm: "0.875rem",
+    base: "1rem",
+    lg: "1.125rem",
+    xl: "1.25rem",
+    "2xl": "1.5rem",
+    "3xl": "1.875rem",
+    "4xl": "2.25rem",
+    "5xl": "3rem",
+  },
+  fontWeight: {
+    normal: "400",
+    medium: "500",
+    semibold: "600",
+    bold: "700",
+  },
+};
+
+// Layout configuration
+const LAYOUT = {
+  spacing: {
+    pageWidth: "1200px",
+    sections: "52px",
+    container: "1rem",
+  },
+  breakpoints: {
+    sm: "640px",
+    md: "768px",
+    lg: "1024px",
+    xl: "1280px",
+    "2xl": "1536px",
+  },
+};
+
+// Performance configuration
+const PERFORMANCE = {
+  lazyLoading: {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px",
+  },
+  debounce: {
+    resize: 250,
+    scroll: 100,
+    input: 300,
+  },
+};
+
+// Accessibility configuration
+const ACCESSIBILITY = {
+  focusRing: {
+    color: "rgba(255, 216, 0, 0.3)",
+    width: "3px",
+  },
+  skipLinks: {
+    enabled: true,
+    target: "#main-content",
+  },
+  reducedMotion: {
+    enabled: true,
+    duration: "0.01ms",
+  },
+};
+
+// API Configuration
+const API = {
+  endpoints: API_ENDPOINTS,
+  defaults: {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  },
+  search: {
+    limit: 10,
+    resources: "product,collection,page,article",
+    section: "predictive-search",
+  },
+};
+
+// ===== CSS CUSTOM PROPERTIES =====
+
+const CSS_PROPERTIES = {
+  // Color properties
+  primaryColor: "--color-primary",
+  secondaryColor: "--color-secondary",
+  backgroundColor: "--color-background",
+  textColor: "--color-text",
+
+  // Typography properties
+  fontFamily: "--font-family",
+  fontSize: "--font-size",
+  fontWeight: "--font-weight",
+  lineHeight: "--line-height",
+
+  // Layout properties
+  pageWidth: "--page-width",
+  sectionSpacing: "--section-spacing",
+  containerPadding: "--container-padding",
+
+  // Animation properties
+  animationDuration: "--animation-duration",
+  animationEasing: "--animation-easing",
+  transitionDuration: "--transition-duration",
+
+  // Spacing properties
+  spacing: "--spacing",
+  borderRadius: "--border-radius",
+  boxShadow: "--box-shadow",
+
+  // Z-index properties
+  zIndex: "--z-index",
+
+  // Typography scale properties
+  fontBodyScale: "--font-body-scale",
+  fontHeadingScale: "--font-heading-scale",
+};
+
 // Utility functions
 const getFocusableElements = (container) => {
   return Array.from(
@@ -109,11 +275,20 @@ const throttle = (fn, delay) => {
   };
 };
 
-// Export for use in other modules
-window.BloxManiaConstants = {
+// ===== EXPORT =====
+
+const THEME_CONFIG = {
+  COLORS,
+  TYPOGRAPHY,
+  LAYOUT,
+  PERFORMANCE,
+  ACCESSIBILITY,
+  CSS_PROPERTIES,
+  API,
   ON_CHANGE_DEBOUNCE_TIMER,
   PUB_SUB_EVENTS,
   ANIMATION_DURATIONS,
+  TAILWIND_ANIMATE_DURATIONS,
   BREAKPOINTS,
   Z_INDEX,
   API_ENDPOINTS,
@@ -123,3 +298,11 @@ window.BloxManiaConstants = {
   debounce,
   throttle,
 };
+
+// Export for use in other modules
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = THEME_CONFIG;
+} else {
+  window.THEME_CONFIG = THEME_CONFIG;
+  window.BloxManiaConstants = THEME_CONFIG;
+}

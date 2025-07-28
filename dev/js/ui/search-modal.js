@@ -115,7 +115,7 @@ class SearchModal extends HTMLElement {
   }
 
   handleBackdropClick(event) {
-    const content = this.querySelector('.search-modal__content');
+    const content = this.querySelector(".search-modal__content");
     if (!content || !content.contains(event.target)) {
       this.close();
     }
@@ -460,10 +460,11 @@ class SearchModal extends HTMLElement {
     }
   }
 
-  debounceSearch(func, wait) {
+  debounceSearch(func, wait = null) {
+    const debounceWait = wait || window.THEME_CONFIG?.ON_CHANGE_DEBOUNCE_TIMER || 300;
     return (...args) => {
       clearTimeout(this.searchTimeout);
-      this.searchTimeout = setTimeout(() => func.apply(this, args), wait);
+      this.searchTimeout = setTimeout(() => func.apply(this, args), debounceWait);
     };
   }
 
