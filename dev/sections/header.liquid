@@ -58,7 +58,7 @@
           Our Guarantee
         </a>
 
-        {% if section.settings.discord_url != blank %}
+        {%- if section.settings.discord_url != blank -%}
           <a
             href="{{ section.settings.discord_url }}"
             class="nav-link text-gray-300 no-underline font-semibold text-sm lg:text-base xl:text-lg transition-all duration-300 relative flex items-center gap-1 lg:gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
@@ -72,21 +72,7 @@
             %}
             Daily Giveaways
           </a>
-        {% else %}
-          <a
-            href="https://discord.gg/bloxmania"
-            class="nav-link text-gray-300 no-underline font-semibold text-sm lg:text-base xl:text-lg transition-all duration-300 relative flex items-center gap-1 lg:gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
-            target="_blank"
-            rel="noopener"
-          >
-            {% render 'icon',
-              icon: 'discord',
-              class: 'transition-colors duration-300 flex items-center',
-              size: 'medium'
-            %}
-            Daily Giveaways
-          </a>
-        {% endif %}
+        {%- endif -%}
 
         <a
           href="{{ pages['purchasing-guide'].url | default: '/pages/purchasing-guide' }}"
@@ -217,20 +203,17 @@
     {
       "type": "text",
       "id": "discord_url",
-      "label": "Discord URL",
-      "default": "https://discord.gg/bloxmania"
+      "label": "Discord URL"
     },
     {
       "type": "text",
       "id": "youtube_url",
-      "label": "YouTube URL",
-      "default": "https://youtube.com/@bloxmania"
+      "label": "YouTube URL"
     },
     {
       "type": "text",
       "id": "tiktok_url",
-      "label": "TikTok URL",
-      "default": "https://tiktok.com/@bloxmania"
+      "label": "TikTok URL"
     }
   ]
 }

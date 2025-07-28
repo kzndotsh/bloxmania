@@ -61,10 +61,12 @@
         <span class="mobile-menu__nav-text">Our Guarantee</span>
       </a>
 
-      <a href="https://discord.gg/bloxmania" target="_blank" class="mobile-menu__nav-link">
-        {% render 'icon', icon: 'discord', class: 'mobile-menu__nav-icon text-blue-500', size: 'medium' %}
-        <span class="mobile-menu__nav-text">Daily Giveaways</span>
-      </a>
+      {%- if section.settings.discord_url != blank -%}
+        <a href="{{ section.settings.discord_url }}" target="_blank" class="mobile-menu__nav-link">
+          {% render 'icon', icon: 'discord', class: 'mobile-menu__nav-icon text-blue-500', size: 'medium' %}
+          <span class="mobile-menu__nav-text">Daily Giveaways</span>
+        </a>
+      {%- endif -%}
 
       <a href="/pages/purchasing-guide" class="mobile-menu__nav-link">
         {% render 'icon', icon: 'tag', class: 'mobile-menu__nav-icon', size: 'medium' %}
@@ -76,20 +78,19 @@
   <!-- Social Media Section -->
   <div class="mobile-menu__section">
     <div class="mobile-menu__social">
-      <a href="https://discord.gg/bloxmania" target="_blank" class="mobile-menu__social-link">
-        {% render 'icon', icon: 'discord', class: 'mobile-menu__social-icon text-indigo-500', size: 'medium' %}
-        <span class="mobile-menu__social-text">Discord</span>
-      </a>
+      {%- if section.settings.discord_url != blank -%}
+        <a href="{{ section.settings.discord_url }}" target="_blank" class="mobile-menu__social-link">
+          {% render 'icon', icon: 'discord', class: 'mobile-menu__social-icon text-indigo-500', size: 'medium' %}
+          <span class="mobile-menu__social-text">Discord</span>
+        </a>
+      {%- endif -%}
 
-      <a href="https://youtube.com/@bloxmania" target="_blank" class="mobile-menu__social-link">
-        {% render 'icon', icon: 'youtube', class: 'mobile-menu__social-icon text-red-600', size: 'medium' %}
-        <span class="mobile-menu__social-text">YouTube</span>
-      </a>
-
-      <a href="https://tiktok.com/@bloxmania" target="_blank" class="mobile-menu__social-link">
-        {% render 'icon', icon: 'tiktok', class: 'mobile-menu__social-icon', size: 'medium' %}
-        <span class="mobile-menu__social-text">TikTok</span>
-      </a>
+      {%- if section.settings.tiktok_url != blank -%}
+        <a href="{{ section.settings.tiktok_url }}" target="_blank" class="mobile-menu__social-link">
+          {% render 'icon', icon: 'tiktok', class: 'mobile-menu__social-icon', size: 'medium' %}
+          <span class="mobile-menu__social-text">TikTok</span>
+        </a>
+      {%- endif -%}
     </div>
   </div>
 
