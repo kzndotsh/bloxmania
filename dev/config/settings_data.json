@@ -91,7 +91,7 @@
           "logo": "",
           "discord_url": "https://discord.gg/bloxmania",
           "youtube_url": "",
-          "tiktok_url": ""
+          "tiktok_url": "https://tiktok.com/@bloxmania"
         }
       },
       "hero": {
@@ -113,7 +113,7 @@
       "featured_products": {
         "type": "featured-products",
         "settings": {
-          "collection": "",
+          "collection": "featured",
           "products_to_show": 8,
           "view_all_link": "/collections/all"
         }
@@ -143,7 +143,7 @@
           "company_description": "The fastest, cheapest, and safest shop for digital goods, with instant delivery and automated systems ensuring secure and swift transactions.",
           "discord_url": "https://discord.gg/bloxmania",
           "youtube_url": "",
-          "tiktok_url": "",
+          "tiktok_url": "https://tiktok.com/@bloxmania",
           "contact_email": "support@bloxmania.store",
           "contact_phone": "+1 (555) 123-4567",
           "show_powered_by": true
