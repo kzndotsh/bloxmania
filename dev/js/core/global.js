@@ -3,92 +3,67 @@
  * Professional animation and interaction system
  */
 
-// ===== ANIMATION SYSTEM =====
+// ===== SIMPLE ANIMATION SYSTEM =====
 
-class AnimationController {
+class SimpleAnimationController {
   constructor() {
-    this.observer = null;
     this.isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     this.init();
   }
 
   init() {
-    // Skip animations if user prefers reduced motion
-    if (this.isReducedMotion) {
-      return;
+    if (this.isReducedMotion) return;
+    
+    // Only animate key elements that enhance UX
+    this.initHeroAnimations();
+    this.initProductAnimations();
+    this.initMobileMenuAnimations();
+  }
+
+  // Hero section - only animate the main CTA button
+  initHeroAnimations() {
+    const heroCTA = document.querySelector('.hero-cta');
+    if (heroCTA) {
+      // Simple fade in when page loads
+      setTimeout(() => {
+        heroCTA.classList.add('animate-in', 'fade-in', 'duration-500');
+      }, 500);
     }
-
-    // Create single intersection observer for all scroll animations
-    this.observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            this.animateElement(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.15,
-        rootMargin: "0px 0px -100px 0px",
-      },
-    );
-
-    // Observe all elements with animation attributes
-    this.observeElements();
   }
 
-  observeElements() {
-    // Observe elements with data-scroll-animate
-    document.querySelectorAll("[data-scroll-animate]").forEach((element) => {
-      this.observer.observe(element);
-    });
-
-    // Also observe legacy data-animate elements for backward compatibility
-    document.querySelectorAll("[data-animate]").forEach((element) => {
-      this.observer.observe(element);
+  // Product cards - only animate on hover, not scroll
+  initProductAnimations() {
+    const productCards = document.querySelectorAll('.product-card');
+    productCards.forEach(card => {
+      // Remove any scroll animations
+      card.removeAttribute('data-scroll-animate');
+      card.removeAttribute('data-scroll-delay');
+      
+      // Keep only hover effects (handled by CSS)
     });
   }
 
-  animateElement(element) {
-    const animationType = element.dataset.scrollAnimate || element.dataset.animate;
-    const delay = element.dataset.scrollDelay || "0";
-
-    if (!animationType) return;
-
-    // Add animation classes with smooth duration
-    element.classList.add("animate-in", animationType, "duration-700");
-    element.style.animationDelay = `${delay}ms`;
-
-    // Mark as animated to prevent re-triggering
-    element.dataset.animated = "true";
-
-    // Stop observing this element
-    this.observer.unobserve(element);
+  // Mobile menu - only animate when opening
+  initMobileMenuAnimations() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenu) {
+      // Remove any scroll animations
+      mobileMenu.removeAttribute('data-scroll-animate');
+    }
   }
 
-  // Manual animation triggers for programmatic use
-  animateElementManual(element, animationType, delay = 0) {
+  // Simple fade in for specific elements
+  fadeIn(element, delay = 0) {
     if (this.isReducedMotion) return;
-
+    
     setTimeout(() => {
-      element.classList.add("animate-in", animationType, "duration-700");
+      element.classList.add('animate-in', 'fade-in', 'duration-500');
     }, delay);
-  }
-
-  // Batch animation with staggered delays
-  animateElements(elements, animationType, staggerDelay = 200) {
-    if (this.isReducedMotion) return;
-
-    elements.forEach((element, index) => {
-      this.animateElementManual(element, animationType, index * staggerDelay);
-    });
   }
 
   // Cleanup
   destroy() {
-    if (this.observer) {
-      this.observer.disconnect();
-    }
+    // No observers to clean up
   }
 }
 
@@ -334,7 +309,7 @@ class BloxManiaCore {
 
   setup() {
     // Initialize controllers
-    this.animationController = new AnimationController();
+    this.animationController = new SimpleAnimationController();
     this.interactionController = new InteractionController();
     this.performanceController = new PerformanceController();
     this.accessibilityController = new AccessibilityController();

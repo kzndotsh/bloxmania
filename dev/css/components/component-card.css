@@ -31,14 +31,15 @@
     box-shadow: var(--shadow-card), var(--shadow-glow);
   }
 
-  /* Product card specific hover animations */
+  /* Product card hover effects - subtle and purposeful */
   .product-card {
     transition: all var(--duration-normal) var(--easing-smooth);
+    transform: translateY(0);
   }
 
   .product-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
   }
 
   .product-card__image {
@@ -46,7 +47,7 @@
   }
 
   .product-card:hover .product-card__image {
-    transform: scale(1.05);
+    transform: scale(1.02);
   }
 
   .product-card__badge {
@@ -54,7 +55,7 @@
   }
 
   .product-card:hover .product-card__badge {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 
   .card__image {
