@@ -43,7 +43,7 @@
 </script>
 
 <div class="bg-background text-white min-h-screen page-content">
-  <div class="container mx-auto section">
+  <div class="container section">
     <!-- Breadcrumb Navigation -->
     {% render 'breadcrumb', collection: collection %}
 
@@ -77,75 +77,95 @@
     </div>
 
     <!-- Collection Filters and Sorting -->
-    <div class="collection-toolbar mb-8">
+    <div class="collection-toolbar mb-8 -mx-6 px-6">
       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-        <!-- Filters Toggle (Mobile) -->
-        <div class="lg:hidden">
-          <button
-            type="button"
-            class="filters-toggle flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg border border-gray-600 transition-colors duration-200"
-            onclick="toggleFilters()"
-          >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.207A1 1 0 013 6.5V4z"/>
-            </svg>
-            {{ 'collections.filtering.filter_button' | t | default: 'Filter' }}
-          </button>
-        </div>
+        <!-- Left side: Filters, Back button, Sort options -->
+        <div class="flex flex-col lg:flex-row lg:items-center gap-4">
+          <!-- Filters Toggle (Mobile) -->
+          <div class="lg:hidden">
+            <button
+              type="button"
+              class="filters-toggle flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg border border-gray-600 transition-colors duration-200"
+              onclick="toggleFilters()"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.207A1 1 0 013 6.5V4z"/>
+              </svg>
+              {{ 'collections.filtering.filter_button' | t | default: 'Filter' }}
+            </button>
+          </div>
 
-        <!-- Collection Filter and Sort Options -->
-        <div class="filter-sort-container flex items-center gap-4">
-          {%- if collection.products.size > 0 -%}
-            {%- assign unique_collections = '' -%}
-            {%- for product in collection.products -%}
-              {%- for product_collection in product.collections -%}
-                {%- unless product_collection.title == 'All Items'
-                  or product_collection.handle == 'all'
-                  or unique_collections contains product_collection.title
-                -%}
-                  {%- assign unique_collections = unique_collections
-                    | append: product_collection.title
-                    | append: ','
+          <!-- Collection Filter and Sort Options -->
+          <div class="filter-sort-container flex items-center gap-4">
+            {%- comment -%} Only show collection filter on the "all" collection page {%- endcomment -%}
+            {%- if collection.handle == 'all' and collection.products.size > 0 -%}
+              {%- assign unique_collections = '' -%}
+              {%- for product in collection.products -%}
+                {%- for product_collection in product.collections -%}
+                  {%- unless product_collection.title == 'All Items'
+                    or product_collection.handle == 'all'
+                    or unique_collections contains product_collection.title
                   -%}
-                {%- endunless -%}
+                    {%- assign unique_collections = unique_collections
+                      | append: product_collection.title
+                      | append: ','
+                    -%}
+                  {%- endunless -%}
+                {%- endfor -%}
               {%- endfor -%}
-            {%- endfor -%}
 
-            {%- if unique_collections != '' -%}
-              {%- assign collection_array = unique_collections | split: ',' -%}
-              <div class="collection-filter flex items-center gap-2">
-                <label for="collection-filter" class="text-sm font-medium text-gray-300">Filter by Category:</label>
-                <form class="relative">
-                  <select
-                    id="collection-filter"
-                    name="collection_filter"
-                    class="collection-select bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 text-white rounded-xl px-4 py-3 pr-10 text-sm font-medium shadow-lg focus:border-primary/50 focus:outline-none focus:ring-0 appearance-none cursor-pointer transition-all duration-300 hover:bg-gray-800/80"
-                    onchange="filterByCollection(this.value)"
-                  >
-                    <option value="">All Categories</option>
-                    {%- for collection_name in collection_array -%}
-                      {%- unless collection_name == '' -%}
-                        <option value="{{ collection_name | handleize }}">
-                          {{ collection_name }}
-                        </option>
-                      {%- endunless -%}
-                    {%- endfor -%}
-                  </select>
-                  <!-- Custom dropdown arrow -->
-                  <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                    <svg
-                      class="w-4 h-4 text-gray-400 transition-colors duration-300"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+              {%- if unique_collections != '' -%}
+                {%- assign collection_array = unique_collections | split: ',' -%}
+                <div class="collection-filter flex items-center gap-2">
+                  <label for="collection-filter" class="text-sm font-medium text-gray-300">Filter by Category:</label>
+                  <form class="relative">
+                    <select
+                      id="collection-filter"
+                      name="collection_filter"
+                      class="collection-select bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 text-white rounded-xl px-4 py-3 pr-10 text-sm font-medium shadow-lg focus:border-primary/50 focus:outline-none focus:ring-0 appearance-none cursor-pointer transition-all duration-300 hover:bg-gray-800/80"
+                      onchange="filterByCollection(this.value)"
                     >
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                    </svg>
-                  </div>
-                </form>
-              </div>
+                      <option value="">All Categories</option>
+                      {%- for collection_name in collection_array -%}
+                        {%- unless collection_name == '' -%}
+                          <option value="{{ collection_name | handleize }}">
+                            {{ collection_name }}
+                          </option>
+                        {%- endunless -%}
+                      {%- endfor -%}
+                    </select>
+                    <!-- Custom dropdown arrow -->
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                      <svg
+                        class="w-4 h-4 text-gray-400 transition-colors duration-300"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                      </svg>
+                    </div>
+                  </form>
+                </div>
+              {%- endif -%}
             {%- endif -%}
-          {%- endif -%}
+          </div>
+
+          <!-- Back to All button (only show on specific collection pages) -->
+          {%- unless collection.handle == 'all' -%}
+            <div class="back-to-all flex items-center">
+              <a
+                href="/collections/all"
+                class="inline-flex items-center gap-2 bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 text-white rounded-xl px-4 py-3 transition-all duration-300 hover:bg-gray-800/80 hover:border-primary/50 focus:outline-none focus:ring-0 font-medium text-sm shadow-lg"
+                aria-label="Back to all products"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                <span>Back to All</span>
+              </a>
+            </div>
+          {%- endunless -%}
 
           <!-- Sort Options -->
           <div class="sort-options flex items-center gap-2">
@@ -237,7 +257,7 @@
           </div>
         </div>
 
-        <!-- View Toggle -->
+        <!-- Right side: View Toggle -->
         <div class="view-toggle flex items-center gap-4">
           <div class="view-switcher relative bg-gray-900/80 backdrop-blur-sm rounded-xl border border-gray-700/50 p-1 shadow-lg">
             <div
@@ -340,6 +360,14 @@
 </div>
 
 <style>
+  /* Collection Toolbar - Override container padding for flush alignment */
+  .collection-toolbar {
+    margin-left: calc(-1 * var(--container-padding));
+    margin-right: calc(-1 * var(--container-padding));
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+
   /* Stable Grid Layout */
   .products-grid {
     contain: layout style;
@@ -365,9 +393,7 @@
     border-radius: 0.75rem;
     border: 1px solid rgba(55, 65, 81, 0.5);
     padding: 0.25rem;
-    box-shadow:
-      0 10px 15px -3px rgba(0, 0, 0, 0.1),
-      0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
 
   .view-slider {
@@ -379,9 +405,7 @@
     background: linear-gradient(135deg, #ffd800 0%, #ffed4e 100%);
     border-radius: 0.5rem;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow:
-      0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
 
   .view-btn {
@@ -591,7 +615,7 @@
         const collections = productCollections.toLowerCase().split(',');
         const hasCollection = collections.some(
           (collection) =>
-            collection.trim() === selectedCollection || collection.trim().replace(/\s+/g, '-') === selectedCollection,
+            collection.trim() === selectedCollection || collection.trim().replace(/\s+/g, '-') === selectedCollection
         );
 
         item.style.display = hasCollection ? 'block' : 'none';
