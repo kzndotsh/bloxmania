@@ -21,7 +21,6 @@ class SimpleScrollFadeController {
     // Get all sections that should fade in
     const sections = document.querySelectorAll("section, .section-fade-in");
 
-    console.log("SimpleScrollFadeController: Found", sections.length, "sections to animate");
 
     if (sections.length === 0) return;
 
@@ -29,7 +28,6 @@ class SimpleScrollFadeController {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            console.log("SimpleScrollFadeController: Animating section", entry.target);
             entry.target.classList.add("fade-in-visible");
             // Unobserve after animation to prevent re-triggering
             observer.unobserve(entry.target);
@@ -45,7 +43,6 @@ class SimpleScrollFadeController {
     // Observe all sections
     sections.forEach((section) => {
       observer.observe(section);
-      console.log("SimpleScrollFadeController: Observing section", section);
     });
   }
 }
@@ -261,7 +258,6 @@ class AccessibilityController {
           case "/":
             e.preventDefault();
             // Toggle help
-            console.log("Help toggled");
             break;
         }
       }
@@ -329,7 +325,6 @@ class BloxManiaCore {
     searchForms.forEach((form) => {
       form.addEventListener("submit", (e) => {
         // Handle search submission
-        console.log("Search submitted");
       });
     });
   }
@@ -347,7 +342,6 @@ class BloxManiaCore {
 
   addToCart(productId) {
     // Add to cart logic
-    console.log("Adding product to cart:", productId);
   }
 }
 

@@ -26,7 +26,6 @@ class ThemeEditor {
 
     if (this.isEditor) {
       document.documentElement.classList.add("theme-editor");
-      console.log("BloxMania theme editor mode detected");
     }
   }
 
@@ -96,8 +95,6 @@ class ThemeEditor {
 
     this.sections.set(sectionId, section);
     this.initializeSectionBlocks(section);
-
-    console.log(`Section registered: ${sectionId} (${section.type})`);
   }
 
   initializeSectionBlocks(section) {
@@ -122,8 +119,6 @@ class ThemeEditor {
     const sectionId = event.detail.sectionId;
     const sectionElement = event.target;
 
-    console.log(`Section loaded: ${sectionId}`);
-
     // Register the new section
     this.registerSection(sectionElement);
 
@@ -140,8 +135,6 @@ class ThemeEditor {
 
   handleSectionUnload(event) {
     const sectionId = event.detail.sectionId;
-
-    console.log(`Section unloaded: ${sectionId}`);
 
     // Clean up section
     const section = this.sections.get(sectionId);
@@ -161,7 +154,6 @@ class ThemeEditor {
 
     if (section) {
       section.element.classList.add("section-selected");
-      console.log(`Section selected: ${sectionId}`);
 
       // Trigger custom event
       section.element.dispatchEvent(
@@ -178,7 +170,6 @@ class ThemeEditor {
 
     if (section) {
       section.element.classList.remove("section-selected");
-      console.log(`Section deselected: ${sectionId}`);
 
       // Trigger custom event
       section.element.dispatchEvent(
@@ -195,7 +186,6 @@ class ThemeEditor {
 
     if (block) {
       block.element.classList.add("block-selected");
-      console.log(`Block selected: ${blockId}`);
 
       // Trigger custom event
       block.element.dispatchEvent(
@@ -212,7 +202,6 @@ class ThemeEditor {
 
     if (block) {
       block.element.classList.remove("block-selected");
-      console.log(`Block deselected: ${blockId}`);
 
       // Trigger custom event
       block.element.dispatchEvent(
@@ -224,7 +213,6 @@ class ThemeEditor {
   }
 
   handleThemeLoad(event) {
-    console.log("Theme loaded in editor");
 
     // Initialize all sections
     this.initializeSections();
@@ -238,7 +226,6 @@ class ThemeEditor {
   }
 
   handleSectionReorder(event) {
-    console.log("Sections reordered:", event.detail);
 
     // Trigger custom event
     document.dispatchEvent(

@@ -7,7 +7,6 @@
   "use strict";
 
   // Run immediately, don't wait for DOM
-  console.log("Shopify Analytics Syntax Fix starting...");
 
   // Function to fix the syntax error in scripts
   function fixShopifyAnalyticsScript(scriptElement) {
@@ -22,7 +21,6 @@
       // Only update if content actually changed
       if (fixedContent !== content) {
         scriptElement.textContent = fixedContent;
-        console.log("Fixed Shopify analytics syntax error");
       }
     }
 
@@ -32,7 +30,6 @@
 
       if (fixedContent !== content) {
         scriptElement.textContent = fixedContent;
-        console.log("Fixed additional Shopify analytics syntax errors");
       }
     }
   }
@@ -71,7 +68,6 @@
         }
       } catch (error) {
         // Silently ignore errors with property descriptor
-        console.log("Note: Could not override textContent for script element");
       }
     }
 
@@ -107,5 +103,4 @@
   setTimeout(fixExistingScripts, 500);
   setTimeout(fixExistingScripts, 1000);
 
-  console.log("Shopify Analytics Syntax Fix loaded");
 })();

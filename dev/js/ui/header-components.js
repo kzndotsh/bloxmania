@@ -336,8 +336,6 @@ class SearchModal extends HTMLElement {
       }
 
       const data = await response.json();
-      console.log("Search API response:", data);
-
       return this.parseJsonResults(data, query);
     } catch (error) {
       console.error("Search API error:", error);
@@ -346,7 +344,6 @@ class SearchModal extends HTMLElement {
   }
 
   parseJsonResults(data, query) {
-    console.log("Full response data:", data);
 
     const products = [];
 
@@ -376,13 +373,11 @@ class SearchModal extends HTMLElement {
       products.push(...data.results);
     }
 
-    console.log("Parsed products:", products);
 
     return products
       .map((product) => {
         // Ensure we have a valid product object
         if (!product || !product.title) {
-          console.log("Skipping invalid product:", product);
           return null;
         }
 
@@ -395,7 +390,6 @@ class SearchModal extends HTMLElement {
         } else if (product.id) {
           productUrl = `/products/${product.id}`;
         } else {
-          console.log("No valid URL for product:", product);
           return null;
         }
 

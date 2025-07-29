@@ -125,7 +125,6 @@ class SimpleBundler {
     }
 
     // Bundle footer
-    bundle.push('  console.log("✅ BloxMania theme JavaScript loaded");');
     bundle.push("})();");
 
     return bundle.join("\n");

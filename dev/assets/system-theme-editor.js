@@ -9,11 +9,9 @@
     return;
   }
 
-  console.log("BloxMania Theme Editor Support Loaded");
 
   // Theme editor specific functionality
   document.addEventListener("shopify:section:load", function (event) {
-    console.log("Section loaded:", event.target);
 
     // Reinitialize any section-specific JavaScript
     if (typeof window.initSectionScripts === "function") {
@@ -22,7 +20,6 @@
   });
 
   document.addEventListener("shopify:section:unload", function (event) {
-    console.log("Section unloaded:", event.target);
 
     // Clean up any section-specific JavaScript
     if (typeof window.cleanupSectionScripts === "function") {
@@ -31,14 +28,12 @@
   });
 
   document.addEventListener("shopify:section:select", function (event) {
-    console.log("Section selected:", event.target);
 
     // Highlight the selected section
     event.target.classList.add("theme-editor-selected");
   });
 
   document.addEventListener("shopify:section:deselect", function (event) {
-    console.log("Section deselected:", event.target);
 
     // Remove highlight from the deselected section
     event.target.classList.remove("theme-editor-selected");
@@ -46,16 +41,13 @@
 
   // Block editor events
   document.addEventListener("shopify:block:select", function (event) {
-    console.log("Block selected:", event.target);
   });
 
   document.addEventListener("shopify:block:deselect", function (event) {
-    console.log("Block deselected:", event.target);
   });
 
   // Theme settings changes
   document.addEventListener("shopify:theme:change", function (event) {
-    console.log("Theme settings changed:", event.detail);
 
     // Handle theme setting changes
     if (event.detail && event.detail.settings) {

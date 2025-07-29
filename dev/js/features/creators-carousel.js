@@ -15,14 +15,12 @@ class CreatorsCarousel {
     this.currentSpeed = 60;
     this.pauseTransitionDuration = 300; // 300ms to pause (faster)
     this.resumeTransitionDuration = 500; // 500ms to resume (smooth but quicker)
-    console.log("🎠 CreatorsCarousel: Initializing...");
     this.init();
   }
 
   init() {
     // Find the carousel container
     this.container = document.querySelector(".creators-carousel");
-    console.log("🎠 CreatorsCarousel: Container found:", this.container);
     if (!this.container) {
       console.warn("🎠 CreatorsCarousel: Container not found!");
       return;
@@ -30,7 +28,6 @@ class CreatorsCarousel {
 
     // Find the scroll container - use the correct selector that matches HTML
     this.scrollContainer = this.container.querySelector(".flex");
-    console.log("🎠 CreatorsCarousel: Scroll container found:", this.scrollContainer);
     if (!this.scrollContainer) {
       console.warn("🎠 CreatorsCarousel: Scroll container not found!");
       return;
@@ -38,7 +35,6 @@ class CreatorsCarousel {
 
     // Get all creator items
     this.items = this.scrollContainer.querySelectorAll("div");
-    console.log("🎠 CreatorsCarousel: Items found:", this.items.length);
 
     if (this.items.length === 0) {
       console.warn("🎠 CreatorsCarousel: No items found!");
@@ -47,7 +43,6 @@ class CreatorsCarousel {
 
     // Wait for images to load before calculating dimensions
     this.waitForImages().then(() => {
-      console.log("🎠 CreatorsCarousel: Images loaded, starting animation...");
       this.setupHoverEvents();
       this.startAnimation();
     });
@@ -71,12 +66,10 @@ class CreatorsCarousel {
   setupHoverEvents() {
     // Add hover events to the carousel container
     this.container.addEventListener('mouseenter', () => {
-      console.log("🎠 CreatorsCarousel: Mouse enter - pausing");
       this.pauseSmooth();
     });
 
     this.container.addEventListener('mouseleave', () => {
-      console.log("🎠 CreatorsCarousel: Mouse leave - resuming");
       this.resumeSmooth();
     });
   }
@@ -116,11 +109,9 @@ class CreatorsCarousel {
 
   startAnimation() {
     if (this.isAnimating) {
-      console.log("🎠 CreatorsCarousel: Already animating, skipping...");
       return;
     }
 
-    console.log("🎠 CreatorsCarousel: Starting animation loop...");
     this.isAnimating = true;
     this.animate();
   }
@@ -132,7 +123,6 @@ class CreatorsCarousel {
     let currentPosition = 0;
     let lastTimestamp = performance.now();
 
-    console.log("🎠 CreatorsCarousel: Using JavaScript animation, totalWidth:", totalWidth);
 
     const step = (timestamp) => {
       if (!this.isAnimating) return;
@@ -191,7 +181,6 @@ let carouselInstance = null;
 
 // Initialize when DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("🎠 CreatorsCarousel: DOMContentLoaded event fired");
   if (!carouselInstance) {
     carouselInstance = new CreatorsCarousel();
   }
@@ -199,7 +188,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Also initialize on Shopify section load
 document.addEventListener("shopify:section:load", () => {
-  console.log("🎠 CreatorsCarousel: shopify:section:load event fired");
   if (carouselInstance) {
     carouselInstance.stop();
   }

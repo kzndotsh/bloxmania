@@ -49,6 +49,7 @@ class APIUtils {
       const response = await fetch(url, defaultOptions);
 
       if (!response.ok) {
+        console.warn(`API request failed: ${url} - Status: ${response.status}`);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 

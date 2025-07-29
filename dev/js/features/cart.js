@@ -6,16 +6,13 @@
 class CartItemsClean extends HTMLElement {
   constructor() {
     super();
-    console.log("🎯 Clean cart initialized");
   }
 
   connectedCallback() {
-    console.log("🎯 Clean cart connected");
   }
 
   // Main method to change quantities - based on Dawn's approach
   changeQuantity(line, quantity) {
-    console.log("🎯 Changing quantity:", { line, quantity });
 
     // Show loading state
     this.classList.add("cart-loading");
@@ -39,8 +36,6 @@ class CartItemsClean extends HTMLElement {
     })
       .then((response) => response.text())
       .then((responseText) => {
-        console.log("🎯 Cart updated successfully");
-
         try {
           const parsedState = JSON.parse(responseText);
 
@@ -79,7 +74,6 @@ class CartItemsClean extends HTMLElement {
   // Update cart display with new data
   updateCartDisplay(cartData) {
     // Simple approach: reload the page to get fresh cart data
-    console.log("🎯 Reloading page to update cart display");
     window.location.reload();
   }
 
@@ -106,5 +100,4 @@ class CartItemsClean extends HTMLElement {
 // Register the custom element
 if (!customElements.get("cart-items-clean")) {
   customElements.define("cart-items-clean", CartItemsClean);
-  console.log("🎯 Clean cart component registered");
 }

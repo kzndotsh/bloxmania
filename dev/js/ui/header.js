@@ -16,7 +16,6 @@ class HeaderManager {
   }
 
   init() {
-    console.log("🚀 HeaderManager: Initializing...");
     // Wait for DOM to be ready
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", () => this.setup());
@@ -26,12 +25,10 @@ class HeaderManager {
   }
 
   setup() {
-    console.log("🔧 HeaderManager: Setting up...");
     this.findElements();
     this.setupScrollEffects();
     this.setupMobileMenu();
     this.initializeHeaderState();
-    console.log("✅ HeaderManager: Setup complete!");
   }
 
   findElements() {
@@ -43,24 +40,8 @@ class HeaderManager {
     this.mobileMenuToggle = document.getElementById("mobile-menu-toggle");
     this.mobileMenuClose = document.getElementById("mobile-menu-close");
 
-    // Log element finding results
-    console.log("HeaderManager: Element finding results:", {
-      header: this.header,
-      mobileMenu: this.mobileMenu,
-      mobileMenuToggle: this.mobileMenuToggle,
-      mobileMenuClose: this.mobileMenuClose,
-    });
-
     if (!this.header) {
       console.warn("Header element not found");
-      console.log("Available header elements:", {
-        ".header": document.querySelector(".header"),
-        header: document.querySelector("header"),
-        "#header": document.querySelector("#header"),
-      });
-    } else {
-      console.log("Header found:", this.header);
-      console.log("Header classes:", this.header.className);
     }
   }
 
@@ -82,11 +63,9 @@ class HeaderManager {
       if (scrollTop > scrollThreshold) {
         this.header.classList.add("header--scrolled");
         this.header.classList.remove("header--transparent");
-        console.log("Header is now scrolled - scroll position:", scrollTop, "Classes:", this.header.className);
       } else {
         this.header.classList.remove("header--scrolled");
         this.header.classList.add("header--transparent");
-        console.log("Header is now transparent - scroll position:", scrollTop, "Classes:", this.header.className);
       }
 
       // Keep header visible when scrolling - removed hide/show logic
@@ -211,12 +190,10 @@ class HeaderManager {
       this.header.classList.remove("header--scrolled");
     }
 
-    console.log("🎯 HeaderManager: Header state initialized - header will remain visible when scrolling");
   }
 }
 
 // Initialize the header manager when the script loads
-console.log("🌐 HeaderManager: Creating global instance...");
 const headerManager = new HeaderManager();
 
 // Backward compatibility

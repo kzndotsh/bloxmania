@@ -16,7 +16,6 @@ class SearchManager {
   }
 
   init() {
-    console.log("🔍 SearchManager: Initializing...");
     // Wait for DOM to be ready
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", () => this.setup());
@@ -26,10 +25,8 @@ class SearchManager {
   }
 
   setup() {
-    console.log("🔧 SearchManager: Setting up...");
     this.findElements();
     this.setupSearchModal();
-    console.log("✅ SearchManager: Setup complete!");
   }
 
   findElements() {
@@ -38,13 +35,6 @@ class SearchManager {
     this.searchClose = document.querySelector("[data-search-close]");
     this.searchInput = document.querySelector(".search-modal__input");
 
-    // Log element finding results
-    console.log("SearchManager: Element finding results:", {
-      searchModal: this.searchModal,
-      searchToggle: this.searchToggle,
-      searchClose: this.searchClose,
-      searchInput: this.searchInput,
-    });
   }
 
   setupSearchModal() {
@@ -262,7 +252,6 @@ class SearchManager {
 }
 
 // Initialize the search manager when the script loads
-console.log("🔍 SearchManager: Creating global instance...");
 const searchManager = new SearchManager();
 
 // Backward compatibility

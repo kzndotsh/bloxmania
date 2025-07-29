@@ -92,15 +92,15 @@
     padding: 0.5rem 1rem;
     border-radius: 9999px; /* rounded-full */
     text-decoration: none;
-    transition: all var(--duration-normal) var(--easing-smooth);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     border: 1px solid;
     cursor: default;
   }
 
   .guarantee-tag:hover {
-    transform: scale(1.05);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.15);
   }
 
   .guarantee-tag--blue {
@@ -134,14 +134,15 @@
     margin: 0 auto;
     z-index: 1;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    transition: all var(--duration-normal) var(--easing-smooth);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateZ(0);
     cursor: pointer;
   }
 
   .guarantee-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    transform: translateY(-4px) scale(1.015);
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.25);
   }
 
   .guarantee-card-title {
@@ -228,72 +229,110 @@
     margin: 1rem;
     background: transparent;
     object-fit: cover;
-    transition: all var(--duration-normal) var(--easing-smooth);
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: transform, opacity;
     cursor: pointer;
     position: relative;
   }
 
   /* Hover state for guarantee icons */
   .guarantee-icon-float:hover {
-    opacity: 1 !important;
-    transform: scale(1.1) !important;
+    opacity: 0.9 !important;
+    transform: translateY(-3px) scale(1.03) !important;
     z-index: 999999 !important;
   }
 
   /* JavaScript-controlled hover class */
   .guarantee-icon-hover {
-    opacity: 1 !important;
+    opacity: 0.9 !important;
     z-index: 999999 !important;
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
-  /* Individual icon transforms - simplified */
+  /* Individual icon base positions - minimal offsets for organic layout */
   .guarantee-icon-float.transform.-translate-x-8 {
-    transform: translateX(-1rem) !important;
+    --base-x: -0.5rem;
+    --base-y: 0;
   }
 
   .guarantee-icon-float.transform.translate-y-4 {
-    transform: translateY(1rem) !important;
+    --base-x: 0;
+    --base-y: 0.5rem;
   }
 
   .guarantee-icon-float.transform.-translate-y-2 {
-    transform: translateY(-0.5rem) !important;
+    --base-x: 0;
+    --base-y: -0.25rem;
   }
 
   .guarantee-icon-float.transform.translate-x-8 {
-    transform: translateX(1rem) !important;
+    --base-x: 0.5rem;
+    --base-y: 0;
   }
 
   .guarantee-icon-float.transform.-translate-y-4 {
-    transform: translateY(-1rem) !important;
+    --base-x: 0;
+    --base-y: -0.5rem;
   }
 
   .guarantee-icon-float.transform.translate-y-2 {
-    transform: translateY(0.5rem) !important;
+    --base-x: 0;
+    --base-y: 0.25rem;
   }
 
-  /* Drop shadows for each icon color */
+  /* Apply base positioning using CSS variables for animation compatibility */
+  .guarantee-icon-float[class*="transform"] {
+    transform: translateX(var(--base-x, 0)) translateY(var(--base-y, 0));
+  }
+
+  /* Subtle drop shadows for each icon color - reduced intensity */
   .guarantee-icon-float:nth-child(1) {
-    filter: drop-shadow(0 0 20px rgba(251, 146, 60, 0.6)) !important;
+    filter: drop-shadow(0 2px 8px rgba(251, 146, 60, 0.3)) !important;
   }
 
   .guarantee-icon-float:nth-child(2) {
-    filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.6)) !important;
+    filter: drop-shadow(0 2px 8px rgba(168, 85, 247, 0.3)) !important;
   }
 
   .guarantee-icon-float:nth-child(3) {
-    filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.6)) !important;
+    filter: drop-shadow(0 2px 8px rgba(59, 130, 246, 0.3)) !important;
   }
 
   .guarantee-icon-float:nth-child(4) {
-    filter: drop-shadow(0 0 20px rgba(255, 216, 0, 0.6)) !important;
+    filter: drop-shadow(0 2px 8px rgba(255, 216, 0, 0.3)) !important;
   }
 
   .guarantee-icon-float:nth-child(5) {
-    filter: drop-shadow(0 0 20px rgba(34, 197, 94, 0.6)) !important;
+    filter: drop-shadow(0 2px 8px rgba(34, 197, 94, 0.3)) !important;
   }
 
   .guarantee-icon-float:nth-child(6) {
-    filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.6)) !important;
+    filter: drop-shadow(0 2px 8px rgba(239, 68, 68, 0.3)) !important;
+  }
+
+  /* Enhanced hover shadows */
+  .guarantee-icon-float:nth-child(1):hover {
+    filter: drop-shadow(0 4px 12px rgba(251, 146, 60, 0.4)) !important;
+  }
+
+  .guarantee-icon-float:nth-child(2):hover {
+    filter: drop-shadow(0 4px 12px rgba(168, 85, 247, 0.4)) !important;
+  }
+
+  .guarantee-icon-float:nth-child(3):hover {
+    filter: drop-shadow(0 4px 12px rgba(59, 130, 246, 0.4)) !important;
+  }
+
+  .guarantee-icon-float:nth-child(4):hover {
+    filter: drop-shadow(0 4px 12px rgba(255, 216, 0, 0.4)) !important;
+  }
+
+  .guarantee-icon-float:nth-child(5):hover {
+    filter: drop-shadow(0 4px 12px rgba(34, 197, 94, 0.4)) !important;
+  }
+
+  .guarantee-icon-float:nth-child(6):hover {
+    filter: drop-shadow(0 4px 12px rgba(239, 68, 68, 0.4)) !important;
   }
 
   /* Promo Section */
@@ -343,14 +382,15 @@
     width: 24rem; /* w-96 */
     height: 24rem; /* h-96 */
     object-fit: contain;
-    transition: all var(--duration-normal) var(--easing-smooth);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateZ(0);
     filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.3));
     cursor: pointer;
   }
 
   .guarantee-promo-image img:hover {
-    transform: scale(1.05);
+    transform: translateY(-2px) scale(1.02);
+    filter: drop-shadow(0 4px 8px rgba(255, 255, 255, 0.2));
   }
 
   /* Responsive Design */
@@ -420,6 +460,88 @@
     .guarantee-icon-container {
       display: none !important;
     }
+  }
+
+  /* Ultra-gentle floating animations for icons */
+  @keyframes float-gentle-1 {
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    33% { transform: translateY(-1px) translateX(0.5px); }
+    66% { transform: translateY(0.5px) translateX(-0.5px); }
+  }
+
+  @keyframes float-gentle-2 {
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    50% { transform: translateY(-0.5px) translateX(1px); }
+  }
+
+  @keyframes float-gentle-3 {
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    25% { transform: translateY(1px) translateX(-0.5px); }
+    75% { transform: translateY(-0.5px) translateX(0.5px); }
+  }
+
+  /* Apply floating animations to icons with longer, more natural timing */
+  .guarantee-icon-float:nth-child(1) {
+    animation: float-gentle-1 12s ease-in-out infinite;
+    animation-delay: 0s;
+  }
+
+  .guarantee-icon-float:nth-child(2) {
+    animation: float-gentle-2 10s ease-in-out infinite;
+    animation-delay: -1.5s;
+  }
+
+  .guarantee-icon-float:nth-child(3) {
+    animation: float-gentle-3 14s ease-in-out infinite;
+    animation-delay: -3s;
+  }
+
+  .guarantee-icon-float:nth-child(4) {
+    animation: float-gentle-1 11s ease-in-out infinite;
+    animation-delay: -4.5s;
+  }
+
+  .guarantee-icon-float:nth-child(5) {
+    animation: float-gentle-2 13s ease-in-out infinite;
+    animation-delay: -6s;
+  }
+
+  .guarantee-icon-float:nth-child(6) {
+    animation: float-gentle-3 15s ease-in-out infinite;
+    animation-delay: -7.5s;
+  }
+
+  /* Pause animations on hover to allow for smooth hover effects */
+  .guarantee-icon-float:hover {
+    animation-play-state: paused;
+  }
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .guarantee-icon-float {
+      animation: none !important;
+    }
+    .guarantee-tag:hover,
+    .guarantee-card:hover,
+    .guarantee-icon-float:hover,
+    .guarantee-promo-image img:hover {
+      transform: none !important;
+    }
+  }
+
+  /* Improve mobile performance by reducing animations on smaller screens */
+  @media (max-width: 767px) {
+    .guarantee-icon-float {
+      animation: none;
+    }
+  }
+
+  /* Smooth focus states for accessibility */
+  .guarantee-tag:focus,
+  .guarantee-card:focus-within {
+    outline: 2px solid rgba(255, 216, 0, 0.5);
+    outline-offset: 2px;
+    transform: translateY(-1px) scale(1.01);
   }
 
   /* Clean guarantee section styling - no hacks */
