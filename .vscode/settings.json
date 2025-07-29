@@ -22,11 +22,14 @@
     "editor.defaultFormatter": "Shopify.theme-check-vscode",
     "editor.formatOnSave": true
   },
+  "files.watcherExclude": {
+    "**/theme/**": true,
+    "**/build/**": true
+  },
   "stylelint.validate": ["css", "scss"],
   "stylelint.configFile": ".stylelintrc.json",
   "css.validate": false,
   "scss.validate": false,
   "stylelint.enable": true,
-  "stylelint.autoFixOnSave": true,
   "editor.formatOnSaveMode": "file"
 }

@@ -81,22 +81,8 @@
       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <!-- Left side: Filters, Back button, Sort options -->
         <div class="flex flex-col lg:flex-row lg:items-center gap-4">
-          <!-- Filters Toggle (Mobile) -->
-          <div class="lg:hidden">
-            <button
-              type="button"
-              class="filters-toggle flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg border border-gray-600 transition-colors duration-200"
-              onclick="toggleFilters()"
-            >
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.207A1 1 0 013 6.5V4z"/>
-              </svg>
-              {{ 'collections.filtering.filter_button' | t | default: 'Filter' }}
-            </button>
-          </div>
-
           <!-- Collection Filter and Sort Options -->
-          <div class="filter-sort-container flex items-center gap-4">
+          <div class="filter-sort-container flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 w-full lg:w-auto">
             {%- comment -%} Only show collection filter on the "all" collection page {%- endcomment -%}
             {%- if collection.handle == 'all' and collection.products.size > 0 -%}
               {%- assign unique_collections = '' -%}
@@ -116,13 +102,15 @@
 
               {%- if unique_collections != '' -%}
                 {%- assign collection_array = unique_collections | split: ',' -%}
-                <div class="collection-filter flex items-center gap-2">
-                  <label for="collection-filter" class="text-sm font-medium text-gray-300">Filter by Category:</label>
-                  <form class="relative">
+                <div class="collection-filter flex flex-col sm:flex-row items-start sm:items-center gap-2 w-full sm:w-auto">
+                  <label for="collection-filter" class="text-sm font-medium text-gray-300 whitespace-nowrap"
+                    >Filter by Category:</label
+                  >
+                  <form class="relative w-full sm:w-auto">
                     <select
                       id="collection-filter"
                       name="collection_filter"
-                      class="collection-select bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 text-white rounded-xl px-4 py-3 pr-10 text-sm font-medium shadow-lg focus:border-primary/50 focus:outline-none focus:ring-0 appearance-none cursor-pointer transition-all duration-300 hover:bg-gray-800/80"
+                      class="collection-select bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 text-white rounded-xl px-4 py-3 pr-10 text-sm font-medium shadow-lg focus:border-primary/50 focus:outline-none focus:ring-0 appearance-none cursor-pointer transition-all duration-300 hover:bg-gray-800/80 w-full sm:w-auto"
                       onchange="filterByCollection(this.value)"
                     >
                       <option value="">All Categories</option>
@@ -149,142 +137,136 @@
                 </div>
               {%- endif -%}
             {%- endif -%}
-          </div>
 
-          <!-- Back to All button (only show on specific collection pages) -->
-          {%- unless collection.handle == 'all' -%}
-            <div class="back-to-all flex items-center">
-              <a
-                href="/collections/all"
-                class="inline-flex items-center gap-2 bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 text-white rounded-xl px-4 py-3 transition-all duration-300 hover:bg-gray-800/80 hover:border-primary/50 focus:outline-none focus:ring-0 font-medium text-sm shadow-lg"
-                aria-label="Back to all products"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-                </svg>
-                <span>Back to All</span>
-              </a>
-            </div>
-          {%- endunless -%}
+            <!-- Back to All button (only show on specific collection pages) -->
+            {%- unless collection.handle == 'all' -%}
+              <div class="back-to-all flex items-center w-full sm:w-auto">
+                <a
+                  href="/collections/all"
+                  class="inline-flex items-center gap-2 bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 text-white rounded-xl px-4 py-3 transition-all duration-300 hover:bg-gray-800/80 hover:border-primary/50 focus:outline-none focus:ring-0 font-medium text-sm shadow-lg w-full sm:w-auto justify-center sm:justify-start"
+                  aria-label="Back to all products"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                  </svg>
+                  <span>Back to All</span>
+                </a>
+              </div>
+            {%- endunless -%}
 
-          <!-- Sort Options -->
-          <div class="sort-options flex items-center gap-2">
-            <label for="sort-by" class="text-sm font-medium text-gray-300">Sort by:</label>
-            <div class="relative">
-              <select
-                id="sort-by"
-                name="sort_by"
-                class="sort-select bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 text-white rounded-xl px-4 py-3 pr-10 text-sm font-medium shadow-lg focus:border-primary/50 focus:outline-none focus:ring-0 appearance-none cursor-pointer transition-all duration-300 hover:bg-gray-800/80"
-                onchange="sortProducts(this.value)"
-              >
-                <option
-                  value="manual"
-                  {% if collection.sort_by == 'manual' %}
-                    selected
-                  {% endif %}
+            <!-- Sort Options -->
+            <div class="sort-options flex flex-col sm:flex-row items-start sm:items-center gap-2 w-full sm:w-auto">
+              <label for="sort-by" class="text-sm font-medium text-gray-300 whitespace-nowrap">Sort by:</label>
+              <div class="relative w-full sm:w-auto">
+                <select
+                  id="sort-by"
+                  name="sort_by"
+                  class="sort-select bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 text-white rounded-xl px-4 py-3 pr-10 text-sm font-medium shadow-lg focus:border-primary/50 focus:outline-none focus:ring-0 appearance-none cursor-pointer transition-all duration-300 hover:bg-gray-800/80 w-full sm:w-auto"
+                  onchange="sortProducts(this.value)"
                 >
-                  {{ 'collections.sorting.featured' | t | default: 'Featured' }}
-                </option>
-                <option
-                  value="best-selling"
-                  {% if collection.sort_by == 'best-selling' %}
-                    selected
-                  {% endif %}
-                >
-                  {{ 'collections.sorting.best_selling' | t | default: 'Best selling' }}
-                </option>
-                <option
-                  value="title-ascending"
-                  {% if collection.sort_by == 'title-ascending' %}
-                    selected
-                  {% endif %}
-                >
-                  {{ 'collections.sorting.alphabetically_a_z' | t | default: 'Alphabetically, A-Z' }}
-                </option>
-                <option
-                  value="title-descending"
-                  {% if collection.sort_by == 'title-descending' %}
-                    selected
-                  {% endif %}
-                >
-                  {{ 'collections.sorting.alphabetically_z_a' | t | default: 'Alphabetically, Z-A' }}
-                </option>
-                <option
-                  value="price-ascending"
-                  {% if collection.sort_by == 'price-ascending' %}
-                    selected
-                  {% endif %}
-                >
-                  {{ 'collections.sorting.price_low_to_high' | t | default: 'Price, low to high' }}
-                </option>
-                <option
-                  value="price-descending"
-                  {% if collection.sort_by == 'price-descending' %}
-                    selected
-                  {% endif %}
-                >
-                  {{ 'collections.sorting.price_high_to_low' | t | default: 'Price, high to low' }}
-                </option>
-                <option
-                  value="created-ascending"
-                  {% if collection.sort_by == 'created-ascending' %}
-                    selected
-                  {% endif %}
-                >
-                  {{ 'collections.sorting.date_old_to_new' | t | default: 'Date, old to new' }}
-                </option>
-                <option
-                  value="created-descending"
-                  {% if collection.sort_by == 'created-descending' %}
-                    selected
-                  {% endif %}
-                >
-                  {{ 'collections.sorting.date_new_to_old' | t | default: 'Date, new to old' }}
-                </option>
-              </select>
-              <!-- Custom dropdown arrow -->
-              <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                <svg
-                  class="w-4 h-4 text-gray-400 transition-colors duration-300"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                </svg>
+                  <option
+                    value="manual"
+                    {% if collection.sort_by == 'manual' %}
+                      selected="selected"
+                    {% endif %}
+                  >
+                    Featured
+                  </option>
+                  <option
+                    value="price-ascending"
+                    {% if collection.sort_by == 'price-ascending' %}
+                      selected="selected"
+                    {% endif %}
+                  >
+                    Price: Low to High
+                  </option>
+                  <option
+                    value="price-descending"
+                    {% if collection.sort_by == 'price-descending' %}
+                      selected="selected"
+                    {% endif %}
+                  >
+                    Price: High to Low
+                  </option>
+                  <option
+                    value="title-ascending"
+                    {% if collection.sort_by == 'title-ascending' %}
+                      selected="selected"
+                    {% endif %}
+                  >
+                    Name: A to Z
+                  </option>
+                  <option
+                    value="title-descending"
+                    {% if collection.sort_by == 'title-descending' %}
+                      selected="selected"
+                    {% endif %}
+                  >
+                    Name: Z to A
+                  </option>
+                  <option
+                    value="created-ascending"
+                    {% if collection.sort_by == 'created-ascending' %}
+                      selected="selected"
+                    {% endif %}
+                  >
+                    Oldest First
+                  </option>
+                  <option
+                    value="created-descending"
+                    {% if collection.sort_by == 'created-descending' %}
+                      selected="selected"
+                    {% endif %}
+                  >
+                    Newest First
+                  </option>
+                </select>
+                <!-- Custom dropdown arrow -->
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                  <svg
+                    class="w-4 h-4 text-gray-400 transition-colors duration-300"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Right side: View Toggle -->
-        <div class="view-toggle flex items-center gap-4">
-          <div class="view-switcher relative bg-gray-900/80 backdrop-blur-sm rounded-xl border border-gray-700/50 p-1 shadow-lg">
-            <div
-              class="view-slider absolute top-1 left-1 w-10 h-10 bg-gradient-to-r from-primary to-yellow-400 rounded-lg transition-transform duration-300 ease-out shadow-md"
-            ></div>
-            <button
-              type="button"
-              class="view-btn view-btn--grid relative z-10 flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-300 {% unless current_view == 'list' %}active{% endunless %}"
-              onclick="setView('grid')"
-              aria-label="{{ 'collections.general.grid_view' | t | default: 'Grid view' }}"
-              title="Grid View"
-            >
-              <svg class="w-5 h-5 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M3 3h4v4H3V3zm0 6h4v4H3V9zm0 6h4v4H3v-4zm6-12h4v4H9V3zm0 6h4v4H9V9zm0 6h4v4H9v-4zm6-12h4v4h-4V3zm0 6h4v4h-4V9zm0 6h4v4h-4v-4z"/>
-              </svg>
-            </button>
-            <button
-              type="button"
-              class="view-btn view-btn--list relative z-10 flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-300 {% if current_view == 'list' %}active{% endif %}"
-              onclick="setView('list')"
-              aria-label="{{ 'collections.general.list_view' | t | default: 'List view' }}"
-              title="List View"
-            >
-              <svg class="w-5 h-5 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M3 6h8v2H3V6zm0 5h8v2H3v-2zm0 5h8v2H3v-2zm10 0h8v2h-8v-2zm0-5h8v2h-8v-2zm0-5h8v2h-8V6z"/>
-              </svg>
-            </button>
+        <div class="flex items-center gap-4">
+          <!-- View Toggle -->
+          <div class="view-toggle flex items-center gap-2">
+            <span class="text-sm font-medium text-gray-300">View:</span>
+            <div class="view-switcher">
+              <div
+                class="view-slider absolute top-1 left-1 w-10 h-10 bg-gradient-to-r from-primary to-yellow-400 rounded-lg transition-transform duration-300 ease-out shadow-md"
+              ></div>
+              <a
+                href="{{ collection.url }}"
+                class="view-btn view-btn--grid relative z-10 flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-300 active"
+                aria-label="{{ 'collections.general.grid_view' | t | default: 'Grid view' }}"
+                title="Grid View"
+              >
+                <svg class="w-5 h-5 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M3 3h7v7H3V3zm0 11h7v7H3v-7zm11-11h7v7h-7V3zm0 11h7v7h-7v-7z"/>
+                </svg>
+              </a>
+              <a
+                href="{{ collection.url }}?view=list"
+                class="view-btn view-btn--list relative z-10 flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-300"
+                aria-label="{{ 'collections.general.list_view' | t | default: 'List view' }}"
+                title="List View"
+              >
+                <svg class="w-5 h-5 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M3 6h8v2H3V6zm0 5h8v2H3v-2zm0 5h8v2H3v-2zm10 0h8v2h-8v-2zm0-5h8v2h-8v-2zm0-5h8v2h-8V6z"/>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -295,7 +277,7 @@
       <div class="products-container">
         <div
           id="products-grid"
-          class="products-grid {% if current_view == 'list' %}list-view grid grid-cols-1 md:grid-cols-2 gap-6{% else %}grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6{% endif %}"
+          class="products-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 lg:gap-16"
           style="contain: layout style;"
         >
           {%- for product in collection.products -%}
@@ -356,408 +338,537 @@
         </div>
       </div>
     {%- endif -%}
-  </div>
-</div>
 
-<style>
-  /* Collection Toolbar - Override container padding for flush alignment */
-  .collection-toolbar {
-    margin-left: calc(-1 * var(--container-padding));
-    margin-right: calc(-1 * var(--container-padding));
-    padding-left: var(--container-padding);
-    padding-right: var(--container-padding);
-  }
-
-  /* Stable Grid Layout */
-  .products-grid {
-    contain: layout style;
-  }
-
-  .product-item {
-    contain: layout style;
-    opacity: 1 !important;
-    transition: none !important;
-  }
-
-  .product-item img {
-    transition: none !important;
-  }
-
-  /* Modern View Toggle Styles */
-  .view-switcher {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background: rgba(17, 24, 39, 0.8);
-    backdrop-filter: blur(8px);
-    border-radius: 0.75rem;
-    border: 1px solid rgba(55, 65, 81, 0.5);
-    padding: 0.25rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  }
-
-  .view-slider {
-    position: absolute;
-    top: 0.25rem;
-    left: 0.25rem;
-    width: 2.5rem;
-    height: 2.5rem;
-    background: linear-gradient(135deg, #ffd800 0%, #ffed4e 100%);
-    border-radius: 0.5rem;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  }
-
-  .view-btn {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    background: transparent;
-    border: none;
-    border-radius: 0.5rem;
-    color: #9ca3af;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .view-btn:hover {
-    color: #ffffff;
-    transform: scale(1.05);
-  }
-
-  .view-btn.active {
-    color: #000000;
-  }
-
-  .view-btn:focus {
-    outline: none;
-    box-shadow: 0 0 0 1px rgba(255, 216, 0, 0.5);
-  }
-
-  /* Slider Animation */
-  .view-btn--list.active ~ .view-slider,
-  .view-switcher:has(.view-btn--list.active) .view-slider {
-    transform: translateX(2.5rem);
-  }
-
-  /* List View Styles - 2 Column Card Layout */
-  .products-grid.list-view {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 1.5rem;
-  }
-
-  @media (min-width: 768px) {
-    .products-grid.list-view {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  .products-grid.list-view .product-item {
-    width: 100%;
-  }
-
-  /* List Card Specific Styles */
-  .list-card .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .list-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-  }
-
-  /* Animation for view changes */
-  .products-grid {
-    transition: all 0.3s ease;
-  }
-
-  .product-item {
-    animation: fadeInUp 0.6s ease-out;
-    animation-fill-mode: both;
-  }
-
-  .product-item:nth-child(1) {
-    animation-delay: 0.1s;
-  }
-  .product-item:nth-child(2) {
-    animation-delay: 0.2s;
-  }
-  .product-item:nth-child(3) {
-    animation-delay: 0.3s;
-  }
-  .product-item:nth-child(4) {
-    animation-delay: 0.4s;
-  }
-  .product-item:nth-child(5) {
-    animation-delay: 0.5s;
-  }
-  .product-item:nth-child(6) {
-    animation-delay: 0.6s;
-  }
-  .product-item:nth-child(7) {
-    animation-delay: 0.7s;
-  }
-  .product-item:nth-child(8) {
-    animation-delay: 0.8s;
-  }
-
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .collection-toolbar {
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .products-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-    }
-  }
-
-  @media (max-width: 640px) {
-    .products-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  /* Accessibility improvements */
-  @media (prefers-reduced-motion: reduce) {
-    .products-grid,
-    .product-item {
-      animation: none;
-      transition: none;
-    }
-  }
-
-  /* High contrast mode support */
-  @media (prefers-contrast: high) {
-    .view-btn {
-      border-width: 2px;
-    }
-
-    .view-btn.active {
-      border-width: 3px;
-    }
-  }
-</style>
-
-<script>
-  // Simple client-side view toggle functionality
-  function setView(viewType) {
-    const grid = document.getElementById('products-grid');
-    const buttons = document.querySelectorAll('.view-btn');
-    const viewLabel = document.querySelector('.view-toggle span');
-
-    // Update grid layout
-    if (viewType === 'list') {
-      grid.classList.remove('grid', 'grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-3', 'xl:grid-cols-4', 'gap-6');
-      grid.classList.add('list-view', 'grid', 'grid-cols-1', 'md:grid-cols-2', 'gap-6');
-    } else {
-      grid.classList.remove('list-view', 'grid', 'grid-cols-1', 'md:grid-cols-2', 'gap-6');
-      grid.classList.add('grid', 'grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-3', 'xl:grid-cols-4', 'gap-6');
-    }
-
-    // Update button states
-    buttons.forEach((btn) => {
-      btn.classList.remove('active');
-      if (btn.classList.contains(`view-btn--${viewType}`)) {
-        btn.classList.add('active');
+    <style>
+      /* Collection Toolbar - Override container padding for flush alignment */
+      .collection-toolbar {
+        margin-left: calc(-1 * var(--container-padding));
+        margin-right: calc(-1 * var(--container-padding));
+        padding-left: var(--container-padding);
+        padding-right: var(--container-padding);
       }
-    });
 
-    // View label stays static - no need to update
-
-    // Store user preference
-    localStorage.setItem('collection-view-preference', viewType);
-
-    // Update product cards for list view if needed
-    updateProductCards(viewType);
-  }
-
-  function updateProductCards(viewType) {
-    const productItems = document.querySelectorAll('.product-item');
-
-    productItems.forEach((item) => {
-      if (viewType === 'list') {
-        // Add list-specific classes or styling
-        item.classList.add('list-item');
-      } else {
-        // Remove list-specific classes
-        item.classList.remove('list-item');
+      /* Stable Grid Layout */
+      .products-grid {
+        contain: layout style;
       }
-    });
-  }
 
-  function toggleFilters() {
-    // Placeholder for future filter functionality
-    console.log('Filter toggle - to be implemented');
-  }
+      .product-item {
+        contain: layout style;
+        opacity: 1 !important;
+        transition: none !important;
+      }
 
-  function filterByCollection(collectionName) {
-    const productItems = document.querySelectorAll('.product-item');
-    const selectedCollection = collectionName.toLowerCase();
+      .product-item img {
+        transition: none !important;
+      }
 
-    productItems.forEach((item) => {
-      const productCollections = item.getAttribute('data-collections');
+      /* Modern View Toggle Styles */
+      .view-switcher {
+        position: relative;
+        display: flex;
+        align-items: center;
+        background: rgba(17, 24, 39, 0.8);
+        backdrop-filter: blur(8px);
+        border-radius: 0.75rem;
+        border: 1px solid rgba(55, 65, 81, 0.5);
+        padding: 0.25rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
 
-      if (!selectedCollection || selectedCollection === '') {
-        // Show all products when "All Categories" is selected
-        item.style.display = 'block';
-      } else if (productCollections) {
-        const collections = productCollections.toLowerCase().split(',');
-        const hasCollection = collections.some(
-          (collection) =>
-            collection.trim() === selectedCollection || collection.trim().replace(/\s+/g, '-') === selectedCollection
+      .view-slider {
+        position: absolute;
+        top: 0.25rem;
+        left: 0.25rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        background: linear-gradient(135deg, #ffd800 0%, #ffed4e 100%);
+        border-radius: 0.5rem;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+
+      .view-btn {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        background: transparent;
+        border: none;
+        border-radius: 0.5rem;
+        color: #9ca3af;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .view-btn:hover {
+        color: #ffffff;
+        transform: scale(1.05);
+      }
+
+      .view-btn.active {
+        color: #000000;
+      }
+
+      .view-btn:focus {
+        outline: none;
+        box-shadow: 0 0 0 1px rgba(255, 216, 0, 0.5);
+      }
+
+      /* Slider Animation - Fixed positioning logic */
+      .view-btn--list.active ~ .view-slider,
+      .view-switcher:has(.view-btn--list.active) .view-slider {
+        transform: translateX(2.5rem);
+      }
+
+      /* Default position for grid view (left side) */
+      .view-slider {
+        transform: translateX(0);
+      }
+
+      /* Ensure proper active states */
+      .view-btn--grid.active {
+        color: #000000;
+      }
+
+      .view-btn--list.active {
+        color: #000000;
+      }
+
+      /* Animation for view changes */
+      .products-grid {
+        transition: all 0.3s ease;
+      }
+
+      .product-item {
+        animation: fadeInUp 0.6s ease-out;
+        animation-fill-mode: both;
+      }
+
+      .product-item:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .product-item:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .product-item:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .product-item:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      .product-item:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+      .product-item:nth-child(6) {
+        animation-delay: 0.6s;
+      }
+      .product-item:nth-child(7) {
+        animation-delay: 0.7s;
+      }
+      .product-item:nth-child(8) {
+        animation-delay: 0.8s;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .collection-toolbar {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .products-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1rem;
+        }
+
+        /* Hide view toggle on mobile */
+        .view-toggle {
+          display: none !important;
+        }
+      }
+
+      /* Tablet-specific layout (between mobile and desktop) */
+      @media (min-width: 769px) and (max-width: 1023px) {
+        .collection-toolbar > div {
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        /* Move view toggle to the right side on tablet */
+        .collection-toolbar .flex.flex-col.lg\\:flex-row {
+          flex-direction: row !important;
+          justify-content: space-between !important;
+          align-items: center !important;
+          width: 100%;
+        }
+
+        /* Ensure left side items stay grouped */
+        .filter-sort-container {
+          flex-direction: row;
+          align-items: center;
+          gap: 1rem;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .products-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Accessibility improvements */
+      @media (prefers-reduced-motion: reduce) {
+        .products-grid,
+        .product-item {
+          animation: none;
+          transition: none;
+        }
+      }
+
+      /* High contrast mode support */
+      @media (prefers-contrast: high) {
+        .view-btn {
+          border-width: 2px;
+        }
+
+        .view-btn.active {
+          border-width: 3px;
+        }
+      }
+
+      /* Dynamic color extraction for product cards */
+      .product-card-widget {
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .product-card-widget::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 1rem;
+        background: linear-gradient(
+          45deg,
+          transparent 0%,
+          var(--dominant-color, var(--color-primary)) 25%,
+          transparent 50%,
+          var(--dominant-color, var(--color-primary)) 75%,
+          transparent 100%
         );
-
-        item.style.display = hasCollection ? 'block' : 'none';
-      } else {
-        // Hide products without collection data
-        item.style.display = 'none';
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
       }
-    });
 
-    // Update dropdown options to only show categories from visible products
-    updateCollectionDropdown();
+      .product-card-widget:hover::before {
+        opacity: 0.2;
+      }
 
-    // Update URL without page reload
-    const url = new URL(window.location);
-    if (selectedCollection) {
-      url.searchParams.set('collection_filter', selectedCollection);
-    } else {
-      url.searchParams.delete('collection_filter');
-    }
-    window.history.pushState({}, '', url);
-  }
+      .product-card-widget:hover {
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 20px rgba(var(--dominant-color-rgb, 255, 216, 0), 0.3);
+      }
+    </style>
 
-  function updateCollectionDropdown() {
-    const allProducts = document.querySelectorAll('.product-item');
-    const collectionFilter = document.getElementById('collection-filter');
-    const currentValue = collectionFilter.value;
+    <script>
+      // Simple client-side view toggle functionality
+      function setView(viewType) {
+        // On mobile, only allow grid view
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile && viewType === 'list') {
+          viewType = 'grid';
+        }
 
-    // Get all unique collections from ALL products (not just visible ones)
-    const allCollections = new Set();
-    allProducts.forEach((item) => {
-      const productCollections = item.getAttribute('data-collections');
-      if (productCollections) {
-        const collections = productCollections.split(',');
-        collections.forEach((collection) => {
-          if (collection.trim()) {
-            allCollections.add(collection.trim());
+        const grid = document.getElementById('products-grid');
+        const buttons = document.querySelectorAll('.view-btn');
+
+        // Update button states
+        buttons.forEach((btn) => {
+          btn.classList.remove('active');
+          if (btn.classList.contains(`view-btn--${viewType}`)) {
+            btn.classList.add('active');
+          }
+        });
+
+        // Store user preference
+        localStorage.setItem('collection-view-preference', viewType);
+
+        // Update URL parameter for server-side detection
+        const url = new URL(window.location);
+        if (viewType === 'list') {
+          url.searchParams.set('view', 'list');
+        } else {
+          url.searchParams.delete('view');
+        }
+        window.history.pushState({}, '', url);
+      }
+
+      function toggleFilters() {
+        // Placeholder for future filter functionality
+        console.log('Filter toggle - to be implemented');
+      }
+
+      function filterByCollection(collectionName) {
+        const productItems = document.querySelectorAll('.product-item');
+        const selectedCollection = collectionName.toLowerCase();
+
+        productItems.forEach((item) => {
+          const productCollections = item.getAttribute('data-collections');
+
+          if (!selectedCollection || selectedCollection === '') {
+            // Show all products when "All Categories" is selected
+            item.style.display = 'block';
+          } else if (productCollections) {
+            const collections = productCollections.toLowerCase().split(',');
+            const hasCollection = collections.some(
+              (collection) =>
+                collection.trim() === selectedCollection ||
+                collection.trim().replace(/\s+/g, '-') === selectedCollection
+            );
+
+            item.style.display = hasCollection ? 'block' : 'none';
+          } else {
+            // Hide products without collection data
+            item.style.display = 'none';
+          }
+        });
+
+        // Update dropdown options to only show categories from visible products
+        updateCollectionDropdown();
+
+        // Update URL without page reload
+        const url = new URL(window.location);
+        if (selectedCollection) {
+          url.searchParams.set('collection_filter', selectedCollection);
+        } else {
+          url.searchParams.delete('collection_filter');
+        }
+        window.history.pushState({}, '', url);
+      }
+
+      function updateCollectionDropdown() {
+        const allProducts = document.querySelectorAll('.product-item');
+        const collectionFilter = document.getElementById('collection-filter');
+        const currentValue = collectionFilter.value;
+
+        // Get all unique collections from ALL products (not just visible ones)
+        const allCollections = new Set();
+        allProducts.forEach((item) => {
+          const productCollections = item.getAttribute('data-collections');
+          if (productCollections) {
+            const collections = productCollections.split(',');
+            collections.forEach((collection) => {
+              if (collection.trim()) {
+                allCollections.add(collection.trim());
+              }
+            });
+          }
+        });
+
+        // Update dropdown options to show ALL available categories
+        const options = collectionFilter.querySelectorAll('option');
+        options.forEach((option, index) => {
+          if (index === 0) return; // Keep "All Categories" option
+
+          const optionText = option.textContent.trim();
+
+          // Show all categories that exist in the collection
+          if (allCollections.has(optionText)) {
+            option.style.display = 'block';
+          } else {
+            option.style.display = 'none';
           }
         });
       }
-    });
 
-    // Update dropdown options to show ALL available categories
-    const options = collectionFilter.querySelectorAll('option');
-    options.forEach((option, index) => {
-      if (index === 0) return; // Keep "All Categories" option
+      function sortProducts(sortBy) {
+        const productItems = document.querySelectorAll('.product-item');
+        const productsArray = Array.from(productItems);
 
-      const optionText = option.textContent.trim();
+        // Get product data for sorting
+        const productsWithData = productsArray.map((item) => {
+          const title = item.querySelector('.card-product__title')?.textContent?.trim() || '';
+          const priceElement = item.querySelector('.card-product__price');
+          const price = priceElement ? parseFloat(priceElement.textContent.replace(/[^0-9.]/g, '')) : 0;
+          const comparePriceElement = item.querySelector('.card-product__price--compare');
+          const comparePrice = comparePriceElement
+            ? parseFloat(comparePriceElement.textContent.replace(/[^0-9.]/g, ''))
+            : 0;
+          const dateCreated = item.getAttribute('data-created') || '';
 
-      // Show all categories that exist in the collection
-      if (allCollections.has(optionText)) {
-        option.style.display = 'block';
-      } else {
-        option.style.display = 'none';
+          return { item, title, price, comparePrice, dateCreated };
+        });
+
+        // Sort based on selection
+        productsWithData.sort((a, b) => {
+          switch (sortBy) {
+            case 'title-ascending':
+              return a.title.localeCompare(b.title);
+            case 'title-descending':
+              return b.title.localeCompare(a.title);
+            case 'price-ascending':
+              return a.price - b.price;
+            case 'price-descending':
+              return b.price - a.price;
+            case 'created-ascending':
+              return a.dateCreated.localeCompare(b.dateCreated);
+            case 'created-descending':
+              return b.dateCreated.localeCompare(a.dateCreated);
+            case 'best-selling':
+              // For best-selling, we'll use a simple sort by popularity (could be enhanced with actual sales data)
+              return 0; // Keep original order for now
+            case 'manual':
+            default:
+              return 0; // Keep original order
+          }
+        });
+
+        // Re-insert sorted products
+        const productsGrid = document.getElementById('products-grid');
+        productsWithData.forEach(({ item }) => {
+          productsGrid.appendChild(item);
+        });
+
+        // Update URL without page reload
+        const url = new URL(window.location);
+        if (sortBy && sortBy !== 'manual') {
+          url.searchParams.set('sort_by', sortBy);
+        } else {
+          url.searchParams.delete('sort_by');
+        }
+        window.history.pushState({}, '', url);
       }
-    });
-  }
 
-  function sortProducts(sortBy) {
-    const productItems = document.querySelectorAll('.product-item');
-    const productsArray = Array.from(productItems);
+      // Initialize view on page load
+      document.addEventListener('DOMContentLoaded', function () {
+        // Get saved preference or default to grid
+        const savedView = localStorage.getItem('collection-view-preference') || 'grid';
 
-    // Get product data for sorting
-    const productsWithData = productsArray.map((item) => {
-      const title = item.querySelector('.card-product__title')?.textContent?.trim() || '';
-      const priceElement = item.querySelector('.card-product__price');
-      const price = priceElement ? parseFloat(priceElement.textContent.replace(/[^0-9.]/g, '')) : 0;
-      const comparePriceElement = item.querySelector('.card-product__price--compare');
-      const comparePrice = comparePriceElement
-        ? parseFloat(comparePriceElement.textContent.replace(/[^0-9.]/g, ''))
-        : 0;
-      const dateCreated = item.getAttribute('data-created') || '';
+        // Apply the saved view
+        setView(savedView);
 
-      return { item, title, price, comparePrice, dateCreated };
-    });
+        // Apply collection filter from URL if present
+        const url = new URL(window.location);
+        const collectionFilter = url.searchParams.get('collection_filter');
+        if (collectionFilter) {
+          const filterSelect = document.getElementById('collection-filter');
+          if (filterSelect) {
+            filterSelect.value = collectionFilter;
+            filterByCollection(collectionFilter);
+          }
+        }
 
-    // Sort based on selection
-    productsWithData.sort((a, b) => {
-      switch (sortBy) {
-        case 'title-ascending':
-          return a.title.localeCompare(b.title);
-        case 'title-descending':
-          return b.title.localeCompare(a.title);
-        case 'price-ascending':
-          return a.price - b.price;
-        case 'price-descending':
-          return b.price - a.price;
-        case 'created-ascending':
-          return a.dateCreated.localeCompare(b.dateCreated);
-        case 'created-descending':
-          return b.dateCreated.localeCompare(a.dateCreated);
-        case 'best-selling':
-          // For best-selling, we'll use a simple sort by popularity (could be enhanced with actual sales data)
-          return 0; // Keep original order for now
-        case 'manual':
-        default:
-          return 0; // Keep original order
+        // Apply sort from URL if present
+        const sortBy = url.searchParams.get('sort_by');
+        if (sortBy) {
+          const sortSelect = document.getElementById('sort-by');
+          if (sortSelect) {
+            sortSelect.value = sortBy;
+            sortProducts(sortBy);
+          }
+        }
+      });
+
+      // Color extraction function
+      function extractDominantColor(img) {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        ctx.drawImage(img, 0, 0);
+
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+        const colors = {};
+
+        // Focus on center area (middle 50% of the image)
+        const centerX = Math.floor(canvas.width * 0.25);
+        const centerY = Math.floor(canvas.height * 0.25);
+        const centerWidth = Math.floor(canvas.width * 0.5);
+        const centerHeight = Math.floor(canvas.height * 0.5);
+
+        // Sample pixels from center area only
+        for (let y = centerY; y < centerY + centerHeight; y++) {
+          for (let x = centerX; x < centerX + centerWidth; x++) {
+            const i = (y * canvas.width + x) * 4;
+            const r = imageData[i];
+            const g = imageData[i + 1];
+            const b = imageData[i + 2];
+            const rgb = `${r},${g},${b}`;
+            colors[rgb] = (colors[rgb] || 0) + 1;
+          }
+        }
+
+        // Find the most common color
+        let dominantColor = Object.keys(colors).reduce((a, b) => (colors[a] > colors[b] ? a : b));
+        const [r, g, b] = dominantColor.split(',').map(Number);
+
+        // Convert to hex
+        const hex = '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+        return hex;
       }
-    });
 
-    // Re-insert sorted products
-    const productsGrid = document.getElementById('products-grid');
-    productsWithData.forEach(({ item }) => {
-      productsGrid.appendChild(item);
-    });
+      // Apply dominant colors to product cards
+      function applyDominantColors() {
+        const productCards = document.querySelectorAll('.product-card-widget');
 
-    // Update URL without page reload
-    const url = new URL(window.location);
-    if (sortBy && sortBy !== 'manual') {
-      url.searchParams.set('sort_by', sortBy);
-    } else {
-      url.searchParams.delete('sort_by');
-    }
-    window.history.pushState({}, '', url);
-  }
-
-  // Initialize view on page load
-  document.addEventListener('DOMContentLoaded', function () {
-    // Get saved preference or default to grid
-    const savedView = localStorage.getItem('collection-view-preference') || 'grid';
-
-    // Apply the saved view
-    setView(savedView);
-
-    // Apply collection filter from URL if present
-    const url = new URL(window.location);
-    const collectionFilter = url.searchParams.get('collection_filter');
-    if (collectionFilter) {
-      const filterSelect = document.getElementById('collection-filter');
-      if (filterSelect) {
-        filterSelect.value = collectionFilter;
-        filterByCollection(collectionFilter);
+        productCards.forEach((card) => {
+          const img = card.querySelector('img');
+          if (img && img.complete) {
+            const dominantColor = extractDominantColor(img);
+            const rgb = hexToRgb(dominantColor);
+            card.style.setProperty('--dominant-color', dominantColor);
+            card.style.setProperty('--dominant-color-rgb', rgb);
+          } else if (img) {
+            img.addEventListener('load', () => {
+              const dominantColor = extractDominantColor(img);
+              const rgb = hexToRgb(dominantColor);
+              card.style.setProperty('--dominant-color', dominantColor);
+              card.style.setProperty('--dominant-color-rgb', rgb);
+            });
+          }
+        });
       }
-    }
 
-    // Apply sort from URL if present
-    const sortBy = url.searchParams.get('sort_by');
-    if (sortBy) {
-      const sortSelect = document.getElementById('sort-by');
-      if (sortSelect) {
-        sortSelect.value = sortBy;
-        sortProducts(sortBy);
+      // Convert hex to RGB
+      function hexToRgb(hex) {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result
+          ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}`
+          : '255, 216, 0';
       }
-    }
-  });
-</script>
+
+      // Run when DOM is loaded
+      document.addEventListener('DOMContentLoaded', applyDominantColors);
+
+      // Re-run when products are filtered or sorted
+      function reapplyColors() {
+        setTimeout(applyDominantColors, 100);
+      }
+
+      // Override existing functions to reapply colors
+      const originalFilterByCollection = window.filterByCollection;
+      const originalSortProducts = window.sortProducts;
+
+      window.filterByCollection = function (collectionName) {
+        if (originalFilterByCollection) {
+          originalFilterByCollection(collectionName);
+        }
+        reapplyColors();
+      };
+
+      window.sortProducts = function (sortBy) {
+        if (originalSortProducts) {
+          originalSortProducts(sortBy);
+        }
+        reapplyColors();
+      };
+    </script>
+  </div>
+</div>

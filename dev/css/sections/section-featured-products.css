@@ -14,11 +14,12 @@
     border-radius: var(--radius-xl);
     overflow: hidden;
     transition: all var(--duration-card) var(--easing-smooth);
-    min-height: 300px;
+    min-height: 200px;
     display: flex;
     flex-direction: column;
     transform: translateZ(0);
     text-decoration: none;
+    height: 100%;
   }
 
   .product-card-widget:hover {
@@ -32,8 +33,6 @@
 
   .product-card-widget img {
     object-fit: cover;
-    max-width: 160px;
-    max-height: 160px;
     transition: all var(--duration-card) var(--easing-smooth);
   }
 
@@ -48,6 +47,79 @@
 
   .product-card-widget .text-center {
     margin-top: auto;
-    padding-top: var(--spacing-lg);
+    padding-top: var(--spacing-md);
+  }
+
+  /* Product card content alignment fixes */
+  .product-card-widget h2 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+  }
+
+  .product-card-widget .font-bold {
+    margin-top: auto;
+  }
+
+  /* Ensure consistent card heights */
+  .product-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product-item .product-card-widget {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Grid layout improvements */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  @media (min-width: 640px) {
+    .products-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .products-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .products-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* Mobile-specific overrides */
+  @media (max-width: 768px) {
+    .product-card-widget {
+      min-height: 180px;
+    }
+
+    .product-card-widget .text-center {
+      padding-top: var(--spacing-sm);
+    }
+
+    .products-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
   }
 }

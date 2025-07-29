@@ -108,8 +108,6 @@ class InteractionController {
       pointer-events: none;
     `;
 
-    button.style.position = "relative";
-    button.style.overflow = "hidden";
     button.appendChild(ripple);
 
     setTimeout(() => {
@@ -200,55 +198,49 @@ class AccessibilityController {
   }
 
   initSkipLinks() {
-    // Add skip to content link
-    const skipLink = document.createElement("a");
-    skipLink.href = "#main-content";
-    skipLink.textContent = "Skip to main content";
-    skipLink.className = "skip-link";
-    skipLink.style.cssText = `
-      position: absolute;
-      top: -40px;
-      left: 6px;
-      background: #000;
-      color: #fff;
-      padding: 8px;
-      text-decoration: none;
-      z-index: 1000;
-      transition: top var(--duration-normal);
-    `;
+    // Create skip links for accessibility
+    const skipLinks = [
+      { href: "#main-content", text: "Skip to main content" },
+      { href: "#navigation", text: "Skip to navigation" },
+    ];
 
-    skipLink.addEventListener("focus", () => {
-      skipLink.style.top = "6px";
+    skipLinks.forEach((link) => {
+      const skipLink = document.createElement("a");
+      skipLink.href = link.href;
+      skipLink.textContent = link.text;
+      skipLink.className = "skip-link";
+      skipLink.style.cssText = `
+        position: absolute;
+        top: -40px;
+        left: 6px;
+        background: #000;
+        color: #fff;
+        padding: 8px;
+        text-decoration: none;
+        z-index: 1000;
+        transition: top 0.3s;
+      `;
+
+      skipLink.addEventListener("focus", () => {
+        skipLink.style.top = "6px";
+      });
+
+      skipLink.addEventListener("blur", () => {
+        skipLink.style.top = "-40px";
+      });
+
+      document.body.appendChild(skipLink);
     });
-
-    skipLink.addEventListener("blur", () => {
-      skipLink.style.top = "-40px";
-    });
-
-    document.body.insertBefore(skipLink, document.body.firstChild);
   }
 
   initFocusManagement() {
-    // Trap focus in modals
+    // Manage focus for modals and dropdowns
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Tab") {
-        const modals = document.querySelectorAll('[role="dialog"]');
-        modals.forEach((modal) => {
-          if (modal.style.display !== "none") {
-            const focusableElements = modal.querySelectorAll(
-              'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-            );
-            const firstElement = focusableElements[0];
-            const lastElement = focusableElements[focusableElements.length - 1];
-
-            if (e.shiftKey && document.activeElement === firstElement) {
-              e.preventDefault();
-              lastElement.focus();
-            } else if (!e.shiftKey && document.activeElement === lastElement) {
-              e.preventDefault();
-              firstElement.focus();
-            }
-          }
+      if (e.key === "Escape") {
+        // Close modals, dropdowns, etc.
+        const activeModals = document.querySelectorAll("[data-modal].active");
+        activeModals.forEach((modal) => {
+          modal.classList.remove("active");
         });
       }
     });
@@ -257,20 +249,27 @@ class AccessibilityController {
   initKeyboardNavigation() {
     // Enhanced keyboard navigation
     document.addEventListener("keydown", (e) => {
-      // Escape key closes modals
-      if (e.key === "Escape") {
-        const modals = document.querySelectorAll('[role="dialog"]');
-        modals.forEach((modal) => {
-          if (modal.style.display !== "none") {
-            modal.style.display = "none";
-          }
-        });
+      // Handle keyboard shortcuts
+      if (e.ctrlKey || e.metaKey) {
+        switch (e.key) {
+          case "k":
+            e.preventDefault();
+            // Open search
+            const searchInput = document.querySelector("[data-search-input]");
+            if (searchInput) searchInput.focus();
+            break;
+          case "/":
+            e.preventDefault();
+            // Toggle help
+            console.log("Help toggled");
+            break;
+        }
       }
     });
   }
 }
 
-// ===== INITIALIZATION =====
+// ===== MAIN CORE SYSTEM =====
 
 class BloxManiaCore {
   constructor() {
@@ -278,20 +277,16 @@ class BloxManiaCore {
     this.interactionController = null;
     this.performanceController = null;
     this.accessibilityController = null;
+    this.creatorsCarousel = null;
     this.init();
   }
 
   init() {
-    // Wait for DOM to be ready
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", () => this.setup());
-    } else {
-      this.setup();
-    }
+    this.setup();
   }
 
   setup() {
-    // Initialize controllers
+    // Initialize all controllers
     this.animationController = new SimpleScrollFadeController();
     this.interactionController = new InteractionController();
     this.performanceController = new PerformanceController();
@@ -302,17 +297,13 @@ class BloxManiaCore {
   }
 
   initThemeFeatures() {
-    // Initialize view toggles
     this.initViewToggles();
-
-    // Initialize search functionality
     this.initSearch();
-
-    // Initialize cart functionality
     this.initCart();
   }
 
   initViewToggles() {
+    // Handle view toggles (grid/list view)
     const viewToggles = document.querySelectorAll("[data-view-toggle]");
     viewToggles.forEach((toggle) => {
       toggle.addEventListener("click", (e) => {
@@ -325,7 +316,7 @@ class BloxManiaCore {
 
   setView(view) {
     // Update view state
-    localStorage.setItem("collection-view-preference", view);
+    localStorage.setItem("product-view", view);
 
     // Update UI
     document.querySelectorAll("[data-view]").forEach((element) => {

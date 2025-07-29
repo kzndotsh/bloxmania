@@ -1,6 +1,67 @@
 /* BloxMania Component - Creators Carousel */
 /* Styles for the creators carousel component */
 
+.creators-carousel {
+  position: relative;
+  overflow: hidden;
+  /* Override any global scroll behavior */
+  scroll-behavior: auto !important;
+}
+
+.creators-carousel .w-full.overflow-hidden {
+  position: relative;
+  overflow: hidden;
+}
+
+.creators-carousel .flex {
+  display: flex;
+  will-change: transform;
+  /* Hardware acceleration for smooth animation */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+  /* Prevent text selection during animation */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Disable transitions on the flex container to prevent conflicts */
+.creators-carousel .flex {
+  transition: none !important;
+}
+
+/* Ensure individual items don't interfere with parent transform */
+.creators-carousel .flex > div {
+  transform: none !important;
+}
+
+.creators-carousel .flex.animate {
+  animation: creators-scroll-loop linear infinite;
+}
+
+@keyframes creators-scroll-loop {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Ensure the flex container has enough width for scrolling */
+.creators-carousel .flex > div {
+  flex-shrink: 0 !important;
+  min-width: 0; /* Prevent flex items from shrinking unexpectedly */
+  margin-left: 2rem !important; /* Override mx-8 with fixed value */
+  margin-right: 2rem !important; /* Override mx-8 with fixed value */
+}
+
+/* Link styles */
 .creators-carousel a {
   text-decoration: none;
 }

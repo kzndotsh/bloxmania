@@ -5,6 +5,7 @@
 
 class CollectionManager {
   constructor() {
+    this.isMobile = window.innerWidth <= 768;
     this.init();
   }
 
@@ -12,6 +13,11 @@ class CollectionManager {
     this.bindEvents();
     this.loadSavedPreferences();
     this.initPagination();
+
+    // Force card view on mobile
+    if (this.isMobile) {
+      this.forceCardViewOnMobile();
+    }
   }
 
   bindEvents() {
@@ -21,17 +27,73 @@ class CollectionManager {
       sortSelect.addEventListener("change", this.handleSortChange.bind(this));
     }
 
-    // View toggle buttons
-    const viewButtons = document.querySelectorAll(".view-btn");
-    viewButtons.forEach((btn) => {
-      btn.addEventListener("click", this.handleViewChange.bind(this));
-    });
+    // View toggle buttons - only bind on desktop
+    if (!this.isMobile) {
+      const viewButtons = document.querySelectorAll(".view-btn");
+      viewButtons.forEach((btn) => {
+        btn.addEventListener("click", this.handleViewChange.bind(this));
+      });
+    }
 
     // Filter toggle for mobile
     const filterToggle = document.querySelector(".filters-toggle");
     if (filterToggle) {
       filterToggle.addEventListener("click", this.toggleMobileFilters.bind(this));
     }
+
+    // Handle resize events to update mobile state
+    window.addEventListener("resize", this.handleResize.bind(this));
+  }
+
+  handleResize() {
+    const wasMobile = this.isMobile;
+    this.isMobile = window.innerWidth <= 768;
+
+    // If switching between mobile and desktop
+    if (wasMobile !== this.isMobile) {
+      if (this.isMobile) {
+        this.forceCardViewOnMobile();
+      } else {
+        // Re-enable view toggle functionality on desktop
+        this.bindViewToggleEvents();
+      }
+    }
+  }
+
+  forceCardViewOnMobile() {
+    // Ensure grid view is active on mobile
+    const grid = document.getElementById("products-grid");
+    if (grid) {
+      grid.classList.remove("list-view");
+      grid.classList.add("grid-cols-1", "sm:grid-cols-2", "lg:grid-cols-3");
+    }
+
+    // Hide list cards, show grid cards
+    const gridCards = document.querySelectorAll(".grid-card");
+    const listCards = document.querySelectorAll(".list-card");
+
+    gridCards.forEach((card) => card.classList.remove("hidden"));
+    listCards.forEach((card) => card.classList.add("hidden"));
+
+    // Update button states to show grid as active
+    const buttons = document.querySelectorAll(".view-btn");
+    buttons.forEach((btn) => {
+      btn.classList.remove("active");
+      if (btn.classList.contains("view-btn--grid")) {
+        btn.classList.add("active");
+      }
+    });
+
+    // Store preference as grid view
+    this.saveViewPreference("grid");
+  }
+
+  bindViewToggleEvents() {
+    // Re-bind view toggle events for desktop
+    const viewButtons = document.querySelectorAll(".view-btn");
+    viewButtons.forEach((btn) => {
+      btn.addEventListener("click", this.handleViewChange.bind(this));
+    });
   }
 
   handleSortChange(event) {
@@ -54,10 +116,20 @@ class CollectionManager {
     const button = event.currentTarget;
     const viewType = button.classList.contains("view-btn--list") ? "list" : "grid";
 
+    // On mobile, prevent switching to list view
+    if (this.isMobile && viewType === "list") {
+      return;
+    }
+
     this.setView(viewType);
   }
 
   setView(viewType) {
+    // On mobile, only allow grid view
+    if (this.isMobile && viewType === "list") {
+      viewType = "grid";
+    }
+
     const grid = document.getElementById("products-grid");
     const buttons = document.querySelectorAll(".view-btn");
     const gridCards = document.querySelectorAll(".grid-card");
@@ -68,14 +140,14 @@ class CollectionManager {
     // Update grid classes and show/hide appropriate cards
     if (viewType === "list") {
       grid.classList.add("list-view");
-      grid.classList.remove("grid-cols-1", "sm:grid-cols-2", "lg:grid-cols-3", "xl:grid-cols-4");
+      grid.classList.remove("grid-cols-1", "sm:grid-cols-2", "lg:grid-cols-3");
 
       // Hide grid cards, show list cards
       gridCards.forEach((card) => card.classList.add("hidden"));
       listCards.forEach((card) => card.classList.remove("hidden"));
     } else {
       grid.classList.remove("list-view");
-      grid.classList.add("grid-cols-1", "sm:grid-cols-2", "lg:grid-cols-3", "xl:grid-cols-4");
+      grid.classList.add("grid-cols-1", "sm:grid-cols-2", "lg:grid-cols-3");
 
       // Show grid cards, hide list cards
       gridCards.forEach((card) => card.classList.remove("hidden"));
@@ -116,6 +188,12 @@ class CollectionManager {
 
   loadSavedPreferences() {
     try {
+      // On mobile, always force card view regardless of saved preference
+      if (this.isMobile) {
+        this.forceCardViewOnMobile();
+        return;
+      }
+
       const savedView = localStorage.getItem("collection-view");
       if (savedView && (savedView === "list" || savedView === "grid")) {
         this.setView(savedView);

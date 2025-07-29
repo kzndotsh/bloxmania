@@ -1,15 +1,19 @@
 /* BloxMania Simple Scroll Fade Effects */
 
-/* ===== REDUCED MOTION SUPPORT ===== */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+/* ===== INFINITE SCROLL ANIMATION ===== */
+
+@keyframes infinite-scroll {
+  0% {
+    transform: translateX(0);
   }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: infinite-scroll 30s linear infinite;
+  will-change: transform;
 }
 
 /* ===== SIMPLE SCROLL FADE EFFECTS ===== */
@@ -26,16 +30,6 @@
   }
 }
 
-/* Carousel scrolling animation */
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
 /* Section fade-in class */
 .section-fade-in {
   opacity: 0;
@@ -46,92 +40,6 @@
 .section-fade-in.fade-in-visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-/* Carousel animation class - faster and with hover pause */
-.animate-scroll {
-  animation: scroll 12s linear infinite;
-  transition: animation-play-state 0.3s ease;
-}
-
-.animate-scroll:hover {
-  animation-play-state: paused;
-}
-
-/* Special handling for carousels and immediate content */
-.section-fade-in .creators-carousel {
-  opacity: 1;
-  transform: none;
-}
-
-/* Keep the scrolling animation for the carousel content */
-.section-fade-in .animate-scroll {
-  opacity: 1;
-  /* Don't override transform for animate-scroll to keep the scrolling effect */
-}
-
-/* Ensure carousel container and contents are always visible */
-.section-fade-in .creators-container,
-.section-fade-in .creators-carousel,
-.section-fade-in .creators-carousel * {
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-/* Ensure the carousel container div is always visible */
-.section-fade-in .hero-section__trusted,
-.section-fade-in .hero-section__trusted * {
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-/* Ensure carousel is always visible, even before fade-in */
-.creators-container,
-.creators-carousel,
-.creators-carousel * {
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-/* Ensure the carousel container div is always visible */
-.hero-section__trusted,
-.hero-section__trusted * {
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-/* Force carousel to be visible regardless of parent opacity */
-.hero-section .creators-container,
-.hero-section .creators-carousel,
-.hero-section .creators-carousel *,
-.hero-section .hero-section__trusted,
-.hero-section .hero-section__trusted * {
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-/* Don't override transform for animate-scroll to keep the scrolling effect */
-.hero-section .animate-scroll {
-  opacity: 1 !important;
-  visibility: visible !important;
-  /* Keep the transform for scrolling animation */
-}
-
-/* Override any fade-in opacity for carousel elements */
-.section-fade-in .hero-section__trusted,
-.section-fade-in .hero-section__trusted *,
-.section-fade-in .creators-container,
-.section-fade-in .creators-carousel,
-.section-fade-in .creators-carousel * {
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-/* Don't override transform for animate-scroll to keep the scrolling effect */
-.section-fade-in .animate-scroll {
-  opacity: 1 !important;
-  visibility: visible !important;
-  /* Keep the transform for scrolling animation */
 }
 
 /* ===== BASIC TRANSITIONS ===== */

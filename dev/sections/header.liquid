@@ -3,6 +3,99 @@
   id="header"
   role="banner"
 >
+  <style>
+    /* Prevent header layout shifts during page transitions */
+    .header {
+      min-height: 80px; /* Fixed height to prevent shifting */
+      contain: layout style;
+    }
+
+    .header img {
+      min-width: 233px; /* Prevent logo width changes */
+      min-height: 70px; /* Prevent logo height changes */
+      object-fit: contain;
+    }
+
+    .nav-link {
+      min-width: max-content; /* Prevent text wrapping */
+      contain: layout;
+    }
+
+    /* Prevent alt text flashing */
+    .header img {
+      font-size: 0; /* Hide alt text during loading */
+    }
+
+    /* Smooth transitions for any remaining shifts */
+    .header * {
+      transition: none !important; /* Disable transitions during page load */
+    }
+
+    /* Ensure stable layout */
+    .header > div {
+      min-height: inherit;
+      contain: layout;
+    }
+
+    /* Fix navigation links to prevent shifting */
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      min-width: max-content;
+      contain: layout;
+      position: relative;
+    }
+
+    /* Prevent icon shifting in nav links */
+    .nav-link svg {
+      flex-shrink: 0;
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    /* Ensure consistent spacing */
+    .nav-link .gap-1 {
+      gap: 0.25rem;
+    }
+
+    .nav-link .gap-2 {
+      gap: 0.5rem;
+    }
+
+    /* Prevent text wrapping and size changes */
+    .nav-link span,
+    .nav-link div {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Only apply fade effect if JavaScript is available */
+    .header.fade-in {
+      opacity: 0;
+      transition: opacity 0.1s ease-in-out;
+    }
+
+    .header.fade-in.loaded {
+      opacity: 1;
+    }
+  </style>
+
+  <script>
+    // Add fade-in class and show header when page is fully loaded
+    document.addEventListener('DOMContentLoaded', function () {
+      const header = document.getElementById('header');
+      if (header) {
+        header.classList.add('fade-in');
+        // Small delay to ensure everything is rendered
+        setTimeout(() => {
+          header.classList.add('loaded');
+        }, 50);
+      }
+    });
+  </script>
+
   <div class="flex items-center px-4 md:px-8 lg:px-12 xl:px-20 py-6 max-w-full mx-auto">
     <!-- Left: Logo -->
     <div class="flex items-center flex-shrink-0 mr-8 md:mr-12 lg:mr-16 xl:mr-20">

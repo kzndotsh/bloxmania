@@ -353,7 +353,9 @@
     "filtering": {
       "filter_button": "Filter",
       "clear_all": "Clear all",
-      "apply_filters": "Apply filters"
+      "apply_filters": "Apply filters",
+      "filter_by_category": "Filter by Category:",
+      "all_categories": "All Categories"
     },
     "sorting": {
       "sort_by": "Sort by:",
@@ -364,7 +366,13 @@
       "price_low_to_high": "Price, low to high",
       "price_high_to_low": "Price, high to low",
       "date_old_to_new": "Date, old to new",
-      "date_new_to_old": "Date, new to old"
+      "date_new_to_old": "Date, new to old",
+      "az": "A-Z",
+      "za": "Z-A",
+      "price_low_high": "Price: Low to High",
+      "price_high_low": "Price: High to Low",
+      "date_old_new": "Date: Old to New",
+      "date_new_old": "Date: New to Old"
     }
   },
   "customer": {

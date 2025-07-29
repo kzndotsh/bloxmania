@@ -8,25 +8,32 @@
 
   // Initialize when DOM is ready
   document.addEventListener("DOMContentLoaded", function () {
+    console.log("Quick Add module initializing...");
     initQuickAddButtons();
+    console.log("Quick Add module initialized");
   });
 
   function initQuickAddButtons() {
     // Use event delegation for dynamic content
     document.addEventListener("click", function (event) {
+      console.log("Click detected on:", event.target);
       if (event.target.closest(".quick-add-btn")) {
+        console.log("Quick add button clicked!");
         event.preventDefault();
         const button = event.target.closest(".quick-add-btn");
-        const productId = button.dataset.productId;
+        const variantId = button.dataset.variantId;
+        console.log("Variant ID:", variantId);
 
-        if (productId) {
-          addToCart(productId, button);
+        if (variantId) {
+          addToCart(variantId, button);
+        } else {
+          console.error("No variant ID found on button");
         }
       }
     });
   }
 
-  function addToCart(productId, button) {
+  function addToCart(variantId, button) {
     // Disable button and show loading state
     const originalText = button.innerHTML;
     button.disabled = true;
@@ -38,15 +45,19 @@
       Adding...
     `;
 
+    console.log("Adding variant to cart:", variantId);
+
     // Prepare cart data
     const cartData = {
       items: [
         {
-          id: parseInt(productId),
+          id: variantId.toString(),
           quantity: 1,
         },
       ],
     };
+
+    console.log("Cart data being sent:", cartData);
 
     // Make AJAX request
     fetch("/cart/add.js", {
@@ -57,18 +68,46 @@
       },
       body: JSON.stringify(cartData),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        console.log("Response status:", response.status);
+        if (!response.ok) {
+          return response.text().then((errorText) => {
+            console.error("Error response body:", errorText);
+            throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`);
+          });
+        }
+        return response.json();
+      })
       .then((data) => {
+        console.log("Cart response:", data);
+        console.log("Cart item_count:", data.item_count);
+        console.log("Cart keys:", Object.keys(data));
+
+        // If the response doesn't have item_count, fetch the full cart
+        if (data.item_count === undefined) {
+          console.log("No item_count in response, fetching full cart...");
+          return fetch("/cart.js")
+            .then((response) => response.json())
+            .then((fullCart) => {
+              console.log("Full cart response:", fullCart);
+              return fullCart;
+            });
+        }
+
+        return data;
+      })
+      .then((cartData) => {
+        console.log("Final cart data:", cartData);
         // Success - show confirmation
         showSuccessMessage(button, originalText);
 
         // Update cart count if cart icon exists
-        updateCartCount(data);
+        updateCartCount(cartData);
 
         // Trigger cart update event
         document.dispatchEvent(
           new CustomEvent("cart:updated", {
-            detail: { cart: data },
+            detail: { cart: cartData },
           }),
         );
       })
@@ -119,14 +158,47 @@
   }
 
   function updateCartCount(cartData) {
+    console.log("updateCartCount called with:", cartData);
+
+    // Calculate item count from items array if not provided
+    let itemCount = cartData.item_count;
+    if (itemCount === undefined && cartData.items && Array.isArray(cartData.items)) {
+      itemCount = cartData.items.reduce((total, item) => total + (item.quantity || 0), 0);
+      console.log("Calculated item count from items array:", itemCount);
+    }
+
     // Update cart count in header if it exists
-    const cartCountElements = document.querySelectorAll(".cart-count, [data-cart-count]");
-    cartCountElements.forEach((element) => {
-      if (cartData.item_count !== undefined) {
-        element.textContent = cartData.item_count;
-        element.classList.remove("hidden");
+    const cartCountElements = document.querySelectorAll(".cart-count, [data-cart-count], .header__cart-badge");
+    console.log("Found cart count elements:", cartCountElements.length);
+
+    if (cartCountElements.length === 0) {
+      console.log("No cart badges found, creating new one...");
+      // If no cart badge exists, create one
+      const cartButton = document.querySelector(".header__cart-button");
+      console.log("Cart button found:", !!cartButton);
+      if (cartButton && itemCount > 0) {
+        const badge = document.createElement("span");
+        badge.className = "header__cart-badge";
+        badge.textContent = itemCount;
+        cartButton.appendChild(badge);
+        console.log("Created new cart badge with count:", itemCount);
       }
-    });
+    } else {
+      console.log("Updating existing cart badges...");
+      // Update existing cart badges
+      cartCountElements.forEach((element) => {
+        console.log("Element:", element);
+        console.log("Current text:", element.textContent);
+        console.log("item_count:", itemCount);
+        if (itemCount !== undefined) {
+          element.textContent = itemCount;
+          element.classList.remove("hidden");
+          console.log("Updated cart badge to:", itemCount);
+        } else {
+          console.log("item_count is undefined!");
+        }
+      });
+    }
 
     // Update cart drawer if it exists
     const cartDrawer = document.querySelector("cart-drawer");
