@@ -37,12 +37,17 @@ class HeaderManager {
       document.querySelector(".header") || document.querySelector("header") || document.querySelector("#header");
 
     this.mobileMenu = document.getElementById("mobile-menu");
-    this.mobileMenuToggle = document.getElementById("mobile-menu-toggle");
-    this.mobileMenuClose = document.getElementById("mobile-menu-close");
+    this.mobileMenuToggle = document.querySelector("[data-mobile-menu-toggle]");
+    this.mobileMenuClose = document.querySelector(".mobile-menu__close");
 
     if (!this.header) {
-      console.warn("Header element not found");
+      console.error("❌ HEADER NOT FOUND! Available elements:", {
+        ".header": document.querySelector(".header"),
+        "header": document.querySelector("header"), 
+        "#header": document.querySelector("#header")
+      });
     }
+
   }
 
   setupScrollEffects() {
@@ -193,9 +198,19 @@ class HeaderManager {
   }
 }
 
-// Initialize the header manager when the script loads
-const headerManager = new HeaderManager();
+// Initialize the header manager when DOM is ready
+let headerManager;
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => {
+    headerManager = new HeaderManager();
+    window.headerManager = headerManager;
+  });
+} else {
+  // DOM is already ready
+  headerManager = new HeaderManager();
+  window.headerManager = headerManager;
+}
 
 // Backward compatibility
 window.HeaderManager = HeaderManager;
-window.headerManager = headerManager;

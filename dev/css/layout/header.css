@@ -32,6 +32,15 @@
     box-shadow: none !important;
   }
 
+  /* Add smooth transitions to header elements */
+  .header__icon-button {
+    transition: all 0.4s ease-out;
+  }
+
+  .nav-link {
+    transition: color 0.4s ease-out;
+  }
+
   /* Make header elements completely blend with hero when header is transparent */
   .header--transparent .header__icon-button {
     background: transparent;
@@ -53,16 +62,27 @@
 
   /* Scrolled state */
   .header.header--scrolled {
-    background: rgba(15, 23, 42, 0.75) !important;
+    background: rgba(15, 23, 42, 0.5) !important;
     backdrop-filter: blur(20px) !important;
     box-shadow: var(--shadow-header) !important;
   }
 
   /* Fixed (sticky) state */
   .header.header--fixed {
-    background: rgba(15, 23, 42, 0.75) !important;
+    background: rgba(15, 23, 42, 0.5) !important;
     backdrop-filter: blur(20px) !important;
     box-shadow: var(--shadow-header) !important;
+  }
+
+  /* Fallback for browsers that don't support backdrop-filter */
+  @supports not (backdrop-filter: blur(20px)) {
+    .header.header--scrolled {
+      background: rgba(15, 23, 42, 0.95) !important;
+    }
+    
+    .header.header--fixed {
+      background: rgba(15, 23, 42, 0.95) !important;
+    }
   }
 
   /* Navigation wrapper */

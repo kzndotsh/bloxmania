@@ -62,6 +62,7 @@
     width: 100%;
     aspect-ratio: var(--ratio-video);
     object-fit: cover;
+    border-radius: var(--radius-md);
   }
 
   .card__content {

@@ -26,9 +26,14 @@
     padding-top: var(--header-height);
   }
 
-  html,
+  html {
+    height: 100%;
+    overflow-x: hidden; /* Only apply to html, not body */
+  }
+  
   body {
     height: 100%;
+    /* Let body handle vertical scrolling normally */
   }
 
   body {
@@ -100,5 +105,30 @@
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+  }
+
+  /* Minimal Custom Scrollbar Styles */
+  /* Webkit browsers (Chrome, Safari, Edge) */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 6px;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  /* Firefox */
+  html {
+    scrollbar-width: auto;
+    scrollbar-color: var(--color-primary) transparent;
   }
 }

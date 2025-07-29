@@ -35,6 +35,7 @@
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform; /* Optimize for animations */
 }
 
 .section-fade-in.fade-in-visible {
@@ -72,11 +73,48 @@
 
 /* ===== MOBILE OPTIMIZATION ===== */
 
-/* Disable animations on mobile for performance */
+/* Optimize animations on mobile for better performance */
 @media (max-width: 768px) {
+  .section-fade-in {
+    opacity: 0;
+    transform: translateY(20px); /* Reduced from 30px for subtler effect */
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out; /* Faster transitions */
+  }
+
+  .section-fade-in.fade-in-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Reduce motion for complex animations on mobile */
+  .animate-scroll {
+    animation-duration: 40s; /* Slower to reduce battery drain */
+  }
+}
+
+/* Tablet optimization */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .section-fade-in {
+    opacity: 0;
+    transform: translateY(25px); /* Between mobile and desktop */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  }
+
+  .section-fade-in.fade-in-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Respect user's reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
   .section-fade-in {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+  
+  .animate-scroll {
+    animation: none;
   }
 }

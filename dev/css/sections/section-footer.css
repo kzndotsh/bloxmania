@@ -139,13 +139,7 @@
   }
 
   .footer__social-text {
-    display: none;
-  }
-
-  @media (min-width: 640px) {
-    .footer__social-text {
-      display: inline;
-    }
+    display: inline;
   }
 
   /* ========================================

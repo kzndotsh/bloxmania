@@ -62,7 +62,7 @@
                   <img
                     src="{{ card_product.featured_image | image_url: width: 200 }}"
                     alt="{{ card_product.title | escape }}"
-                    class="w-full h-full object-cover transition-transform duration-300"
+                    class="w-full h-full object-cover transition-transform duration-300 rounded-lg"
                     width="160"
                     height="160"
                     {% if lazy_load %}
@@ -183,12 +183,12 @@
         <div class="flex flex-col h-full">
           <!-- Image Container -->
           <div class="relative flex-shrink-0">
-            <div class="w-full h-32 sm:h-40 lg:h-48 bg-gray-700 flex items-center justify-center overflow-hidden p-4">
+            <div class="w-full h-32 sm:h-40 lg:h-48 bg-gray-700 flex items-center justify-center overflow-hidden p-4 rounded-lg">
               {% if card_product.featured_image != blank %}
                 <img
                   src="{{ card_product.featured_image | image_url: width: 300 }}"
                   alt="{{ card_product.title }}"
-                  class="w-full h-full object-contain transition-all duration-300"
+                  class="w-full h-full object-contain transition-all duration-300 rounded-lg"
                   width="300"
                   height="300"
                   {% if lazy_load %}
