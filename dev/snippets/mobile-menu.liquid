@@ -14,28 +14,38 @@
   <div class="mobile-menu__header">
     <!-- Logo -->
     <a href="{{ routes.root_url }}" class="mobile-menu__logo">
-      <span class="mobile-menu__logo-text">BM</span>
-      <div class="mobile-menu__logo-icon">🐸</div>
+      <div class="mobile-menu__logo-icon">
+        <img
+          src="{{ 'image-lizard.png' | asset_url }}"
+          alt="Lizard"
+          class="mobile-menu__logo-image"
+          width="80"
+          height="80"
+        >
+      </div>
+      <span class="mobile-menu__logo-text">BloxMania</span>
     </a>
 
     <!-- Close Button -->
     <button type="button" class="mobile-menu__close" aria-label="Close mobile menu">
-      {% render 'icon', icon: 'close', class: 'mobile-menu__close-icon', size: 'medium' %}
+      {% render 'icon', icon: 'close', class: 'mobile-menu__close-icon', size: 'small' %}
     </button>
   </div>
 
   <!-- Search Section -->
-  <div class="mobile-menu__search">
-    <div class="mobile-menu__search-wrapper">
-      {% render 'icon', icon: 'search', class: 'mobile-menu__search-icon', size: 'medium' %}
-      <input
-        type="search"
-        placeholder="Search products..."
-        class="mobile-menu__search-input"
-        aria-label="Search products"
-      >
+  {% comment %}
+    <div class="mobile-menu__search">
+      <div class="mobile-menu__search-wrapper">
+        {% render 'icon', icon: 'search', class: 'mobile-menu__search-icon', size: 'medium' %}
+        <input
+          type="search"
+          placeholder="Search products..."
+          class="mobile-menu__search-input"
+          aria-label="Search products"
+        >
+      </div>
     </div>
-  </div>
+  {% endcomment %}
 
   <!-- Quick Actions Section -->
   <div class="mobile-menu__section">

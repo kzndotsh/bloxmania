@@ -14,7 +14,7 @@
 {%- liquid
   assign featured_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media
   assign media_count = product.media.size
-  assign enable_zoom = enable_zoom | default: true
+  assign enable_zoom = enable_zoom | default: false
   assign enable_video_looping = enable_video_looping | default: false
 -%}
 

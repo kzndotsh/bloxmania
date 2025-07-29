@@ -60,7 +60,7 @@
         {% render 'product-media-gallery',
           product: product,
           variant_images: product.images,
-          enable_zoom: true,
+          enable_zoom: false,
           enable_video_looping: false
         %}
       </div>
@@ -240,7 +240,7 @@
         break;
       case 'pinterest':
         shareUrl = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(
-          url,
+          url
         )}&description=${encodeURIComponent(title)}&media=${encodeURIComponent(image)}`;
         break;
       case 'copy':
