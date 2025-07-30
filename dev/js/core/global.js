@@ -21,7 +21,6 @@ class SimpleScrollFadeController {
     // Get all sections that should fade in
     const sections = document.querySelectorAll("section, .section-fade-in");
 
-
     if (sections.length === 0) return;
 
     const observer = new IntersectionObserver(
@@ -35,8 +34,8 @@ class SimpleScrollFadeController {
         });
       },
       {
-        threshold: 0.1, // Trigger when 10% of element is visible
-        rootMargin: "0px 0px -50px 0px", // Start animation slightly before element is fully in view
+        threshold: 0.01, // Trigger when just 1% of element is visible (very responsive)
+        rootMargin: "0px 0px -200px 0px", // Start animation 200px before element enters viewport
       },
     );
 

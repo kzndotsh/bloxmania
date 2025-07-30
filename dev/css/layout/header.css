@@ -1,150 +1,351 @@
 /* BloxMania Layout - Header Styles */
-/* Header positioning and layout styles */
+/* Fully responsive header with proper desktop/tablet/mobile layouts */
 
 @layer components {
+  /* Base header styling */
   .header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: var(--z-fixed);
-    height: var(--header-height);
-    display: flex;
-    align-items: center;
-    padding-inline: var(--container-padding);
-    transition: all var(--duration-default) var(--easing-smooth);
+    height: 90px; /* Increased height for better spacing */
     background: transparent;
     backdrop-filter: none;
     border: none;
+    transition: all var(--duration-default) var(--easing-smooth);
+    padding: 12px 0; /* Added top/bottom padding for spacing */
   }
 
-  /* Header heights for mobile */
-  @media (max-width: 767px) {
-    .header {
-      height: var(--header-height-mobile);
-    }
-  }
-
-  /* Transparent state (default on top of page) */
-  .header.header--transparent {
-    background: transparent !important;
-    backdrop-filter: none !important;
-    box-shadow: none !important;
-  }
-
-  /* Add smooth transitions to header elements */
-  .header__icon-button {
-    transition: all 0.4s ease-out;
-  }
-
-  .nav-link {
-    transition: color 0.4s ease-out;
-  }
-
-  /* Make header elements completely blend with hero when header is transparent */
-  .header--transparent .header__icon-button {
-    background: transparent;
-    box-shadow: none;
-    color: rgba(255, 255, 255, 0.8);
-  }
-
-  .header--transparent .header__icon-button::before {
-    display: none;
-  }
-
-  .header--transparent .nav-link {
-    color: rgba(255, 255, 255, 0.8);
-  }
-
-  .header--transparent .nav-link:hover {
-    color: var(--color-primary);
-  }
-
-  /* Scrolled state */
-  .header.header--scrolled {
-    background: rgba(15, 23, 42, 0.5) !important;
-    backdrop-filter: blur(20px) !important;
-    box-shadow: var(--shadow-header) !important;
-  }
-
-  /* Fixed (sticky) state */
-  .header.header--fixed {
-    background: rgba(15, 23, 42, 0.5) !important;
-    backdrop-filter: blur(20px) !important;
-    box-shadow: var(--shadow-header) !important;
-  }
-
-  /* Fallback for browsers that don't support backdrop-filter */
-  @supports not (backdrop-filter: blur(20px)) {
-    .header.header--scrolled {
-      background: rgba(15, 23, 42, 0.95) !important;
-    }
-    
-    .header.header--fixed {
-      background: rgba(15, 23, 42, 0.95) !important;
-    }
-  }
-
-  /* Navigation wrapper */
-  .header__navigation {
+  /* Header container with proper responsive layout */
+  .header__container {
     display: flex;
     align-items: center;
-    gap: var(--spacing-lg);
-    margin-left: auto;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    gap: 2rem;
   }
 
-  /* Hide desktop nav when mobile menu open (handled by :has selector) */
-  body:has(.mobile-menu--open) .header__navigation {
+  /* Logo section */
+  .header__logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    z-index: 10;
+  }
+
+  .header__logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+  }
+
+  .header__logo-link:hover {
+    transform: scale(1.05);
+  }
+
+  .header__logo-image {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  /* Desktop navigation - hidden on tablet/mobile */
+  .header__navigation {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: 2rem;
+    margin: 0 2rem;
+  }
+
+  /* Navigation links */
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    position: relative;
+  }
+
+  .nav-link:hover {
+    color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+  }
+
+  .nav-link__icon {
+    flex-shrink: 0;
+    color: inherit;
+  }
+
+  .nav-link__text {
+    color: inherit;
+  }
+
+  /* Desktop actions - hidden on tablet/mobile */
+  .header__actions--desktop {
+    display: none;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .header__action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .header__action-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    transform: scale(1.05);
+  }
+
+  /* Mobile/tablet actions - visible on tablet/mobile only */
+  .header__actions--mobile {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .header__mobile-menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .header__mobile-menu-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+  }
+
+  .header__mobile-menu-toggle .header__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    color: white;
+  }
+
+  /* Cart badge */
+  .header__cart-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: var(--color-primary);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 10px;
+    min-width: 18px;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  /* Header state variations with blur effect */
+  .header.header--transparent {
+    background: transparent;
+    backdrop-filter: none;
+    box-shadow: none;
+  }
+
+  .header.header--scrolled,
+  .header.header--fixed {
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Fallback for browsers without backdrop-filter */
+  @supports not (backdrop-filter: blur(20px)) {
+    .header.header--scrolled,
+    .header.header--fixed {
+      background: rgba(15, 23, 42, 0.85);
+    }
+  }
+
+  /* ===== RESPONSIVE BREAKPOINTS ===== */
+
+  /* Large laptop/desktop - 1400px+ (full layout) */
+  @media (min-width: 1400px) {
+    .header__container {
+      padding: 0 2rem;
+      gap: 3rem;
+    }
+    
+    .header__logo-image {
+      height: 55px;
+    }
+    
+    .header__navigation {
+      display: flex;
+      gap: 2.5rem;
+    }
+    
+    .header__actions--desktop {
+      display: flex;
+    }
+    
+    .header__actions--mobile {
+      display: none;
+    }
+    
+    .nav-link {
+      font-size: 1rem;
+      padding: 0.75rem 1.25rem;
+    }
+  }
+
+  /* Standard desktop - 1200px to 1399px (compact desktop layout) */
+  @media (min-width: 1200px) and (max-width: 1399px) {
+    .header__container {
+      padding: 0 1.5rem;
+      gap: 2rem;
+    }
+    
+    .header__logo-image {
+      height: 50px;
+    }
+    
+    .header__navigation {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .header__actions--desktop {
+      display: flex;
+    }
+    
+    .header__actions--mobile {
+      display: none;
+    }
+    
+    .nav-link {
+      font-size: 0.95rem;
+      padding: 0.625rem 1rem;
+    }
+  }
+
+  /* Small laptop - 1024px to 1199px (mobile layout to prevent cramming) */
+  @media (min-width: 1024px) and (max-width: 1199px) {
+    .header__navigation {
+      display: none; /* Hide navigation to prevent cramming */
+    }
+    
+    .header__actions--desktop {
+      display: none;
+    }
+    
+    .header__actions--mobile {
+      display: flex;
+    }
+    
+    .header__logo-image {
+      height: 48px;
+    }
+  }
+
+  /* Tablet - 768px to 1023px */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .header__container {
+      padding: 0 1.5rem;
+    }
+    
+    .header__navigation {
+      display: none;
+    }
+    
+    .header__actions--desktop {
+      display: none;
+    }
+    
+    .header__actions--mobile {
+      display: flex;
+    }
+    
+    .header__logo-image {
+      height: 45px;
+    }
+  }
+
+  /* Mobile - up to 767px */
+  @media (max-width: 767px) {
+    .header {
+      height: 80px;
+      padding: 8px 0;
+    }
+    
+    .header__container {
+      padding: 0 1rem;
+    }
+    
+    .header__navigation {
+      display: none;
+    }
+    
+    .header__actions--desktop {
+      display: none;
+    }
+    
+    .header__actions--mobile {
+      display: flex;
+    }
+    
+    .header__logo-image {
+      height: 40px;
+    }
+  }
+
+  /* Prevent body scroll when mobile menu is open */
+  body.mobile-menu-open {
+    overflow: hidden;
+  }
+
+  /* Legacy class support for existing functionality */
+  .mobile-menu-toggle {
     display: none;
   }
-
-  /* Logo focus indicators - ensure clean appearance */
-  .header a:focus-visible {
-    outline: none !important;
+  
+  .header__icon-button {
+    display: none;
   }
-
-  .header a img {
-    outline: none !important;
-    box-shadow: none !important;
-    border: none !important;
-  }
-
-  .header a img:hover {
-    outline: none !important;
-    box-shadow: none !important;
-    border: none !important;
-  }
-
-  /* Remove any potential selection indicators */
-  .header a:not(.nav-link)::before,
-  .header a:not(.nav-link)::after {
-    display: none !important;
-  }
-
-  /* Additional logo link styling to prevent any visual artifacts */
-  .header a:has(img) {
-    outline: none !important;
-    box-shadow: none !important;
-    border: none !important;
-    text-decoration: none !important;
-  }
-
-  .header a:has(img):hover {
-    outline: none !important;
-    box-shadow: none !important;
-    border: none !important;
-    text-decoration: none !important;
-  }
-
-  .header a:has(img):focus {
-    outline: none !important;
-    box-shadow: none !important;
-    border: none !important;
-  }
-
-  .header a:has(img):focus-visible {
-    outline: none !important;
-    box-shadow: none !important;
-    border: none !important;
+  
+  .search-toggle {
+    display: none;
   }
 }

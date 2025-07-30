@@ -3,224 +3,77 @@
   id="header"
   role="banner"
 >
-  <style>
-    /* Prevent header layout shifts during page transitions */
-    .header {
-      min-height: 80px; /* Fixed height to prevent shifting */
-      contain: layout style;
-    }
 
-    .header img {
-      min-width: 233px; /* Prevent logo width changes */
-      min-height: 70px; /* Prevent logo height changes */
-      object-fit: contain;
-    }
-
-    .nav-link {
-      min-width: max-content; /* Prevent text wrapping */
-      contain: layout;
-    }
-
-    /* Prevent alt text flashing */
-    .header img {
-      font-size: 0; /* Hide alt text during loading */
-    }
-
-    /* Smooth transitions for any remaining shifts */
-    .header * {
-      transition: none !important; /* Disable transitions during page load */
-    }
-
-    /* Ensure stable layout */
-    .header > div {
-      min-height: inherit;
-      contain: layout;
-    }
-
-    /* Fix navigation links to prevent shifting */
-    .nav-link {
-      display: inline-flex;
-      align-items: center;
-      white-space: nowrap;
-      min-width: max-content;
-      contain: layout;
-      position: relative;
-    }
-
-    /* Prevent icon shifting in nav links */
-    .nav-link svg {
-      flex-shrink: 0;
-      width: 1.25rem;
-      height: 1.25rem;
-    }
-
-    /* Ensure consistent spacing */
-    .nav-link .gap-1 {
-      gap: 0.25rem;
-    }
-
-    .nav-link .gap-2 {
-      gap: 0.5rem;
-    }
-
-    /* Prevent text wrapping and size changes */
-    .nav-link span,
-    .nav-link div {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    /* Only apply fade effect if JavaScript is available */
-    .header.fade-in {
-      opacity: 0;
-      transition: opacity 0.1s ease-in-out;
-    }
-
-    .header.fade-in.loaded {
-      opacity: 1;
-    }
-  </style>
-
-  <script>
-    // Add fade-in class and show header when page is fully loaded
-    document.addEventListener('DOMContentLoaded', function () {
-      const header = document.getElementById('header');
-      if (header) {
-        header.classList.add('fade-in');
-        // Small delay to ensure everything is rendered
-        setTimeout(() => {
-          header.classList.add('loaded');
-        }, 50);
-      }
-    });
-  </script>
-
-  <div class="flex items-center px-4 md:px-8 lg:px-12 xl:px-20 py-6 max-w-full mx-auto">
-    <!-- Left: Logo -->
-    <div class="flex items-center flex-shrink-0 mr-8 md:mr-12 lg:mr-16 xl:mr-20">
-      <!-- Logo -->
-      <div class="flex-shrink-0">
-        {% if section.settings.logo != blank %}
-          <a href="{{ routes.root_url }}">
-            <img
-              src="{{ section.settings.logo | image_url: width: 233 }}"
-              alt="{{ shop.name }}"
-              class="h-14 md:h-16 lg:h-16 w-auto transition-transform duration-300 cursor-pointer hover:scale-105"
-              width="233"
-              height="70"
-            >
-          </a>
-        {% else %}
-          <a href="{{ routes.root_url }}">
-            <img
-              src="{{ 'image-BM.png' | asset_url }}"
-              alt="BloxMania"
-              class="h-14 md:h-16 lg:h-16 w-auto transition-transform duration-300 cursor-pointer hover:scale-105"
-              width="233"
-              height="70"
-            >
-          </a>
-        {% endif %}
-      </div>
-    </div>
-
-    <!-- Center: Desktop Navigation (Hidden on Mobile) -->
-    <div class="hidden lg:flex justify-center flex-1 min-w-0 px-2 lg:px-4 xl:px-6">
-      <!-- Desktop Navigation -->
-      <nav
-        class="flex items-center justify-center gap-4 lg:gap-6 xl:gap-8 2xl:gap-12 min-w-0"
-        role="navigation"
-        aria-label="Main navigation"
-      >
-        <a
-          href="{{ routes.all_products_collection_url }}"
-          class="nav-link text-gray-300 no-underline font-semibold text-sm lg:text-base xl:text-lg transition-all relative flex items-center gap-1 lg:gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
-        >
-          {% render 'icon', icon: 'shopping-bag', class: 'transition-colors duration-300', size: 'medium' %}
-          Shop Now
-        </a>
-
-        <a
-          href="{{ pages.guarantee.url | default: '/pages/guarantee' }}"
-          class="nav-link text-gray-300 no-underline font-semibold text-sm lg:text-base xl:text-lg transition-all relative flex items-center gap-1 lg:gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
-        >
-          <div class="relative">
-            {% render 'icon', icon: 'shield', class: 'transition-colors duration-300', size: 'medium' %}
-          </div>
-          Our Guarantee
-        </a>
-
-        {%- if section.settings.discord_url != blank -%}
-          <a
-            href="{{ section.settings.discord_url }}"
-            class="nav-link text-gray-300 no-underline font-semibold text-sm lg:text-base xl:text-lg transition-all relative flex items-center gap-1 lg:gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
-            target="_blank"
-            rel="noopener"
+  <div class="header__container">
+    <!-- Logo -->
+    <div class="header__logo">
+      {% if section.settings.logo != blank %}
+        <a href="{{ routes.root_url }}" class="header__logo-link">
+          <img
+            src="{{ section.settings.logo | image_url: width: 200 }}"
+            alt="{{ shop.name }}"
+            class="header__logo-image"
           >
-            {% render 'icon',
-              icon: 'discord',
-              class: 'transition-colors duration-300 flex items-center',
-              size: 'medium'
-            %}
-            Daily Giveaways
-          </a>
-        {%- endif -%}
-
-        <a
-          href="{{ pages['purchasing-guide'].url | default: '/pages/purchasing-guide' }}"
-          class="nav-link text-gray-300 no-underline font-semibold text-sm lg:text-base xl:text-lg transition-all relative flex items-center gap-1 lg:gap-2 whitespace-nowrap py-2 hover:text-primary after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
-        >
-          {% render 'icon', icon: 'file-lines', class: 'transition-colors duration-300', size: 'medium' %}
-          Purchasing Guide
         </a>
-      </nav>
+      {% else %}
+        <a href="{{ routes.root_url }}" class="header__logo-link">
+          <img
+            src="{{ 'image-logo-trimmed.png' | asset_url }}"
+            alt="BloxMania"
+            class="header__logo-image"
+          >
+        </a>
+      {% endif %}
     </div>
 
-    <!-- Right: User Actions -->
-    <div class="flex items-center justify-end gap-3 flex-shrink-0 ml-8 md:ml-12 lg:ml-16 xl:ml-20">
-      <!-- Mobile Menu Toggle (Visible on Mobile Only) -->
-      <button
-        class="lg:hidden mobile-menu-toggle header__icon-button"
-        aria-label="Open mobile menu"
-        type="button"
-        data-mobile-menu-toggle
-      >
-        {% render 'icon', icon: 'bars', class: 'header__icon', size: 'large' %}
+    <!-- Desktop Navigation (Hidden on Tablet/Mobile) -->
+    <nav class="header__navigation" role="navigation" aria-label="Main navigation">
+      <a href="{{ routes.all_products_collection_url }}" class="nav-link">
+        {% render 'icon', icon: 'shopping-bag', class: 'nav-link__icon', size: 'small' %}
+        <span class="nav-link__text">Shop Now</span>
+      </a>
+
+      <a href="{{ pages.guarantee.url | default: '/pages/guarantee' }}" class="nav-link">
+        {% render 'icon', icon: 'shield', class: 'nav-link__icon', size: 'small' %}
+        <span class="nav-link__text">Our Guarantee</span>
+      </a>
+
+      {%- if section.settings.discord_url != blank -%}
+        <a href="{{ section.settings.discord_url }}" class="nav-link" target="_blank" rel="noopener">
+          {% render 'icon', icon: 'discord', class: 'nav-link__icon', size: 'small' %}
+          <span class="nav-link__text">Daily Giveaways</span>
+        </a>
+      {%- endif -%}
+
+      <a href="{{ pages['purchasing-guide'].url | default: '/pages/purchasing-guide' }}" class="nav-link">
+        {% render 'icon', icon: 'file-lines', class: 'nav-link__icon', size: 'small' %}
+        <span class="nav-link__text">Purchasing Guide</span>
+      </a>
+    </nav>
+
+    <!-- Desktop Actions (Hidden on Tablet/Mobile) -->
+    <div class="header__actions header__actions--desktop">
+      <button class="header__action-button" aria-label="Search" type="button" data-search-toggle>
+        {% render 'icon', icon: 'search', size: 'small' %}
       </button>
 
-      <!-- Search Button (Hidden on Mobile) -->
-      <button
-        class="header__icon-button search-toggle hidden lg:flex"
-        aria-label="Search"
-        type="button"
-        data-search-toggle
-      >
-        {% render 'icon', icon: 'search', size: 'medium' %}
-      </button>
-
-      <!-- Cart Button (Hidden on Mobile) -->
-      <a
-        href="{{ routes.cart_url }}"
-        class="header__icon-button header__cart-button hidden lg:flex"
-        aria-label="Shopping cart"
-      >
-        {% render 'icon', icon: 'cart', size: 'medium' %}
+      <a href="{{ routes.cart_url }}" class="header__action-button header__cart-link" aria-label="Shopping cart">
+        {% render 'icon', icon: 'cart', size: 'small' %}
         {% if cart.item_count > 0 %}
-          <span class="header__cart-badge">
-            {{- cart.item_count -}}
-          </span>
+          <span class="header__cart-badge">{{ cart.item_count }}</span>
         {% endif %}
       </a>
 
-      <!-- Account Button (Hidden on Mobile) -->
-      <a
-        href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
-        class="header__icon-button hidden lg:flex"
-        aria-label="{% if customer %}User account{% else %}Sign in{% endif %}"
-      >
-        {% render 'icon', icon: 'user', size: 'medium' %}
+      <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="header__action-button" aria-label="{% if customer %}User account{% else %}Sign in{% endif %}">
+        {% render 'icon', icon: 'user', size: 'small' %}
       </a>
+    </div>
+
+    <!-- Mobile/Tablet Actions (Visible on Tablet/Mobile Only) -->
+    <div class="header__actions header__actions--mobile">
+      <button class="header__mobile-menu-toggle" aria-label="Open mobile menu" type="button" data-mobile-menu-toggle>
+        {% render 'icon', icon: 'bars', class: 'header__icon', size: 'medium' %}
+      </button>
     </div>
   </div>
 </header>
