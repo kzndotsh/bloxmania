@@ -62,20 +62,17 @@
               <div class="product-card__media">
                 <a href="{{ product.url }}" class="product-card__link" aria-label="{{ product.title | escape }}">
                   {%- if product.featured_media -%}
-                    <img
-                      src="{{ product.featured_media | image_url: width: 300 }}"
-                      srcset="
-                        {{ product.featured_media | image_url: width: 200 }} 200w,
-                        {{ product.featured_media | image_url: width: 300 }} 300w,
-                        {{ product.featured_media | image_url: width: 400 }} 400w
-                      "
-                      sizes="(min-width: 1200px) 280px, (min-width: 768px) calc(25vw - 20px), calc(50vw - 20px)"
-                      alt="{{ product.featured_media.alt | escape }}"
-                      loading="{% if lazy_load %}lazy{% else %}eager{% endif %}"
-                      class="product-card__image"
-                      width="300"
-                      height="300"
-                    >
+                    {%
+                      render 'responsive-image',
+                      image: product.featured_media,
+                      alt: product.featured_media.alt,
+                      class: 'product-card__image',
+                      sizes: '(min-width: 1200px) 280px, (min-width: 768px) calc(25vw - 20px), calc(50vw - 20px)',
+                      loading: lazy_load ? 'lazy' : 'eager',
+                      width: 600,
+                      height: 600,
+                      priority: false
+                    %}
                   {%- else -%}
                     <div class="product-card__placeholder">
                       <i class="fas fa-image" aria-hidden="true"></i>

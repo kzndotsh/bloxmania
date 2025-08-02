@@ -92,14 +92,13 @@
     padding: 0.5rem 1rem;
     border-radius: 9999px; /* rounded-full */
     text-decoration: none;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: box-shadow 0.3s ease-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     border: 1px solid;
     cursor: default;
   }
 
   .guarantee-tag:hover {
-    transform: translateY(-2px) scale(1.02);
     box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.15);
   }
 
@@ -464,18 +463,21 @@
 
   /* Ultra-gentle floating animations for icons */
   @keyframes float-gentle-1 {
-    0%, 100% { transform: translateY(0px) translateX(0px); }
+    0%,
+    100% { transform: translateY(0px) translateX(0px); }
     33% { transform: translateY(-1px) translateX(0.5px); }
     66% { transform: translateY(0.5px) translateX(-0.5px); }
   }
 
   @keyframes float-gentle-2 {
-    0%, 100% { transform: translateY(0px) translateX(0px); }
+    0%,
+    100% { transform: translateY(0px) translateX(0px); }
     50% { transform: translateY(-0.5px) translateX(1px); }
   }
 
   @keyframes float-gentle-3 {
-    0%, 100% { transform: translateY(0px) translateX(0px); }
+    0%,
+    100% { transform: translateY(0px) translateX(0px); }
     25% { transform: translateY(1px) translateX(-0.5px); }
     75% { transform: translateY(-0.5px) translateX(0.5px); }
   }
@@ -541,7 +543,6 @@
   .guarantee-card:focus-within {
     outline: 2px solid rgba(255, 216, 0, 0.5);
     outline-offset: 2px;
-    transform: translateY(-1px) scale(1.01);
   }
 
   /* Clean guarantee section styling - no hacks */

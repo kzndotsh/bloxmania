@@ -82,13 +82,16 @@
                       {%- endif -%}
                       {%- if line_item.image -%}
                         <div class="order-item__image">
-                          <img
-                            src="{{ line_item.image | image_url: width: 100 }}"
-                            alt="{{ line_item.image.alt | escape }}"
-                            loading="lazy"
-                            width="50"
-                            height="{{ 50 | divided_by: line_item.image.aspect_ratio | ceil }}"
-                          >
+                          {% render 'responsive-image',
+                            image: line_item.image,
+                            alt: line_item.image.alt,
+                            class: 'order-item__image',
+                            sizes: '50px',
+                            loading: 'lazy',
+                            width: 200,
+                            height: 200,
+                            priority: false
+                          %}
                         </div>
                       {%- endif -%}
                       <div class="order-item__details">

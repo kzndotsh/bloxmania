@@ -81,6 +81,26 @@
   svg {
     display: block;
     max-width: 100%;
+    /* Image quality controls for better mobile rendering */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  /* Product images - ensure sharp rendering */
+  img[src*="products"],
+  img[src*="shopify"] {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+
+  /* High-DPI display optimizations */
+  @media (min-resolution: 192dpi) {
+    img {
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+    }
   }
 
   /* Inherit fonts for inputs and buttons */

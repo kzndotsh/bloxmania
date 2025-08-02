@@ -3,9 +3,71 @@
   id="header"
   role="banner"
 >
-
   <div class="header__container">
-    <!-- Logo -->
+    <!-- Game Selector (Far Left) -->
+    <div class="header__game-selector">
+      <button
+        class="header__game-selector-button"
+        type="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+        data-game-selector-toggle
+      >
+        {% render 'icon', icon: 'target', class: 'header__game-selector-icon', size: 'small' %}
+        <span class="header__game-selector-text">Select Game</span>
+        {% render 'icon', icon: 'chevron-down', class: 'header__game-selector-chevron', size: 'small' %}
+      </button>
+
+      <div class="header__game-dropdown" role="menu" aria-label="Select a game">
+        <div class="header__game-dropdown-content">
+          <a href="/collections/grow-a-garden" class="header__game-option" role="menuitem">
+            <img
+              src="{{ 'image-grow.png' | asset_url }}"
+              alt="Grow A Garden"
+              class="header__game-option-image"
+              width="24"
+              height="24"
+            >
+            <span class="header__game-option-text">Grow A Garden</span>
+          </a>
+          <a href="/collections/fortnite" class="header__game-option" role="menuitem">
+            <img
+              src="{{ 'image-fortnite.png' | asset_url }}"
+              alt="Fortnite"
+              class="header__game-option-image"
+              width="24"
+              height="24"
+            >
+            <span class="header__game-option-text">Fortnite</span>
+          </a>
+          <a href="/collections/all" class="header__game-option" role="menuitem">
+            <img
+              src="{{ 'image-petsim.jpg' | asset_url }}"
+              alt="Pet Simulator 99"
+              class="header__game-option-image"
+              width="24"
+              height="24"
+            >
+            <span class="header__game-option-text">Pet Simulator 99</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Left Navigation -->
+    <nav class="header__navigation header__navigation--left" role="navigation" aria-label="Left navigation">
+      <a href="{{ routes.all_products_collection_url }}" class="nav-link">
+        {% render 'icon', icon: 'shopping-bag', class: 'nav-link__icon', size: 'small' %}
+        <span class="nav-link__text">Shop Now</span>
+      </a>
+
+      <a href="{{ pages.guarantee.url | default: '/pages/guarantee' }}" class="nav-link">
+        {% render 'icon', icon: 'shield', class: 'nav-link__icon', size: 'small' %}
+        <span class="nav-link__text">Our Guarantee</span>
+      </a>
+    </nav>
+
+    <!-- Centered Logo -->
     <div class="header__logo">
       {% if section.settings.logo != blank %}
         <a href="{{ routes.root_url }}" class="header__logo-link">
@@ -26,18 +88,8 @@
       {% endif %}
     </div>
 
-    <!-- Desktop Navigation (Hidden on Tablet/Mobile) -->
-    <nav class="header__navigation" role="navigation" aria-label="Main navigation">
-      <a href="{{ routes.all_products_collection_url }}" class="nav-link">
-        {% render 'icon', icon: 'shopping-bag', class: 'nav-link__icon', size: 'small' %}
-        <span class="nav-link__text">Shop Now</span>
-      </a>
-
-      <a href="{{ pages.guarantee.url | default: '/pages/guarantee' }}" class="nav-link">
-        {% render 'icon', icon: 'shield', class: 'nav-link__icon', size: 'small' %}
-        <span class="nav-link__text">Our Guarantee</span>
-      </a>
-
+    <!-- Right Navigation -->
+    <nav class="header__navigation header__navigation--right" role="navigation" aria-label="Right navigation">
       {%- if section.settings.discord_url != blank -%}
         <a href="{{ section.settings.discord_url }}" class="nav-link" target="_blank" rel="noopener">
           {% render 'icon', icon: 'discord', class: 'nav-link__icon', size: 'small' %}
@@ -64,7 +116,11 @@
         {% endif %}
       </a>
 
-      <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="header__action-button" aria-label="{% if customer %}User account{% else %}Sign in{% endif %}">
+      <a
+        href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
+        class="header__action-button"
+        aria-label="{% if customer %}User account{% else %}Sign in{% endif %}"
+      >
         {% render 'icon', icon: 'user', size: 'small' %}
       </a>
     </div>

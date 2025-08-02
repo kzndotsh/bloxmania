@@ -67,6 +67,7 @@ class SimpleBundler {
       "features/mobile-menu.js",
       "features/guarantee-icons.js",
       "features/creators-carousel.js",
+      "features/game-selector.js",
     ];
 
     // UI files

@@ -74,13 +74,16 @@
                         <div class="search-page__product-image">
                           <a href="{{ item.url }}" class="search-page__product-link">
                             {%- if item.featured_media -%}
-                              <img
-                                src="{{ item.featured_media | image_url: width: 300 }}"
-                                alt="{{ item.featured_media.alt | escape }}"
-                                loading="lazy"
-                                width="{{ item.featured_media.width }}"
-                                height="{{ item.featured_media.height }}"
-                              >
+                              {% render 'responsive-image',
+                                image: item.featured_media,
+                                alt: item.featured_media.alt,
+                                class: 'search-page__product-image',
+                                sizes: '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw',
+                                loading: 'lazy',
+                                width: 600,
+                                height: 600,
+                                priority: false
+                              %}
                             {%- else -%}
                               {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
                             {%- endif -%}

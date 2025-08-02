@@ -46,14 +46,14 @@
 
   # Check if this is a product image or asset
   assign is_product_image = false
-  if image.url
+  if image and image != blank
     assign is_product_image = true
   endif
 -%}
 
 {%- if is_product_image -%}
   {%- comment -%} Product image with responsive srcset {%- endcomment -%}
-  {%- assign breakpoints = '480,768,1024,1440,1920' | split: ',' -%}
+  {%- assign breakpoints = '320,480,640,768,1024,1440,1920' | split: ',' -%}
 
   {%- if is_above_fold -%}
     {%- comment -%} Preload above-the-fold images {%- endcomment -%}

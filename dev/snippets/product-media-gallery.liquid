@@ -26,7 +26,7 @@
         {%- case featured_media.media_type -%}
           {%- when 'image' -%}
             <img
-              src="{{ featured_media | image_url: width: 800 }}"
+              src="{{ featured_media | image_url: width: 1200 }}"
               alt="{{ featured_media.alt | escape }}"
               class="w-full h-auto object-contain transition-transform duration-300 {% if enable_zoom %}cursor-zoom-in{% endif %}"
               width="{{ featured_media.width }}"

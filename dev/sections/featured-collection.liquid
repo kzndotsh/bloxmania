@@ -88,20 +88,17 @@
               <div class="product-card__media">
                 <a href="{{ product.url }}" class="product-card__link" aria-label="{{ product.title | escape }}">
                   {%- if product.featured_media -%}
-                    <img
-                      src="{{ product.featured_media | image_url: width: 400 }}"
-                      srcset="
-                        {{ product.featured_media | image_url: width: 200 }} 200w,
-                        {{ product.featured_media | image_url: width: 400 }} 400w,
-                        {{ product.featured_media | image_url: width: 600 }} 600w
-                      "
-                      sizes="(min-width: 1024px) 300px, (min-width: 768px) calc(50vw - 40px), calc(100vw - 40px)"
-                      alt="{{ product.featured_media.alt | escape }}"
-                      loading="{% if lazy_load %}lazy{% else %}eager{% endif %}"
-                      class="product-card__image"
-                      width="400"
-                      height="400"
-                    >
+                    {%
+                      render 'responsive-image',
+                      image: product.featured_media,
+                      alt: product.featured_media.alt,
+                      class: 'product-card__image',
+                      sizes: '(min-width: 1024px) 300px, (min-width: 768px) calc(50vw - 40px), calc(100vw - 40px)',
+                      loading: lazy_load ? 'lazy' : 'eager',
+                      width: 800,
+                      height: 800,
+                      priority: false
+                    %}
                   {%- else -%}
                     <div class="product-card__placeholder">
                       <i class="fas fa-image" aria-hidden="true"></i>
@@ -240,8 +237,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background:
-      linear-gradient(135deg, rgba(var(--color-primary), 0.02) 0%, transparent 50%),
+    background: linear-gradient(135deg, rgba(var(--color-primary), 0.02) 0%, transparent 50%),
       radial-gradient(ellipse at 70% 30%, rgba(var(--color-secondary), 0.03) 0%, transparent 50%);
     z-index: 0;
   }
@@ -367,9 +363,7 @@
   .product-card:hover {
     transform: translateY(-4px);
     border-color: rgba(var(--color-primary), 0.2);
-    box-shadow:
-      var(--shadow-xl),
-      0 0 30px rgba(var(--color-primary), 0.1);
+    box-shadow: var(--shadow-xl), 0 0 30px rgba(var(--color-primary), 0.1);
   }
 
   .product-card__media {

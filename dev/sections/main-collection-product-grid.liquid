@@ -88,22 +88,12 @@
                       <a href="{{ product.url }}" class="card-product__link">
                         {%- if product.featured_media -%}
                           <img
-                            srcset="
-                              {%- if product.featured_media.width >= 165 -%}{{ product.featured_media | image_url: width: 165 }} 165w,{%- endif -%}
-                              {%- if product.featured_media.width >= 360 -%}{{ product.featured_media | image_url: width: 360 }} 360w,{%- endif -%}
-                              {%- if product.featured_media.width >= 535 -%}{{ product.featured_media | image_url: width: 535 }} 535w,{%- endif -%}
-                              {%- if product.featured_media.width >= 750 -%}{{ product.featured_media | image_url: width: 750 }} 750w,{%- endif -%}
-                              {%- if product.featured_media.width >= 1070 -%}{{ product.featured_media | image_url: width: 1070 }} 1070w,{%- endif -%}
-                              {%- if product.featured_media.width >= 1500 -%}{{ product.featured_media | image_url: width: 1500 }} 1500w,{%- endif -%}
-                              {{ product.featured_media | image_url }} {{ product.featured_media.width }}w
-                            "
-                            src="{{ product.featured_media | image_url: width: 535 }}"
-                            sizes="(min-width: 1100px) 535px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc(100vw - 35px)"
+                            src="{{ product.featured_media | image_url: width: 800 }}"
                             alt="{{ product.featured_media.alt | escape }}"
-                            width="{{ product.featured_media.width }}"
-                            height="{{ product.featured_media.height }}"
-                            loading="{% if lazy_load %}lazy{% else %}eager{% endif %}"
                             class="card-product__image"
+                            loading="{% if lazy_load %}lazy{% else %}eager{% endif %}"
+                            width="800"
+                            height="800"
                           >
                         {%- else -%}
                           <div class="card-product__placeholder">

@@ -60,14 +60,12 @@
               <div class="w-32 h-32 lg:w-40 lg:h-40 rounded-xl bg-gray-700 flex items-center justify-center shadow-lg overflow-hidden">
                 {%- if card_product.featured_image != blank -%}
                   <img
-                    src="{{ card_product.featured_image | image_url: width: 200 }}"
+                    src="{{ card_product.featured_image | image_url: width: 400 }}"
                     alt="{{ card_product.title | escape }}"
                     class="w-full h-full object-cover transition-transform duration-300 rounded-lg"
+                    loading="{% if lazy_load %}lazy{% else %}eager{% endif %}"
                     width="160"
                     height="160"
-                    {% if lazy_load %}
-                      loading="lazy"
-                    {% endif %}
                   >
                 {%- else -%}
                   {% render 'icon', icon: 'image', size: 'large', color: 'gray' %}
@@ -186,14 +184,12 @@
             <div class="w-full h-32 sm:h-40 lg:h-48 bg-gray-700 flex items-center justify-center overflow-hidden p-4 rounded-lg">
               {% if card_product.featured_image != blank %}
                 <img
-                  src="{{ card_product.featured_image | image_url: width: 300 }}"
-                  alt="{{ card_product.title }}"
+                  src="{{ card_product.featured_image | image_url: width: 600 }}"
+                  alt="{{ card_product.title | escape }}"
                   class="w-full h-full object-contain transition-all duration-300 rounded-lg"
-                  width="300"
-                  height="300"
-                  {% if lazy_load %}
-                    loading="lazy"
-                  {% endif %}
+                  loading="{% if lazy_load %}lazy{% else %}eager{% endif %}"
+                  width="600"
+                  height="600"
                 >
               {% else %}
                 <div class="text-gray-400 text-sm">No Image</div>

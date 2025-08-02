@@ -9,15 +9,14 @@
     <div class="text-center">
       <!-- Rating Badge -->
       <div class="section-fade-in flex justify-center mb-8">
-        {% render 'responsive-image',
-          image: 'image-ratingz.png',
-          alt: '5-Star Rating',
-          class: 'h-10 w-auto',
-          width: 100,
-          height: 35,
-          loading: 'eager',
-          sizes: '100px'
-        %}
+        <img
+          src="{{ 'image-ratingz.png' | asset_url }}"
+          alt="5-Star Rating"
+          class="h-10 w-auto"
+          width="100"
+          height="35"
+          loading="eager"
+        >
       </div>
 
       <!-- Main Title -->
