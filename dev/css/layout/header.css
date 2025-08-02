@@ -240,8 +240,10 @@
   }
 
   .header__game-option:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    background: rgba(255, 255, 255, 0.4) !important;
+    color: white !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
   }
 
   .header__game-option-image {
