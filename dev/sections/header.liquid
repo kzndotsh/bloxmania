@@ -87,12 +87,17 @@
         <span class="nav-link__text">Guarantee</span>
       </a>
 
-      <a href="{{ section.settings.discord_url | default: 'https://discord.gg/bloxmania' }}" class="nav-link" target="_blank" rel="noopener">
+      <a
+        href="{{ section.settings.discord_url | default: 'https://discord.gg/bloxmania' }}"
+        class="nav-link"
+        target="_blank"
+        rel="noopener"
+      >
         {% render 'icon', icon: 'discord', class: 'nav-link__icon', size: 'small' %}
         <span class="nav-link__text">Discord</span>
       </a>
 
-      <a href="{{ pages['purchasing-guide'].url | default: '/pages/purchasing-guide' }}" class="nav-link">
+      <a href="{{ pages['tutorial'].url | default: '/pages/tutorial' }}" class="nav-link">
         {% render 'icon', icon: 'file-lines', class: 'nav-link__icon', size: 'small' %}
         <span class="nav-link__text">Tutorial</span>
       </a>

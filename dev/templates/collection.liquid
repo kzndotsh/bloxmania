@@ -373,7 +373,9 @@
         border-radius: 0.75rem;
         border: 1px solid rgba(55, 65, 81, 0.5);
         padding: 0.25rem;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        box-shadow:
+          0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
       }
 
       .view-slider {
@@ -385,7 +387,9 @@
         background: linear-gradient(135deg, #ffd800 0%, #ffed4e 100%);
         border-radius: 0.5rem;
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        box-shadow:
+          0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
       }
 
       .view-btn {
@@ -573,7 +577,9 @@
       }
 
       .product-card-widget:hover {
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 20px rgba(var(--dominant-color-rgb, 255, 216, 0), 0.3);
+        box-shadow:
+          0 10px 25px rgba(0, 0, 0, 0.2),
+          0 0 20px rgba(var(--dominant-color-rgb, 255, 216, 0), 0.3);
       }
     </style>
 
@@ -629,7 +635,7 @@
             const hasCollection = collections.some(
               (collection) =>
                 collection.trim() === selectedCollection ||
-                collection.trim().replace(/\s+/g, '-') === selectedCollection
+                collection.trim().replace(/\s+/g, '-') === selectedCollection,
             );
 
             item.style.display = hasCollection ? 'block' : 'none';

@@ -63,14 +63,13 @@
     justify-content: center;
     width: 48px;
     height: 48px;
-    background:
-      radial-gradient(
-        circle at 30% 30%,
-        rgba(255, 255, 255, 0.15) 0%,
-        rgba(255, 255, 255, 0.08) 40%,
-        rgba(255, 255, 255, 0.03) 70%,
-        transparent 100%
-      );
+    background: radial-gradient(
+      circle at 30% 30%,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.08) 40%,
+      rgba(255, 255, 255, 0.03) 70%,
+      transparent 100%
+    );
     border-radius: 50%;
     color: rgb(var(--color-foreground-rgb));
     text-decoration: none;

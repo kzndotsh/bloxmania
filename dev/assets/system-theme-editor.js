@@ -9,10 +9,8 @@
     return;
   }
 
-
   // Theme editor specific functionality
   document.addEventListener("shopify:section:load", function (event) {
-
     // Reinitialize any section-specific JavaScript
     if (typeof window.initSectionScripts === "function") {
       window.initSectionScripts(event.target);
@@ -20,7 +18,6 @@
   });
 
   document.addEventListener("shopify:section:unload", function (event) {
-
     // Clean up any section-specific JavaScript
     if (typeof window.cleanupSectionScripts === "function") {
       window.cleanupSectionScripts(event.target);
@@ -28,27 +25,22 @@
   });
 
   document.addEventListener("shopify:section:select", function (event) {
-
     // Highlight the selected section
     event.target.classList.add("theme-editor-selected");
   });
 
   document.addEventListener("shopify:section:deselect", function (event) {
-
     // Remove highlight from the deselected section
     event.target.classList.remove("theme-editor-selected");
   });
 
   // Block editor events
-  document.addEventListener("shopify:block:select", function (event) {
-  });
+  document.addEventListener("shopify:block:select", function (event) {});
 
-  document.addEventListener("shopify:block:deselect", function (event) {
-  });
+  document.addEventListener("shopify:block:deselect", function (event) {});
 
   // Theme settings changes
   document.addEventListener("shopify:theme:change", function (event) {
-
     // Handle theme setting changes
     if (event.detail && event.detail.settings) {
       // Update any dynamic content based on settings

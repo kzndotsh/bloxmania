@@ -40,7 +40,6 @@
       Adding...
     `;
 
-
     // Prepare cart data
     const cartData = {
       items: [
@@ -50,7 +49,6 @@
         },
       ],
     };
-
 
     // Make AJAX request
     fetch("/cart/add.js", {
@@ -73,8 +71,7 @@
       .then((data) => {
         // If the response doesn't have item_count, fetch the full cart
         if (data.item_count === undefined) {
-          return fetch("/cart.js")
-            .then((response) => response.json());
+          return fetch("/cart.js").then((response) => response.json());
         }
 
         return data;
@@ -140,7 +137,6 @@
   }
 
   function updateCartCount(cartData) {
-
     // Calculate item count from items array if not provided
     let itemCount = cartData.item_count;
     if (itemCount === undefined && cartData.items && Array.isArray(cartData.items)) {

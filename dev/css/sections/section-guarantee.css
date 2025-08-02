@@ -464,22 +464,38 @@
   /* Ultra-gentle floating animations for icons */
   @keyframes float-gentle-1 {
     0%,
-    100% { transform: translateY(0px) translateX(0px); }
-    33% { transform: translateY(-1px) translateX(0.5px); }
-    66% { transform: translateY(0.5px) translateX(-0.5px); }
+    100% {
+      transform: translateY(0px) translateX(0px);
+    }
+    33% {
+      transform: translateY(-1px) translateX(0.5px);
+    }
+    66% {
+      transform: translateY(0.5px) translateX(-0.5px);
+    }
   }
 
   @keyframes float-gentle-2 {
     0%,
-    100% { transform: translateY(0px) translateX(0px); }
-    50% { transform: translateY(-0.5px) translateX(1px); }
+    100% {
+      transform: translateY(0px) translateX(0px);
+    }
+    50% {
+      transform: translateY(-0.5px) translateX(1px);
+    }
   }
 
   @keyframes float-gentle-3 {
     0%,
-    100% { transform: translateY(0px) translateX(0px); }
-    25% { transform: translateY(1px) translateX(-0.5px); }
-    75% { transform: translateY(-0.5px) translateX(0.5px); }
+    100% {
+      transform: translateY(0px) translateX(0px);
+    }
+    25% {
+      transform: translateY(1px) translateX(-0.5px);
+    }
+    75% {
+      transform: translateY(-0.5px) translateX(0.5px);
+    }
   }
 
   /* Apply floating animations to icons with longer, more natural timing */

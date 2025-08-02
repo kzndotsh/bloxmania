@@ -344,7 +344,6 @@ class SearchModal extends HTMLElement {
   }
 
   parseJsonResults(data, query) {
-
     const products = [];
 
     // Handle the suggest.json response structure
@@ -372,7 +371,6 @@ class SearchModal extends HTMLElement {
     if (data.results && Array.isArray(data.results)) {
       products.push(...data.results);
     }
-
 
     return products
       .map((product) => {

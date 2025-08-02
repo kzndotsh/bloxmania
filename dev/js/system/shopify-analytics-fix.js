@@ -102,5 +102,4 @@
   setTimeout(fixExistingScripts, 100);
   setTimeout(fixExistingScripts, 500);
   setTimeout(fixExistingScripts, 1000);
-
 })();

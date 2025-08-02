@@ -34,7 +34,6 @@ class SearchManager {
     this.searchToggle = document.querySelector("[data-search-toggle]");
     this.searchClose = document.querySelector("[data-search-close]");
     this.searchInput = document.querySelector(".search-modal__input");
-
   }
 
   setupSearchModal() {

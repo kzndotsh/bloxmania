@@ -43,11 +43,10 @@ class HeaderManager {
     if (!this.header) {
       console.error("❌ HEADER NOT FOUND! Available elements:", {
         ".header": document.querySelector(".header"),
-        "header": document.querySelector("header"), 
-        "#header": document.querySelector("#header")
+        header: document.querySelector("header"),
+        "#header": document.querySelector("#header"),
       });
     }
-
   }
 
   setupScrollEffects() {
@@ -194,7 +193,6 @@ class HeaderManager {
       this.header.classList.add("header--transparent");
       this.header.classList.remove("header--scrolled");
     }
-
   }
 }
 

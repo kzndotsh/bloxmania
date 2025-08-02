@@ -213,7 +213,6 @@ class ThemeEditor {
   }
 
   handleThemeLoad(event) {
-
     // Initialize all sections
     this.initializeSections();
 
@@ -226,7 +225,6 @@ class ThemeEditor {
   }
 
   handleSectionReorder(event) {
-
     // Trigger custom event
     document.dispatchEvent(
       new CustomEvent("sections:reordered", {

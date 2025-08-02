@@ -49,27 +49,27 @@ class CreatorsCarousel {
   }
 
   waitForImages() {
-    const images = this.scrollContainer.querySelectorAll('img');
-    const imagePromises = Array.from(images).map(img => {
+    const images = this.scrollContainer.querySelectorAll("img");
+    const imagePromises = Array.from(images).map((img) => {
       if (img.complete) {
         return Promise.resolve();
       }
       return new Promise((resolve) => {
-        img.addEventListener('load', resolve);
-        img.addEventListener('error', resolve); // Still resolve on error to not block
+        img.addEventListener("load", resolve);
+        img.addEventListener("error", resolve); // Still resolve on error to not block
       });
     });
-    
+
     return Promise.all(imagePromises);
   }
 
   setupHoverEvents() {
     // Add hover events to the carousel container
-    this.container.addEventListener('mouseenter', () => {
+    this.container.addEventListener("mouseenter", () => {
       this.pauseSmooth();
     });
 
-    this.container.addEventListener('mouseleave', () => {
+    this.container.addEventListener("mouseleave", () => {
       this.resumeSmooth();
     });
   }
@@ -94,7 +94,7 @@ class CreatorsCarousel {
     const transition = (timestamp) => {
       const elapsed = timestamp - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      
+
       // Use easeInOut for smooth transition
       const easedProgress = this.easeInOut(progress);
       this.currentSpeed = startSpeed + (endSpeed - startSpeed) * easedProgress;
@@ -123,7 +123,6 @@ class CreatorsCarousel {
     let currentPosition = 0;
     let lastTimestamp = performance.now();
 
-
     const step = (timestamp) => {
       if (!this.isAnimating) return;
 
@@ -141,11 +140,11 @@ class CreatorsCarousel {
 
       // Use fixed decimal precision to avoid sub-pixel rendering issues
       const roundedPosition = Math.round(currentPosition * 100) / 100;
-      
+
       // Use both regular and webkit transforms for better browser support
       this.scrollContainer.style.transform = `translateX(-${roundedPosition}px)`;
       this.scrollContainer.style.webkitTransform = `translateX(-${roundedPosition}px)`;
-      
+
       this.animationId = requestAnimationFrame(step);
     };
 

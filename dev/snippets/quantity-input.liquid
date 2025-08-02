@@ -104,7 +104,7 @@
 
         connectedCallback() {
           if (this.setupComplete) return;
-          
+
           this.hiddenInput = this.querySelector('input[type="hidden"]');
           this.quantityDisplay = this.querySelector('.quantity__value');
           this.changeEvent = new Event('change', { bubbles: true });
@@ -124,10 +124,13 @@
 
           this.setupComplete = true;
           this.validateQtyRules();
-          
+
           // Subscribe to quantity updates if PUB_SUB_EVENTS is available
           if (typeof subscribe !== 'undefined' && typeof PUB_SUB_EVENTS !== 'undefined') {
-            this.quantityUpdateUnsubscriber = subscribe(PUB_SUB_EVENTS.quantityUpdate, this.validateQtyRules.bind(this));
+            this.quantityUpdateUnsubscriber = subscribe(
+              PUB_SUB_EVENTS.quantityUpdate,
+              this.validateQtyRules.bind(this),
+            );
           }
         }
 
@@ -142,15 +145,15 @@
         onButtonClick(event) {
           event.preventDefault();
           event.stopPropagation();
-          
+
           // Ensure the component is properly set up
           if (!this.setupComplete) {
             this.connectedCallback();
           }
-          
+
           const button = event.target.closest('button');
           if (!button || button.disabled) return;
-          
+
           const previousValue = this.currentValue;
 
           if (button.name === 'plus') {
@@ -161,13 +164,13 @@
 
           if (previousValue !== this.currentValue) {
             this.updateQuantity(this.currentValue);
-            
+
             // Ensure the change event is properly dispatched
             requestAnimationFrame(() => {
               this.hiddenInput.dispatchEvent(this.changeEvent);
             });
           }
-          
+
           // Force button to blur and refocus to maintain proper state
           button.blur();
           setTimeout(() => button.focus(), 1);

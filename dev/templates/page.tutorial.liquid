@@ -1,0 +1,74 @@
+{% comment %}
+  Tutorial Page Template
+  This template handles the tutorial page with video content
+{% endcomment %}
+
+{{ 'main.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'main.js' | asset_url }}" defer="defer"></script>
+
+<div class="bg-slate-900 text-white min-h-screen page-content">
+  <div class="container mx-auto section">
+    <!-- Page Header -->
+    <div class="mb-8">
+      <h1 class="text-h1 text-white mb-4">
+        {{ page.title | escape }}
+      </h1>
+
+      {% if page.description %}
+        <p class="text-h3 text-gray-300 max-w-3xl">
+          {{ page.description | escape }}
+        </p>
+      {% endif %}
+    </div>
+
+    <!-- Page Content -->
+    <div class="prose prose-invert max-w-none text-body">
+      {% if page.content != blank %}
+        {{ page.content }}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Page-specific styles */
+  .prose {
+    color: #e2e8f0;
+  }
+
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose h5,
+  .prose h6 {
+    color: #ffffff;
+  }
+
+  .prose a {
+    color: #ffd800;
+    text-decoration: none;
+  }
+
+  .prose a:hover {
+    text-decoration: underline;
+  }
+
+  .prose strong {
+    color: #ffffff;
+  }
+
+  .prose blockquote {
+    border-left-color: #ffd800;
+    color: #cbd5e1;
+  }
+
+  .prose ul li::marker {
+    color: #ffd800;
+  }
+
+  .prose ol li::marker {
+    color: #ffd800;
+  }
+</style>

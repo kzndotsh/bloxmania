@@ -8,12 +8,10 @@ class CartItemsClean extends HTMLElement {
     super();
   }
 
-  connectedCallback() {
-  }
+  connectedCallback() {}
 
   // Main method to change quantities - based on Dawn's approach
   changeQuantity(line, quantity) {
-
     // Show loading state
     this.classList.add("cart-loading");
 

@@ -221,7 +221,8 @@
   --shadow-glow: 0 0 20px rgba(255, 216, 0, 0.3);
   --shadow-glow-secondary: 0 0 20px rgba(71, 145, 240, 0.3);
   --shadow-glow-strong: 0 0 30px rgba(255, 216, 0, 0.5);
-  --shadow-card: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1), 0 0 20px rgba(255, 216, 0, 0.2);
+  --shadow-card:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1), 0 0 20px rgba(255, 216, 0, 0.2);
   --shadow-header: 0 2px 12px rgba(0, 0, 0, 0.15);
   --shadow-button: 0 4px 15px rgba(255, 216, 0, 0.3);
   --shadow-button-hover: 0 6px 20px rgba(255, 216, 0, 0.4);
@@ -263,8 +264,10 @@
   --featured-bg-image: url("image-hero-bg.jpg");
   --widget-bg-image: url("image-widget-backing.png");
   --why-choose-bg-image: url("image-hero-bg.jpg");
-  --hero-bg-desktop: linear-gradient(rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.3), rgba(15, 23, 42, 0.5)), url("image-hero-bg.jpg");
-  --hero-bg-mobile: linear-gradient(rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.3), rgba(15, 23, 42, 0.5)), url("image-hero-bg.jpg");
+  --hero-bg-desktop:
+    linear-gradient(rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.3), rgba(15, 23, 42, 0.5)), url("image-hero-bg.jpg");
+  --hero-bg-mobile:
+    linear-gradient(rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.3), rgba(15, 23, 42, 0.5)), url("image-hero-bg.jpg");
 
   /* Gradients */
   --gradient-primary: linear-gradient(135deg, #ffd800 0%, #ffed4e 100%);

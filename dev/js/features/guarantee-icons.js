@@ -23,10 +23,8 @@ class GuaranteeIcons {
     this.icons = document.querySelectorAll(".guarantee-icon-float");
 
     if (this.icons.length === 0) {
-
       return;
     }
-
 
     // Define ultra-subtle movement patterns for each icon
     const movements = [
@@ -44,7 +42,6 @@ class GuaranteeIcons {
       // Store original transform for reset
       const originalTransform = icon.style.transform || "";
 
-
       // Add hover event listeners
       icon.addEventListener("mouseenter", (e) => {
         this.handleHoverEnter(e.target, movement, originalTransform);
@@ -55,8 +52,7 @@ class GuaranteeIcons {
       });
 
       // Add click event for debugging
-      icon.addEventListener("click", (e) => {
-      });
+      icon.addEventListener("click", (e) => {});
     });
   }
 
@@ -73,7 +69,7 @@ class GuaranteeIcons {
     // Apply ultra-subtle transform that preserves base position
     const newTransform = `${originalTransform} translateX(${movement.x}px) translateY(${movement.y}px) translateY(-2px) scale(1.02)`;
     icon.style.setProperty("transform", newTransform, "important");
-    
+
     // Add a gentle transition if not already set
     icon.style.setProperty("transition", "all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)", "important");
   }
@@ -86,7 +82,7 @@ class GuaranteeIcons {
     icon.style.opacity = "0.6";
     icon.style.zIndex = "";
     icon.style.setProperty("transform", originalTransform, "important");
-    
+
     // Ensure smooth transition on leave
     icon.style.setProperty("transition", "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)", "important");
   }

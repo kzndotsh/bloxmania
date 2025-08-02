@@ -141,7 +141,6 @@
     transform: scale(1.05);
   }
 
-
   .header__game-selector-button {
     display: flex;
     align-items: center;
@@ -266,7 +265,6 @@
     order: 4;
     margin-left: auto;
   }
-
 
   .header__mobile-menu-toggle {
     display: flex;
