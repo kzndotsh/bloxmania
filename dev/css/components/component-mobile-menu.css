@@ -204,6 +204,52 @@
     color: white;
   }
 
+  /* Game Selector */
+  .mobile-menu__game-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .mobile-menu__game-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .mobile-menu__game-option {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.75rem;
+    text-decoration: none;
+    color: white;
+    transition: all var(--duration-fast) var(--easing-smooth);
+    min-height: 64px;
+  }
+
+  .mobile-menu__game-option:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(4px);
+  }
+
+  .mobile-menu__game-option-image {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .mobile-menu__game-option-text {
+    font-size: 1rem;
+    font-weight: 500;
+    color: white;
+  }
+
   /* Navigation */
   .mobile-menu__navigation {
     display: flex;

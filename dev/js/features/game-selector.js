@@ -18,6 +18,7 @@ class GameSelector {
   init() {
     this.bindEvents();
     this.setupAccessibility();
+    this.setupMobileDropdown();
   }
 
   bindEvents() {
@@ -57,6 +58,11 @@ class GameSelector {
         this.close();
       });
     });
+
+    // Close dropdown on window resize
+    window.addEventListener("resize", () => {
+      this.close();
+    });
   }
 
   setupAccessibility() {
@@ -72,6 +78,45 @@ class GameSelector {
     this.options.forEach((option) => {
       option.setAttribute("role", "menuitem");
     });
+  }
+
+  setupMobileDropdown() {
+    // Ensure dropdown positioning works on mobile and tablet
+    const updateDropdownPosition = () => {
+      if (this.isOpen) {
+        const buttonRect = this.selector.getBoundingClientRect();
+        const isMobile = window.innerWidth <= 767;
+        const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1023;
+
+        if (isMobile || isTablet) {
+          // On mobile and tablet, position dropdown below the button
+          this.dropdown.style.position = "absolute";
+          this.dropdown.style.top = "100%";
+          this.dropdown.style.left = "0";
+          this.dropdown.style.right = "auto";
+          this.dropdown.style.width = "auto";
+          this.dropdown.style.minWidth = "200px";
+        } else {
+          // On desktop, reset to default positioning
+          this.dropdown.style.position = "";
+          this.dropdown.style.top = "";
+          this.dropdown.style.left = "";
+          this.dropdown.style.right = "";
+          this.dropdown.style.width = "";
+          this.dropdown.style.minWidth = "";
+        }
+      }
+    };
+
+    // Update position when opening
+    const originalOpen = this.open.bind(this);
+    this.open = () => {
+      originalOpen();
+      updateDropdownPosition();
+    };
+
+    // Update position on window resize
+    window.addEventListener("resize", updateDropdownPosition);
   }
 
   toggle() {
