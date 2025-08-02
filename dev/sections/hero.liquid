@@ -42,9 +42,9 @@
       <!-- CTA Button -->
       <div class="hero-cta section-fade-in mb-16">
         <a
-          href="{{ section.settings.cta_link | default: '/collections/all' }}"
-          class="btn btn--gaming btn--xl"
-          aria-label="Shop gaming items now"
+          href="#supported-games"
+          class="btn btn--gaming btn--xl scroll-to-section"
+          aria-label="Browse supported games"
         >
           <span>{{ section.settings.cta_text | default: 'SHOP NOW' }}</span>
           {% render 'icon', icon: 'arrow-right', size: 'medium', class: 'ml-2' %}

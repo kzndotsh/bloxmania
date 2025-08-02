@@ -4,7 +4,28 @@
   role="banner"
 >
   <div class="header__container">
-    <!-- Game Selector (Far Left) -->
+    <!-- Logo -->
+    <div class="header__logo">
+      {% if section.settings.logo != blank %}
+        <a href="{{ routes.root_url }}" class="header__logo-link">
+          <img
+            src="{{ section.settings.logo | image_url: width: 200 }}"
+            alt="{{ shop.name }}"
+            class="header__logo-image"
+          >
+        </a>
+      {% else %}
+        <a href="{{ routes.root_url }}" class="header__logo-link">
+          <img
+            src="{{ 'image-logo-trimmed.png' | asset_url }}"
+            alt="BloxMania"
+            class="header__logo-image"
+          >
+        </a>
+      {% endif %}
+    </div>
+
+    <!-- Game Selector -->
     <div class="header__game-selector">
       <button
         class="header__game-selector-button"
@@ -54,52 +75,26 @@
       </div>
     </div>
 
-    <!-- Left Navigation -->
-    <nav class="header__navigation header__navigation--left" role="navigation" aria-label="Left navigation">
+    <!-- Navigation Links -->
+    <nav class="header__navigation" role="navigation" aria-label="Main navigation">
       <a href="{{ routes.all_products_collection_url }}" class="nav-link">
         {% render 'icon', icon: 'shopping-bag', class: 'nav-link__icon', size: 'small' %}
-        <span class="nav-link__text">Shop Now</span>
+        <span class="nav-link__text">Shop</span>
       </a>
 
       <a href="{{ pages.guarantee.url | default: '/pages/guarantee' }}" class="nav-link">
         {% render 'icon', icon: 'shield', class: 'nav-link__icon', size: 'small' %}
-        <span class="nav-link__text">Our Guarantee</span>
+        <span class="nav-link__text">Guarantee</span>
       </a>
-    </nav>
 
-    <!-- Centered Logo -->
-    <div class="header__logo">
-      {% if section.settings.logo != blank %}
-        <a href="{{ routes.root_url }}" class="header__logo-link">
-          <img
-            src="{{ section.settings.logo | image_url: width: 200 }}"
-            alt="{{ shop.name }}"
-            class="header__logo-image"
-          >
-        </a>
-      {% else %}
-        <a href="{{ routes.root_url }}" class="header__logo-link">
-          <img
-            src="{{ 'image-logo-trimmed.png' | asset_url }}"
-            alt="BloxMania"
-            class="header__logo-image"
-          >
-        </a>
-      {% endif %}
-    </div>
-
-    <!-- Right Navigation -->
-    <nav class="header__navigation header__navigation--right" role="navigation" aria-label="Right navigation">
-      {%- if section.settings.discord_url != blank -%}
-        <a href="{{ section.settings.discord_url }}" class="nav-link" target="_blank" rel="noopener">
-          {% render 'icon', icon: 'discord', class: 'nav-link__icon', size: 'small' %}
-          <span class="nav-link__text">Daily Giveaways</span>
-        </a>
-      {%- endif -%}
+      <a href="{{ section.settings.discord_url | default: 'https://discord.gg/bloxmania' }}" class="nav-link" target="_blank" rel="noopener">
+        {% render 'icon', icon: 'discord', class: 'nav-link__icon', size: 'small' %}
+        <span class="nav-link__text">Discord</span>
+      </a>
 
       <a href="{{ pages['purchasing-guide'].url | default: '/pages/purchasing-guide' }}" class="nav-link">
         {% render 'icon', icon: 'file-lines', class: 'nav-link__icon', size: 'small' %}
-        <span class="nav-link__text">Purchasing Guide</span>
+        <span class="nav-link__text">Tutorial</span>
       </a>
     </nav>
 

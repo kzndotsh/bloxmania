@@ -99,8 +99,9 @@ class GameSelector {
     this.dropdown.classList.remove("active");
     this.selector.setAttribute("aria-expanded", "false");
 
-    // Return focus to button
+    // Return focus to button but blur immediately to prevent outline
     this.selector.focus();
+    this.selector.blur();
   }
 
   handleDropdownKeyboard(e) {

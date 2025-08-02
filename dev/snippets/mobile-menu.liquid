@@ -69,24 +69,24 @@
     <div class="mobile-menu__navigation">
       <a href="/collections/all" class="mobile-menu__nav-link">
         {% render 'icon', icon: 'bag', class: 'mobile-menu__nav-icon', size: 'medium' %}
-        <span class="mobile-menu__nav-text">Shop Now</span>
+        <span class="mobile-menu__nav-text">Shop</span>
       </a>
 
       <a href="/pages/guarantee" class="mobile-menu__nav-link">
         {% render 'icon', icon: 'shield', class: 'mobile-menu__nav-icon', size: 'medium' %}
-        <span class="mobile-menu__nav-text">Our Guarantee</span>
+        <span class="mobile-menu__nav-text">Guarantee</span>
       </a>
 
       {%- if section.settings.discord_url != blank -%}
         <a href="{{ section.settings.discord_url }}" target="_blank" class="mobile-menu__nav-link">
           {% render 'icon', icon: 'discord', class: 'mobile-menu__nav-icon text-blue-500', size: 'medium' %}
-          <span class="mobile-menu__nav-text">Daily Giveaways</span>
+          <span class="mobile-menu__nav-text">Discord</span>
         </a>
       {%- endif -%}
 
       <a href="/pages/purchasing-guide" class="mobile-menu__nav-link">
         {% render 'icon', icon: 'tag', class: 'mobile-menu__nav-icon', size: 'medium' %}
-        <span class="mobile-menu__nav-text">Purchasing Guide</span>
+        <span class="mobile-menu__nav-text">Tutorial</span>
       </a>
     </div>
   </div>

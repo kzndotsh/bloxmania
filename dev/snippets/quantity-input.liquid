@@ -99,6 +99,12 @@
       class QuantityInput extends HTMLElement {
         constructor() {
           super();
+          this.setupComplete = false;
+        }
+
+        connectedCallback() {
+          if (this.setupComplete) return;
+          
           this.hiddenInput = this.querySelector('input[type="hidden"]');
           this.quantityDisplay = this.querySelector('.quantity__value');
           this.changeEvent = new Event('change', { bubbles: true });
@@ -115,14 +121,17 @@
           this.querySelectorAll('button').forEach((button) =>
             button.addEventListener('click', this.onButtonClick.bind(this)),
           );
+
+          this.setupComplete = true;
+          this.validateQtyRules();
+          
+          // Subscribe to quantity updates if PUB_SUB_EVENTS is available
+          if (typeof subscribe !== 'undefined' && typeof PUB_SUB_EVENTS !== 'undefined') {
+            this.quantityUpdateUnsubscriber = subscribe(PUB_SUB_EVENTS.quantityUpdate, this.validateQtyRules.bind(this));
+          }
         }
 
         quantityUpdateUnsubscriber = undefined;
-
-        connectedCallback() {
-          this.validateQtyRules();
-          this.quantityUpdateUnsubscriber = subscribe(PUB_SUB_EVENTS.quantityUpdate, this.validateQtyRules.bind(this));
-        }
 
         disconnectedCallback() {
           if (this.quantityUpdateUnsubscriber) {
@@ -132,18 +141,36 @@
 
         onButtonClick(event) {
           event.preventDefault();
+          event.stopPropagation();
+          
+          // Ensure the component is properly set up
+          if (!this.setupComplete) {
+            this.connectedCallback();
+          }
+          
+          const button = event.target.closest('button');
+          if (!button || button.disabled) return;
+          
           const previousValue = this.currentValue;
 
-          if (event.target.name === 'plus') {
+          if (button.name === 'plus') {
             this.currentValue = Math.min(this.currentValue + this.step, this.max || Infinity);
-          } else {
+          } else if (button.name === 'minus') {
             this.currentValue = Math.max(this.currentValue - this.step, this.min);
           }
 
           if (previousValue !== this.currentValue) {
             this.updateQuantity(this.currentValue);
-            this.hiddenInput.dispatchEvent(this.changeEvent);
+            
+            // Ensure the change event is properly dispatched
+            requestAnimationFrame(() => {
+              this.hiddenInput.dispatchEvent(this.changeEvent);
+            });
           }
+          
+          // Force button to blur and refocus to maintain proper state
+          button.blur();
+          setTimeout(() => button.focus(), 1);
         }
 
         updateQuantity(value) {
