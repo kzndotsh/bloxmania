@@ -7,19 +7,47 @@
 
 <script src="{{ 'main.js' | asset_url }}" defer="defer"></script>
 
-<div class="bg-slate-900 text-white min-h-screen page-content">
-  <div class="container mx-auto section">
-    <!-- Page Header -->
-    <div class="mb-8">
-      <h1 class="text-h1 text-white mb-4">
-        {{ page.title | escape }}
+<div class="bg-slate-900 text-white min-h-screen page-content gaming-bg">
+  <div class="container mx-auto">
+    <!-- Page Title -->
+    <div class="tutorial-title-section">
+      <h1 class="tutorial-title">
+        <span class="title-glow">PURCHASE</span>
+        <span class="title-accent">TUTORIAL</span>
       </h1>
+      <div class="title-subtitle">Learn how to get your items — smooth and safely!</div>
+    </div>
 
-      {% if page.description %}
-        <p class="text-h3 text-gray-300 max-w-3xl">
-          {{ page.description | escape }}
-        </p>
-      {% endif %}
+    <!-- Tutorial Video Section -->
+    <div class="tutorial-video-section">
+      <div class="video-container">
+        <div class="video-player-frame">
+          <div class="video-player-border">
+            <div class="video-player-glow"></div>
+            <video
+              class="tutorial-video"
+              controls
+              preload="metadata"
+            >
+              <source
+                src="https://cdn.shopify.com/videos/c/o/v/adf333779cd947ce963557ea17c3db0a.mp4"
+                type="video/mp4"
+                {% comment %}Note: Using external video URL, not asset_url since this is a Shopify CDN video{% endcomment %}
+              >
+              <p class="text-body text-gray-400 text-center py-8">
+                Your browser doesn't support HTML5 video.
+                <a
+                  href="https://cdn.shopify.com/videos/c/o/v/adf333779cd947ce963557ea17c3db0a.mp4"
+                  class="text-yellow-400 hover:underline"
+                >
+                  Download the video
+                </a>
+                to watch it.
+              </p>
+            </video>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Page Content -->
@@ -32,9 +60,211 @@
 </div>
 
 <style>
+  /* Reset any default spacing */
+  .page-content {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* 8-bit Gaming Background */
+  .gaming-bg {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%),
+      radial-gradient(circle at 20% 80%, rgba(255, 216, 0, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 216, 0, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(255, 216, 0, 0.05) 0%, transparent 50%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gaming-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(90deg, rgba(255, 216, 0, 0.03) 1px, transparent 1px),
+      linear-gradient(rgba(255, 216, 0, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+  }
+
+  .gaming-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 25% 25%, rgba(255, 216, 0, 0.1) 0%, transparent 8px),
+      radial-gradient(circle at 75% 75%, rgba(255, 216, 0, 0.1) 0%, transparent 8px),
+      radial-gradient(circle at 50% 10%, rgba(255, 216, 0, 0.08) 0%, transparent 6px),
+      radial-gradient(circle at 10% 50%, rgba(255, 216, 0, 0.08) 0%, transparent 6px);
+    pointer-events: none;
+  }
+
+  .container {
+    padding: 0;
+  }
+
+  /* Tutorial page specific styles */
+  .tutorial-title-section {
+    text-align: center;
+    padding: 3rem 1rem 2rem 1rem;
+    margin: 0;
+  }
+
+  .tutorial-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1;
+    margin: 0 0 1rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .title-glow {
+    color: #ffffff;
+    text-shadow: 0 0 5px rgba(255, 216, 0, 0.4);
+  }
+
+  .title-accent {
+    color: #ffd800;
+    text-shadow: 0 0 8px rgba(255, 216, 0, 0.5);
+  }
+
+  .title-subtitle {
+    font-size: 1.25rem;
+    color: #cbd5e1;
+    font-weight: 600;
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  .tutorial-video-section {
+    padding: 2rem 1rem 3rem 1rem;
+    margin: 0;
+  }
+
+  .video-container {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .video-player-frame {
+    position: relative;
+    padding: 20px;
+    background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #1e293b 100%);
+    border-radius: 20px;
+    box-shadow: 0 0 0 1px rgba(255, 216, 0, 0.3), 0 0 20px rgba(255, 216, 0, 0.2), 0 0 40px rgba(255, 216, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .video-player-border {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #0f172a;
+    box-shadow: 0 0 0 2px rgba(255, 216, 0, 0.5), 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .video-player-glow {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(
+      45deg,
+      rgba(255, 216, 0, 0.8) 0%,
+      rgba(255, 216, 0, 0.4) 25%,
+      rgba(255, 216, 0, 0.1) 50%,
+      rgba(255, 216, 0, 0.4) 75%,
+      rgba(255, 216, 0, 0.8) 100%
+    );
+    border-radius: 14px;
+    z-index: -1;
+    animation: glowPulse 3s ease-in-out infinite alternate;
+  }
+
+  .tutorial-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    background-color: #0f172a;
+    border-radius: 10px;
+  }
+
+  /* Glow animation */
+  @keyframes glowPulse {
+    0% {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1.02);
+    }
+  }
+
+  /* Gaming-style corner accents */
+  .video-player-frame::before,
+  .video-player-frame::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #ffd800;
+    border-radius: 4px;
+  }
+
+  .video-player-frame::before {
+    top: 10px;
+    left: 10px;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  .video-player-frame::after {
+    bottom: 10px;
+    right: 10px;
+    border-left: none;
+    border-top: none;
+  }
+
+  /* Responsive video sizing */
+  @media (max-width: 768px) {
+    .tutorial-title {
+      font-size: 2.5rem;
+    }
+
+    .title-subtitle {
+      font-size: 1.1rem;
+    }
+
+    .video-container {
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .video-player-frame {
+      padding: 15px;
+      border-radius: 15px;
+    }
+
+    .video-player-frame::before,
+    .video-player-frame::after {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
   /* Page-specific styles */
   .prose {
     color: #e2e8f0;
+    margin-top: 2rem;
   }
 
   .prose h1,
@@ -70,5 +300,73 @@
 
   .prose ol li::marker {
     color: #ffd800;
+  }
+
+  /* Override global page layout padding */
+  .page-content {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Ensure no spacing before footer */
+  .page-content > *:last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Override any section spacing */
+  .section {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Override container spacing */
+  .container {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Override prose spacing */
+  .prose {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Override any main content spacing */
+  main {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Override any body spacing for this page */
+  body.page-tutorial {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Override global height settings */
+  .page-content {
+    min-height: auto !important;
+    height: auto !important;
+  }
+
+  /* Override any viewport height settings */
+  .min-h-screen {
+    min-height: auto !important;
+  }
+
+  /* Override any flex or grid height settings */
+  .page-content,
+  .container,
+  .tutorial-video-section {
+    flex: none !important;
+    align-self: auto !important;
+  }
+
+  /* Ensure content doesn't stretch to fill viewport */
+  html,
+  body {
+    height: auto !important;
+    min-height: auto !important;
   }
 </style>

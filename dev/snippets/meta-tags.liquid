@@ -47,7 +47,7 @@
   {%- assign og_url = shop.url | append: article.url -%}
 {%- else -%}
   {%- assign og_type = 'website' -%}
-  {%- assign og_title = page_title | escape -%}
+  {%- assign og_title = page_title | escape | capitalize -%}
   {%- assign og_description = page_description | escape | default: fallback_description -%}
   {%- assign og_image = fallback_image -%}
   {%- assign og_url = canonical_url -%}

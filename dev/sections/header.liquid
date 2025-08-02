@@ -12,6 +12,8 @@
             src="{{ section.settings.logo | image_url: width: 200 }}"
             alt="{{ shop.name }}"
             class="header__logo-image"
+            width="200"
+            height="60"
           >
         </a>
       {% else %}
@@ -20,6 +22,8 @@
             src="{{ 'image-logo-trimmed.png' | asset_url }}"
             alt="BloxMania"
             class="header__logo-image"
+            width="200"
+            height="60"
           >
         </a>
       {% endif %}
@@ -34,7 +38,7 @@
         aria-expanded="false"
         data-game-selector-toggle
       >
-        {% render 'icon', icon: 'target', class: 'header__game-selector-icon', size: 'small' %}
+        {% render 'icon', icon: 'controller', class: 'header__game-selector-icon', size: 'small' %}
         <span class="header__game-selector-text">Select Game</span>
         {% render 'icon', icon: 'chevron-down', class: 'header__game-selector-chevron', size: 'small' %}
       </button>
