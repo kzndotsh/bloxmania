@@ -85,6 +85,9 @@ class MobileMenu {
 
     this.isOpen = true;
 
+    // Store current scroll position before fixing body
+    this.scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
     // Update ARIA attributes
     this.menu.setAttribute("aria-hidden", "false");
     this.toggleButton.setAttribute("aria-expanded", "true");
@@ -93,6 +96,9 @@ class MobileMenu {
     // Add open class to menu and body
     this.menu.classList.add("mobile-menu--open");
     document.body.classList.add("mobile-menu-open");
+    
+    // Fix body position to prevent scroll (Safari fix)
+    document.body.style.top = `-${this.scrollPosition}px`;
 
     // Focus the close button
     if (this.closeButton) {
@@ -117,6 +123,12 @@ class MobileMenu {
     // Remove open class from menu and body
     this.menu.classList.remove("mobile-menu--open");
     document.body.classList.remove("mobile-menu-open");
+    
+    // Restore body position and scroll (Safari fix)
+    document.body.style.top = '';
+    if (this.scrollPosition !== undefined) {
+      window.scrollTo(0, this.scrollPosition);
+    }
 
     // Return focus to toggle button
     if (this.toggleButton) {

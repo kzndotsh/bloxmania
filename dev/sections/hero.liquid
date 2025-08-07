@@ -43,8 +43,9 @@
       <div class="hero-cta section-fade-in mb-16">
         <a
           href="#supported-games"
-          class="btn btn--gaming btn--xl scroll-to-section"
+          class="btn btn--gaming btn--xl scroll-to-section hero-shop-now-btn"
           aria-label="Browse supported games"
+          data-mobile-action="open-menu"
         >
           <span>{{ section.settings.cta_text | default: 'SHOP NOW' }}</span>
           {% render 'icon', icon: 'arrow-right', size: 'medium', class: 'ml-2' %}

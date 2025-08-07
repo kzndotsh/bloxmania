@@ -78,6 +78,7 @@ class SimpleBundler {
       "ui/header.js",
       "ui/header-search-manager.js",
       "ui/search-modal.js",
+      "ui/hero-mobile-handler.js",
     ];
 
     // System files

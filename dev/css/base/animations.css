@@ -90,9 +90,18 @@
     transform: translateY(0);
   }
 
-  /* Reduce motion for complex animations on mobile */
+  /* Force hardware acceleration on mobile for smoother animations */
   .animate-scroll {
     animation-duration: 40s; /* Slower to reduce battery drain */
+    transform: translate3d(0, 0, 0); /* Force GPU layer */
+    backface-visibility: hidden;
+  }
+
+  /* Optimize carousel for mobile performance */
+  .creators-carousel .flex {
+    transform: translate3d(0, 0, 0); /* Hardware acceleration */
+    backface-visibility: hidden;
+    perspective: 1000px;
   }
 }
 

@@ -126,6 +126,12 @@ class CreatorsCarousel {
     const step = (timestamp) => {
       if (!this.isAnimating) return;
 
+      // Pause animation when page is not visible to save battery
+      if (document.hidden) {
+        this.animationId = requestAnimationFrame(step);
+        return;
+      }
+
       // Calculate actual elapsed time for consistent speed regardless of frame rate
       const deltaTime = timestamp - lastTimestamp;
       lastTimestamp = timestamp;
@@ -141,9 +147,8 @@ class CreatorsCarousel {
       // Use fixed decimal precision to avoid sub-pixel rendering issues
       const roundedPosition = Math.round(currentPosition * 100) / 100;
 
-      // Use both regular and webkit transforms for better browser support
-      this.scrollContainer.style.transform = `translateX(-${roundedPosition}px)`;
-      this.scrollContainer.style.webkitTransform = `translateX(-${roundedPosition}px)`;
+      // Use translate3d for hardware acceleration on mobile
+      this.scrollContainer.style.transform = `translate3d(-${roundedPosition}px, 0, 0)`;
 
       this.animationId = requestAnimationFrame(step);
     };
