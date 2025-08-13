@@ -119,6 +119,12 @@
                         </option>
                       {%- endif -%}
                     {%- endfor -%}
+                    {%- unless unique_collections contains 'Steal A Brainrot' -%}
+                      <option value="steal-a-brainrot">Steal A Brainrot</option>
+                    {%- endunless -%}
+                    {%- unless unique_collections contains '99 Nights in the Forest' -%}
+                      <option value="99-nights-in-the-forest">99 Nights in the Forest</option>
+                    {%- endunless -%}
                   </select>
                 </div>
               {%- endif -%}
