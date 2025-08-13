@@ -48,6 +48,15 @@
                       height="160"
                       loading="lazy"
                     >
+                  {% elsif block.settings.game_asset != blank %}
+                    <img
+                      src="{{ block.settings.game_asset | asset_url }}"
+                      alt="{{ block.settings.game_name }}"
+                      class="w-40 h-40 mx-auto mb-6 rounded-2xl shadow-lg object-cover"
+                      width="160"
+                      height="160"
+                      loading="lazy"
+                    >
                   {% else %}
                     <div class="w-40 h-40 mx-auto mb-6 rounded-2xl shadow-lg bg-gray-700 flex items-center justify-center text-gray-400">
                       <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
@@ -88,6 +97,15 @@
                       height="160"
                       loading="lazy"
                     >
+                  {% elsif block.settings.game_asset != blank %}
+                    <img
+                      src="{{ block.settings.game_asset | asset_url }}"
+                      alt="{{ block.settings.game_name }}"
+                      class="w-40 h-40 mx-auto mb-6 rounded-2xl shadow-lg object-cover"
+                      width="160"
+                      height="160"
+                      loading="lazy"
+                    >
                   {% else %}
                     <div class="w-40 h-40 mx-auto mb-6 rounded-2xl shadow-lg bg-gray-700 flex items-center justify-center text-gray-400">
                       <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
@@ -106,6 +124,42 @@
 
       {% comment %} Fallback content if no blocks {% endcomment %}
       {% if section.blocks.size == 0 %}
+        <!-- Steal A Brainrot -->
+        <a
+          href="/collections/steal-a-brainrot"
+          class="game-card bg-white/5 rounded-2xl p-8 relative border border-white/10 cursor-pointer overflow-hidden transition-all duration-300 backdrop-blur-sm hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-2 block no-underline"
+          aria-label="View Steal A Brainrot collection"
+        >
+          <div class="game-content relative z-10 transition-all duration-300">
+            <img
+              src="{{ 'image-stealabrainrot.jpg' | asset_url }}"
+              alt="Steal A Brainrot"
+              class="w-40 h-40 mx-auto mb-6 rounded-2xl shadow-lg object-cover"
+              width="160"
+              height="160"
+            >
+            <h2 class="text-xl md:text-2xl font-semibold text-white drop-shadow-sm">Steal A Brainrot</h2>
+          </div>
+        </a>
+
+        <!-- 99 Nights in the Forest -->
+        <a
+          href="/collections/99-nights-in-the-forest"
+          class="game-card bg-white/5 rounded-2xl p-8 relative border border-white/10 cursor-pointer overflow-hidden transition-all duration-300 backdrop-blur-sm hover:border-primary hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-2 block no-underline"
+          aria-label="View 99 Nights in the Forest collection"
+        >
+          <div class="game-content relative z-10 transition-all duration-300">
+            <img
+              src="{{ 'image-99nights.png' | asset_url }}"
+              alt="99 Nights in the Forest"
+              class="w-40 h-40 mx-auto mb-6 rounded-2xl shadow-lg object-cover"
+              width="160"
+              height="160"
+            >
+            <h2 class="text-xl md:text-2xl font-semibold text-white drop-shadow-sm">99 Nights in the Forest</h2>
+          </div>
+        </a>
+
         <!-- Grow A Garden -->
         <a
           href="/collections/grow-a-garden"
@@ -541,6 +595,12 @@
           "type": "image_picker",
           "id": "game_image",
           "label": "Game Image"
+        },
+        {
+          "type": "text",
+          "id": "game_asset",
+          "label": "Game Image Asset (assets/)",
+          "info": "Enter asset filename like image-99nights.png if using an uploaded asset"
         },
         {
           "type": "text",

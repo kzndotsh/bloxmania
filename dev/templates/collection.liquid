@@ -162,7 +162,6 @@
                   id="sort-by"
                   name="sort_by"
                   class="sort-select bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 text-white rounded-xl px-4 py-3 pr-10 text-sm font-medium shadow-lg focus:border-primary/50 focus:outline-none focus:ring-0 appearance-none cursor-pointer transition-all duration-300 hover:bg-gray-800/80 w-full sm:w-auto"
-                  onchange="sortProducts(this.value)"
                 >
                   <option
                     value="manual"
@@ -693,63 +692,7 @@
         });
       }
 
-      function sortProducts(sortBy) {
-        const productItems = document.querySelectorAll('.product-item');
-        const productsArray = Array.from(productItems);
-
-        // Get product data for sorting
-        const productsWithData = productsArray.map((item) => {
-          const title = item.querySelector('.card-product__title')?.textContent?.trim() || '';
-          const priceElement = item.querySelector('.card-product__price');
-          const price = priceElement ? parseFloat(priceElement.textContent.replace(/[^0-9.]/g, '')) : 0;
-          const comparePriceElement = item.querySelector('.card-product__price--compare');
-          const comparePrice = comparePriceElement
-            ? parseFloat(comparePriceElement.textContent.replace(/[^0-9.]/g, ''))
-            : 0;
-          const dateCreated = item.getAttribute('data-created') || '';
-
-          return { item, title, price, comparePrice, dateCreated };
-        });
-
-        // Sort based on selection
-        productsWithData.sort((a, b) => {
-          switch (sortBy) {
-            case 'title-ascending':
-              return a.title.localeCompare(b.title);
-            case 'title-descending':
-              return b.title.localeCompare(a.title);
-            case 'price-ascending':
-              return a.price - b.price;
-            case 'price-descending':
-              return b.price - a.price;
-            case 'created-ascending':
-              return a.dateCreated.localeCompare(b.dateCreated);
-            case 'created-descending':
-              return b.dateCreated.localeCompare(a.dateCreated);
-            case 'best-selling':
-              // For best-selling, we'll use a simple sort by popularity (could be enhanced with actual sales data)
-              return 0; // Keep original order for now
-            case 'manual':
-            default:
-              return 0; // Keep original order
-          }
-        });
-
-        // Re-insert sorted products
-        const productsGrid = document.getElementById('products-grid');
-        productsWithData.forEach(({ item }) => {
-          productsGrid.appendChild(item);
-        });
-
-        // Update URL without page reload
-        const url = new URL(window.location);
-        if (sortBy && sortBy !== 'manual') {
-          url.searchParams.set('sort_by', sortBy);
-        } else {
-          url.searchParams.delete('sort_by');
-        }
-        window.history.pushState({}, '', url);
-      }
+      // Removed client-side sortProducts; sorting is handled via URL change in CollectionManager
 
       // Initialize view on page load
       document.addEventListener('DOMContentLoaded', function () {
@@ -770,13 +713,12 @@
           }
         }
 
-        // Apply sort from URL if present
+        // Ensure select reflects URL param if present, without client-side resort
         const sortBy = url.searchParams.get('sort_by');
         if (sortBy) {
           const sortSelect = document.getElementById('sort-by');
           if (sortSelect) {
             sortSelect.value = sortBy;
-            sortProducts(sortBy);
           }
         }
       });
@@ -857,20 +799,11 @@
         setTimeout(applyDominantColors, 100);
       }
 
-      // Override existing functions to reapply colors
+      // Reapply colors after filtering
       const originalFilterByCollection = window.filterByCollection;
-      const originalSortProducts = window.sortProducts;
-
       window.filterByCollection = function (collectionName) {
         if (originalFilterByCollection) {
           originalFilterByCollection(collectionName);
-        }
-        reapplyColors();
-      };
-
-      window.sortProducts = function (sortBy) {
-        if (originalSortProducts) {
-          originalSortProducts(sortBy);
         }
         reapplyColors();
       };

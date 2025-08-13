@@ -29,6 +29,7 @@
   html {
     height: 100%;
     overflow-x: hidden; /* Only apply to html, not body */
+    overflow-y: auto; /* Ensure native selects can open over content */
   }
 
   body {

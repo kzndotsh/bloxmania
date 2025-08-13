@@ -28,19 +28,19 @@
   /* Responsive navigation spacing */
   @media (max-width: 1400px) {
     .nav-link {
-      font-size: 0.875rem; /* 14px */
+      font-size: 0.95rem; /* ~15.2px */
     }
   }
 
   @media (max-width: 1300px) {
     .nav-link {
-      font-size: 0.8125rem; /* 13px */
+      font-size: 0.9rem; /* ~14.4px */
     }
   }
 
   @media (max-width: 1024px) {
     .nav-link {
-      font-size: 0.75rem; /* 12px */
+      font-size: 0.85rem; /* ~13.6px */
     }
   }
 

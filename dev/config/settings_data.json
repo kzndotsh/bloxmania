@@ -108,7 +108,35 @@
         "type": "supported-games",
         "settings": {
           "title": "Supported Titles"
-        }
+        },
+        "blocks": {
+          "game_stealabrainrot": {
+            "type": "game",
+            "settings": {
+              "game_image": "",
+              "game_asset": "image-stealabrainrot.jpg",
+              "game_name": "Steal A Brainrot",
+              "game_link": "/collections/steal-a-brainrot",
+              "is_coming_soon": false,
+              "custom_coming_soon_text": ""
+            }
+          },
+          "game_99nights": {
+            "type": "game",
+            "settings": {
+              "game_image": "",
+              "game_asset": "image-99nights.png",
+              "game_name": "99 Nights in the Forest",
+              "game_link": "/collections/99-nights-in-the-forest",
+              "is_coming_soon": false,
+              "custom_coming_soon_text": ""
+            }
+          }
+        },
+        "block_order": [
+          "game_stealabrainrot",
+          "game_99nights"
+        ]
       },
       "featured_products": {
         "type": "featured-products",
