@@ -2,6 +2,18 @@
 /* This file contains all card-related styles using design tokens */
 
 @layer components {
+  /* Ensure supported games grid items don't span columns */
+  .supported-games-grid > * {
+    grid-column: auto !important;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .supported-games-grid {
+    align-items: stretch;
+    grid-auto-rows: 1fr;
+    overflow: hidden;
+  }
   .card {
     position: relative;
     display: flex;

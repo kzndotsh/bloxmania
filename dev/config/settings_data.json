@@ -107,7 +107,8 @@
       "supported_games": {
         "type": "supported-games",
         "settings": {
-          "title": "Supported Titles"
+          "title": "Select a Title",
+          "layout": "grid-4"
         },
         "blocks": {
           "game_stealabrainrot": {
