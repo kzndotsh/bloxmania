@@ -7,7 +7,7 @@
 
 <script src="{{ 'main.js' | asset_url }}" defer="defer"></script>
 
-<div class="bg-slate-900 text-white min-h-screen page-content gaming-bg">
+<div class="tutorial-page-wrapper bg-slate-900 text-white page-content gaming-bg">
   <div class="container mx-auto">
     <!-- Page Title -->
     <div class="tutorial-title-section">
@@ -60,25 +60,32 @@
 </div>
 
 <style>
-  /* Reset any default spacing */
-  .page-content {
-    margin: 0;
-    padding: 0;
+  /* Override body background and remove header padding for tutorial page */
+  body.template-page {
+    background: #0f172a !important;
+    padding-top: 0 !important;
   }
 
-  /* 8-bit Gaming Background */
-  .gaming-bg {
+  /* Create full-screen background using body pseudo-elements */
+  body.template-page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%),
       radial-gradient(circle at 20% 80%, rgba(255, 216, 0, 0.1) 0%, transparent 50%),
       radial-gradient(circle at 80% 20%, rgba(255, 216, 0, 0.1) 0%, transparent 50%),
       radial-gradient(circle at 40% 40%, rgba(255, 216, 0, 0.05) 0%, transparent 50%);
-    position: relative;
-    overflow: hidden;
+    z-index: -2;
+    pointer-events: none;
   }
 
-  .gaming-bg::before {
+  /* Gaming grid background effect */
+  body.template-page::after {
     content: '';
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -86,12 +93,23 @@
     background-image: linear-gradient(90deg, rgba(255, 216, 0, 0.03) 1px, transparent 1px),
       linear-gradient(rgba(255, 216, 0, 0.03) 1px, transparent 1px);
     background-size: 50px 50px;
+    z-index: -1;
     pointer-events: none;
   }
 
-  .gaming-bg::after {
+  /* Tutorial page wrapper - normal document flow */
+  .tutorial-page-wrapper {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    background: transparent;
+  }
+
+  /* Add dot pattern overlay */
+  .tutorial-page-wrapper::before {
     content: '';
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -101,16 +119,21 @@
       radial-gradient(circle at 50% 10%, rgba(255, 216, 0, 0.08) 0%, transparent 6px),
       radial-gradient(circle at 10% 50%, rgba(255, 216, 0, 0.08) 0%, transparent 6px);
     pointer-events: none;
+    z-index: -1;
   }
 
-  .container {
-    padding: 0;
+  /* Content container */
+  .tutorial-page-wrapper .container {
+    position: relative;
+    z-index: 1;
+    padding: 2rem 1rem;
+    max-width: 1200px;
   }
 
   /* Tutorial page specific styles */
   .tutorial-title-section {
     text-align: center;
-    padding: 3rem 1rem 2rem 1rem;
+    padding: 6rem 0 2rem 0;
     margin: 0;
   }
 
@@ -142,7 +165,7 @@
   }
 
   .tutorial-video-section {
-    padding: 2rem 1rem 3rem 1rem;
+    padding: 2rem 0 3rem 0;
     margin: 0;
   }
 
@@ -236,6 +259,10 @@
 
   /* Responsive video sizing */
   @media (max-width: 768px) {
+    .tutorial-title-section {
+      padding: 4rem 0 2rem 0;
+    }
+
     .tutorial-title {
       font-size: 2.5rem;
     }
@@ -259,12 +286,17 @@
       width: 20px;
       height: 20px;
     }
+
+    .tutorial-page-wrapper .container {
+      padding: 1rem;
+    }
   }
 
-  /* Page-specific styles */
+  /* Page content styles */
   .prose {
     color: #e2e8f0;
     margin-top: 2rem;
+    padding-bottom: 2rem;
   }
 
   .prose h1,
@@ -300,73 +332,5 @@
 
   .prose ol li::marker {
     color: #ffd800;
-  }
-
-  /* Override global page layout padding */
-  .page-content {
-    padding-bottom: 0 !important;
-    margin-bottom: 0 !important;
-  }
-
-  /* Ensure no spacing before footer */
-  .page-content > *:last-child {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-  }
-
-  /* Override any section spacing */
-  .section {
-    padding-bottom: 0 !important;
-    margin-bottom: 0 !important;
-  }
-
-  /* Override container spacing */
-  .container {
-    padding-bottom: 0 !important;
-    margin-bottom: 0 !important;
-  }
-
-  /* Override prose spacing */
-  .prose {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-  }
-
-  /* Override any main content spacing */
-  main {
-    padding-bottom: 0 !important;
-    margin-bottom: 0 !important;
-  }
-
-  /* Override any body spacing for this page */
-  body.page-tutorial {
-    padding-bottom: 0 !important;
-    margin-bottom: 0 !important;
-  }
-
-  /* Override global height settings */
-  .page-content {
-    min-height: auto !important;
-    height: auto !important;
-  }
-
-  /* Override any viewport height settings */
-  .min-h-screen {
-    min-height: auto !important;
-  }
-
-  /* Override any flex or grid height settings */
-  .page-content,
-  .container,
-  .tutorial-video-section {
-    flex: none !important;
-    align-self: auto !important;
-  }
-
-  /* Ensure content doesn't stretch to fill viewport */
-  html,
-  body {
-    height: auto !important;
-    min-height: auto !important;
   }
 </style>

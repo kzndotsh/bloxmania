@@ -12,7 +12,7 @@
   .supported-games-grid {
     align-items: stretch;
     grid-auto-rows: 1fr;
-    overflow: hidden;
+    overflow: visible;
   }
   .card {
     position: relative;
