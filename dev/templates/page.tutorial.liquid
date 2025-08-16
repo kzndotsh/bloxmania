@@ -97,13 +97,16 @@
     pointer-events: none;
   }
 
-  /* Tutorial page wrapper - normal document flow */
+  /* Tutorial page wrapper - centered content accounting for header */
   .tutorial-page-wrapper {
-    min-height: 100vh;
-    margin: 0;
+    min-height: calc(100vh - 120px);
+    margin-top: 120px;
     padding: 0;
     position: relative;
     background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   /* Add dot pattern overlay */
@@ -128,12 +131,13 @@
     z-index: 1;
     padding: 2rem 1rem;
     max-width: 1200px;
+    width: 100%;
   }
 
   /* Tutorial page specific styles */
   .tutorial-title-section {
     text-align: center;
-    padding: 6rem 0 2rem 0;
+    padding: 0 0 2rem 0;
     margin: 0;
   }
 
@@ -165,7 +169,7 @@
   }
 
   .tutorial-video-section {
-    padding: 2rem 0 3rem 0;
+    padding: 0 0 2rem 0;
     margin: 0;
   }
 
@@ -260,7 +264,7 @@
   /* Responsive video sizing */
   @media (max-width: 768px) {
     .tutorial-title-section {
-      padding: 4rem 0 2rem 0;
+      padding: 0 0 1.5rem 0;
     }
 
     .tutorial-title {
@@ -285,6 +289,11 @@
     .video-player-frame::after {
       width: 20px;
       height: 20px;
+    }
+
+    .tutorial-page-wrapper {
+      min-height: 100vh;
+      margin-top: 0;
     }
 
     .tutorial-page-wrapper .container {
